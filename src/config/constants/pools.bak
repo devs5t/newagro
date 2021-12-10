@@ -1,0 +1,72 @@
+  // {
+  //   contractAddress: {
+  //     97: "",
+  //     56: "0x09edd30cb0446FF826ebF998dbF51c7Ed6D145ec",
+  //   },
+  //   earningToken: {
+  //     address: contracts.busd[56],
+  //     decimals: 18,
+  //     name: QuoteToken.BUSD,
+  //     pathToBnb: ["BNB"],
+  //     router: CONTRACTS.pancakeswapRouterAddress,
+  //     token: QuoteToken.BUSD,
+  //     uses: "PancakeSwap",
+  //   },
+  //   harvest: true,
+  //   isFinished: false,
+  //   isLp: false,
+  //   poolCategory: PoolCategory.CORE,
+  //   projectLink: "https://defilaunch.finance",
+  //   sousId: 1003,
+  //   stakingToken: {
+  //     address: contracts.defiLaunch[56],
+  //     buyLink:
+  //       "https://app.apeswap.finance/swap?outputCurrency=0xD7D23d89c510f306e4037385EbbEFc6Dd6C41e61",
+  //     decimals: 18,
+  //     name: QuoteToken.DLAUNCH,
+  //     pathToBnb: ["BUSD", "BNB"],
+  //     router: CONTRACTS.apeswapRouterAddress,
+  //     uses: "ApeSwap",
+  //     token: QuoteToken.DLAUNCH,
+  //   },
+  //   tokenPerBlock: "0.107060185185185185",
+  // },
+  // {
+  //   contractAddress: {
+  //     97: "",
+  //     56: "0x65A56f30286f94a3eaa5Fe80839377e2dFE7df56",
+  //   },
+  //   earningToken: {
+  //     address: contracts.busd[56],
+  //     decimals: 18,
+  //     name: QuoteToken.BUSD,
+  //     pathToBnb: ["BNB"],
+  //     router: CONTRACTS.pancakeswapRouterAddress,
+  //     token: QuoteToken.BUSD,
+  //     uses: "PancakeSwap",
+  //   },
+  //   harvest: true,
+  //   isFinished: false,
+  //   isLp: false,
+  //   poolCategory: PoolCategory.CORE,
+  //   projectLink: "https://defilaunch.finance",
+  //   sousId: 1004,
+  //   stakingToken: {
+  //     addresses: {
+  //       token0Address: contracts.defiLaunch[56],
+  //       token1Address: contracts.busd[56],
+  //     },
+  //     buyLink:
+  //       "https://app.apeswap.finance/add/" +
+  //       contracts.defiLaunch[56] +
+  //       "/" +
+  //       contracts.busd[56],
+  //     decimals: 18,
+  //     name: QuoteToken.DLAUNCHBUSD,
+  //     pathToBnb: ["BUSD", "BNB"],
+  //     router: CONTRACTS.apeswapRouterAddress,
+  //     uses: "ApeSwap",
+  //     token: QuoteToken.DLAUNCHBUSD,
+  //   },
+  //   tokenPerBlock: "0.107060185185185185",
+  // },
