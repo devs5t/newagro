@@ -9,7 +9,7 @@ import {
   calcEarnedValue,
   calcLiquidity,
   calcUserStakedValue,
-  calcVaultUserStakedValue
+  calcVaultUserStakedValue,
 } from "src/utils/farmValues";
 import { formatNumber } from "src/utils/formatUtils";
 import { useImmediateCall } from ".";
@@ -116,7 +116,7 @@ export const useFarmDetails = (
         stakedTokenPrice,
         tokenApy,
         tokenPrice,
-        earnTokenPrice
+        earnTokenPrice,
       };
     };
 
@@ -161,7 +161,8 @@ export const useFarmDetails = (
         const pendingCakeNum = formatNumber(results[1]?.value?._hex);
         const sharesNum = formatNumber(results[2]?.value?.shares?._hex);
         const sharesTotalNum = formatNumber(results[3]?.value?._hex);
-        const depositFee = (results[4]?.value?.depositFee?.toNumber() * 100) / 10000;
+        const depositFee =
+          (results[4]?.value?.depositFee?.toNumber() * 100) / 10000;
         const wantLockedTotalNum = formatNumber(results[5]?.value?._hex);
 
         const {
@@ -171,7 +172,7 @@ export const useFarmDetails = (
           stakedTokenPrice,
           tokenApy,
           tokenPrice,
-          earnTokenPrice
+          earnTokenPrice,
         } = resolveReadOnlyValues();
 
         const farmTvl = calcLiquidity(wantLockedTotalNum, stakedTokenPrice);

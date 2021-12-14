@@ -4,16 +4,30 @@ import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import { spacing } from "@mui/system";
 import { styled } from "@mui/styles";
 import React from "react";
+import { addNetwork } from "src/hooks/useAddNetwork";
+import BigNumber from "bignumber.js";
 
 const SpacingIconButton = styled(IconButton)(spacing);
 const SpacingButton = styled(Button)(spacing);
 
 export const ConnectWalletButton = () => {
   const { activateBrowserWallet, account, deactivate, chainId } = useEthers();
+  const envChainId = import.meta.env.VITE_APP_CHAIN_ID;
 
   const handleConnectWallet = () => {
     activateBrowserWallet();
+    addNetwork(parseInt(envChainId as string));
   };
+
+  if (window.hasOwnProperty("ethereum") && account) {
+    window.ethereum.on("chainChanged", (_chainId) => {
+      if (new BigNumber(_chainId).toNumber() !== Number(envChainId)) {
+        addNetwork(parseInt(envChainId as string));
+      } else {
+        window.location.reload();
+      }
+    });
+  }
 
   if (account) {
     const abbr = shortenAddress(account);

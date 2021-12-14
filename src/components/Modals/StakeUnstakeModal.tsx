@@ -7,7 +7,7 @@ import {
   InputBase,
   Slider,
   Stack,
-  Typography
+  Typography,
 } from "@mui/material";
 import { styled } from "@mui/system";
 import BigNumber from "bignumber.js";

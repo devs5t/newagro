@@ -1,7 +1,7 @@
 import Home from "@mui/icons-material/Home";
-import AssessmentIcon from '@mui/icons-material/Assessment';
-import AgricultureIcon from '@mui/icons-material/Agriculture';
-import MenuBookIcon from '@mui/icons-material/MenuBook';
+import AssessmentIcon from "@mui/icons-material/Assessment";
+import AgricultureIcon from "@mui/icons-material/Agriculture";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
 import { BLOCK_LAUNCH } from "src/config";
 
 const disableSection = (blockNumber) => {
@@ -30,14 +30,14 @@ const pagesSection = [
     href: "/page2",
     icon: AgricultureIcon,
     title: "Page 2",
-    disabled: false
+    disabled: false,
   },
   {
     href: "/page3",
     icon: MenuBookIcon,
     title: "Page 3 (disabled)",
-    disabled: true
-  }
+    disabled: true,
+  },
 ];
 
 const navItems = [

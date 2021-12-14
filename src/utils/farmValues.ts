@@ -13,7 +13,7 @@ export const calcEarnedValue = (
   sharesTotal: BigNumber,
   earnTokenPrice: BigNumber,
   tokenPrice: BigNumber
-) => 
+) =>
   pendingNative.plus(
     pendingCake
       .times(shares.div(sharesTotal))

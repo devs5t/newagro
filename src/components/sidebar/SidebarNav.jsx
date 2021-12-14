@@ -5,7 +5,7 @@ import React from "react";
 import ReactPerfectScrollbar from "react-perfect-scrollbar";
 import {
   SidebarNavItem,
-  SidebarNavListItemTitle
+  SidebarNavListItemTitle,
 } from "src/components/sidebar/SidebarNavListItem";
 import styled, { css } from "styled-components";
 import "../../vendor/perfect-scrollbar.css";

@@ -1,7 +1,7 @@
 import {
   Box as MuiBox,
   Drawer as MuiDrawer,
-  ListItemButton
+  ListItemButton,
 } from "@mui/material";
 import { spacing } from "@mui/system";
 import { NavLink } from "react-router-dom";

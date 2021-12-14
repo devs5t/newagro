@@ -14,14 +14,15 @@ const Title = styled(Typography)`
 
 const Subtitle = styled(Typography)(
   ({ title }: { title: string }) => css`
-  font-family: "Maven Pro", sans-serif;
-  // font-family: ${(title === "APR" || title === "APY") && "Titan One"};
-  font-size: 1rem;
-  // font-size: ${(title === "APR" || title === "APY") && "1.05rem"};
-  font-weight: 200;
-  // font-weight: ${(title === "APR" || title === "APY") && "200"};
-  color: ${(title === "APR" || title === "APY") && "green"};
-`);
+    font-family: "Maven Pro", sans-serif;
+    // font-family: ${(title === "APR" || title === "APY") && "Titan One"};
+    font-size: 1rem;
+    // font-size: ${(title === "APR" || title === "APY") && "1.05rem"};
+    font-weight: 200;
+    // font-weight: ${(title === "APR" || title === "APY") && "200"};
+    color: ${(title === "APR" || title === "APY") && "green"};
+  `
+);
 
 interface NumberSectionInterface {
   decimals?: number;

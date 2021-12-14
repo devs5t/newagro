@@ -18,7 +18,7 @@ const StyledStack = styled(Stack)`
   ${mobileCut} {
     margin-top: -5px;
   }
-`
+`;
 
 const Name = styled(Typography)(
   ({ stakedvalue }: { stakedvalue: number }) => css`
@@ -82,22 +82,21 @@ export const IconNameSection = ({
       <StyledStack>
         <Name stakedvalue={stakedValue}>{item.name}</Name>
         <Label>
-          <a href={item.stakingToken.buyLink} 
-            target="_blank" 
+          <a
+            href={item.stakingToken.buyLink}
+            target="_blank"
             rel="no-referrer"
             style={{
               color: "#2f65cb",
               textDecoration: "none",
-              fontWeight: 500
+              fontWeight: 500,
             }}
           >
             Get {item.name}
           </a>
         </Label>
         {/* <Description>{item.earnDescription}</Description> */}
-        { item.isVault && (
-          <Label>Uses {item.stakingToken.uses}</Label>
-        ) }
+        {item.isVault && <Label>Uses {item.stakingToken.uses}</Label>}
       </StyledStack>
     </DetailsBox>
   </Grid>

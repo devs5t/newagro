@@ -13,7 +13,6 @@ const Footer = styled.div`
   max-height: 3.75rem;
 `;
 
-
 const SidebarFooter = ({ ...rest }) => {
   const price = useTokenPrice();
   return (

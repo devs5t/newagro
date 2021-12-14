@@ -21,7 +21,7 @@ const routes = [
   {
     path: "page3",
     element: <Page3 />,
-  }
+  },
 ];
 
 export default routes;

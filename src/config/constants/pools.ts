@@ -92,7 +92,8 @@ const pools: FarmPool[] = [
       pathToBnb: ["BIKINI", "BNB"],
       token: QuoteToken.BIKINI,
       uses: "ApeSwap",
-      buyLink: "https://app.apeswap.finance/swap?outputCurrency=0xC865a1dFB8717F53261a935D5C2577fDA7523C55",
+      buyLink:
+        "https://app.apeswap.finance/swap?outputCurrency=0xC865a1dFB8717F53261a935D5C2577fDA7523C55",
     },
     strategyContractAddress: {
       97: "",
@@ -135,7 +136,8 @@ const pools: FarmPool[] = [
       pathToBnb: ["BIKINI", "BNB"],
       token: "BIKINI-BNB LP",
       uses: "ApeSwap",
-      buyLink: "https://app.apeswap.finance/add/0xC865a1dFB8717F53261a935D5C2577fDA7523C55/ETH",
+      buyLink:
+        "https://app.apeswap.finance/add/0xC865a1dFB8717F53261a935D5C2577fDA7523C55/ETH",
     },
     strategyContractAddress: {
       97: "",
@@ -178,7 +180,8 @@ const pools: FarmPool[] = [
       pathToBnb: ["BIKINI", "BNB"],
       token: QuoteToken.BIKINIBUSD,
       uses: "ApeSwap",
-      buyLink: "https://app.apeswap.finance/add/0xC865a1dFB8717F53261a935D5C2577fDA7523C55/0xe9e7cea3dedca5984780bafc599bd69add087d56",
+      buyLink:
+        "https://app.apeswap.finance/add/0xC865a1dFB8717F53261a935D5C2577fDA7523C55/0xe9e7cea3dedca5984780bafc599bd69add087d56",
     },
     strategyContractAddress: {
       97: "",
@@ -221,7 +224,8 @@ const pools: FarmPool[] = [
       pathToBnb: ["BUSD", "BNB"],
       token: QuoteToken.BUSD,
       uses: "PancakeSwap",
-      buyLink: "https://pancakeswap.finance/swap?outputCurrency=0xe9e7cea3dedca5984780bafc599bd69add087d56",
+      buyLink:
+        "https://pancakeswap.finance/swap?outputCurrency=0xe9e7cea3dedca5984780bafc599bd69add087d56",
     },
     strategyContractAddress: {
       97: "",
@@ -264,7 +268,8 @@ const pools: FarmPool[] = [
       pathToBnb: ["USDC", "BNB"],
       token: "USDC",
       uses: "PancakeSwap",
-      buyLink: "https://pancakeswap.finance/swap?outputCurrency=0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d",
+      buyLink:
+        "https://pancakeswap.finance/swap?outputCurrency=0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d",
     },
     strategyContractAddress: {
       97: "",
@@ -300,7 +305,7 @@ const pools: FarmPool[] = [
       address: "",
       functionName: "",
       pid: 5,
-      earnApiIndexPrice: ""
+      earnApiIndexPrice: "",
     },
     stakingToken: {
       address: "0x3ee2200efb3400fabb9aacf31297cbdd1d435d47",
@@ -308,7 +313,8 @@ const pools: FarmPool[] = [
       pathToBnb: ["ADA", "BNB"],
       token: "ADA",
       uses: "PancakeSwap",
-      buyLink: "https://pancakeswap.finance/swap?outputCurrency=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47",
+      buyLink:
+        "https://pancakeswap.finance/swap?outputCurrency=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47",
     },
     strategyContractAddress: {
       97: "",
@@ -344,7 +350,7 @@ const pools: FarmPool[] = [
       address: "0xdfaa0e08e357db0153927c7eabb492d1f60ac730",
       functionName: "pendingCake",
       pid: 0,
-      earnApiIndexPrice: "BABY"
+      earnApiIndexPrice: "BABY",
     },
     stakingToken: {
       address: "0x53E562b9B7E5E94b81f10e96Ee70Ad06df3D2657",
@@ -352,7 +358,8 @@ const pools: FarmPool[] = [
       pathToBnb: ["BABY", "BNB"],
       token: "BABY",
       uses: "BabySwap",
-      buyLink: "https://exchange.babyswap.finance/#/swap?outputCurrency=0x53E562b9B7E5E94b81f10e96Ee70Ad06df3D2657",
+      buyLink:
+        "https://exchange.babyswap.finance/#/swap?outputCurrency=0x53E562b9B7E5E94b81f10e96Ee70Ad06df3D2657",
     },
     strategyContractAddress: {
       97: "",
@@ -388,7 +395,7 @@ const pools: FarmPool[] = [
       address: "0x73feaa1eE314F8c655E354234017bE2193C9E24E",
       functionName: "pendingCake",
       pid: 0,
-      earnApiIndexPrice: "CAKE"
+      earnApiIndexPrice: "CAKE",
     },
     stakingToken: {
       address: "0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82",
@@ -396,7 +403,8 @@ const pools: FarmPool[] = [
       pathToBnb: ["CAKE", "BNB"],
       token: "CAKE",
       uses: "PancakeSwap",
-      buyLink: "https://pancakeswap.finance/swap?outputCurrency=0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82"
+      buyLink:
+        "https://pancakeswap.finance/swap?outputCurrency=0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82",
     },
     strategyContractAddress: {
       97: "",
@@ -432,7 +440,7 @@ const pools: FarmPool[] = [
       address: "0x73feaa1eE314F8c655E354234017bE2193C9E24E",
       functionName: "pendingCake",
       pid: 251,
-      earnApiIndexPrice: "CAKE"
+      earnApiIndexPrice: "CAKE",
     },
     stakingToken: {
       address: "0x0eD7e52944161450477ee417DE9Cd3a859b14fD0",
@@ -440,7 +448,8 @@ const pools: FarmPool[] = [
       pathToBnb: ["CAKE", "BNB"],
       token: "CAKE-BNB LP",
       uses: "PancakeSwap",
-      buyLink: "https://pancakeswap.finance/add/0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82/BNB",
+      buyLink:
+        "https://pancakeswap.finance/add/0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82/BNB",
     },
     strategyContractAddress: {
       97: "",
@@ -476,7 +485,7 @@ const pools: FarmPool[] = [
       address: "0x5c8D727b265DBAfaba67E050f2f739cAeEB4A6F9",
       functionName: "pendingCake",
       pid: 0,
-      earnApiIndexPrice: "BANANA"
+      earnApiIndexPrice: "BANANA",
     },
     stakingToken: {
       address: "0x603c7f932ED1fc6575303D8Fb018fDCBb0f39a95",
@@ -484,7 +493,8 @@ const pools: FarmPool[] = [
       pathToBnb: ["BANANA", "BNB"],
       token: "BANANA",
       uses: "ApeSwap",
-      buyLink: "https://app.apeswap.finance/swap?outputCurrency=0x603c7f932ED1fc6575303D8Fb018fDCBb0f39a95",
+      buyLink:
+        "https://app.apeswap.finance/swap?outputCurrency=0x603c7f932ED1fc6575303D8Fb018fDCBb0f39a95",
     },
     strategyContractAddress: {
       97: "",
@@ -520,7 +530,7 @@ const pools: FarmPool[] = [
       address: "0x5c8D727b265DBAfaba67E050f2f739cAeEB4A6F9",
       functionName: "pendingCake",
       pid: 1,
-      earnApiIndexPrice: "BANANA"
+      earnApiIndexPrice: "BANANA",
     },
     stakingToken: {
       address: "0xF65C1C0478eFDe3c19b49EcBE7ACc57BB6B1D713",
@@ -528,7 +538,8 @@ const pools: FarmPool[] = [
       pathToBnb: ["BANANA", "BNB"],
       token: "BANANA-BNB LP",
       uses: "ApeSwap",
-      buyLink: "https://app.apeswap.finance/add/0x603c7f932ED1fc6575303D8Fb018fDCBb0f39a95/ETH",
+      buyLink:
+        "https://app.apeswap.finance/add/0x603c7f932ED1fc6575303D8Fb018fDCBb0f39a95/ETH",
     },
     strategyContractAddress: {
       97: "",
@@ -566,7 +577,7 @@ const pools: FarmPool[] = [
       address: "0x73feaa1eE314F8c655E354234017bE2193C9E24E",
       functionName: "pendingCake",
       pid: 0,
-      earnApiIndexPrice: "CAKE"
+      earnApiIndexPrice: "CAKE",
     },
     stakingToken: {
       address: "0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82",
@@ -574,7 +585,8 @@ const pools: FarmPool[] = [
       pathToBnb: ["CAKE", "BNB"],
       token: "CAKE",
       uses: "PancakeSwap",
-      buyLink: "https://pancakeswap.finance/swap?outputCurrency=0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82"
+      buyLink:
+        "https://pancakeswap.finance/swap?outputCurrency=0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82",
     },
     strategyContractAddress: {
       97: "",
@@ -611,7 +623,7 @@ const pools: FarmPool[] = [
       address: "0x73feaa1eE314F8c655E354234017bE2193C9E24E",
       functionName: "pendingCake",
       pid: 251,
-      earnApiIndexPrice: "CAKE"
+      earnApiIndexPrice: "CAKE",
     },
     stakingToken: {
       address: "0x0eD7e52944161450477ee417DE9Cd3a859b14fD0",
@@ -619,7 +631,8 @@ const pools: FarmPool[] = [
       pathToBnb: ["CAKE", "BNB"],
       token: "CAKE-BNB LP",
       uses: "PancakeSwap",
-      buyLink: "https://pancakeswap.finance/add/0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82/BNB",
+      buyLink:
+        "https://pancakeswap.finance/add/0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82/BNB",
     },
     strategyContractAddress: {
       97: "",
@@ -656,7 +669,7 @@ const pools: FarmPool[] = [
       address: "0x73feaa1eE314F8c655E354234017bE2193C9E24E",
       functionName: "pendingCake",
       pid: 262,
-      earnApiIndexPrice: "CAKE"
+      earnApiIndexPrice: "CAKE",
     },
     stakingToken: {
       address: "0x61EB789d75A95CAa3fF50ed7E47b96c132fEc082",
@@ -664,7 +677,8 @@ const pools: FarmPool[] = [
       pathToBnb: ["BTCB", "BNB"],
       token: "BTCB-BNB LP",
       uses: "PancakeSwap",
-      buyLink: "https://pancakeswap.finance/add/0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c/BNB",
+      buyLink:
+        "https://pancakeswap.finance/add/0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c/BNB",
     },
     strategyContractAddress: {
       97: "",
@@ -701,7 +715,7 @@ const pools: FarmPool[] = [
       address: "0x5c8D727b265DBAfaba67E050f2f739cAeEB4A6F9",
       functionName: "pendingCake",
       pid: 0,
-      earnApiIndexPrice: "BANANA"
+      earnApiIndexPrice: "BANANA",
     },
     stakingToken: {
       address: "0x603c7f932ED1fc6575303D8Fb018fDCBb0f39a95",
@@ -709,7 +723,8 @@ const pools: FarmPool[] = [
       pathToBnb: ["BANANA", "BNB"],
       token: "BANANA",
       uses: "ApeSwap",
-      buyLink: "https://app.apeswap.finance/swap?outputCurrency=0x603c7f932ED1fc6575303D8Fb018fDCBb0f39a95",
+      buyLink:
+        "https://app.apeswap.finance/swap?outputCurrency=0x603c7f932ED1fc6575303D8Fb018fDCBb0f39a95",
     },
     strategyContractAddress: {
       97: "",
@@ -746,7 +761,7 @@ const pools: FarmPool[] = [
       address: "0x5c8D727b265DBAfaba67E050f2f739cAeEB4A6F9",
       functionName: "pendingCake",
       pid: 1,
-      earnApiIndexPrice: "BANANA"
+      earnApiIndexPrice: "BANANA",
     },
     stakingToken: {
       address: "0xF65C1C0478eFDe3c19b49EcBE7ACc57BB6B1D713",
@@ -754,7 +769,8 @@ const pools: FarmPool[] = [
       pathToBnb: ["BANANA", "BNB"],
       token: "BANANA-BNB LP",
       uses: "ApeSwap",
-      buyLink: "https://app.apeswap.finance/add/0x603c7f932ED1fc6575303D8Fb018fDCBb0f39a95/ETH",
+      buyLink:
+        "https://app.apeswap.finance/add/0x603c7f932ED1fc6575303D8Fb018fDCBb0f39a95/ETH",
     },
     strategyContractAddress: {
       97: "",
@@ -791,7 +807,7 @@ const pools: FarmPool[] = [
       address: "0x5c8D727b265DBAfaba67E050f2f739cAeEB4A6F9",
       functionName: "pendingCake",
       pid: 3,
-      earnApiIndexPrice: "BANANA"
+      earnApiIndexPrice: "BANANA",
     },
     stakingToken: {
       address: "0x51e6D27FA57373d8d4C256231241053a70Cb1d93",
@@ -799,7 +815,8 @@ const pools: FarmPool[] = [
       pathToBnb: ["BUSD", "BNB"],
       token: "BUSD-BNB LP",
       uses: "ApeSwap",
-      buyLink: "https://app.apeswap.finance/add/0xe9e7cea3dedca5984780bafc599bd69add087d56/ETH",
+      buyLink:
+        "https://app.apeswap.finance/add/0xe9e7cea3dedca5984780bafc599bd69add087d56/ETH",
     },
     strategyContractAddress: {
       97: "",
@@ -836,7 +853,7 @@ const pools: FarmPool[] = [
       address: "0x5c8D727b265DBAfaba67E050f2f739cAeEB4A6F9",
       functionName: "pendingCake",
       pid: 17,
-      earnApiIndexPrice: "BANANA"
+      earnApiIndexPrice: "BANANA",
     },
     stakingToken: {
       address: "0x40d4543887E4170A1A40Cd8dB15A6b297c812Cb1",
@@ -844,7 +861,8 @@ const pools: FarmPool[] = [
       pathToBnb: ["ADA", "BNB"],
       token: "ADA-BNB LP",
       uses: "ApeSwap",
-      buyLink: "https://app.apeswap.finance/add/0x3ee2200efb3400fabb9aacf31297cbdd1d435d47/ETH",
+      buyLink:
+        "https://app.apeswap.finance/add/0x3ee2200efb3400fabb9aacf31297cbdd1d435d47/ETH",
     },
     strategyContractAddress: {
       97: "",
@@ -881,7 +899,7 @@ const pools: FarmPool[] = [
       address: "0xdfaa0e08e357db0153927c7eabb492d1f60ac730",
       functionName: "pendingCake",
       pid: 0,
-      earnApiIndexPrice: "BABY"
+      earnApiIndexPrice: "BABY",
     },
     stakingToken: {
       address: "0x53E562b9B7E5E94b81f10e96Ee70Ad06df3D2657",
@@ -889,7 +907,8 @@ const pools: FarmPool[] = [
       pathToBnb: ["BABY", "BNB"],
       token: "BABY",
       uses: "BabySwap",
-      buyLink: "https://exchange.babyswap.finance/#/swap?outputCurrency=0x53E562b9B7E5E94b81f10e96Ee70Ad06df3D2657",
+      buyLink:
+        "https://exchange.babyswap.finance/#/swap?outputCurrency=0x53E562b9B7E5E94b81f10e96Ee70Ad06df3D2657",
     },
     strategyContractAddress: {
       97: "",
@@ -926,7 +945,7 @@ const pools: FarmPool[] = [
       address: "0xdfaa0e08e357db0153927c7eabb492d1f60ac730",
       functionName: "pendingCake",
       pid: 47,
-      earnApiIndexPrice: "BABY"
+      earnApiIndexPrice: "BABY",
     },
     stakingToken: {
       address: "0x36ae10a4d16311959b607ee98bc4a8a653a33b1f",
@@ -934,7 +953,8 @@ const pools: FarmPool[] = [
       pathToBnb: ["BABY", "BNB"],
       token: "BABY-BNB LP",
       uses: "BabySwap",
-      buyLink: "https://exchange.babyswap.finance/#/add/0x53E562b9B7E5E94b81f10e96Ee70Ad06df3D2657/BNB",
+      buyLink:
+        "https://exchange.babyswap.finance/#/add/0x53E562b9B7E5E94b81f10e96Ee70Ad06df3D2657/BNB",
     },
     strategyContractAddress: {
       97: "",
@@ -971,7 +991,7 @@ const pools: FarmPool[] = [
       address: "0xdfaa0e08e357db0153927c7eabb492d1f60ac730",
       functionName: "pendingCake",
       pid: 2,
-      earnApiIndexPrice: "BABY"
+      earnApiIndexPrice: "BABY",
     },
     stakingToken: {
       address: "0x04580ce6dee076354e96fed53cb839de9efb5f3f",
@@ -979,7 +999,8 @@ const pools: FarmPool[] = [
       pathToBnb: ["BABY", "BNB"],
       token: "BNB-USDT LP",
       uses: "BabySwap",
-      buyLink: "https://exchange.babyswap.finance/#/add/0x55d398326f99059ff775485246999027b3197955/BNB",
+      buyLink:
+        "https://exchange.babyswap.finance/#/add/0x55d398326f99059ff775485246999027b3197955/BNB",
     },
     strategyContractAddress: {
       97: "",
@@ -1016,7 +1037,7 @@ const pools: FarmPool[] = [
       address: "0xdfaa0e08e357db0153927c7eabb492d1f60ac730",
       functionName: "pendingCake",
       pid: 14,
-      earnApiIndexPrice: "BABY"
+      earnApiIndexPrice: "BABY",
     },
     stakingToken: {
       address: "0xf739d76fb14f39a5efe6622215384e8d2bd86e23",
@@ -1024,7 +1045,8 @@ const pools: FarmPool[] = [
       pathToBnb: ["BABY", "BNB"],
       token: "DAI-USDT LP",
       uses: "BabySwap",
-      buyLink: "https://exchange.babyswap.finance/#/add/0x55d398326f99059ff775485246999027b3197955/0x1af3f329e8be154074d8769d1ffa4ee058b1dbc3",
+      buyLink:
+        "https://exchange.babyswap.finance/#/add/0x55d398326f99059ff775485246999027b3197955/0x1af3f329e8be154074d8769d1ffa4ee058b1dbc3",
     },
     strategyContractAddress: {
       97: "",

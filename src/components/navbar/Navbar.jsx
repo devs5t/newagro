@@ -17,6 +17,7 @@ import { THEMES } from "src/constants";
 import { ConnectWalletButton } from "src/features/App/ConnectWalletButton";
 import useTheme from "src/hooks/useTheme";
 import styled, { withTheme } from "styled-components";
+import NavbarLanguagesDropdown from "./NavbarLanguagesDropdown";
 
 const AppBar = styled(MuiAppBar)`
   background: ${(props) => props.theme.header.background};
@@ -45,7 +46,6 @@ const Navbar = ({ onDrawerToggle }) => {
         <Toolbar>
           <Grid container alignItems="center">
             <Hidden mdUp>
-
               <Grid item>
                 <IconButton
                   color="inherit"
@@ -59,6 +59,7 @@ const Navbar = ({ onDrawerToggle }) => {
             </Hidden>
             <Grid item xs />
             <Grid item>
+              <NavbarLanguagesDropdown />
               <Tooltip title={"Toggle theme"}>
                 <SpacingIconButton
                   color="inherit"
