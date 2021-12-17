@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
+import {get} from "lodash";
 
 import {
   Tooltip,
@@ -33,29 +34,9 @@ const languageOptions: languageOptionsType = {
     icon: "/images/flags/us.png",
     name: "English",
   },
-  fr: {
-    icon: "/images/flags/fr.png",
-    name: "French",
-  },
-  de: {
-    icon: "/images/flags/de.png",
-    name: "German",
-  },
-  nl: {
-    icon: "/images/flags/nl.png",
-    name: "Dutch",
-  },
   es: {
     icon: "/images/flags/es.png",
-    name: "Spanish",
-  },
-  ja: {
-    icon: "/images/flags/jp.png",
-    name: "Japanese",
-  },
-  zh: {
-    icon: "/images/flags/cn.png",
-    name: "Chinese",
+    name: "Español",
   },
 };
 
@@ -63,7 +44,8 @@ function NavbarLanguagesDropdown() {
   const { i18n } = useTranslation();
   const [anchorMenu, setAnchorMenu] = React.useState<any>(null);
 
-  const selectedLanguage = languageOptions[i18n.language];
+  const language: string = get(get(i18n, 'language').split('-'), '[0]', '');
+  const selectedLanguage = languageOptions[language];
 
   const toggleMenu = (event: React.SyntheticEvent) => {
     setAnchorMenu(event.currentTarget);
@@ -82,13 +64,16 @@ function NavbarLanguagesDropdown() {
     <React.Fragment>
       <Tooltip title="Languages">
         <IconButton
-          aria-owns={Boolean(anchorMenu) ? "menu-appbar" : undefined}
+          aria-owns={anchorMenu ? "menu-appbar" : undefined}
           aria-haspopup="true"
           onClick={toggleMenu}
           color="inherit"
           size="large"
         >
-          <Flag src={selectedLanguage?.icon} alt={selectedLanguage?.name} />
+          <Flag
+            src={get(selectedLanguage, 'icon', '/images/flags/es.png')}
+            alt={get(selectedLanguage, 'name', 'Español')}
+          />
         </IconButton>
       </Tooltip>
       <Menu
