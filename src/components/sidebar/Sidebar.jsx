@@ -46,17 +46,19 @@ const BrandIcon = styled(Box)`
   margin-right: ${(props) => props.theme.spacing(2)};
   color: ${(props) => props.theme.sidebar.header.brand.color};
   fill: ${(props) => props.theme.sidebar.header.brand.color};
-  width: 32px;
-  height: 32px;
-  background-image: url("../../../favicon.png");
+  width: 100%;
+  height: 100%;
+  background-image: url("../../../public/logos/logo.svg");
   background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 `;
 
 const Sidebar = ({ items, showFooter = true, ...rest }) => {
   return (
     <Drawer variant="permanent" {...rest}>
       <Brand component={NavLink} to="/">
-        {/*<BrandIcon />*/}The Boiler header
+        <BrandIcon />
       </Brand>
       <SidebarNav items={items} />
       {!!showFooter && <Footer />}

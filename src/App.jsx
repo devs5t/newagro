@@ -64,7 +64,7 @@ function App() {
 
   return (
     <HelmetProvider>
-      <Helmet titleTemplate="The Boiler" defaultTitle="The Boiler" />
+      <Helmet titleTemplate="New Agro" defaultTitle="New Agro" />
       <StylesProvider jss={jss}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <StyledEngineProvider injectFirst>
