@@ -20,6 +20,7 @@ import createTheme from "./theme";
 import Layout from "src/features/layouts/Layout";
 import detectBrowserLanguage from "detect-browser-language";
 import { useTranslation } from "react-i18next";
+import "./index.css";
 
 const jss = create({
   ...jssPreset(),

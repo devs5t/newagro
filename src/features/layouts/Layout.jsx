@@ -1,4 +1,4 @@
-import { CssBaseline, Hidden, Paper as MuiPaper } from "@mui/material";
+import { CssBaseline, Paper as MuiPaper } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { spacing } from "@mui/system";
@@ -8,22 +8,11 @@ import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import GlobalStyle from "../../components/GlobalStyle";
 import Navbar from "../../components/navbar/Navbar";
-import sidebarItems from "../../components/sidebar/sidebarItems";
-import Sidebar from "../../components/sidebar/Sidebar";
 import Settings from "src/components/Settings";
-
-const drawerWidth = 258;
 
 const Root = styled.div`
   display: flex;
   min-height: 100vh;
-`;
-
-const Drawer = styled.div`
-  ${(props) => props.theme.breakpoints.up("md")} {
-    width: ${drawerWidth}px;
-    flex-shrink: 0;
-  }
 `;
 
 const AppContent = styled.div`
@@ -84,23 +73,6 @@ const Layout = ({ children }) => {
     <Root>
       <CssBaseline />
       <GlobalStyle />
-      <Drawer>
-        <Hidden lgUp implementation="js">
-          <Sidebar
-            PaperProps={{ style: { width: drawerWidth } }}
-            variant="temporary"
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            items={sidebarItems}
-          />
-        </Hidden>
-        <Hidden mdDown implementation="css">
-          <Sidebar
-            PaperProps={{ style: { width: drawerWidth } }}
-            items={sidebarItems}
-          />
-        </Hidden>
-      </Drawer>
       <AppContent>
         <Navbar onDrawerToggle={handleDrawerToggle} />
         <MainContent

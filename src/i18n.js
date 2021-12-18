@@ -5,12 +5,28 @@ import LanguageDetector from "i18next-browser-languagedetector";
 const resources = {
   en: {
     translation: {
-      Test: "Hey. I am a test text, can you translate me?",
+      navbar: {
+        home: "Home",
+        investment: "Investment",
+        exchange: "Exchange",
+        docs: "Documentation",
+        news: "News",
+        administrator: "Administrator",
+        pair_wallet: 'Pair Wallet'
+      }
     },
   },
   es: {
     translation: {
-      Test: "Oye. Soy un texto de prueba, ¿puedes traducirme?",
+      navbar: {
+        home: "Inicio",
+        investment: "Inversiones",
+        exchange: "Compra/Venta",
+        docs: "Documentación",
+        news: "Novedades",
+        administrator: "Administrador",
+        pair_wallet: 'Vincular Billetera'
+      }
     },
   },
 };
