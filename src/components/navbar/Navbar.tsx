@@ -12,8 +12,8 @@ const Navbar: React.FC = () => {
     {path: '/exchange', name: t('navbar.exchange')},
     {path: '/docs', name: t('navbar.docs')},
     {path: '/news', name: t('navbar.news')},
-    {path: '/administrator', name: t('navbar.administrator')},
-  ]
+    {path: '/admin', name: t('navbar.admin')},
+  ];
 
   return (
     <nav className="flex items-center justify-between flex-wrap bg-blue py-6 px-10 text-white">

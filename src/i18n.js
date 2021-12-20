@@ -11,13 +11,19 @@ const resources = {
         exchange: "Exchange",
         docs: "Documentation",
         news: "News",
-        administrator: "Administrator",
+        admin: "Admin",
         pair_wallet: 'Pair Wallet'
       }
     },
+    footer: {
+      exchange_rate: "Exchange Rate USD Today",
+    },
+    blog: {
+      news: "Enterate de todas las Novedades de New Agro"
+    },
     home: {
-      banner_title: 'Proximamente: NLAND Token',
-      banner_subtitle: 'Vas a poder invertir en negocios agropecuarios con respaldo real'
+      banner_title: "Proximamente: NLAND Token",
+      banner_subtitle: "Vas a poder invertir en negocios agropecuarios con respaldo real"
     }
   },
   es: {
@@ -28,12 +34,18 @@ const resources = {
         exchange: "Compra/Venta",
         docs: "Documentación",
         news: "Novedades",
-        administrator: "Administrador",
+        admin: "Administrador",
         pair_wallet: 'Vincular Billetera'
       },
+      footer: {
+        exchange_rate: "Cotización USD Hoy",
+      },
+      blog: {
+        news: "Enterate de todas las Novedades de New Agro"
+      },
       home: {
-        banner_title: 'Proximamente: NLAND Token',
-        banner_subtitle: 'Vas a poder invertir en negocios agropecuarios con respaldo real'
+        banner_title: "Próximamente: NLAND Token",
+        banner_subtitle: "Vas a poder invertir en negocios agropecuarios con respaldo real"
       }
     },
   },
