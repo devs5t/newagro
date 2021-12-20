@@ -5,8 +5,7 @@ type HomeCardColoredProps =  {
   title: string;
   mainText: string;
   thirdText: string;
-  withButton: false;
-  onClickButton: () => void | undefined;
+  onClickButton?: () => void;
 };
 
 const HomeCardColored = ({

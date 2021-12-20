@@ -18,7 +18,7 @@ const Navbar: React.FC = () => {
   return (
     <nav className="flex items-center justify-between flex-wrap bg-blue py-6 px-10 text-white">
       <Link to="/" className="flex items-center flex-shrink-0 text-white mr-6">
-        <img src="/public/logos/logo.svg" alt="logo"/>
+        <img src="logos/logo.svg" alt="logo"/>
       </Link>
 
       <div className="block lg:hidden">

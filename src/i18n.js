@@ -15,6 +15,10 @@ const resources = {
         pair_wallet: 'Pair Wallet'
       }
     },
+    home: {
+      banner_title: 'Proximamente: NLAND Token',
+      banner_subtitle: 'Vas a poder invertir en negocios agropecuarios con respaldo real'
+    }
   },
   es: {
     translation: {
@@ -26,6 +30,10 @@ const resources = {
         news: "Novedades",
         administrator: "Administrador",
         pair_wallet: 'Vincular Billetera'
+      },
+      home: {
+        banner_title: 'Proximamente: NLAND Token',
+        banner_subtitle: 'Vas a poder invertir en negocios agropecuarios con respaldo real'
       }
     },
   },

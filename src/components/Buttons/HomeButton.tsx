@@ -10,10 +10,11 @@ const HomeButton = ({ text, onClick }: HomeButtonProps): JSX.Element => {
     <Wrapper onClick={onClick} className="flex flex-column justify-content-md-evenly items-center">
       <p className="text-white"
        style={{
-       textAlign: "center",
-       fontFamily: "poppins",
-       fontWeight: 600,
-       fontSize: 18,
+         textAlign: "center",
+         fontFamily: "poppins",
+         fontWeight: 600,
+         fontSize: 18,
+         padding: "5px 10px"
        }}>{text}</p>
     </Wrapper>
   );

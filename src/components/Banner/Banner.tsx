@@ -18,7 +18,7 @@ const Banner = ({
       style={{backgroundImage: `url(${image})`}}
     >
       <Fade />
-      <h3 style={{fontSize: 48, zIndex: 2, marginBottom: 20}} className="text-white">{title}</h3>
+      <h3 style={{fontSize: 48, zIndex: 2, marginBottom: 20}} className="text-white font-semibold">{title}</h3>
       <h5 style={{fontSize: 24, zIndex: 2}} className="text-white">{subtitle}</h5>
     </Wrapper>
   );
