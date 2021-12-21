@@ -19,11 +19,12 @@ const resources = {
       exchange_rate: "Exchange Rate USD Today",
     },
     blog: {
-      news: "Enterate de todas las Novedades de New Agro"
+      news: "Find out about New Agro's news",
+      go_to: "Go To Blog",
     },
     home: {
-      banner_title: "Proximamente: NLAND Token",
-      banner_subtitle: "Vas a poder invertir en negocios agropecuarios con respaldo real"
+      banner_title: "SOON: NLAND Token",
+      banner_subtitle: "You will be able to invest in agricultural businesses with real support"
     }
   },
   es: {
@@ -41,7 +42,8 @@ const resources = {
         exchange_rate: "Cotización USD Hoy",
       },
       blog: {
-        news: "Enterate de todas las Novedades de New Agro"
+        news: "Enterate de todas las Novedades de New Agro",
+        go_to: "Ir al Blog",
       },
       home: {
         banner_title: "Próximamente: NLAND Token",
