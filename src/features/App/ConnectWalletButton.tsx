@@ -1,13 +1,14 @@
 import { getChainName, shortenAddress, useEthers } from "@usedapp/core";
-import { Box, Button } from "@mui/material";
+import { Box, Button as MaterialButton } from "@mui/material";
 import { spacing } from "@mui/system";
 import { styled } from "@mui/styles";
 import React from "react";
 import { addNetwork } from "src/hooks/useAddNetwork";
 import BigNumber from "bignumber.js";
 import {useTranslation} from "react-i18next";
+import Button from "src/components/Buttons/Button";
 
-const SpacingButton = styled(Button)(spacing);
+const SpacingButton = styled(MaterialButton)(spacing);
 
 export const ConnectWalletButton: React.FC = () => {
   const { t } = useTranslation();
@@ -50,11 +51,10 @@ export const ConnectWalletButton: React.FC = () => {
   }
 
   return (
-    <button
-      className="inline-block text-sm px-4 py-2 leading-none uppercase font-semibold border text-white border-white rounded-full"
+    <Button
+      text={t('navbar.pair_wallet')}
       onClick={handleConnectWallet}
-    >
-      {t('navbar.pair_wallet')}
-    </button>
+      extraClasses="uppercase text-white border-white font-bold"
+    />
   );
 };

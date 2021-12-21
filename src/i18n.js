@@ -17,6 +17,8 @@ const resources = {
     },
     footer: {
       exchange_rate: "Exchange Rate USD Today",
+      field_visit: "Book your visit to the field",
+      about_us: "Institutional site",
     },
     blog: {
       news: "Find out about New Agro's news",
@@ -40,6 +42,8 @@ const resources = {
       },
       footer: {
         exchange_rate: "Cotización USD Hoy",
+        field_visit: "Reservá tu visita al campo",
+        about_us: "Página institucional",
       },
       blog: {
         news: "Enterate de todas las Novedades de New Agro",

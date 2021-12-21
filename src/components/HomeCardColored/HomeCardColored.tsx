@@ -1,54 +1,34 @@
-import styled from 'styled-components';
-import HomeButton from '../Buttons/HomeButton'
+import React from "react";
+import Button from '../Buttons/Button';
 
-type HomeCardColoredProps =  {
+interface HomeCardColoredProps {
   title: string;
   mainText: string;
   thirdText: string;
   onClickButton?: () => void;
-};
-
-const HomeCardColored = ({
-    title,
-    mainText,
-    thirdText,
-    onClickButton,
-}: HomeCardColoredProps): JSX.Element => {
-
-  return (
-    <Wrapper className="flex flex-column justify-content-md-evenly items-center">
-      <h3
-      style={{fontSize: 30 ,
-        fontFamily: "Poppins",
-        fontStyle: "normal",
-        fontWeight: 600,
-        color: "#253E89",
-        }} className="text-green">{title}</h3>
-      <h2
-       style={{fontSize: 60 ,
-        fontFamily: "Poppins",
-        fontStyle: "normal",
-        fontWeight: 900
-        }} className="text-green" >{mainText}</h2>
-        {!onClickButton ?
-          <p style={{fontFamily: "Poppins", fontStyle: "normal", fontSize: 18, color: "#253E89", textAlign: "center", padding: "0 60px"}}>{thirdText}</p>
-        :
-          <HomeButton text={thirdText} onClick={onClickButton} />
-        }
-    </Wrapper>
-  );
+  containerClasses?: string;
 }
 
-const Wrapper = styled.div`
-  border-radius: 12px;
-  height: 250px;
-  background: rgba(97, 200, 217, .15);
-  margin: 10px;
-  width: 100%;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-`;
+const HomeCardColored: React.FC<HomeCardColoredProps> = ({
+  title,
+  mainText,
+  thirdText,
+  onClickButton,
+  containerClasses
+}) => {
+
+  return (
+    <div className={`flex flex-col justify-center items-center w-full rounded-lg bg-lightblue/[.15] p-8 ${containerClasses}`}>
+      <h3 className="text-blue text-3xl">{title}</h3>
+      <h2 className="text-green font-bold text-6xl" >{mainText}</h2>
+      {!onClickButton ? (
+        <p className="text-md text-blue text-center my-4">{thirdText}</p>
+      ) : (
+        <Button text={thirdText} onClick={onClickButton} extraClasses="bg-blue border-blue font-bold text-white py-4" />
+      )}
+    </div>
+  );
+}
 
 
 export default HomeCardColored;
