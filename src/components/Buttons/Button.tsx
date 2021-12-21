@@ -6,13 +6,15 @@ interface ButtonProps {
   link?: string;
   onClick?: () => void | undefined;
   extraClasses?: string;
+  linkTarget?: string;
 }
 
 const Button: React.FC<ButtonProps> = ({
   text,
   link,
   onClick = () => {},
-  extraClasses
+  extraClasses,
+  linkTarget
 }) => {
   const Content = () => {
     return (
@@ -27,7 +29,7 @@ const Button: React.FC<ButtonProps> = ({
 
   if (link)  {
     return (
-      <Link to={link}>
+      <Link to={link} target={linkTarget || '_self'}>
         <Content/>
       </Link>
     )
