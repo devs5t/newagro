@@ -57,6 +57,7 @@ function NavbarLanguagesDropdown() {
 
   const handleLanguageChange = (language: string) => {
     i18n.changeLanguage(language);
+    localStorage.setItem('i18nextLng', language);
     closeMenu();
   };
 

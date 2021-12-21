@@ -2,6 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { ConnectWalletButton } from "src/features/App/ConnectWalletButton";
 import {NavLink, Link} from "react-router-dom";
+import NavbarLanguagesDropdown from "src/components/navbar/NavbarLanguagesDropdown";
 
 const Navbar: React.FC = () => {
   const { t } = useTranslation();
@@ -37,7 +38,10 @@ const Navbar: React.FC = () => {
         </div>
       </div>
 
-      <ConnectWalletButton />
+      <div>
+        <NavbarLanguagesDropdown />
+        <ConnectWalletButton />
+      </div>
     </nav>
   );
 };

@@ -1,6 +1,6 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import LanguageDetector from "i18next-browser-languagedetector";
+import detectBrowserLanguage from "detect-browser-language";
 
 const resources = {
   en: {
@@ -13,21 +13,21 @@ const resources = {
         news: "News",
         admin: "Admin",
         pair_wallet: 'Pair Wallet'
+      },
+      footer: {
+        exchange_rate: "Exchange Rate USD Today",
+        field_visit: "Book your visit to the field",
+        about_us: "Institutional site",
+      },
+      blog: {
+        news: "Find out about New Agro's news",
+        go_to: "Go To Blog",
+      },
+      home: {
+        banner_title: "SOON: NLAND Token",
+        banner_subtitle: "You will be able to invest in agricultural businesses with real support"
       }
     },
-    footer: {
-      exchange_rate: "Exchange Rate USD Today",
-      field_visit: "Book your visit to the field",
-      about_us: "Institutional site",
-    },
-    blog: {
-      news: "Find out about New Agro's news",
-      go_to: "Go To Blog",
-    },
-    home: {
-      banner_title: "SOON: NLAND Token",
-      banner_subtitle: "You will be able to invest in agricultural businesses with real support"
-    }
   },
   es: {
     translation: {
@@ -57,12 +57,13 @@ const resources = {
   },
 };
 
+const browserLanguage = detectBrowserLanguage();
+
 i18n
-  .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     resources,
-    lng: "es",
+    lng: localStorage.getItem('i18nextLng') || browserLanguage || "es",
     fallbackLng: {
       default: ["es"],
     },

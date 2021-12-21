@@ -18,8 +18,6 @@ import "./i18n";
 import routes from "./routes";
 import createTheme from "./theme";
 import Layout from "src/features/layouts/Layout";
-import detectBrowserLanguage from "detect-browser-language";
-import { useTranslation } from "react-i18next";
 import "./index.css";
 
 const jss = create({
@@ -34,10 +32,7 @@ function App() {
   const { account } = useEthers();
   const [referrerId, setReferrerId] = useLocalStorage("referrerId", null);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-  const { i18n } = useTranslation();
-
   const navigate = useNavigate();
-  const language = detectBrowserLanguage();
 
   useEffect(() => {
     const { pathname, search } = location;
@@ -58,10 +53,6 @@ function App() {
       navigate("/home", { replace: true });
     }
   }, [location]);
-
-  useEffect(() => {
-    i18n.changeLanguage(language);
-  }, [language]);
 
   return (
     <HelmetProvider>
