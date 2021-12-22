@@ -24,7 +24,7 @@ const HomeCardColored: React.FC<HomeCardColoredProps> = ({
       {!onClickButton ? (
         <p className="text-md text-blue text-center my-4">{thirdText}</p>
       ) : (
-        <Button text={thirdText} onClick={onClickButton} extraClasses="bg-blue border-blue font-bold text-white py-4" />
+        <Button text={thirdText} onClick={onClickButton} extraClasses="bg-blue border-blue font-bold text-white px-4 py-4" />
       )}
     </div>
   );
