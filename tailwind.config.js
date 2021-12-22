@@ -8,12 +8,13 @@ module.exports = {
       transparent: 'transparent',
       current: 'currentColor',
       blue: "#253E89",
-      black: "#333333",
+      black: "#151515",
+      darkgray: "#333333",
       green: "#77C8B0",
       lightgreen: "#ACDCCE",
       lightblue: "#61C8D9",
       white: "#FFFFFF",
-      grey: "#DCDCDC"
+      grey: "#DCDCDC",
     },
     fontSize: {
       'tiny': '.625rem',

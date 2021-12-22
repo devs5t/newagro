@@ -54,7 +54,7 @@ export const ConnectWalletButton: React.FC = () => {
     <Button
       text={t('navbar.pair_wallet')}
       onClick={handleConnectWallet}
-      extraClasses="uppercase text-white border-white font-bold"
+      extraClasses="uppercase text-white border-white font-bold text-xs whitespace-nowrap	text-center"
     />
   );
 };
