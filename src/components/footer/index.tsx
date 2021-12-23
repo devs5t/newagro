@@ -2,21 +2,17 @@ import * as React from "react";
 import {useTranslation} from "react-i18next";
 import Blog from "./Blog";
 import Button from "src/components/Buttons/Button";
-import Instagram from "public/icons/instagram.svg"
-import Medium from "public/icons/medium.svg"
-import Telegram from "public/icons/telegram.svg"
-import Twitter from "public/icons/twitter.svg"
 import {Link} from "react-router-dom";
 import { ReactSVG } from 'react-svg'
 
 const Footer: React.FC = () => {
   const { t } = useTranslation();
 
-  const socialLinks: {name: string, url: string, icon: any}[] = [
-    {name: 'Instagram', url: 'https://instagram.com', icon: Instagram},
-    {name: 'Twitter', url: 'https://twitter.com', icon: Twitter},
-    {name: 'Medium', url: 'https://medium.com', icon: Medium},
-    {name: 'Telegram', url: 'https://telegram.com', icon: Telegram}
+  const socialLinks: {name: string, url: string, icon: string}[] = [
+    {name: 'Instagram', url: 'https://instagram.com', icon: 'icons/instagram.svg'},
+    {name: 'Twitter', url: 'https://twitter.com', icon: 'icons/twitter.svg'},
+    {name: 'Medium', url: 'https://medium.com', icon: 'icons/medium.svg'},
+    {name: 'Telegram', url: 'https://telegram.com', icon: 'icons/telegram.svg'}
   ]
 
   return (
