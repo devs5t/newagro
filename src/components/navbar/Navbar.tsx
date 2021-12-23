@@ -6,7 +6,6 @@ import NavbarLanguagesDropdown from "src/components/navbar/NavbarLanguagesDropdo
 import MenuLogo from 'public/icons/menu.svg';
 import CrossLogo from 'public/icons/cross.svg';
 
-
 const Navbar: React.FC = () => {
   const { t } = useTranslation();
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
@@ -16,8 +15,7 @@ const Navbar: React.FC = () => {
     {path: '/investment', name: t('navbar.investment')},
     {path: '/exchange', name: t('navbar.exchange')},
     {path: '/docs', name: t('navbar.docs')},
-    {path: '/news', name: t('navbar.news')},
-    {path: '/admin', name: t('navbar.admin')},
+    {path: '/news', name: t('navbar.news')}
   ];
 
   return (
@@ -25,20 +23,20 @@ const Navbar: React.FC = () => {
       <div className="relative w-full bg-blue">
 
         <div className="flex justify-between items-center py-4 mx-auto px-6 md:px-10">
-          <div className="flex justify-start navbar-logo lg:flex-1">
+          <div className="flex justify-start navbar-logo">
             <button
-              className="md:hidden cursor-pointer mr-4"
+              className="lg:hidden cursor-pointer mr-4"
               onClick={() => setSidebarOpen(true)}
             >
               <img alt="menu" src={MenuLogo}/>
             </button>
 
             <Link to="/" className="flex items-center flex-shrink-0 text-white md:mr-6">
-              <img className="h-4 lg:h-6 w-auto" src="logos/logo.svg" alt="logo"/>
+              <img className="h-4 xl:h-6 w-auto" src="logos/logo.svg" alt="logo"/>
             </Link>
           </div>
 
-          <nav className="hidden md:flex md:flex-grow justify-around">
+          <nav className="hidden lg:flex lg:flex-grow justify-around max-w-4xl">
             {links.map((link, index) => (
               <NavLink
                 to={link.path}
@@ -53,10 +51,8 @@ const Navbar: React.FC = () => {
           </nav>
 
 
-          <div className="flex items-center justify-end md:flex-1 lg:w-0">
-            <div className="hidden md:flex">
-              <NavbarLanguagesDropdown />
-            </div>
+          <div className="flex justify-end ml-4 items-center">
+            <NavbarLanguagesDropdown />
             <ConnectWalletButton />
           </div>
 
