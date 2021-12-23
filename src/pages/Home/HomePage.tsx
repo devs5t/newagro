@@ -47,6 +47,7 @@ const HomePage = () => {
           buttonText={t("home.card.cows.button_text")}
           fourthText={t("home.card.cows.fourth_text")}
           fifthText={t("home.card.cows.fifth_text")}
+          icon="icons/cow.svg"
         />
       </div>
     </>

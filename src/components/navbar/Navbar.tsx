@@ -3,8 +3,7 @@ import { useTranslation } from "react-i18next";
 import { ConnectWalletButton } from "src/features/App/ConnectWalletButton";
 import {NavLink, Link} from "react-router-dom";
 import NavbarLanguagesDropdown from "src/components/navbar/NavbarLanguagesDropdown";
-import MenuLogo from 'public/icons/menu.svg';
-import CrossLogo from 'public/icons/cross.svg';
+import {ReactSVG} from "react-svg";
 
 const Navbar: React.FC = () => {
   const { t } = useTranslation();
@@ -28,7 +27,12 @@ const Navbar: React.FC = () => {
               className="lg:hidden cursor-pointer mr-4"
               onClick={() => setSidebarOpen(true)}
             >
-              <img alt="menu" src={MenuLogo}/>
+              <ReactSVG
+                src="icons/menu.svg"
+                beforeInjection={(svg) => {
+                  svg.classList.add('fill-white');
+                }}
+              />
             </button>
 
             <Link to="/" className="flex items-center flex-shrink-0 text-white md:mr-6">
@@ -65,7 +69,7 @@ const Navbar: React.FC = () => {
                 className="mr-2 cursor-pointer"
                 onClick={() => setSidebarOpen(false)}
               >
-                <img alt="cross" src={CrossLogo}/>
+                <ReactSVG src="icons/cross.svg"/>
               </button>
             </div>
 
