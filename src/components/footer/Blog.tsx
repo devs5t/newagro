@@ -40,8 +40,8 @@ const Blog: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col px-6 pt-8 justify-center">
-      <h3 className="font-semibold text-center text-blue mb-2">{t('blog.news')}</h3>
+    <div className="flex flex-col px-10 md:px-6 py-8 md:pb-0 justify-center max-w-lg	items-center mx-auto">
+      <h3 className="font-semibold text-center text-blue mb-4">{t('blog.news')}</h3>
 
       {posts.map((post, key) => (
         <div className="flex w-full flex-col mb-2" key={key}>
