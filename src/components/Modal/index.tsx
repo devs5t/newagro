@@ -1,34 +1,23 @@
-import React, {useContext, useEffect} from "react";
+import React, {useContext} from "react";
 import {ModalContext} from "src/contexts/ModalContext";
 import {ReactSVG} from "react-svg";
 import {get} from "lodash";
 import Button from "src/components/Buttons/Button";
 import {useTranslation} from "react-i18next";
+import {Modal as MaterialModal} from '@mui/material';
 
 const Modal: React.FC = () => {
   const {modal, setModal} = useContext(ModalContext);
   const {t} = useTranslation();
 
-  useEffect(() => {
-    if (modal) {
-      document.documentElement.style.overflow = 'hidden';
-    } else {
-      document.documentElement.style.overflow = 'scroll';
-    }
-  }, [modal]);
-
-  if (!modal) {
-    return <></>
-  }
-
   return (
-    <div className="fixed w-full h-full top-0 left-0 flex items-center justify-center z-10">
-      <div
-        className="z-20 fixed inset-0 transition-opacity bg-black opacity-50 cursor-pointer"
-        onClick={() => setModal(undefined)}
-      />
-
-      <div className="bg-white w-11/12 md:max-w-md mx-auto rounded-lg shadow-lg z-50 overflow-y-auto border-2 border-blue">
+    <MaterialModal
+      open={!!modal}
+      onClose={() => setModal(undefined)}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white w-11/12 md:max-w-md mx-auto rounded-lg shadow-lg z-50 overflow-y-auto border-2 border-blue">
 
         <div className="flex justify-between items-center py-6 mb-6 items-center border-b-2 border-blue">
           {get(modal, 'props.title', false) && (
@@ -59,7 +48,7 @@ const Modal: React.FC = () => {
           />
         </div>
       </div>
-    </div>
+    </MaterialModal>
   );
 }
 
