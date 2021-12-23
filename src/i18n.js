@@ -51,7 +51,14 @@ const resources = {
             fourth_text: "Your assets",
             fifth_text: "1,3 cows",
           },
-      },
+        },
+        modal: {
+          cancel: 'Cancel',
+          submit: 'Submit',
+          field_visit_title: 'Field visit request',
+          field_visit_description: 'Please, complete your information and we will contact you in the next 48 hours.',
+          field_visit_submit: 'Request visit'
+        }
       }
     },
   },
@@ -104,6 +111,13 @@ const resources = {
             fifth_text: "1,3 vacas",
           },
         },
+      },
+      modal: {
+        cancel: 'Cancelar',
+        submit: 'Enviar',
+        field_visit_title: 'Solicitud de visita al campo',
+        field_visit_description: 'Por favor, completá tus datos y nos pondremos en contacto con vos en las proximas 48hs.',
+        field_visit_submit: 'Solicitar visita'
       }
     },
   },

@@ -1,12 +1,14 @@
-import * as React from "react";
+import React, {useContext} from "react";
 import {useTranslation} from "react-i18next";
 import Blog from "./Blog";
 import Button from "src/components/Buttons/Button";
 import {Link} from "react-router-dom";
 import { ReactSVG } from 'react-svg'
+import {ModalContext} from "src/contexts/ModalContext";
 
 const Footer: React.FC = () => {
   const { t } = useTranslation();
+  const {setModal} = useContext(ModalContext);
 
   const socialLinks: {name: string, url: string, icon: string}[] = [
     {name: 'Instagram', url: 'https://instagram.com', icon: 'icons/instagram.svg'},
@@ -23,8 +25,22 @@ const Footer: React.FC = () => {
       </div>
       <Blog />
       <div className="flex flex-col md:flex-col-reverse justify-center md:mb-4 px-6 bg-blue md:bg-transparent py-20 md:py-2">
-        <Button text={t("footer.about_us")} extraClasses="hidden md:block border-green text-green font-bold"/>
-        <Button text={t("footer.field_visit")} extraClasses="border-white md:border-green text-white md:text-green mb-4 font-bold self-center md:self-auto"/>
+        <Button
+          text={t("footer.about_us")}
+          extraClasses="hidden md:block border-green text-green font-bold"
+        />
+        <Button
+          text={t("footer.field_visit")}
+          extraClasses="border-white md:border-green text-white md:text-green mb-4 font-bold self-center md:self-auto"
+          onClick={() => setModal({
+            component: <div>Insert Form</div>,
+            props: {
+              title: t('modal.field_visit_title'),
+              description: t('modal.field_visit_description'),
+              submitButtonText: t('modal.field_visit_submit')
+            }
+          })}
+        />
 
         <a
           className="text-center text-white hover:underline cursor-pointer md:hidden"
@@ -40,7 +56,6 @@ const Footer: React.FC = () => {
             <Link
               key={key}
               to={socialLink.url}
-              rel="noreferrer"
               target="_blank"
               className="mx-4"
             >

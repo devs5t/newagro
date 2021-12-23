@@ -19,6 +19,8 @@ import routes from "./routes";
 import createTheme from "./theme";
 import Layout from "src/features/layouts/Layout";
 import "./index.css";
+import {ModalProvider} from "src/contexts/ModalContext";
+import Modal from "src/components/Modal";
 
 const jss = create({
   ...jssPreset(),
@@ -62,7 +64,10 @@ function App() {
           <StyledEngineProvider injectFirst>
             <MuiThemeProvider theme={createTheme(theme)}>
               <ThemeProvider theme={createTheme(theme)}>
-                <Layout>{content}</Layout>
+                <ModalProvider>
+                  <Layout>{content}</Layout>
+                  <Modal />
+                </ModalProvider>
               </ThemeProvider>
             </MuiThemeProvider>
           </StyledEngineProvider>

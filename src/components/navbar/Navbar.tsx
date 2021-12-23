@@ -69,7 +69,12 @@ const Navbar: React.FC = () => {
                 className="mr-2 cursor-pointer"
                 onClick={() => setSidebarOpen(false)}
               >
-                <ReactSVG src="icons/cross.svg"/>
+                <ReactSVG
+                  src="icons/cross.svg"
+                  beforeInjection={(svg) => {
+                    svg.classList.add('fill-white');
+                  }}
+                />
               </button>
             </div>
 
