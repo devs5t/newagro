@@ -89,7 +89,7 @@ const resources = {
           new_agro: {
             title: "New Agro cash generados",
             number: "546.129",
-            button_text: "Comprar Tokens"
+            button_text: "Comprar New Agro Tokens"
           },
           actives: {
             title: "Activos totales",
