@@ -13,29 +13,26 @@ const Banner = ({
 }: BannerProps): JSX.Element => {
 
   return (
-    <Wrapper
-      className="flex flex-column justify-content-md-evenly items-center"
-      style={{backgroundImage: `url(${image})`}}
+    <div
+      className="p-10 md:p-10 flex flex-column justify-content-md-evenly items-center"
+      style={{backgroundImage: `url(${image})`,
+        borderRadius: 12,
+        position: "relative",
+        backgroundPosition: "50%",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        justifyContent: "center",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
     >
       <Fade />
-      <h3 style={{fontSize: 48, zIndex: 2, marginBottom: 20}} className="text-white font-semibold">{title}</h3>
-      <h5 style={{fontSize: 24, zIndex: 2}} className="text-white">{subtitle}</h5>
-    </Wrapper>
+      <h3 className="z-10 text-white text-center mb-5 font-medium text-xl md:mb-2 md:mb-10 md:text-5xl">{title}</h3>
+      <h5 className="z-10 text-white text-center mx-3 text-sm md:font-light md:px-20 md:text-2xl">{subtitle}</h5>
+    </div>
   );
 }
 
-const Wrapper = styled.div`
-  border-radius: 12px;
-  height: 250px;
-  position: relative;
-  background-position: 50%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-`;
 
 const Fade = styled.div`
   background: linear-gradient(179.48deg, #253E89 0.45%, rgba(37, 62, 137, 0) 99.55%);
