@@ -22,9 +22,9 @@ const HomeCardColored: React.FC<HomeCardColoredProps> = ({
       <h3 className="text-blue font-medium text-center text-lg md:text-3xl">{title}</h3>
       <h2 className="text-green my-3 text-center font-bold text-3xl md:text-6xl" >{mainText}</h2>
       {!onClickButton ? (
-        <p className="text-md text-blue text-center px-5 my-4 md:px-10">{thirdText}</p>
+        <p className="text-md text-blue text-center px-5 md:my-4 md:px-10">{thirdText}</p>
       ) : (
-        <Button text={thirdText} onClick={onClickButton} extraClasses="bg-blue border-blue font-bold text-white px-4 py-4" />
+        <Button text={thirdText} onClick={onClickButton} extraClasses="md:my-4 bg-blue border-blue font-bold text-white px-4 py-4" />
       )}
     </div>
   );

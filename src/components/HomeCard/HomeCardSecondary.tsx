@@ -55,7 +55,7 @@ const HomeCardSecondary: React.FC<HomeCardSecondaryProps> = ({
           </div>
         </div>
         <div className="h-full w-3/6 flex flex-col justify-between md:px-7 p-4">
-          <Button text={buttonText} onClick={onClickButton} extraClasses="border-2 border-blue font-bold text-blue py-4 px-0"/>
+          <Button text={buttonText} onClick={onClickButton} extraClasses="w-full border-2 border-blue font-bold text-blue py-4 px-0"/>
         </div>
       </div>
     </div>

@@ -28,7 +28,7 @@ const HomeCard: React.FC<HomeCardProps> =
       </div>
       <div className={`h-full w-3/6 flex flex-col justify-between px-3 items-end`}>
         <h3 className="text-blue text-lg text-3xl mb-5 text-right md:text-5xl">{thirdText}</h3>
-        <Button text={buttonText} onClick={onClickButton} extraClasses="px-2 md:px-0 md:w-4/6 border-2 border-blue font-bold text-blue py-4 px-0" />
+        <Button text={buttonText} onClick={onClickButton} extraClasses="px-2 md:px-0 w-full border-2 border-blue font-bold text-blue py-4 px-0" />
       </div>
     </div>
   );
