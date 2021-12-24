@@ -5,6 +5,7 @@ import Button from "src/components/Buttons/Button";
 import {Link} from "react-router-dom";
 import { ReactSVG } from 'react-svg'
 import {ModalContext} from "src/contexts/ModalContext";
+import VisitFieldForm from "src/components/forms/VisitFieldForm";
 
 const Footer: React.FC = () => {
   const { t } = useTranslation();
@@ -33,12 +34,8 @@ const Footer: React.FC = () => {
           text={t("footer.field_visit")}
           extraClasses="border-white md:border-green text-white md:text-green mb-4 font-bold self-center md:self-auto"
           onClick={() => setModal({
-            component: <div>Insert Form</div>,
-            props: {
-              title: t('modal.field_visit_title'),
-              description: t('modal.field_visit_description'),
-              submitButtonText: t('modal.field_visit_submit')
-            }
+            component: VisitFieldForm,
+            title: t('field_visit_form.title')
           })}
         />
 

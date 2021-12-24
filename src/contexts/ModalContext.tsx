@@ -2,7 +2,7 @@ import React, {ReactNode, useState} from 'react';
 
 type ModalContextType = {
   modal?: {
-    props?: any,
+    title?: string,
     component?: any
   };
   setModal: (modal: any) => void;

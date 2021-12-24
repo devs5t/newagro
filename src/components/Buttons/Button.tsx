@@ -7,6 +7,7 @@ interface ButtonProps {
   onClick?: () => void | undefined;
   extraClasses?: string;
   linkTarget?: string;
+  type?: 'button' | 'submit' | 'reset'
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -14,13 +15,15 @@ const Button: React.FC<ButtonProps> = ({
   link,
   onClick = () => {},
   extraClasses,
-  linkTarget
+  linkTarget,
+  type = 'button'
 }) => {
   const Content = () => {
     return (
       <button
         className={`inline-block text-sm px-4 py-2 leading-none font-semibold border rounded-full ${extraClasses}`}
         onClick={onClick}
+        type={type}
       >
         {text}
       </button>

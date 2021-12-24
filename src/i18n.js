@@ -52,13 +52,19 @@ const resources = {
             fifth_text: "1,3 cows",
           },
         },
-        modal: {
-          cancel: 'Cancel',
-          submit: 'Submit',
-          field_visit_title: 'Field visit request',
-          field_visit_description: 'Please, complete your information and we will contact you in the next 48 hours.',
-          field_visit_submit: 'Request visit'
-        }
+      },
+      form: {
+        cancel: 'Cancel',
+        submit: 'Submit',
+      },
+      field_visit_form: {
+        name: 'Name',
+        lastname: 'Lastname',
+        mail: 'Mail',
+        tentative_date: 'Tentative date',
+        title: 'Field visit request',
+        description: 'Please, complete your information and we will contact you in the next 48 hours.',
+        submit: 'Request visit'
       }
     },
   },
@@ -112,12 +118,18 @@ const resources = {
           },
         },
       },
-      modal: {
+      form: {
         cancel: 'Cancelar',
         submit: 'Enviar',
-        field_visit_title: 'Solicitud de visita al campo',
-        field_visit_description: 'Por favor, completá tus datos y nos pondremos en contacto con vos en las proximas 48hs.',
-        field_visit_submit: 'Solicitar visita'
+      },
+      field_visit_form: {
+        name: 'Nombre',
+        lastname: 'Apellido',
+        mail: 'Mail',
+        tentative_date: 'Fecha tentativa',
+        title: 'Solicitud de visita al campo',
+        description: 'Por favor, completá tus datos y nos pondremos en contacto con vos en las proximas 48hs.',
+        submit: 'Solicitar visita'
       }
     },
   },
