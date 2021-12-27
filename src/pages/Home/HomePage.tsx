@@ -3,6 +3,7 @@ import Banner from "src/components/Banner/Banner";
 import HomeCardColored from "src/components/HomeCard/HomeCardColored";
 import HomeCard from "src/components/HomeCard/HomeCard";
 import HomeCardSecondary from "src/components/HomeCard/HomeCardSecondary";
+import TokenSelector from "src/components/TokenSelector/TokenSelector";
 
 const HomePage = () => {
   const { t } = useTranslation();
@@ -26,6 +27,9 @@ const HomePage = () => {
           mainText={t("home.card.actives.number")}
           thirdText={t("home.card.actives.third_text")}
         />
+      </div>
+      <div className="w-full justify-center flex my-8">
+        <TokenSelector />
       </div>
       <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-2 mt-8">
         <HomeCard
