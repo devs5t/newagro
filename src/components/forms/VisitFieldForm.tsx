@@ -1,10 +1,12 @@
-import React from "react";
+import React, {useContext} from "react";
 import {useTranslation} from "react-i18next";
 import Button from "src/components/Buttons/Button";
+import {ModalContext} from "src/contexts/ModalContext";
 
 const VisitFieldForm: React.FC = () => {
 
   const {t} = useTranslation();
+  const {setModal} = useContext(ModalContext);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -85,7 +87,8 @@ const VisitFieldForm: React.FC = () => {
         <Button
           text={t('form.cancel')}
           extraClasses="bg-white border-blue text-blue text-center h-8 text-xs uppercase"
-          type="reset"
+          type="button"
+          onClick={() => setModal(undefined)}
         />
         <Button
           text={t('field_visit_form.submit')}
