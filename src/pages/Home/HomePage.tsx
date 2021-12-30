@@ -4,6 +4,7 @@ import HomeCardColored from "src/components/HomeCard/HomeCardColored";
 import HomeCard from "src/components/HomeCard/HomeCard";
 import HomeCardSecondary from "src/components/HomeCard/HomeCardSecondary";
 import TokenSelector from "src/components/TokenSelector/TokenSelector";
+import Map from "src/components/Map/Map";
 
 const HomePage = () => {
   const { t } = useTranslation();
@@ -49,6 +50,13 @@ const HomePage = () => {
           fifthText={t("home.card.cows.fifth_text")}
           icon="icons/cow.svg"
         />
+      </div>
+
+      <div className="w-full flex flex-col mt-8 md:mb-10">
+        <h3 className="w-full text-center text-blue font-medium text-base md:text-lg my-2">Conocé la ubicación física del Tambo</h3>
+        <div className="w-full flex flex-col ">
+          <Map />
+        </div>
       </div>
     </div>
   );
