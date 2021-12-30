@@ -52,6 +52,10 @@ const resources = {
             fifth_text: "1,3 cows",
           },
         },
+        map: {
+          title: "Know the physical location of the Tambo",
+          location: "Tandil, Buenos Aires"
+        },
       },
       form: {
         cancel: 'Cancel',
@@ -117,6 +121,10 @@ const resources = {
             fifth_text: "1,3 vacas",
           },
         },
+        map: {
+          title: "Conocé la ubicación física del Tambo",
+          location: "Tandil, Buenos Aires"
+        }
       },
       form: {
         cancel: 'Cancelar',

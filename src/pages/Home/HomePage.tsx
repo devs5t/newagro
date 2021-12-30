@@ -53,7 +53,7 @@ const HomePage = () => {
       </div>
 
       <div className="w-full flex flex-col mt-8 md:mb-10">
-        <h3 className="w-full text-center text-blue font-medium text-base md:text-lg my-2">Conocé la ubicación física del Tambo</h3>
+        <h3 className="w-full text-center text-blue font-medium text-base md:text-lg my-2">{t('home.map.title')}</h3>
         <div className="w-full flex flex-col ">
           <Map />
         </div>
