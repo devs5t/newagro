@@ -69,7 +69,25 @@ const resources = {
         title: 'Field visit request',
         description: 'Please, complete your information and we will contact you in the next 48 hours.',
         submit: 'Request visit'
-      }
+      },
+      investment: {
+        text: "*Remember that in order to receive your earnings it is necessary that you have your Tokens deposited",
+        card_milk: {
+          title: "New Milk (NMILK)",
+          subtitle: "TNA / APR 50%",
+          buy: "Buy",
+        },
+        card_beef: {
+          title: "New Beef (NBEEF)",
+          subtitle: "TNA / APR 50%",
+          buy: "Buy",
+        },
+        card_land: {
+          title: "New LAND (NLAND)",
+          subtitle: "TNA / APR 50%",
+          buy: "Buy",
+        },
+      },
     },
   },
   es: {
@@ -138,7 +156,25 @@ const resources = {
         title: 'Solicitud de visita al campo',
         description: 'Por favor, completá tus datos y nos pondremos en contacto con vos en las proximas 48hs.',
         submit: 'Solicitar visita'
-      }
+      },
+      investment: {
+        text: "*Recordá que para poder recibir tus ganancias es necesario que tengas tus Tokens depositados",
+        card_milk: {
+          title: "New Milk (NMILK)",
+          subtitle: "TNA / APR 50%",
+          buy: "Comprar",
+        },
+        card_beef: {
+          title: "New Beef (NBEEF)",
+          subtitle: "TNA / APR 50%",
+          buy: "Comprar",
+        },
+        card_land: {
+          title: "New LAND (NLAND)",
+          subtitle: "TNA / APR 50%",
+          buy: "Comprar",
+        },
+      },
     },
   },
 };

@@ -1,7 +1,7 @@
 import async from "./components/Async";
 import HomePage from "src/pages/Home/HomePage";
 
-const Page1 = async(() => import("src/pages/Page1/Page1"));
+const Investment = async(() => import("src/pages/Investment/Investment"));
 const Page2 = async(() => import("src/pages/Page2/Page2"));
 const Page3 = async(() => import("src/pages/Page3/Page3"));
 
@@ -11,8 +11,8 @@ const routes = [
     element: <HomePage />,
   },
   {
-    path: "page1",
-    element: <Page1 />,
+    path: "investment",
+    element: <Investment />,
   },
   {
     path: "page2",
