@@ -16,6 +16,7 @@ const Investment = () => {
         image={'images/photos/bg_nmilk.jpeg'}
       />
       <br/>
+      <br/>
       <InvestCard
         title={t('investment.card_beef.title')}
         subtitle={t('investment.card_beef.subtitle')}
@@ -25,6 +26,7 @@ const Investment = () => {
         image={'images/photos/bg_nbeef.jpeg'}
         containerClasses={"opacity-50"}
       />
+      <br/>
       <br/>
       <InvestCard
         title={t('investment.card_land.title')}
