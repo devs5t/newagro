@@ -3,20 +3,35 @@ import {useTranslation} from "react-i18next";
 import Button from "src/components/Buttons/Button";
 import {ModalContext} from "src/contexts/ModalContext";
 import Textfield from "src/components/Inputs/Textfield";
+import DoneIcon from '@mui/icons-material/Done';
 
 const VisitFieldForm: React.FC = () => {
 
   const {t} = useTranslation();
   const {setModal} = useContext(ModalContext);
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  }
-
   const [name, setName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [date, setDate] = useState<string>('');
+  const [formSent, setFormSent] = useState<boolean>(false);
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    setFormSent(true);
+    e.preventDefault();
+  }
+
+  if (formSent) {
+    return (
+      <div className="flex h-84 justify-center items-center flex-col pt-10 pb-20">
+        <div className="w-24 h-24 rounded-full bg-green/[0.3] flex justify-center items-center mb-6">
+          <DoneIcon className="fill-green h-12 w-12 m-auto"/>
+        </div>
+        <h3 className="text-blue text-lg text-center font-bold mb-4">{t("field_visit_form.successfully_sent_title")}</h3>
+        <p className="text-blue text-sm text-center">{t("field_visit_form.successfully_sent_description")}</p>
+      </div>
+    )
+  }
 
   return (
     <form className="w-full px-10" onSubmit={onSubmit}>

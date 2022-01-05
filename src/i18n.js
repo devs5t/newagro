@@ -68,7 +68,9 @@ const resources = {
         tentative_date: 'Tentative date',
         title: 'Field visit request',
         description: 'Please, complete your information and we will contact you in the next 48 hours.',
-        submit: 'Request visit'
+        submit: 'Request visit',
+        successfully_sent_title: 'Request sent successfully',
+        successfully_sent_description: 'We will contact you in the next 48 hours to confirm the visit'
       },
       investment: {
         text: "*Remember that in order to receive your earnings it is necessary that you have your Tokens deposited",
@@ -155,7 +157,9 @@ const resources = {
         tentative_date: 'Fecha tentativa',
         title: 'Solicitud de visita al campo',
         description: 'Por favor, completá tus datos y nos pondremos en contacto con vos en las proximas 48hs.',
-        submit: 'Solicitar visita'
+        submit: 'Solicitar visita',
+        successfully_sent_title: 'Solicitud enviado con éxito',
+        successfully_sent_description: 'Nos pondremos en contacto con vos en las próximas 48 hs para confirmar la visita'
       },
       investment: {
         text: "*Recordá que para poder recibir tus ganancias es necesario que tengas tus Tokens depositados",

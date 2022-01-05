@@ -2,7 +2,6 @@ import React, {useContext} from "react";
 import {useTranslation} from "react-i18next";
 import Blog from "./Blog";
 import Button from "src/components/Buttons/Button";
-import {Link} from "react-router-dom";
 import { ReactSVG } from 'react-svg'
 import {ModalContext} from "src/contexts/ModalContext";
 import VisitFieldForm from "src/components/forms/VisitFieldForm";
