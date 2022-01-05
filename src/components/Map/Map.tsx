@@ -14,6 +14,7 @@ const Map : React.FC = () => {
         <ReactSVG
           src="icons/marker.svg"
           beforeInjection={(svg) => {
+            svg.classList.add('fill-white');
             svg.classList.add('text-sm');
             svg.classList.add('md:text-lg');
           }}
@@ -37,6 +38,7 @@ const Map : React.FC = () => {
           <ReactSVG
             src="icons/marker.svg"
             beforeInjection={(svg) => {
+              svg.classList.add('fill-white');
               svg.classList.add('text-sm');
               svg.classList.add('md:text-lg');
             }}
