@@ -50,10 +50,11 @@ const Footer: React.FC = () => {
 
         <div className="flex justify-center mt-8 md:mt-0 md:mb-8">
           {socialLinks.map((socialLink, key) => (
-            <Link
+            <a
               key={key}
-              to={socialLink.url}
+              href={socialLink.url}
               target="_blank"
+              rel="noreferrer"
               className="mx-4"
             >
               <ReactSVG
@@ -63,7 +64,7 @@ const Footer: React.FC = () => {
                   svg.classList.add('md:fill-green');
                 }}
               />
-            </Link>
+            </a>
           ))}
         </div>
       </div>
