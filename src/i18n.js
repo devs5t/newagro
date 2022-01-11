@@ -89,6 +89,14 @@ const resources = {
           subtitle: "TNA / APR 50%",
           buy: "Buy",
         },
+        rentability: {
+          title1: "Milking cows",
+          title2: "Your field",
+          description: 'Each real Milking Cow is equivalent to 5,500 “New Milk” Tokens',
+          subtitle1: "Profitability",
+          subtitle2: "Historical earnings:",
+          currentBalance: "Your assets"
+        },
       },
     },
   },
@@ -177,6 +185,14 @@ const resources = {
           title: "New LAND (NLAND)",
           subtitle: "TNA / APR 50%",
           buy: "Comprar",
+        },
+        rentability: {
+          title1: "Vacas de ordeñe",
+          title2: "Tu campo",
+          description: 'Cada Vaca de Ordeñe real, equivale a 5.500 Tokens “New Milk”',
+          subtitle1: "Rentabilidad",
+          subtitle2: "Ganancias históricas:",
+          currentBalance: "Tus activos"
         },
       },
     },

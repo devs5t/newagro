@@ -1,4 +1,5 @@
 import InvestCard from "src/components/HomeCard/InvestCard";
+import RentabilityCard from "src/components/HomeCard/RentabilityCard";
 import {useTranslation} from "react-i18next";
 
 const Investment = () => {
@@ -36,6 +37,17 @@ const Investment = () => {
         earn={"0000"}
         image={'images/photos/bg_nland.jpeg'}
         containerClasses={"opacity-50"}
+      />
+      <br/>
+      <br/>
+      <RentabilityCard
+        title1={t('investment.rentability.title1')}
+        title2={t('investment.rentability.title2')}
+        subtitle1={t('investment.rentability.subtitle1')}
+        subtitle2={t('investment.rentability.subtitle2')}
+        description={t("investment.rentability.description")}
+        currentBalance={t('investment.rentability.currentBalance')}
+        icon="icons/cow.svg"
       />
     </div>
   );
