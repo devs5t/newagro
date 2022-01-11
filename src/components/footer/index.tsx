@@ -18,7 +18,7 @@ const Footer: React.FC = () => {
   ]
 
   return (
-    <div className="w-full md:max-w-xs">
+    <div className="w-full md:max-w-xs md:border-l-2 md:border-grey">
       <div className="flex flex-col justify-center items-center h-64 border-b-2 border-grey">
         <p className="uppercase font-medium text-xl	text-blue">{t('footer.exchange_rate')}</p>
         <p className="uppercase font-black mt-2 text-2xl text-blue">1 USD = 200 NAC</p>
