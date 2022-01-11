@@ -1,8 +1,9 @@
+import React from "react";
 import InvestCard from "src/components/HomeCard/InvestCard";
 import RentabilityCard from "src/components/HomeCard/RentabilityCard";
 import {useTranslation} from "react-i18next";
 
-const Investment = () => {
+const Investment: React.FC = () => {
   const { t } = useTranslation();
 
   return (

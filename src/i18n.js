@@ -98,6 +98,16 @@ const resources = {
           currentBalance: "Your assets"
         },
       },
+      exchange: {
+        tab_buy: 'Buy',
+        tab_sell: 'Sell',
+        helper_buy: '* Deposit your tokens to receive the investment',
+        helper_sell: '* Keep in mind that selling your tokens is not instantaneous, since the transaction is made when there is a buyer for them',
+        from: 'From',
+        to: 'To',
+        amount: 'Amount',
+        price: 'Price',
+      },
     },
   },
   es: {
@@ -194,6 +204,16 @@ const resources = {
           subtitle2: "Ganancias históricas:",
           currentBalance: "Tus activos"
         },
+      },
+      exchange: {
+        tab_buy: 'Comprar',
+        tab_sell: 'Vender',
+        helper_buy: '* Depositá tus tokens para recibir la inversion',
+        helper_sell: '* Tené en cuenta que vender tus tokens no es instantaneo, ya que la oparacion se efectua cuando haya un comprador para los mismos',
+        from: 'De',
+        to: 'A',
+        amount: 'Cantidad',
+        price: 'Precio',
       },
     },
   },

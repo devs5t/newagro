@@ -1,3 +1,4 @@
+import React from "react";
 import { useTranslation } from "react-i18next";
 import Banner from "src/components/Banner/Banner";
 import HomeCardColored from "src/components/HomeCard/HomeCardColored";
@@ -6,7 +7,7 @@ import HomeCardSecondary from "src/components/HomeCard/HomeCardSecondary";
 import TokenSelector from "src/components/TokenSelector/TokenSelector";
 import Map from "src/components/Map/Map";
 
-const HomePage = () => {
+const Home: React.FC = () => {
   const { t } = useTranslation();
 
   return (
@@ -62,4 +63,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Home;
