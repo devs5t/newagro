@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { useTranslation } from "react-i18next";
 import Textfield from "src/components/Inputs/Textfield";
+import Tabs from "src/components/tabs/Tabs";
 
 const Exchange: React.FC = () => {
   const { t } = useTranslation();
@@ -11,17 +12,14 @@ const Exchange: React.FC = () => {
   return (
     <div className="flex justify-center">
       <div className="flex flex-col w-full items-center w-full max-w-3xl">
-        <div className="flex flex-row w-64 h-12 border-2 border-green/[.5] rounded-lg justify-around md: mt-10">
-          {['buy', 'sell'].map((tab: any, index: number) => (
-            <div
-              className={`flex w-full h-12 -m-[2px] justify-center items-center rounded-lg text-center text-lg font-semibold cursor-pointer ${selectedTab === tab ? 'text-white bg-green' : 'text-green/[.5]'}`}
-              key={index}
-              onClick={() => setSelectedTab(tab)}
-            >
-              {t(`exchange.tab_${tab}`)}
-            </div>
-          ))}
-        </div>
+
+        <Tabs
+          tabs={[
+            {name: t(`exchange.tab_buy`), selected: selectedTab === "buy", onClick: () => setSelectedTab("buy")},
+            {name: t(`exchange.tab_sell`), selected: selectedTab === "sell", onClick: () => setSelectedTab("buy")}
+          ]}
+          containerClass="w-64 md:mt-10"
+        />
 
         <div className="flex flex-col w-full mt-24">
           <p className="text-blue text-left">{t(`exchange.helper_${selectedTab}`)}</p>

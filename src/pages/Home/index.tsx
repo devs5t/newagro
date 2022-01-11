@@ -4,8 +4,8 @@ import Banner from "src/components/Banner/Banner";
 import HomeCardColored from "src/components/HomeCard/HomeCardColored";
 import HomeCard from "src/components/HomeCard/HomeCard";
 import HomeCardSecondary from "src/components/HomeCard/HomeCardSecondary";
-import TokenSelector from "src/components/TokenSelector/TokenSelector";
 import Map from "src/components/Map/Map";
+import Tabs from "src/components/tabs/Tabs";
 
 const Home: React.FC = () => {
   const { t } = useTranslation();
@@ -31,7 +31,14 @@ const Home: React.FC = () => {
         />
       </div>
       <div className="w-full justify-center flex my-8">
-        <TokenSelector />
+        <Tabs
+          tabs={[
+            {name: 'New Milk', selected: true},
+            {name: 'New Beef', disabled: true},
+            {name: 'New Land', disabled: true}
+          ]}
+          containerClass="max-w-xl"
+        />
       </div>
       <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-2 mt-8">
         <HomeCard
