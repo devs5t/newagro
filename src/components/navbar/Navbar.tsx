@@ -81,6 +81,7 @@ const Navbar: React.FC = () => {
             <div className="flex flex-col justify-center mt-8">
               {links.map((link, index) => (
                 <NavLink
+                  onClick={() => setSidebarOpen(false)}
                   to={link.path}
                   className={({ isActive }) => `block text-white text-center uppercase text-md my-4 font-bold ${
                     isActive ? 'underline underline-offset-8 decoration-green decoration-4' : ''
