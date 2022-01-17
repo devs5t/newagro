@@ -1,10 +1,11 @@
-import React, {useContext} from "react";
+import React, {useContext, useMemo} from "react";
 import {useTranslation} from "react-i18next";
 import Blog from "./Blog";
 import Button from "src/components/Buttons/Button";
 import { ReactSVG } from 'react-svg'
 import {ModalContext} from "src/contexts/ModalContext";
 import VisitFieldForm from "src/components/forms/VisitFieldForm";
+import {useLocation} from "react-router-dom";
 
 const Footer: React.FC = () => {
   const { t } = useTranslation();
@@ -15,15 +16,31 @@ const Footer: React.FC = () => {
     {name: 'Twitter', url: 'https://twitter.com', icon: 'icons/twitter.svg'},
     {name: 'Medium', url: 'https://medium.com', icon: 'icons/medium.svg'},
     {name: 'Telegram', url: 'https://telegram.com', icon: 'icons/telegram.svg'}
-  ]
+  ];
+
+  const location = useLocation();
+
+  const isInHome: boolean = useMemo(() => {
+    const supportedPaths: string[] = ['home'];
+    for (const supportedPath of supportedPaths) {
+      if (location.pathname.includes(supportedPath)) {
+        return true
+      }
+    }
+    return false;
+  }, [location.pathname]);
 
   return (
-    <div className="w-full md:max-w-xs md:border-l-2 md:border-grey">
-      <div className="flex flex-col justify-center items-center h-64 border-b-2 border-grey">
+    <div className={`w-full md:max-w-xs md:border-l-2 md:border-grey ${!isInHome ? 'md:hidden' : ''}`}>
+      <div className="hidden md:flex flex-col justify-center items-center h-64 border-b-2 border-grey">
         <p className="uppercase font-medium text-xl	text-blue">{t('footer.exchange_rate')}</p>
         <p className="uppercase font-black mt-2 text-2xl text-blue">1 USD = 200 NAC</p>
       </div>
-      <Blog />
+
+      {isInHome && (
+        <Blog />
+      )}
+
       <div className="flex flex-col md:flex-col-reverse justify-center md:mb-4 px-6 bg-blue md:bg-transparent py-20 md:py-2">
         <Button
           text={t("footer.about_us")}
