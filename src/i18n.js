@@ -109,6 +109,7 @@ const resources = {
         to: 'To',
         amount: 'Amount',
         price: 'Price',
+        suggested_price: 'Suggested price',
         button_buy: 'Buy',
         button_sell: 'Sell'
       },
@@ -220,8 +221,9 @@ const resources = {
         to: 'A',
         amount: 'Cantidad',
         price: 'Precio',
+        suggested_price: 'Precio sugerido',
         button_buy: 'Comprar',
-        button_sell: 'Vender'
+        button_sell: 'Vender',
       },
     },
   },
