@@ -14,7 +14,7 @@ const Navbar: React.FC = () => {
     {path: '/investment', name: t('navbar.investment')},
     {path: '/exchange', name: t('navbar.exchange')},
     {path: '/docs', name: t('navbar.docs')},
-    {path: '/news', name: t('navbar.news')}
+    {path: '/admin', name: t('navbar.admin')}
   ];
 
   return (
