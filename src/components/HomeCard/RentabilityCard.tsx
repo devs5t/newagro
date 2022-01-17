@@ -25,7 +25,7 @@ const RentabilityCard: React.FC<RentabilityCardProps> =
 }) => {
 
   return (
-    <div className={`min-h-280 flex flex-col items-center w-full rounded-lg border-green border-2 shadow ${containerClasses}`}>
+    <div className={`flex flex-col items-center w-full rounded-lg border-green border-2 shadow ${containerClasses}`}>
       <div className={`w-full flex flex-col px-10 py-5 border-b-green border-b-2 border-green`}>
         <h3 className="text-blue font-bold text-lg">{title1}</h3>
         <p className="text-blue text-3xl mb-3">500</p>
