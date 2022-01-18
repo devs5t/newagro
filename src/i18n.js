@@ -272,7 +272,7 @@ const resources = {
           card4_title: "Listado de caravanas",
           card4_subtitle: "756 Listados",
         }
-      }
+      },
       deposit_token_form: {
         deposit: 'Depositar',
         amount: 'Cantidad',
