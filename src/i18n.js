@@ -113,6 +113,26 @@ const resources = {
         button_buy: 'Buy',
         button_sell: 'Sell',
       },
+      docs: {
+        banner: {
+          title: "Transparency New Agro",
+          subtitle: "Know the documentation of your assets",
+        },
+        buttons: {
+          doc_tech: "Technical Documentation",
+          page_inst: "Institutional Page",
+        },
+        cards: {
+          card1_title: "Milk delivery remittance",
+          card1_subtitle: "566 Remittance",
+          see_docs: "SEE DOCUMENTATION",
+          card2_title: "Georeference",
+          card3_title: "Live Camera",
+          card3_subtitle: "4 live cameras",
+          card4_title: "Caravan Listing",
+          card4_subtitle: "756 Listings",
+        }
+      },
       deposit_token_form: {
         deposit: 'Deposit',
         amount: 'Amount',
@@ -233,6 +253,26 @@ const resources = {
         button_buy: 'Comprar',
         button_sell: 'Vender',
       },
+      docs: {
+        banner: {
+          title: "Transparencia New Agro",
+          subtitle: "Conocé la documentación de tus activos",
+        },
+        buttons: {
+          doc_tech: "Documentación técnica",
+          page_inst: "Página Institucional",
+        },
+        cards: {
+          card1_title: "Remito de salida de Leche",
+          card1_subtitle: "566 Remitos",
+          see_docs: "VER DOCUMENTACIÓN",
+          card2_title: "Georeferencia",
+          card3_title: "Camara en vivo",
+          card3_subtitle: "4 camaras en vivo",
+          card4_title: "Listado de caravanas",
+          card4_subtitle: "756 Listados",
+        }
+      }
       deposit_token_form: {
         deposit: 'Depositar',
         amount: 'Cantidad',

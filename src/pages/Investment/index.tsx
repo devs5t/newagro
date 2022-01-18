@@ -8,7 +8,7 @@ const Investment: React.FC = () => {
 
   return (
     <div className="xl:p-10 xl:grid xl:grid-cols-4 xl:gap-4">
-      <div className="col-span-3 px-5 py-5 md:px-20 md:py-8 flex-3">
+      <div className="col-span-3 px-5 py-5 lg:px-20 md:py-8 flex-3">
         <h3 className="text-blue text-center mb-10 text-xs md:text-lg md:mb-5">{t('investment.text')}</h3>
         <InvestCard
           title={t('investment.card_milk.title')}

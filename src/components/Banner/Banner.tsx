@@ -4,17 +4,19 @@ type BannerProps =  {
   title: string;
   subtitle: string;
   image: string;
+  containerClasses?: string;
 };
 
 const Banner = ({
     title,
     subtitle,
-    image
+    image,
+    containerClasses,
 }: BannerProps): JSX.Element => {
 
   return (
     <div
-      className="p-10 md:p-10 flex flex-column justify-content-md-evenly items-center"
+      className={`flex flex-column justify-content-md-evenly items-center ${containerClasses}`}
       style={{backgroundImage: `url(${image})`,
         borderRadius: 12,
         position: "relative",

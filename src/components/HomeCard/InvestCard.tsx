@@ -49,12 +49,12 @@ const InvestCard: React.FC<InvestCardProps> = ({
       <div className={"grid grid-cols-2 gap-2 mt-5 w-full md:mt-0"}>
         <div className="border-2 border-green/[.5] rounded-lg w-full">
           <h3 className="py-1 text-green font-bold text-center text-xs border-b-green/[.5] border-b-2 border-green md:text-xl">{upperCase(token)} - Depositado</h3>
-          <p className="text-3xl text-green text-center mt-2 xl:text-6xl md:mt-0">{deposit}</p>
+          <p className="text-3xl 2xl:text-6xl xl:text-4xl lg:text-3xl text-green text-center mt-2 md:mt-0">{deposit}</p>
           <p className="text-xs font-medium text-blue text-center mb-2 md:text-base">(1,3 vacas)</p>
         </div>
         <div className="border-2 border-green/[.5] rounded-lg w-full">
           <h3 className="py-1 text-green font-bold text-center text-xs border-b-green/[.5] border-b-2 border-green md:text-xl md:px-4">NAC - Ganancias</h3>
-          <p className="text-3xl text-green text-center mt-2 xl:text-6xl md:mt-0">{earn}</p>
+          <p className="text-3xl 2xl:text-6xl xl:text-4xl lg:text-3xl text-green text-center mt-2 md:mt-0">{earn}</p>
           <p className="text-xs font-medium text-blue text-center mb-2 md:text-base">(1,2 vacas)</p>
         </div>
       </div>

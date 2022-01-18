@@ -1,6 +1,7 @@
 import HomePage from "src/pages/Home";
 import Investment from "src/pages/Investment";
 import Exchange from "src/pages/Exchange";
+import Documentation from "src/pages/Documentation";
 
 const routes = [
   {
@@ -14,6 +15,10 @@ const routes = [
   {
     path: "exchange",
     element: <Exchange />,
+  },
+  {
+    path: "docs",
+    element: <Documentation />,
   },
 ];
 
