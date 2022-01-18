@@ -111,8 +111,15 @@ const resources = {
         price: 'Price',
         suggested_price: 'Suggested price',
         button_buy: 'Buy',
-        button_sell: 'Sell'
+        button_sell: 'Sell',
       },
+      deposit_token_form: {
+        deposit: 'Deposit',
+        amount: 'Amount',
+        available: 'available',
+        cancel: 'Cancel',
+        warning_description: 'Are you sure you want to withdraw your Tokens {{token}}?\n By removing them, you will stop generating profits to have them.'
+      }
     },
   },
   es: {
@@ -172,6 +179,7 @@ const resources = {
       form: {
         cancel: 'Cancelar',
         submit: 'Enviar',
+        warning: 'Advertencia'
       },
       field_visit_form: {
         name: 'Nombre',
@@ -225,6 +233,13 @@ const resources = {
         button_buy: 'Comprar',
         button_sell: 'Vender',
       },
+      deposit_token_form: {
+        deposit: 'Depositar',
+        amount: 'Cantidad',
+        available: 'disponibles',
+        cancel: 'Cancelar',
+        warning_description: '¿Estás seguro de que querés retirar tus Tokens {{token}}? \n Al sacarlos, dejarás de generar ganancias para tenerlos.'
+      }
     },
   },
 };

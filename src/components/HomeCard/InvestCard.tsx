@@ -1,12 +1,15 @@
-import React from "react";
+import React, {useContext} from "react";
 import Button from '../Buttons/Button';
 import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next";
+import {ModalContext} from "src/contexts/ModalContext";
+import DepositTokenForm from "src/components/forms/DepositTokenForm";
+import {upperCase} from "lodash";
 
 interface InvestCardProps {
   title: string;
   subtitle: string;
-  token: string;
+  token: 'nmilk' | 'nbeef' | 'nland';
   containerClasses?: string;
   image: string;
   deposit: string;
@@ -23,6 +26,7 @@ const InvestCard: React.FC<InvestCardProps> = ({
  earn
 }) => {
   const { t } = useTranslation();
+  const {setModal} = useContext(ModalContext);
 
   return (
     <div className={`flex flex-col md:flex-row  w-full rounded-lg bg-lightblue/[.15] py-8 px-5 shadow relative  ${containerClasses}`}>
@@ -32,12 +36,19 @@ const InvestCard: React.FC<InvestCardProps> = ({
         <h3 className="text-blue font-bold text-left text-lg md:text-4xl">{title}</h3>
         <h2 className="text-blue font-bold text-left font-bold md:text-3xl">{subtitle}</h2>
         <Link className="absolute bottom-0 right-0 md:relative" to={`/purchase?token=${token}`} target={'_self'}>
-          <span className="text-blue text-xs underline md:text-xl">{t('investment.card_beef.buy')} {token}</span>
+          <span className="text-blue text-xs underline md:text-xl">{t('investment.card_beef.buy')} {upperCase(token)}</span>
         </Link>
+        <Button
+          text="test modal"
+          onClick={() => setModal({
+            component: () => DepositTokenForm({token}),
+            title: `${t('deposit_token_form.deposit')} ${upperCase(token)}`
+          })}
+        />
       </div>
       <div className={"grid grid-cols-2 gap-2 mt-5 w-full md:mt-0"}>
         <div className="border-2 border-green/[.5] rounded-lg w-full">
-          <h3 className="py-1 text-green font-bold text-center text-xs border-b-green/[.5] border-b-2 border-green md:text-xl">{token} - Depositado</h3>
+          <h3 className="py-1 text-green font-bold text-center text-xs border-b-green/[.5] border-b-2 border-green md:text-xl">{upperCase(token)} - Depositado</h3>
           <p className="text-3xl text-green text-center mt-2 xl:text-6xl md:mt-0">{deposit}</p>
           <p className="text-xs font-medium text-blue text-center mb-2 md:text-base">(1,3 vacas)</p>
         </div>

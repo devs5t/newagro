@@ -13,7 +13,7 @@ const Investment: React.FC = () => {
         <InvestCard
           title={t('investment.card_milk.title')}
           subtitle={t('investment.card_milk.subtitle')}
-          token={"NMILK"}
+          token={"nmilk"}
           deposit={"5.567"}
           earn={"3.560"}
           image={'images/photos/bg_nmilk.jpeg'}
@@ -23,7 +23,7 @@ const Investment: React.FC = () => {
         <InvestCard
           title={t('investment.card_beef.title')}
           subtitle={t('investment.card_beef.subtitle')}
-          token={"NBEEF"}
+          token={"nbeef"}
           deposit={"0000"}
           earn={"0000"}
           image={'images/photos/bg_nbeef.jpeg'}
@@ -34,7 +34,7 @@ const Investment: React.FC = () => {
         <InvestCard
           title={t('investment.card_land.title')}
           subtitle={t('investment.card_land.subtitle')}
-          token={"NLAND"}
+          token={"nland"}
           deposit={"5.567"}
           earn={"0000"}
           image={'images/photos/bg_nland.jpeg'}
