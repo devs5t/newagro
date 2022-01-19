@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import Button from '../Buttons/Button';
 import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next";
@@ -27,12 +27,13 @@ const InvestCard: React.FC<InvestCardProps> = ({
 }) => {
   const { t } = useTranslation();
   const {setModal} = useContext(ModalContext);
+  const [open, setOpen] = useState(false);
 
   return (
-    <div className={`flex flex-col md:flex-row  w-full rounded-lg bg-lightblue/[.15] py-8 px-5 shadow relative  ${containerClasses}`}>
+    <div className={`flex flex-col md:flex-row  w-full rounded-lg bg-lightblue/[.15] py-8 px-5 shadow relative grid grid-cols-1 md:grid-cols-2 ${containerClasses}`} onClick={() => setOpen(!open)}>
       <div style={{backgroundImage: `url(${image})`}} className="absolute rounded-full -top-6 -right-2 right-0 h-24 w-24 bg-center bg-cover opacity-75 md:h-44 md:w-44
        md:top-1/2 md:transform md:-translate-y-1/2 md:-left-16"/>
-      <div className="w-full mt-5 relative md:ml-32 md:mt-0">
+      <div className="w-full mt-5 relative md:pl-32 md:mt-0">
         <h3 className="text-blue font-bold text-left text-lg md:text-4xl">{title}</h3>
         <h2 className="text-blue font-bold text-left font-bold md:text-3xl">{subtitle}</h2>
         <Link className="absolute bottom-0 right-0 md:relative" to={`/purchase?token=${token}`} target={'_self'}>
@@ -58,6 +59,37 @@ const InvestCard: React.FC<InvestCardProps> = ({
           <p className="text-xs font-medium text-blue text-center mb-2 md:text-base">(1,2 vacas)</p>
         </div>
       </div>
+        {open &&
+          <div className="mt-4 w-full md:pl-32">
+            <a className="w-full underline text-blue font-bold pointer">
+                <p className="w-full underline text-blue font-bold">{t('investment.watch_cams')}</p>
+            </a>
+          </div>
+        }
+        {open &&
+        <div className={"grid grid-cols-2 gap-2 mt-5 w-full mt-5"}>
+          <Button text={t('investment.deposit_buy')}
+              extraClasses="px-2 md:px-0 w-full border-2 border-blue font-bold text-blue py-2 px-0"/>
+          <Button text={`${t('investment.retire')} NAC`}
+              extraClasses="px-2 md:px-0 w-full border-2 border-blue font-bold text-blue py-2 px-0"/>
+          <Button text={`${t('investment.retire')} ${token}`}
+              extraClasses="px-2 md:px-0 w-full border-2 border-blue font-bold text-blue py-2 px-0"/>
+          <Button text={`${t('investment.reinvest')} NAC`}
+              extraClasses="px-2 md:px-0 w-full border-2 border-blue font-bold text-blue py-2 px-0"/>
+        </div>
+        }
+
+      {open &&
+      <div className="mt-6  w-full md:pl-32">
+          <p className="w-full text-blue text-xs">Acá va a ir más info desplegada para el inversor desconocido / usuarios nuevos</p>
+      </div>
+      }
+      {open &&
+      <div className={"rounded-lg border-2 border-green bg-blue/[.10] w-full mt-5 p-2"}>
+          <h4 className="text-blue text-center font-bold text-lg">{t('investment.card_milk.actives')}</h4>
+          <p className="text-center text-blue text-2xl">USD 100.345</p>
+      </div>
+      }
     </div>
   );
 }

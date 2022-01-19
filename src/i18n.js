@@ -74,10 +74,15 @@ const resources = {
       },
       investment: {
         text: "*Remember that in order to receive your earnings it is necessary that you have your Tokens deposited",
+        watch_cams: "Watch live cameras",
+        deposit_buy: "Deposit / Buy",
+        retire: "Retire",
+        reinvest: "Reinvest",
         card_milk: {
           title: "New Milk (NMILK)",
           subtitle: "TNA / APR 50%",
           buy: "Buy",
+          actives: "Your total NMILK actives",
         },
         card_beef: {
           title: "New Beef (NBEEF)",
@@ -214,10 +219,15 @@ const resources = {
       },
       investment: {
         text: "*Recordá que para poder recibir tus ganancias es necesario que tengas tus Tokens depositados",
+        watch_cams: "Ver camaras en vivo",
+        deposit_buy: "Depositar / Comprar",
+        retire: "Retirar",
+        reinvest: "Reinvertir",
         card_milk: {
           title: "New Milk (NMILK)",
           subtitle: "TNA / APR 50%",
           buy: "Comprar",
+          actives: "Tus Activos NMILK Totales",
         },
         card_beef: {
           title: "New Beef (NBEEF)",
