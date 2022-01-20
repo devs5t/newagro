@@ -26,12 +26,13 @@ const DocumentationCard: React.FC<DocumentationCardProps> = ({
       <div className="w-1/2 flex flex-col">
         <a className="text-sm w-full font-bold text-blue text-right underline" href={link} >{linkText}</a>
         <ReactSVG
-          src={"icons/arrow-right.svg"}
+          src={"icons/arrow.svg"}
           beforeInjection={(svg) => {
             svg.classList.add('fill-blue');
-            svg.classList.add('text-lg');
+            svg.classList.add('w-4');
             svg.classList.add('float-right');
             svg.classList.add('mt-4');
+            svg.classList.add('-rotate-90');
           }}
         />
       </div>

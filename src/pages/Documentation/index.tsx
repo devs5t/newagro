@@ -30,6 +30,7 @@ const Documentation: React.FC = () => {
               svg.classList.add('text-tiny');
               svg.classList.add('lg:w-4');
               svg.classList.add('lg:h-4');
+              svg.classList.add('-rotate-[135deg]');
             }}
           />
         </a>
@@ -46,6 +47,7 @@ const Documentation: React.FC = () => {
               svg.classList.add('text-tiny');
               svg.classList.add('lg:w-4');
               svg.classList.add('lg:h-4');
+              svg.classList.add('-rotate-[135deg]');
             }}
           />
         </a>
