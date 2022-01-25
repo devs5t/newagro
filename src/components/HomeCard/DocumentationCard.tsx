@@ -26,8 +26,8 @@ const DocumentationCard: React.FC<DocumentationCardProps> = ({
           <h3 className="text-blue text-xl font-bold font-medium text-lg md:text-2xl mr-2">{title}</h3>
           <p className="text-blue my-3" >{subtitle}</p>
         </div>
-        <div className="w-1/2 flex flex-col">
-          <a className="text-sm w-full font-bold text-blue text-right underline" href={link} >{linkText}</a>
+        <div className="w-1/2 flex flex-col pr-4">
+          <a className="text-sm w-full font-bold text-blue text-right underline text-right" href={link} >{linkText}</a>
           <ReactSVG
             src={"icons/arrow.svg"}
             beforeInjection={(svg) => {
@@ -43,10 +43,11 @@ const DocumentationCard: React.FC<DocumentationCardProps> = ({
       {open && (
         <div className="w-full py-10 px-4 md:px-20 ">
           <SearchList listItems={[
-            { name: "Doc 1 ", link: "example.com"},
-            { name: "Doc 2", link: "example.com"},
-            { name: "Doc 3", link: "example.com"},
-            { name: "Doc 4", link: "example.com"},
+            { name: "Busqueda ", link: "example.com"},
+            { name: "Remito-Salida-Leche-1-cod:2345-03/12/2021 ", link: "example.com"},
+            { name: "Remito-Salida-Leche-1-cod:2346-04/12/2021", link: "example.com"},
+            { name: "Remito-Salida-Leche-1-cod:2347-05/12/2021", link: "example.com"},
+            { name: "Remito-Salida-Leche-1-cod:2348-06/12/2021", link: "example.com"},
           ]}
           />
         </div>
