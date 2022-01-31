@@ -54,7 +54,6 @@ const SearchList: React.FC<SearchListProps> = ({
                 <ReactSVG
                   src={"icons/download.svg"}
                   beforeInjection={(svg) => {
-                    svg.classList.add('fill-green');
                     svg.classList.add('mr-4');
                     svg.classList.add('text-sm');
                     svg.classList.add('md:text-lg');
@@ -64,7 +63,6 @@ const SearchList: React.FC<SearchListProps> = ({
                 <ReactSVG
                   src={"icons/delete.svg"}
                   beforeInjection={(svg) => {
-                    svg.classList.add('fill-green');
                     svg.classList.add('mr-4');
                     svg.classList.add('text-sm');
                     svg.classList.add('md:text-lg');
