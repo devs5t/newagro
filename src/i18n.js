@@ -15,7 +15,7 @@ const resources = {
         pair_wallet: 'Pair Wallet'
       },
       footer: {
-        exchange_rate: "Exchange Rate USD Today",
+        exchange_rate: "Exchange Rate",
         field_visit: "Book your visit to the field",
         about_us: "Institutional site",
       },
@@ -28,23 +28,23 @@ const resources = {
         banner_subtitle: "You will be able to invest in agricultural businesses with real support",
         card: {
           new_agro: {
-            title: "New Agro cash generated",
-            number: "546.129",
+            title: "New Agro coin generated",
+            number: "546.129 NAC",
             button_text: "Buy Tokens"
           },
           actives: {
-            title: "Total actives",
-            number: "USD 546.129",
+            title: "Total Assets",
+            number: "546.129 USD",
             button_text: "Explanation of how your total assets are made up"
           },
           nmilk: {
-            title: "Your NMILK Tokens",
+            title: "Total NMILK Tokens",
             description: "Each NMILK Token is equivalent to xxxx liters of real milk from the dairy. A new affordable and affordable way to invest in a dairy farm.",
             third_text: "2.750.000",
             button_text: "Buy New Milk"
           },
           cows: {
-            title: "Milking cows",
+            title: "Total Milking Cows",
             description: "Each real Milking Cow is equivalent to 5,500“ New Milk ”Tokens (NMILK)",
             third_text: "500",
             button_text: "My investments",
@@ -53,7 +53,7 @@ const resources = {
           },
         },
         map: {
-          title: "Know the physical location of the Tambo",
+          title: "Know the physical location of the Dairy",
           location: "Tandil, Buenos Aires"
         },
       },
@@ -172,13 +172,13 @@ const resources = {
         banner_subtitle: "Vas a poder invertir en negocios agropecuarios con respaldo real",
         card: {
           new_agro: {
-            title: "New Agro cash generados",
-            number: "546.129",
+            title: "New Agro coin generados",
+            number: "546.129 NAC",
             button_text: "Comprar New Agro Tokens"
           },
           actives: {
             title: "Activos totales",
-            number: "USD 546.129",
+            number: "546.129 USD",
             third_text: "Explicación de cómo se componen sus activos totales"
           },
           nmilk: {
