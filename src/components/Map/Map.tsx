@@ -7,6 +7,13 @@ import {useTranslation} from "react-i18next";
 const Map : React.FC = () => {
   const { t } = useTranslation();
   const envGoogleMapApiKey = import.meta.env.VITE_APP_GOOGLE_MAPS_API_KEY;
+  const renderMarkers = (map: any, maps: any) => {
+    return new maps.Marker({
+      position: {lat:  -37.997991, lng: -60.499003},
+      map,
+      title: 'Tandil, Buenos Aires!'
+    });
+  };
 
   return (
     <div className="w-full relative grid grid-cols-2 rounded-lg border-blue border-2 shadow">
@@ -27,6 +34,7 @@ const Map : React.FC = () => {
         defaultZoom={11}
         defaultCenter={{lat: -37.997991, lng: -60.499003}}
         options={{ styles: darkTheme, fullscreenControl: false }}
+        onGoogleApiLoaded={({ map, maps }) => renderMarkers(map, maps)}
       >
       </GoogleMapReact>
       </div>

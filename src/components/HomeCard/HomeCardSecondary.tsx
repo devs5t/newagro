@@ -51,7 +51,7 @@ const HomeCardSecondary: React.FC<HomeCardSecondaryProps> = ({
                 }}
               />
             )}
-            <p className="text-green font-semibold text-sm md:text-lg">{fifthText}</p>
+            <p className="text-green font-semibold text-sm md:text-lg">{fifthText} (7.000 NMILK)</p>
           </div>
         </div>
         <div className="h-full w-3/6 flex flex-col justify-between md:px-7 p-4">

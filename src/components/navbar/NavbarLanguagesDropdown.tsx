@@ -20,6 +20,7 @@ const IconButton = styled(MuiIconButton)`
 const Flag = styled.img`
   width: 30px;
   height: 20px;
+  border-radius: 4px;
 `;
 
 type languageOptionsType = {
