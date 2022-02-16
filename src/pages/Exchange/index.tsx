@@ -15,10 +15,10 @@ const Exchange: React.FC = () => {
 
   const [toAmount, setToAmount] = useState<number>();
 
-  const fromCurrencies: string[] = ['usdt', 'nac', 'ars'];
+  const fromCurrencies: string[] = selectedTab === 'buy' ? ['usdt', 'nac', 'ars'] : ['nmilk', 'nbeef', 'nland'];
   const [selectedFromCurrency, setSelectedFromCurrency] = useState<string>(fromCurrencies[0]);
 
-  const toCurrencies: string[] = ['nmilk', 'nbeef', 'nland'];
+  const toCurrencies: string[] = selectedTab === 'buy' ? ['nmilk', 'nbeef', 'nland'] : ['usdt'];
   const [selectedToCurrency, setSelectedToCurrency] = useState<string>(toCurrencies[0]);
 
   return (
@@ -30,10 +30,10 @@ const Exchange: React.FC = () => {
             {name: t(`exchange.tab_buy`), selected: selectedTab === "buy", onClick: () => setSelectedTab("buy")},
             {name: t(`exchange.tab_sell`), selected: selectedTab === "sell", onClick: () => setSelectedTab("sell")}
           ]}
-          containerClass="w-64 mt-6 md:mt-10"
+          containerClass="w-64 mt-6"
         />
 
-        <div className="flex flex-col w-full mt-8 md:mt-24">
+        <div className="flex flex-col w-full mt-12">
           <p className="text-blue text-left">{t(`exchange.helper_top_${selectedTab}`)}</p>
 
           <h3 className="mt-6 text-blue font-bold text-2xl md:text-3xl">{t(`exchange.from`)}</h3>
@@ -46,26 +46,34 @@ const Exchange: React.FC = () => {
                   id="amount"
                   onChange={setFromAmount}
                   value={fromAmount}
-                  containerClasses="w-full md:max-w-[8rem] mr-4"
+                  containerClasses={`w-full mr-4 ${selectedTab === 'sell' ? 'md:max-w-[8rem]' : ''}`}
                   inputClasses="md:placeholder-transparent"
                   type="number"
                   placeholder={t(`exchange.amount`)}
                 />
               </div>
 
-              <div className="hidden md:flex flex-row items-center justify-between">
-                <div className="h-full items-center font-bold text-xl text-blue mr-10">{t(`exchange.price`)}</div>
-                <Textfield
-                  id="price"
-                  onChange={setFromPrice}
-                  value={fromPrice}
-                  containerClasses="w-full max-w-[8rem]"
-                  inputClasses={`md:placeholder-transparent ${selectedTab === 'buy' ? 'bg-blue/[.5] text-white placeholder-white' : ''}`}
-                  type="number"
-                  disabled={selectedTab === 'buy'}
-                  placeholder={t(`exchange.price`)}
-                />
-              </div>
+              {selectedTab === 'sell' && (
+                <>
+                  <div className="hidden relative md:flex flex-row items-center justify-between">
+                    <div className="h-full items-center font-bold text-xl text-blue mr-10">{t(`exchange.price`)}</div>
+                    <Textfield
+                      id="price"
+                      onChange={setFromPrice}
+                      value={fromPrice}
+                      containerClasses="w-full max-w-[8rem]"
+                      inputClasses="md:placeholder-transparent"
+                      type="number"
+                      disabled={false}
+                      placeholder={t(`exchange.price`)}
+                    />
+                  </div>
+
+                  <div className="hidden md:flex absolute right-40 -mt-40 w-48 h-10 justify-center items-center rounded-full text-center text-sm font-semibold text-white bg-green">
+                    {`${t(`exchange.suggested_price`)}: $${suggestedPrice}`}
+                  </div>
+                </>
+              )}
 
               <select
                 className="text-blue font-bold text-xl uppercase md:w-32 cursor-pointer"
@@ -97,17 +105,14 @@ const Exchange: React.FC = () => {
             )}
           </div>
 
-          {selectedTab === 'buy' ? (
-            <p className="text-blue text-left text-lg mt-4 font-semibold md:hidden">
-              {`$${upperCase(selectedToCurrency)} ${t(`exchange.price`)} $${suggestedPrice}`}
-            </p>
-          ) : (
-            <p className="text-blue text-left text-lg mt-4 font-semibold">
-              {`${t(`exchange.suggested_price`)}: $${suggestedPrice}`}
-            </p>
-          )}
+          <p className="text-blue text-left text-lg mt-4 font-semibold md:hidden">
+            {selectedTab === 'buy' ?
+              `$${upperCase(selectedToCurrency)} ${t(`exchange.price`)} $${suggestedPrice}`
+              : `${t(`exchange.suggested_price`)}: $${suggestedPrice}`
+            }
+          </p>
 
-          <div className="flex justify-center mt-4 md:mt-10">
+          <div className="flex justify-center mt-6">
             <ReactSVG
               src="icons/arrow.svg"
               beforeInjection={(svg) => {
@@ -118,7 +123,7 @@ const Exchange: React.FC = () => {
             />
           </div>
 
-          <h3 className="mt-4 md:mt-6 text-blue font-bold text-2xl md:text-3xl">{t(`exchange.to`)}</h3>
+          <h3 className="mt-2 text-blue font-bold text-2xl md:text-3xl">{t(`exchange.to`)}</h3>
 
           <div className="relative flex border-4 border-green rounded-lg w-full mt-6 justify-between items-center py-4 px-6">
             <div className="flex flex-row items-center justify-between">
@@ -127,7 +132,7 @@ const Exchange: React.FC = () => {
                 id="amount"
                 onChange={setToAmount}
                 value={toAmount}
-                containerClasses="w-full md:max-w-[8rem] mr-4"
+                containerClasses={`w-full mr-4 ${selectedTab === 'sell' ? 'md:max-w-[8rem]' : ''}`}
                 inputClasses="md:placeholder-transparent"
                 type="number"
                 placeholder={t(`exchange.amount`)}
