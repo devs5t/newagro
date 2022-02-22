@@ -1,4 +1,32 @@
 export default {
+  nac: {
+    97: "",
+    56: "0x3Ef0CC054fa35eeC4C4587D8F63c656813aC8D42",
+  },
+  nmilk: {
+    97: "",
+    56: "0x00d99B5DD19eCa76f6Ca8489aFa0F63C1EcD3eb5",
+  },
+  oracleFX: {
+    97: "",
+    56: "0x13080ce53C6324B612f379A59E400D2166e84656",
+  },
+  oracleNmilk: {
+    97: "",
+    56: "0x5a4d1d1e7f473daab651037472b16c37d340fa26",
+  },
+  redeemRewards: {
+    97: "",
+    56: "0x62272Af4C05B4563456f8C8e1DCC8f133148f055",
+  },
+  exchangeNmilk: {
+    97: "",
+    56: "0xab57c30388aC9e500bE777156f199B48601C7CE8",
+  },
+  mainStaking: {
+    97: "",
+    56: "0x46eB34cD0c46B2844591a22fDB66AaA08B0D0cB5",
+  },
   cake: {
     97: "",
     56: "0xD9A88f9b7101046786490bAF433f0f6aB3D753E2",
@@ -44,7 +72,7 @@ export default {
     97: "",
   },
   usdt: {
-    56: "0x55d398326f99059ff775485246999027b3197955",
+    56: "0xC9E8631EA5ad93E1fC97dc8094310BF25fd085f5",
     97: "",
   },
   pancakeProfile: {
