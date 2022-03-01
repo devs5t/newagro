@@ -192,7 +192,7 @@ const resources = {
             description: "Cada Vaca de Ordeñe real, equivale a 5.500 Tokens “New Milk” (NMILK)",
             button_text: "Mis inversiones",
             fourth_text: "Tus activos",
-            fifth_text: "{{value}} vacas",
+            fifth_text: "{{userNmilkAssets}} vacas ({{userMilkingCows}} NMILK)",
           },
         },
         map: {
