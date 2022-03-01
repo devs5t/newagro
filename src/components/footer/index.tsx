@@ -6,10 +6,12 @@ import { ReactSVG } from 'react-svg'
 import {ModalContext} from "src/contexts/ModalContext";
 import VisitFieldForm from "src/components/forms/VisitFieldForm";
 import {useLocation} from "react-router-dom";
+import {PriceContext} from "src/contexts/PriceContext";
 
 const Footer: React.FC = () => {
   const { t } = useTranslation();
   const {setModal} = useContext(ModalContext);
+  const {dolarExchangeRate} = useContext(PriceContext);
 
   const socialLinks: {name: string, url: string, icon: string}[] = [
     {name: 'Instagram', url: 'https://instagram.com', icon: 'icons/instagram.svg'},
@@ -34,7 +36,7 @@ const Footer: React.FC = () => {
     <div className={`w-full md:max-w-xs md:border-l-2 md:border-grey ${!isInHome ? 'md:hidden' : ''}`}>
       <div className="hidden md:flex flex-col justify-center items-center h-64 border-b-2 border-grey">
         <p className="uppercase font-medium text-xl	text-blue">{t('footer.exchange_rate')}</p>
-        <p className="uppercase font-black mt-2 text-2xl text-blue">1 USD = 200 NAC</p>
+        <p className="uppercase font-black mt-2 text-2xl text-blue">1 USD = {dolarExchangeRate} NAC</p>
       </div>
 
       {isInHome && (

@@ -8,3 +8,5 @@ BigNumber.config({
 export const BLOCKS_PER_YEAR = new BigNumber(10512000);
 export const BSC_BLOCK_TIME = 3;
 export const BLOCK_LAUNCH = 13049577;
+
+export const CHAIN_ID = parseInt(import.meta.env.VITE_APP_CHAIN_ID);

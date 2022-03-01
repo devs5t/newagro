@@ -1,50 +1,105 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { useBoolean } from "react-use";
+import {CHAIN_ID} from "src/config";
+import contracts from "src/config/constants/contracts";
+import NAC from "src/config/abi/NAC.json";
+import NMILK from "src/config/abi/NMILK.json";
+import OracleNMILK from "src/config/abi/OracleNMILK.json";
+import OracleFX from "src/config/abi/OracleFX.json";
+import {callViewFunction, callFunction} from "reblox-web3-utils";
+import {useEthers} from "@usedapp/core";
+import {NMILK_TOKENS_BY_COW} from "src/config/constants";
 
 const PriceContext = createContext({
-  prices: {},
-  apy: {},
-  tvl: {},
-  isLoading: false,
+  nacTotalSupply: 0,
+  nmilkTotalSupply: 0,
+  nmilkExchangeRate: 0,
+  nmilkTotalAssets: 0,
+  milkingCows: 0,
+  userNmilkAssets: 0,
+  userMilkingCows: 0,
+
+  dolarExchangeRate: 0,
+  isLoading: true
 });
 
 interface PriceContextProviderProps {
   children: ReactNode;
 }
 const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
-  const [prices, setPrices] = useState({});
-  const [apy, setApy] = useState({});
-  const [tvl, setTvl] = useState({});
+  const { account, library } = useEthers();
+
+  const [nacTotalSupply, setNacTotalSupply] = useState<number>(0);
+  const [nmilkTotalSupply, setNmilkTotalSupply] = useState<number>(0);
+  const [nmilkExchangeRate, setNmilkExchangeRate] = useState<number>(0);
+  const [nmilkTotalAssets, setNmilkTotalAssets] = useState<number>(0);
+  const [milkingCows, setMilkingCows] = useState<number>(0);
+  const [userNmilkAssets, setUserNmilkAssets] = useState<number>(0);
+  const [userMilkingCows, setUserMilkingCows] = useState<number>(0);
+
+  const [dolarExchangeRate, setDolarExchangeRate] = useState<number>(0);
+
   const [isLoading, setLoading] = useBoolean(true);
+
+  const formatBigNumber = (number: number) => number / 1E18;
 
   const loadPrices = () => {
     setLoading(true);
-    Promise.all([
-      fetch("https://api.yieldparrot.finance/lps"),
-      fetch("https://api.yieldparrot.finance/prices"),
-      fetch("https://api.yieldparrot.finance/apy"),
-      fetch("https://api.yieldparrot.finance/tvl"),
-    ])
-      .then((result) => {
-        return Promise.all([
-          result[0].json(),
-          result[1].json(),
-          result[2].json(),
-          result[3].json(),
-        ]).then((result) => {
-          setPrices({ ...result[0], ...result[1] });
-          setApy(result[2]);
-          setTvl(result[3]);
-        });
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+
+    callViewFunction(
+      CHAIN_ID,
+      contracts.nac[CHAIN_ID],
+      [],
+      "totalSupply",
+      NAC
+    ).then(setNacTotalSupply);
+
+    callViewFunction(
+      CHAIN_ID,
+      contracts.nmilk[CHAIN_ID],
+      [],
+      "totalSupply",
+      NMILK
+    ).then((value: number) => setNmilkTotalSupply(formatBigNumber(value)));
+
+    callViewFunction(
+      CHAIN_ID,
+      contracts.oracleNmilk[CHAIN_ID],
+      [],
+      "getPrice",
+      OracleNMILK
+    ).then((value: number) => setNmilkExchangeRate(formatBigNumber(value)));
+
+    callViewFunction(
+      CHAIN_ID,
+      contracts.oracleFX[CHAIN_ID],
+      [],
+      "getPrice",
+      OracleFX
+    ).then((value: number) => setDolarExchangeRate(formatBigNumber(value)));
+
+    if (library && account) {
+      callFunction(
+        contracts.nmilk[CHAIN_ID],
+        library,
+        [account],
+        "balanceOf",
+        NMILK
+      ).then((value: number) => setUserNmilkAssets(formatBigNumber(value)));
+    }
+
+    setLoading(false);
   };
 
   useEffect(() => {
+    setNmilkTotalAssets(nmilkExchangeRate * nmilkTotalSupply);
+    setMilkingCows(nmilkTotalSupply / NMILK_TOKENS_BY_COW);
+    setUserMilkingCows(userNmilkAssets / NMILK_TOKENS_BY_COW);
+  }, [nmilkExchangeRate, nmilkTotalSupply, userNmilkAssets]);
+
+  useEffect(() => {
     loadPrices();
-  }, []);
+  }, [account]);
 
   useEffect(() => {
     const priceInterval = setInterval(async () => {
@@ -55,7 +110,20 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
   }, []);
 
   return (
-    <PriceContext.Provider value={{ prices, apy, tvl, isLoading }}>
+    <PriceContext.Provider
+      value={{
+        nacTotalSupply,
+        nmilkTotalSupply,
+        nmilkExchangeRate,
+        nmilkTotalAssets,
+        milkingCows,
+        userNmilkAssets,
+        userMilkingCows,
+
+        dolarExchangeRate,
+        isLoading
+      }}
+    >
       {children}
     </PriceContext.Provider>
   );

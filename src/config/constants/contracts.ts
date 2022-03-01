@@ -2,18 +2,22 @@ export default {
   nac: {
     97: "",
     56: "0x3Ef0CC054fa35eeC4C4587D8F63c656813aC8D42",
+    42: "0x3Ef0CC054fa35eeC4C4587D8F63c656813aC8D42",
   },
   nmilk: {
     97: "",
     56: "0x00d99B5DD19eCa76f6Ca8489aFa0F63C1EcD3eb5",
+    42: "0x00d99B5DD19eCa76f6Ca8489aFa0F63C1EcD3eb5",
   },
   oracleFX: {
     97: "",
     56: "0x13080ce53C6324B612f379A59E400D2166e84656",
+    42: "0x13080ce53C6324B612f379A59E400D2166e84656",
   },
   oracleNmilk: {
     97: "",
     56: "0x5a4d1d1e7f473daab651037472b16c37d340fa26",
+    42: "0x5a4d1d1e7f473daab651037472b16c37d340fa26",
   },
   redeemRewards: {
     97: "",
@@ -22,6 +26,7 @@ export default {
   exchangeNmilk: {
     97: "",
     56: "0xab57c30388aC9e500bE777156f199B48601C7CE8",
+    42: "0xab57c30388aC9e500bE777156f199B48601C7CE8",
   },
   mainStaking: {
     97: "",

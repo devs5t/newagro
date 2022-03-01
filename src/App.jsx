@@ -21,6 +21,7 @@ import Layout from "src/features/layouts/Layout";
 import "./index.css";
 import {ModalProvider} from "src/contexts/ModalContext";
 import Modal from "src/components/Modal";
+import {PriceContextProvider} from "src/contexts/PriceContext";
 
 const jss = create({
   ...jssPreset(),
@@ -65,7 +66,9 @@ function App() {
             <MuiThemeProvider theme={createTheme(theme)}>
               <ThemeProvider theme={createTheme(theme)}>
                 <ModalProvider>
-                  <Layout>{content}</Layout>
+                  <PriceContextProvider>
+                    <Layout>{content}</Layout>
+                  </PriceContextProvider>
                   <Modal />
                 </ModalProvider>
               </ThemeProvider>

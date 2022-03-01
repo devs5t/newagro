@@ -13870,10 +13870,10 @@ readdirp@~3.6.0:
   dependencies:
     picomatch "^2.2.1"
 
-reblox-web3-utils@^1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/reblox-web3-utils/-/reblox-web3-utils-1.3.1.tgz#c4b93269c0cf18b2d3d4ad9d9b64d9303dcc15eb"
-  integrity sha512-P9RGMyCs29z7FypmIWsnbh6j22VktUkJjFcBHgD820K1UOtZvdE326GXRFXg79BTQ6zSFFIQk8kvySvq4+FexQ==
+reblox-web3-utils@^1.3.2:
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/reblox-web3-utils/-/reblox-web3-utils-1.3.2.tgz#20b42731ce6515ccc64c5655d2f72a6d1eb84aea"
+  integrity sha512-vzPwVBy0yhOggFKzOr2Dq6DjftFMRxnUlEBPPgX/29XUSUQkth/9X70DOoDRrHdMz0oukpHXiqIJhjHQjLn4HQ==
   dependencies:
     "@babel/cli" "^7.7.4"
     "@babel/core" "^7.7.4"
