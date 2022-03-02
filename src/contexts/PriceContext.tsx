@@ -19,7 +19,9 @@ const PriceContext = createContext({
   userNmilkAssets: 0,
   userMilkingCows: 0,
 
-  dolarExchangeRate: 0,
+  historicalEarning: 0,
+
+  dollarExchangeRate: 0,
   isLoading: true
 });
 
@@ -37,7 +39,9 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
   const [userNmilkAssets, setUserNmilkAssets] = useState<number>(0);
   const [userMilkingCows, setUserMilkingCows] = useState<number>(0);
 
-  const [dolarExchangeRate, setDolarExchangeRate] = useState<number>(0);
+  const [historicalEarning, setHistoricalEarning] = useState<number>(0);
+
+  const [dollarExchangeRate, setDollarExchangeRate] = useState<number>(0);
 
   const [isLoading, setLoading] = useBoolean(true);
 
@@ -76,7 +80,7 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
       [],
       "getPrice",
       OracleFX
-    ).then((value: number) => setDolarExchangeRate(formatBigNumber(value)));
+    ).then((value: number) => setDollarExchangeRate(formatBigNumber(value)));
 
     if (library && account) {
       callFunction(
@@ -102,11 +106,13 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
   }, [account]);
 
   useEffect(() => {
-    const priceInterval = setInterval(async () => {
+    /*const priceInterval = setInterval(async () => {
       loadPrices();
-    }, 15000);
+    }, 30000);
 
-    return () => clearInterval(priceInterval);
+    return () => clearInterval(priceInterval);*/
+
+    loadPrices();
   }, []);
 
   return (
@@ -120,7 +126,9 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
         userNmilkAssets,
         userMilkingCows,
 
-        dolarExchangeRate,
+        historicalEarning,
+
+        dollarExchangeRate,
         isLoading
       }}
     >

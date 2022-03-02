@@ -7,9 +7,12 @@ import HomeCardSecondary from "src/components/HomeCard/HomeCardSecondary";
 import Map from "src/components/Map/Map";
 import Tabs from "src/components/tabs/Tabs";
 import {PriceContext} from "src/contexts/PriceContext";
+import {formatCurrency} from "src/utils/currency";
+import { useNavigate } from 'react-router-dom';
 
 const Home: React.FC = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const {nacTotalSupply, nmilkTotalAssets, nmilkTotalSupply, milkingCows, userNmilkAssets, userMilkingCows} = useContext(PriceContext);
 
   return (
@@ -25,11 +28,11 @@ const Home: React.FC = () => {
           title={t("home.card.new_agro.title")}
           mainText={t("home.card.new_agro.number", {value: nacTotalSupply})}
           thirdText={t("home.card.new_agro.button_text")}
-          onClickButton={console.log}
+          onClickButton={() => navigate('/exchange')}
         />
         <HomeCardColored
           title={t("home.card.actives.title")}
-          mainText={t("home.card.actives.number", {value: nmilkTotalAssets})}
+          mainText={t("home.card.actives.number", {value: formatCurrency(nmilkTotalAssets)})}
           thirdText={t("home.card.actives.third_text")}
         />
       </div>
@@ -48,17 +51,17 @@ const Home: React.FC = () => {
           title={t("home.card.nmilk.title")}
           description={t("home.card.nmilk.description")}
           thirdText={nmilkTotalSupply}
-          onClickButton={console.log}
+          onClickButton={() => navigate('/exchange')}
           buttonText={t("home.card.nmilk.button_text")}
         />
         <HomeCardSecondary
           title={t("home.card.cows.title")}
           description={t("home.card.cows.description")}
-          thirdText={milkingCows.toFixed(2)}
-          onClickButton={console.log}
+          thirdText={Math.round(milkingCows)}
+          onClickButton={() => navigate('/investment')}
           buttonText={t("home.card.cows.button_text")}
           fourthText={t("home.card.cows.fourth_text")}
-          fifthText={t("home.card.cows.fifth_text", {userNmilkAssets, userMilkingCows})}
+          fifthText={t("home.card.cows.fifth_text", {userNmilkAssets, userMilkingCows: Math.round(userMilkingCows)})}
           icon="icons/cow.svg"
         />
       </div>

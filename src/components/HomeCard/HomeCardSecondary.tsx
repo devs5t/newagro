@@ -5,7 +5,7 @@ import {ReactSVG} from "react-svg";
 interface HomeCardSecondaryProps {
   title: string;
   description: string;
-  thirdText: string;
+  thirdText: number;
   onClickButton?: () => void;
   containerClasses?: string;
   buttonText: string,

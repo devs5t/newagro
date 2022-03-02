@@ -5,9 +5,20 @@ import Tabs from "src/components/tabs/Tabs";
 import {upperCase} from "lodash";
 import Button from "src/components/Buttons/Button";
 import {ReactSVG} from "react-svg";
+import qs from "qs"
+import {useLocation} from "react-router-dom";
 
 const Exchange: React.FC = () => {
   const { t } = useTranslation();
+
+  const location = useLocation();
+
+  const { token: toCurrencyFromQS } = qs.parse(location.search, {
+    ignoreQueryPrefix: true,
+    depth: 2,
+    plainObjects: true,
+  });
+
   const [selectedTab, setSelectedTab] = useState<'buy' | 'sell'>('buy');
   const [fromAmount, setFromAmount] = useState<number>();
   const [fromPrice, setFromPrice] = useState<number>();
@@ -19,7 +30,7 @@ const Exchange: React.FC = () => {
   const [selectedFromCurrency, setSelectedFromCurrency] = useState<string>(fromCurrencies[0]);
 
   const toCurrencies: string[] = selectedTab === 'buy' ? ['nmilk', 'nbeef', 'nland'] : ['usdt'];
-  const [selectedToCurrency, setSelectedToCurrency] = useState<string>(toCurrencies[0]);
+  const [selectedToCurrency, setSelectedToCurrency] = useState<string>(toCurrencyFromQS || toCurrencies[0]);
 
   return (
     <div className="flex justify-center">

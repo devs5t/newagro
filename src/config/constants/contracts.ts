@@ -43,6 +43,7 @@ export default {
   masterChef: {
     97: "",
     56: "0x38ce1EB7D3b0fe09D678C93972fB73Bf2e61a48C",
+    42: "0x38ce1EB7D3b0fe09D678C93972fB73Bf2e61a48C",
   },
   bbqIFO: {
     97: "",

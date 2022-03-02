@@ -5,6 +5,7 @@ import {useTranslation} from "react-i18next";
 import {ModalContext} from "src/contexts/ModalContext";
 import DepositTokenForm from "src/components/forms/DepositTokenForm";
 import {upperCase} from "lodash";
+import {NMILK_TOKENS_BY_COW} from "src/config/constants";
 
 interface InvestCardProps {
   title: string;
@@ -12,8 +13,8 @@ interface InvestCardProps {
   token: 'nmilk' | 'nbeef' | 'nland';
   containerClasses?: string;
   image: string;
-  deposit: string;
-  earn: string;
+  deposit: number;
+  earn: number;
 }
 
 const InvestCard: React.FC<InvestCardProps> = ({
@@ -38,7 +39,7 @@ const InvestCard: React.FC<InvestCardProps> = ({
       <div className="w-full mt-5 relative md:pl-32 md:mt-0">
         <h3 className="text-blue font-bold text-left text-lg md:text-3xl">{title}</h3>
         <h2 className="text-blue font-bold text-left font-bold md:text-3xl">{subtitle}</h2>
-        <Link className="absolute bottom-0 right-0 md:relative" to={`/purchase?token=${token}`} target={'_self'}>
+        <Link className="absolute bottom-0 right-0 md:relative" to={`/exchange?token=${token}`} target={'_self'}>
           <span className="text-blue text-xs underline md:text-xl">
             {t('investment.card_beef.buy')} {upperCase(token)}
           </span>
@@ -48,12 +49,12 @@ const InvestCard: React.FC<InvestCardProps> = ({
         <div className="border-2 border-green/[.5] rounded-lg w-full">
           <h3 className="py-1 text-green font-bold text-center text-xs border-b-green/[.5] border-b-2 border-green md:text-lg">{upperCase(token)} - {t('investment.deposited')}</h3>
           <p className="text-3xl 2xl:text-6xl xl:text-4xl lg:text-3xl text-green text-center mt-2 md:mt-0">{deposit}</p>
-          <p className="text-xs font-medium text-blue text-center mb-2 md:text-base">(1,3 vacas)</p>
+          <p className="text-xs font-medium text-blue text-center mb-2 md:text-base">{t('investment.cows', {value:  Math.round(deposit / NMILK_TOKENS_BY_COW)})}</p>
         </div>
         <div className="border-2 border-green/[.5] rounded-lg w-full">
           <h3 className="py-1 text-green font-bold text-center text-xs border-b-green/[.5] border-b-2 border-green md:text-lg md:px-4">NAC - {t('investment.earnings')}</h3>
           <p className="text-3xl 2xl:text-6xl xl:text-4xl lg:text-3xl text-green text-center mt-2 md:mt-0">{earn}</p>
-          <p className="text-xs font-medium text-blue text-center mb-2 md:text-base">(1,2 vacas)</p>
+          <p className="text-xs font-medium text-blue text-center mb-2 md:text-base">{t('investment.cows', {value:  Math.round(earn / NMILK_TOKENS_BY_COW)})}</p>
         </div>
       </div>
 

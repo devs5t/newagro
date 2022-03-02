@@ -72,6 +72,7 @@ const resources = {
       },
       investment: {
         text: "*Remember that in order to receive your earnings it is necessary that you have your Tokens deposited",
+        cows: "({{value}} cows)",
         watch_cams: "Watch live cameras",
         deposit_buy: "Deposit / Buy",
         retire: "Harvest",
@@ -100,6 +101,7 @@ const resources = {
           title2: "Your field",
           description: 'Each real Milking Cow is equivalent to 5,500 “New Milk” Tokens',
           subtitle1: "Profitability",
+          profitability_description: "{{value}} NMILK by cow monthly",
           subtitle2: "Historical earnings:",
           currentBalance: "Your assets"
         },
@@ -218,6 +220,7 @@ const resources = {
       },
       investment: {
         text: "*Recordá que para poder recibir tus ganancias es necesario que tengas tus Tokens depositados",
+        cows: "({{value}} vacas)",
         watch_cams: "Ver camaras en vivo",
         deposit_buy: "Depositar / Comprar",
         retire: "Retirar",
@@ -246,6 +249,7 @@ const resources = {
           title2: "Tu campo",
           description: 'Cada Vaca de Ordeñe real, equivale a 5.500 Tokens “New Milk”',
           subtitle1: "Rentabilidad",
+          profitability_description: "{{value}} NMILK por vaca mensualmente",
           subtitle2: "Ganancias históricas:",
           currentBalance: "Tus activos"
         },

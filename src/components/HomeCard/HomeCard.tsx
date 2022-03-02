@@ -4,7 +4,7 @@ import Button from '../Buttons/Button';
 interface HomeCardProps {
   title: string;
   description: string;
-  thirdText: string;
+  thirdText: number;
   onClickButton?: () => void;
   containerClasses?: string;
   buttonText: string,
