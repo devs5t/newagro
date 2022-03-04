@@ -1,13 +1,14 @@
-import React from "react";
+import React, {ReactNode} from "react";
 import {Link} from "react-router-dom";
 
 interface ButtonProps {
-  text: string;
+  text?: string;
   link?: string;
   onClick?: () => void | undefined;
   extraClasses?: string;
   linkTarget?: string;
   type?: 'button' | 'submit' | 'reset'
+  children?: ReactNode;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -16,7 +17,8 @@ const Button: React.FC<ButtonProps> = ({
   onClick = () => {},
   extraClasses,
   linkTarget,
-  type = 'button'
+  type = 'button',
+  children
 }) => {
   const Content = () => {
     return (
@@ -25,7 +27,7 @@ const Button: React.FC<ButtonProps> = ({
         onClick={onClick}
         type={type}
       >
-        {text}
+        {children || text}
       </button>
     );
   };

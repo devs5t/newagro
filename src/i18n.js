@@ -12,7 +12,8 @@ const resources = {
         docs: "Documentation",
         news: "News",
         admin: "Admin",
-        pair_wallet: 'Pair Wallet'
+        pair_wallet: 'Pair Wallet',
+        wrong_wallet: 'Wrong Wallet'
       },
       footer: {
         exchange_rate: "Exchange Rate",
@@ -159,7 +160,8 @@ const resources = {
         docs: "Documentación",
         news: "Novedades",
         admin: "Administrador",
-        pair_wallet: 'Vincular Billetera'
+        pair_wallet: 'Vincular Billetera',
+        wrong_wallet: 'Billetera Equivocada'
       },
       footer: {
         exchange_rate: "Cotización USD Hoy",
