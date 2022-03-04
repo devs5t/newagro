@@ -8,6 +8,7 @@
 
 export async function useAddNetwork(id = 56) {
   let networkData;
+  let method = 'wallet_addEthereumChain';
   switch (id) {
     //bsctestnet
     case 97:
@@ -42,19 +43,8 @@ export async function useAddNetwork(id = 56) {
       ];
       break;
     case 42:
-      networkData = [
-        {
-          chainId: "0x2A",
-          chainName: "KOVAN",
-          rpcUrls: ["https://kovan.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"],
-          nativeCurrency: {
-            name: "KOVAN",
-            symbol: "KETH",
-            decimals: 18,
-          },
-          blockExplorerUrls: ["https://kovan.etherscan.io/"],
-        },
-      ];
+      method = 'wallet_switchEthereumChain';
+      networkData = [{chainId: "0x2A"}];
       break;
     //fantom
     case 250:
@@ -77,8 +67,10 @@ export async function useAddNetwork(id = 56) {
   }
   // agregar red o cambiar red
   if (window.hasOwnProperty("ethereum")) {
+
+    console.log(method)
     return window.ethereum.request({
-      method: "wallet_addEthereumChain",
+      method,
       params: networkData,
     });
   } else {
