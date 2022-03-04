@@ -5,9 +5,10 @@ import SearchList from "src/components/SearchList";
 interface DocumentationCardProps {
   title: string;
   subtitle?: string;
-  link: string;
+  link?: string;
   linkText?: () => void;
   containerClasses?: string;
+  component?: React.FC,
 }
 
 const DocumentationCard: React.FC<DocumentationCardProps> = ({
@@ -15,7 +16,8 @@ const DocumentationCard: React.FC<DocumentationCardProps> = ({
    subtitle,
    link,
    linkText,
-   containerClasses
+   containerClasses,
+   component
  }) => {
 
   const [open, setOpen] = useState(false);
@@ -40,16 +42,9 @@ const DocumentationCard: React.FC<DocumentationCardProps> = ({
           />
         </div>
       </div>
-      {open && (
+      {open && component && (
         <div className="w-full py-10 px-4 md:px-20 ">
-          <SearchList listItems={[
-            { name: "Busqueda ", link: "example.com"},
-            { name: "Remito-Salida-Leche-1-cod:2345-03/12/2021 ", link: "example.com"},
-            { name: "Remito-Salida-Leche-1-cod:2346-04/12/2021", link: "example.com"},
-            { name: "Remito-Salida-Leche-1-cod:2347-05/12/2021", link: "example.com"},
-            { name: "Remito-Salida-Leche-1-cod:2348-06/12/2021", link: "example.com"},
-          ]}
-          />
+          {component()}
         </div>
       )}
     </div>

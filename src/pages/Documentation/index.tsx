@@ -4,6 +4,8 @@ import Banner from "src/components/Banner/Banner";
 import Tabs from "src/components/tabs/Tabs";
 import {ReactSVG} from "react-svg";
 import DocumentationCard from "src/components/HomeCard/DocumentationCard";
+import SearchList from "src/components/SearchList";
+import Map from "src/components/Map/Map";
 
 const Documentation: React.FC = () => {
   const { t } = useTranslation();
@@ -68,12 +70,20 @@ const Documentation: React.FC = () => {
           subtitle={t("docs.cards.card1_subtitle")}
           linkText={t("docs.cards.see_docs")}
           link={"#"}
+          component={() =>  <SearchList listItems={[
+            { name: "Busqueda ", link: "example.com"},
+            { name: "Remito-Salida-Leche-1-cod:2345-03/12/2021 ", link: "example.com"},
+            { name: "Remito-Salida-Leche-1-cod:2346-04/12/2021", link: "example.com"},
+            { name: "Remito-Salida-Leche-1-cod:2347-05/12/2021", link: "example.com"},
+            { name: "Remito-Salida-Leche-1-cod:2348-06/12/2021", link: "example.com"},
+          ]}
+          />
+          }
         />
         <br />
         <DocumentationCard
           title={t("docs.cards.card2_title")}
-          linkText={t("docs.cards.see_docs")}
-          link={"#"}
+          component={() =>  <Map />}
         />
         <br />
         <DocumentationCard
