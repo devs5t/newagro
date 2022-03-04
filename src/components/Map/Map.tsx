@@ -33,7 +33,7 @@ const Map : React.FC = () => {
         bootstrapURLKeys={{ key: envGoogleMapApiKey }}
         defaultZoom={11}
         defaultCenter={{lat: -37.997991, lng: -60.499003}}
-        options={{ styles: darkTheme, fullscreenControl: false }}
+        options={{ mapTypeId: "satellite", fullscreenControl: false }}
         onGoogleApiLoaded={({ map, maps }) => renderMarkers(map, maps)}
       >
       </GoogleMapReact>
