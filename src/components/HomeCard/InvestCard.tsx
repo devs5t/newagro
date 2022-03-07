@@ -6,6 +6,7 @@ import {ModalContext} from "src/contexts/ModalContext";
 import DepositTokenForm from "src/components/forms/DepositTokenForm";
 import {upperCase} from "lodash";
 import {NMILK_TOKENS_BY_COW} from "src/config/constants";
+import {formatCurrency} from "src/utils/currency";
 
 interface InvestCardProps {
   title: string;
@@ -15,6 +16,7 @@ interface InvestCardProps {
   image: string;
   deposit: number;
   earn: number;
+  totalAssets: number;
 }
 
 const InvestCard: React.FC<InvestCardProps> = ({
@@ -24,7 +26,8 @@ const InvestCard: React.FC<InvestCardProps> = ({
   containerClasses,
   image,
   deposit,
-  earn
+  earn,
+  totalAssets
 }) => {
   const {t} = useTranslation();
   const {setModal} = useContext(ModalContext);
@@ -91,8 +94,8 @@ const InvestCard: React.FC<InvestCardProps> = ({
             <p className="w-full text-blue text-xs">Acá va a ir más info desplegada para el inversor desconocido / usuarios nuevos</p>
           </div>
           <div className={"rounded-lg border-2 border-green bg-blue/[.10] w-full mt-5 p-2"}>
-            <h4 className="text-blue text-center font-bold text-lg">{t('investment.card_milk.actives')}</h4>
-            <p className="text-center text-blue text-2xl">USD 100.345</p>
+            <h4 className="text-blue text-center font-bold text-lg">{t('investment.assets', {token: token.toUpperCase()})}</h4>
+            <p className="text-center text-blue text-2xl">USD {formatCurrency(totalAssets)}</p>
           </div>
         </>
       )}

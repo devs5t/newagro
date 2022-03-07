@@ -22,6 +22,7 @@ const PriceContext = createContext({
   nmilkRewardPerYear: 0,
   nmilkBalance: 0,
   nmilkApr: 0,
+  nmilkProfitability: 0,
 
   nmilkUserAssets: 0,
   nmilkUserDeposited: 0,
@@ -49,6 +50,8 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
   const [nmilkRewardPerYear, setNmilkRewardPerYear] = useState<number>(0);
   const [nmilkBalance, setNmilkBalance] = useState<number>(0);
   const [nmilkApr, setNmilkApr] = useState<number>(0);
+  const [nmilkAssetsPerMonth, setNmilkAssetsPerMonth] = useState<number>(0);
+  const [nmilkProfitability, setNmilkProfitability] = useState<number>(0);
 
   const [nmilkUserAssets, setNmilkUserAssets] = useState<number>(0);
   const [nmilkUserDeposited, setNmilkUserDeposited] = useState<number>(0);
@@ -88,7 +91,10 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
       [NMILK_POOL_ID],
       "poolInfo",
       MainStaking
-    ).then((value: any) => setNmilkRewardPerYear(value.nativePerSecond));
+    ).then((value: any) => {
+      setNmilkRewardPerYear(value.nativePerSecond);
+      setNmilkAssetsPerMonth(format1e18Number(value.assetPerMonthPerFullWantToken))
+    });
 
     callViewFunction(
       CHAIN_ID,
@@ -129,7 +135,7 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
         [NMILK_POOL_ID, account],
         "userInfo",
         MainStaking
-      ).then((value: any) => setNmilkUserDeposited(formatHexNumber(get(value, 'amount._hex', '0x00'))));
+      ).then((userInfo: {amount: {_hex: string}}) => setNmilkUserDeposited(formatHexNumber(get(userInfo, 'amount._hex', '0x00'))));
 
       callFunction(
         contracts.mainStaking[CHAIN_ID],
@@ -138,6 +144,14 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
         "getPendingNative",
         MainStaking
       ).then((value: {_hex: string}) => setNmilkUserEarns(formatHexNumber(value._hex)));
+
+      callFunction(
+        contracts.mainStaking[CHAIN_ID],
+        library,
+        [account],
+        "getUserHistoricalRewards",
+        MainStaking
+      ).then((value: {_hex: string}) => setHistoricalEarning(formatHexNumber(value._hex)))
     }
 
     setLoading(false);
@@ -148,6 +162,10 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
     setMilkingCows(nmilkTotalSupply / NMILK_TOKENS_BY_COW);
     setUserMilkingCows(nmilkUserAssets / NMILK_TOKENS_BY_COW);
   }, [nmilkExchangeRate, nmilkTotalSupply, nmilkUserAssets]);
+
+  useEffect(() => {
+    setNmilkProfitability((nmilkAssetsPerMonth * nmilkExchangeRate * NMILK_TOKENS_BY_COW));
+  }, [nmilkAssetsPerMonth, nmilkExchangeRate]);
 
   useEffect(() => {
     const nmilkTVL: number = nmilkBalance * nmilkExchangeRate;
@@ -182,6 +200,7 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
         nmilkRewardPerYear,
         nmilkBalance,
         nmilkApr,
+        nmilkProfitability,
 
         nmilkUserAssets,
         nmilkUserDeposited,

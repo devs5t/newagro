@@ -81,11 +81,11 @@ const resources = {
         deposited: "Deposited",
         earnings: "Earnings",
         withdraw: "Withdraw",
+        assets: "Your total {{token}} assets",
         card_milk: {
           title: "New Milk (NMILK)",
           subtitle: "APR {{apr}}%",
           buy: "Buy",
-          actives: "Your total NMILK actives",
         },
         card_beef: {
           title: "New Beef (NBEEF)",
@@ -102,7 +102,7 @@ const resources = {
           title2: "Your field",
           description: 'Each real Milking Cow is equivalent to 5,500 “New Milk” Tokens',
           subtitle1: "Profitability",
-          profitability_description: "{{value}} NMILK by cow monthly",
+          profitability_description: "{{value}} NAC by cow monthly",
           subtitle2: "Historical earnings:",
           currentBalance: "Your assets"
         },
@@ -230,11 +230,11 @@ const resources = {
         deposited: "Depositado",
         earnings: "Ganancias",
         withdraw: "Retirar",
+        assets: "Tus Activos {{token}} Totales",
         card_milk: {
           title: "New Milk (NMILK)",
           subtitle: "TNA 50%",
-          buy: "Comprar",
-          actives: "Tus Activos NMILK Totales",
+          buy: "Comprar"
         },
         card_beef: {
           title: "New Beef (NBEEF)",
@@ -251,7 +251,7 @@ const resources = {
           title2: "Tu campo",
           description: 'Cada Vaca de Ordeñe real, equivale a 5.500 Tokens “New Milk”',
           subtitle1: "Rentabilidad",
-          profitability_description: "{{value}} NMILK por vaca mensualmente",
+          profitability_description: "{{value}} NAC por vaca mensualmente",
           subtitle2: "Ganancias históricas:",
           currentBalance: "Tus activos"
         },
