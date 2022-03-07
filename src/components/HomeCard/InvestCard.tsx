@@ -72,22 +72,34 @@ const InvestCard: React.FC<InvestCardProps> = ({
             <Button
               text={t('investment.deposit_buy')}
               extraClasses="px-2 md:px-0 w-full border-2 border-blue font-bold text-blue py-2 px-0"
-              onClick={() => setModal({
-                component: () => DepositTokenForm({token}),
-                title: `${t('deposit_token_form.deposit')} ${upperCase(token)}`
-              })}
+              onClick={(e) => {
+                e.stopPropagation()
+                setModal({
+                  component: () => DepositTokenForm({token}),
+                  title: `${t('deposit_token_form.deposit')} ${upperCase(token)}`
+                })
+              }}
             />
             <Button
               text={`${t('investment.retire')} NAC`}
               extraClasses="px-2 md:px-0 w-full border-2 border-blue font-bold text-blue py-2 px-0"
+              onClick={(e) => {
+                e.stopPropagation()
+              }}
             />
             <Button
               text={`${t('investment.withdraw')} ${upperCase(token)}`}
               extraClasses="px-2 md:px-0 w-full border-2 border-blue font-bold text-blue py-2 px-0"
+              onClick={(e) => {
+                e.stopPropagation()
+              }}
             />
             <Button
               text={`${t('investment.reinvest')} NAC`}
               extraClasses="px-2 md:px-0 w-full border-2 border-blue font-bold text-blue py-2 px-0"
+              onClick={(e) => {
+                e.stopPropagation()
+              }}
             />
           </div>
           <div className="mt-6  w-full md:pl-32">
