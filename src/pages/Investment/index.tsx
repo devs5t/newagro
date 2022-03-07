@@ -7,7 +7,7 @@ import {NMILK_TOKENS_BY_COW} from "src/config/constants";
 
 const Investment: React.FC = () => {
   const { t } = useTranslation();
-  const {milkingCows, userMilkingCows, historicalEarning} = useContext(PriceContext);
+  const {milkingCows, userMilkingCows, historicalEarning, nmilkUserDeposited, nmilkUserEarns, nmilkApr} = useContext(PriceContext);
 
   return (
     <div className="xl:p-10 xl:flex xl:flex-col">
@@ -16,17 +16,17 @@ const Investment: React.FC = () => {
         <div className="col-span-3 px-5 py-5 lg:px-20 md:py-8 flex-3">
           <InvestCard
             title={t('investment.card_milk.title')}
-            subtitle={t('investment.card_milk.subtitle')}
+            subtitle={t('investment.card_milk.subtitle', {apr: nmilkApr})}
             token={"nmilk"}
-            deposit={5567}
-            earn={3560}
+            deposit={nmilkUserDeposited}
+            earn={nmilkUserEarns}
             image={'images/photos/bg_nmilk.jpeg'}
           />
           <br/>
           <br/>
           <InvestCard
             title={t('investment.card_beef.title')}
-            subtitle={t('investment.card_beef.subtitle')}
+            subtitle={t('investment.card_beef.subtitle', {apr: 0})}
             token={"nbeef"}
             deposit={0}
             earn={0}
@@ -37,7 +37,7 @@ const Investment: React.FC = () => {
           <br/>
           <InvestCard
             title={t('investment.card_land.title')}
-            subtitle={t('investment.card_land.subtitle')}
+            subtitle={t('investment.card_land.subtitle', {apr: 0})}
             token={"nland"}
             deposit={0}
             earn={0}

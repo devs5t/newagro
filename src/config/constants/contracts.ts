@@ -1,36 +1,39 @@
 export default {
   nac: {
-    97: "",
-    56: "0x3Ef0CC054fa35eeC4C4587D8F63c656813aC8D42",
-    42: "0x3Ef0CC054fa35eeC4C4587D8F63c656813aC8D42",
+    56: "0x0aefadD430d2F4f20fbDA57520921454BB4695e7",
+    42: "0x0aefadD430d2F4f20fbDA57520921454BB4695e7",
   },
   nmilk: {
-    97: "",
-    56: "0x00d99B5DD19eCa76f6Ca8489aFa0F63C1EcD3eb5",
-    42: "0x00d99B5DD19eCa76f6Ca8489aFa0F63C1EcD3eb5",
+    56: "0xB491fbF4cf19691d303093F6c784155113825b5B",
+    42: "0xB491fbF4cf19691d303093F6c784155113825b5B",
   },
   oracleFX: {
-    97: "",
     56: "0x13080ce53C6324B612f379A59E400D2166e84656",
     42: "0x13080ce53C6324B612f379A59E400D2166e84656",
   },
   oracleNmilk: {
-    97: "",
     56: "0x5a4d1d1e7f473daab651037472b16c37d340fa26",
     42: "0x5a4d1d1e7f473daab651037472b16c37d340fa26",
   },
   redeemRewards: {
-    97: "",
-    56: "0x62272Af4C05B4563456f8C8e1DCC8f133148f055",
+    56: "0x7898C551f26e3AEdA513D44E821d2072efD4442B",
+    42: "0x7898C551f26e3AEdA513D44E821d2072efD4442B",
   },
   exchangeNmilk: {
-    97: "",
-    56: "0xab57c30388aC9e500bE777156f199B48601C7CE8",
-    42: "0xab57c30388aC9e500bE777156f199B48601C7CE8",
+    56: "0x92b59C11aDF42421bfefB6797F9328FaCC7e03cC",
+    42: "0x92b59C11aDF42421bfefB6797F9328FaCC7e03cC",
+  },
+  masterChef: {
+    56: "0x38ce1EB7D3b0fe09D678C93972fB73Bf2e61a48C",
+    42: "0x38ce1EB7D3b0fe09D678C93972fB73Bf2e61a48C",
+  },
+  usdt: {
+    56: "0x3E620d9c40709816CEB858FF9cde3c46DbD21B92",
+    42: "0x3E620d9c40709816CEB858FF9cde3c46DbD21B92",
   },
   mainStaking: {
-    97: "",
-    56: "0x46eB34cD0c46B2844591a22fDB66AaA08B0D0cB5",
+    56: "0xa4E5282401Ac3Fe1849bA957FbFb6393A3C5ad2d",
+    42: "0xa4E5282401Ac3Fe1849bA957FbFb6393A3C5ad2d",
   },
   cake: {
     97: "",
@@ -39,11 +42,6 @@ export default {
   syrup: {
     97: "",
     56: "",
-  },
-  masterChef: {
-    97: "",
-    56: "0x38ce1EB7D3b0fe09D678C93972fB73Bf2e61a48C",
-    42: "0x38ce1EB7D3b0fe09D678C93972fB73Bf2e61a48C",
   },
   bbqIFO: {
     97: "",
@@ -75,10 +73,6 @@ export default {
   },
   ust: {
     56: "0x23396cF899Ca06c4472205fC903bDB4de249D6fC",
-    97: "",
-  },
-  usdt: {
-    56: "0xC9E8631EA5ad93E1fC97dc8094310BF25fd085f5",
     97: "",
   },
   pancakeProfile: {

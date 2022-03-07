@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 const Home: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const {nacTotalSupply, nmilkTotalAssets, nmilkTotalSupply, milkingCows, userNmilkAssets, userMilkingCows} = useContext(PriceContext);
+  const {nacTotalSupply, nmilkTotalAssets, nmilkTotalSupply, milkingCows, nmilkUserAssets, userMilkingCows} = useContext(PriceContext);
 
   return (
     <div>
@@ -61,7 +61,7 @@ const Home: React.FC = () => {
           onClickButton={() => navigate('/investment')}
           buttonText={t("home.card.cows.button_text")}
           fourthText={t("home.card.cows.fourth_text")}
-          fifthText={t("home.card.cows.fifth_text", {userNmilkAssets, userMilkingCows: Math.round(userMilkingCows)})}
+          fifthText={t("home.card.cows.fifth_text", {nmilkUserAssets, userMilkingCows: Math.round(userMilkingCows)})}
           icon="icons/cow.svg"
         />
       </div>

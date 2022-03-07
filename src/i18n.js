@@ -48,7 +48,7 @@ const resources = {
             description: "Each real Milking Cow is equivalent to 5,500“ New Milk ”Tokens (NMILK)",
             button_text: "My investments",
             fourth_text: "Your assets",
-            fifth_text: "{{userNmilkAssets}} cows ({{userMilkingCows}} NMILK)",
+            fifth_text: "{{nmilkUserAssets}} cows ({{userMilkingCows}} NMILK)",
           },
         },
         map: {
@@ -83,18 +83,18 @@ const resources = {
         withdraw: "Withdraw",
         card_milk: {
           title: "New Milk (NMILK)",
-          subtitle: "APR 50%",
+          subtitle: "APR {{apr}}%",
           buy: "Buy",
           actives: "Your total NMILK actives",
         },
         card_beef: {
           title: "New Beef (NBEEF)",
-          subtitle: "APR 50%",
+          subtitle: "APR {{apr}}%",
           buy: "Buy",
         },
         card_land: {
           title: "New LAND (NLAND)",
-          subtitle: "APR 50%",
+          subtitle: "APR {{apr}}%",
           buy: "Buy",
         },
         rentability: {
@@ -196,7 +196,7 @@ const resources = {
             description: "Cada Vaca de Ordeñe real, equivale a 5.500 Tokens “New Milk” (NMILK)",
             button_text: "Mis inversiones",
             fourth_text: "Tus activos",
-            fifth_text: "{{userNmilkAssets}} vacas ({{userMilkingCows}} NMILK)",
+            fifth_text: "{{nmilkUserAssets}} vacas ({{userMilkingCows}} NMILK)",
           },
         },
         map: {

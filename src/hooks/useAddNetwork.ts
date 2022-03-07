@@ -67,8 +67,6 @@ export async function useAddNetwork(id = 56) {
   }
   // agregar red o cambiar red
   if (window.hasOwnProperty("ethereum")) {
-
-    console.log(method)
     return window.ethereum.request({
       method,
       params: networkData,
