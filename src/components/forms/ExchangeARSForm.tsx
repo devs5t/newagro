@@ -35,7 +35,6 @@ const ExchangeARSForm: React.FC<ExchangeARSFormProps> = ({
       .join("&");
   }
 
-
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     fetch("/", {

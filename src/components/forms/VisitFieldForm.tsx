@@ -16,9 +16,30 @@ const VisitFieldForm: React.FC = () => {
   const [date, setDate] = useState<string>('');
   const [formSent, setFormSent] = useState<boolean>(false);
 
+  const encode = (data: any) => {
+    return Object.keys(data)
+      .map(
+        (key) =>
+          encodeURIComponent(key) + "=" + encodeURIComponent(data[key])
+      )
+      .join("&");
+  }
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    setFormSent(true);
     e.preventDefault();
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: encode({
+        "form-name": "visit-field",
+        name,
+        lastName,
+        email,
+        date
+      }),
+    })
+      .then(() => setFormSent(true))
+      .catch((error) => alert(error));
   }
 
   if (formSent) {
@@ -34,7 +55,18 @@ const VisitFieldForm: React.FC = () => {
   }
 
   return (
-    <form className="w-full px-10" onSubmit={onSubmit}>
+    <form
+      className="w-full px-10"
+      onSubmit={onSubmit}
+      name="visit-field"
+      method="POST"
+      data-netlify="true"
+    >
+      <input
+        type="hidden"
+        name="form-name"
+        value="visit-field"
+      />
 
       <p className="text-blue text-sm mb-6">{t("field_visit_form.description")}</p>
 
