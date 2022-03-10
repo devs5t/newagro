@@ -43,6 +43,7 @@ const Textfield: React.FC<TextfieldProps> = ({
       <input
         className={`appearance-none block w-full border border-blue text-blue rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white ${inputClasses}`}
         id={id}
+        name={id}
         type={type}
         required={required}
         onChange={e => onChange(e.target.value)}

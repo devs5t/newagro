@@ -13,9 +13,13 @@ import {formatDecimalToUint, formatUintToDecimal} from "src/utils/formatUtils";
 import {useDebounce} from "src/hooks/useDebounce";
 import {PriceContext} from "src/contexts/PriceContext";
 import {useEthers} from "@usedapp/core";
+import {ModalContext} from "src/contexts/ModalContext";
+import ExchangeARSForm from "src/components/forms/ExchangeARSForm";
 
 const Exchange: React.FC = () => {
   const { t } = useTranslation();
+  const {setModal} = useContext(ModalContext);
+
   const { account, library } = useEthers();
   const { nacExchangeRate, nacUserAssets, usdtUserAssets } = useContext(PriceContext);
 
@@ -32,10 +36,19 @@ const Exchange: React.FC = () => {
   const [toAmount, setToAmount] = useState<number>(0);
 
   const fromCurrencies: string[] = selectedTab === 'buy' ? ['usdt', 'nac', 'ars'] : ['nmilk', 'nbeef', 'nland'];
-  const [selectedFromCurrency, setSelectedFromCurrency] = useState<string>(fromCurrencies[0]);
+  const [selectedFromCurrency, setSelectedFromCurrency] = useState<'usdt' | 'nac' | 'ars' | 'nmilk' | 'nbeef' | 'nland'>(fromCurrencies[0]);
 
   const toCurrencies: ('nmilk' | 'nbeef' | 'nland' | 'usdt')[] = selectedTab === 'buy' ? ['nmilk', 'nbeef', 'nland'] : ['usdt'];
   const [selectedToCurrency, setSelectedToCurrency] = useState<'nmilk' | 'nbeef' | 'nland' | 'usdt'>(toCurrencies[0]);
+
+  useEffect(() => {
+    if (selectedFromCurrency === 'ars') {
+      setModal({
+        component: () => ExchangeARSForm({ tab: selectedTab }),
+        title: `${t("exchange_ars_form.title", {tab: t(`exchange_ars_form.${selectedTab}`)})}`,
+      });
+    }
+  }, [selectedFromCurrency]);
 
   const config: any = {
     nmilk: {abi: NMILKExchange, contract: contracts.exchangeNmilk[CHAIN_ID]},
@@ -68,7 +81,6 @@ const Exchange: React.FC = () => {
     ).then((value: number) => setToAmount(getValueBasedOnSelectedFromCurrency(formatUintToDecimal(value))));
 
   }, [debouncedFromAmount, selectedFromCurrency, selectedToCurrency]);
-
 
   useEffect(() => {
 

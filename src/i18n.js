@@ -78,6 +78,21 @@ const resources = {
         successfully_sent_description:
           "We will contact you in the next 48 hours to confirm the visit",
       },
+      exchange_ars_form: {
+        buy: 'Purchase',
+        sell: 'Sale',
+        title: "ARS {{tab}} request",
+        description: "Please, complete your information and we will contact you in the next 48 hours.",
+        name: "Name",
+        lastname: "Lastname",
+        mail: "Mail",
+        dni: "DNI",
+        phone: "Phone",
+        submit: "Request {{tab}} ARS",
+        successfully_sent_title: "Request sent successfully",
+        successfully_sent_description:
+          "We will contact you in the next 48 hours to confirm the {{tab}}",
+      },
       investment: {
         text: "*Remember that in order to receive your earnings it is necessary that you have your Tokens deposited",
         cows: "({{value}} cows)",
@@ -240,9 +255,24 @@ const resources = {
         description:
           "Por favor, completá tus datos y nos pondremos en contacto con vos en las proximas 48hs.",
         submit: "Solicitar visita",
-        successfully_sent_title: "Solicitud enviado con éxito",
+        successfully_sent_title: "Solicitud enviada con éxito",
         successfully_sent_description:
           "Nos pondremos en contacto con vos en las próximas 48 hs para confirmar la visita",
+      },
+      exchange_ars_form: {
+        buy: 'Compra',
+        sell: 'Venta',
+        title: "Solicitud de {{tab}} de ARS",
+        description: "Por favor, completa yus datos y nos pondremos en contacto con vos en las próximas 48hs",
+        name: "Nombre",
+        lastname: "Apellido",
+        mail: "Mail",
+        dni: "DNI",
+        phone: "Teléfono",
+        submit: "Solicitar {{tab}} ARS",
+        successfully_sent_title: "Solicitud enviada con éxito",
+        successfully_sent_description:
+          "Nos pondremos en contacto con vos en las próximas 48 hs para confirmar la {{tab}}",
       },
       investment: {
         text: "*Recordá que para poder recibir tus ganancias es necesario que tengas tus Tokens depositados",
