@@ -8,13 +8,15 @@ import {ReactSVG} from "react-svg";
 import {CHAIN_ID} from "src/config";
 import contracts from "src/config/constants/contracts";
 import NMILKExchange from "src/config/abi/NMILKExchange.json";
-import {callViewFunction} from "reblox-web3-utils";
+import {callViewFunction, callFunction} from "reblox-web3-utils";
 import {formatDecimalToUint, formatUintToDecimal} from "src/utils/formatUtils";
 import {useDebounce} from "src/hooks/useDebounce";
 import {PriceContext} from "src/contexts/PriceContext";
+import {useEthers} from "@usedapp/core";
 
 const Exchange: React.FC = () => {
   const { t } = useTranslation();
+  const { account, library } = useEthers();
   const { nacExchangeRate, nacUserAssets, usdtUserAssets } = useContext(PriceContext);
 
   const [selectedTab, setSelectedTab] = useState<'buy' | 'sell'>('buy');
@@ -77,6 +79,7 @@ const Exchange: React.FC = () => {
       "getMaxInputAmount",
       selectedAbi
     ).then((value: number) => setFromMaxInput(getValueBasedOnSelectedFromCurrency(formatUintToDecimal(value))));
+
   }, [selectedToCurrency]);
 
   const maxValue: number = useMemo(() => {
@@ -84,10 +87,22 @@ const Exchange: React.FC = () => {
       return min([nacUserAssets, (fromMaxInput * nacExchangeRate)]);
     }
     return min([usdtUserAssets, fromMaxInput]);
-  }, [fromMaxInput, selectedFromCurrency]);
+  }, [fromMaxInput, selectedFromCurrency, usdtUserAssets, nacUserAssets, nacExchangeRate]);
+
 
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (library && account && fromAmount) {
+      const method: string = selectedFromCurrency === 'nac' ? 'buyWithRewards' : 'buy';
+
+      callFunction(
+        selectedContract,
+        library,
+        [formatDecimalToUint(fromAmount)],
+        method,
+        selectedAbi
+      ).then(console.log);
+    }
   };
 
   return (
