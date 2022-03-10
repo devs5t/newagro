@@ -42,7 +42,7 @@ const ExchangeARSForm: React.FC<ExchangeARSFormProps> = ({
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: encode({
-        "form-name": "exchange-purchase-ars",
+        "form-name": formName,
         name,
         lastName,
         email,
@@ -70,14 +70,14 @@ const ExchangeARSForm: React.FC<ExchangeARSFormProps> = ({
     <form
       className="w-full px-10"
       onSubmit={onSubmit}
-      name="exchange-purchase-ars"
+      name={formName}
       method="POST"
       data-netlify="true"
     >
       <input
         type="hidden"
         name="form-name"
-        value="exchange-purchase-ars"
+        value={formName}
       />
 
       <p className="text-blue text-sm mb-6">{t("exchange_ars_form.description")}</p>
