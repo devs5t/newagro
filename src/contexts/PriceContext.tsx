@@ -14,7 +14,10 @@ import {get} from "lodash";
 import {formatUintToDecimal, formatHexNumber} from "src/utils/formatUtils";
 
 const PriceContext = createContext({
+  usdtUserAssets: 0,
+
   nacTotalSupply: 0,
+  nacUserAssets: 0,
 
   nmilkTotalSupply: 0,
   nmilkExchangeRate: 0,
@@ -43,7 +46,11 @@ interface PriceContextProviderProps {
 const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
   const { account, library } = useEthers();
 
+  const [usdtUserAssets, setUsdtUserAssets] = useState<number>(0);
+
   const [nacTotalSupply, setNacTotalSupply] = useState<number>(0);
+  const [nacUserAssets, setNacUserAssets] = useState<number>(0);
+
   const [nmilkTotalSupply, setNmilkTotalSupply] = useState<number>(0);
   const [nmilkExchangeRate, setNmilkExchangeRate] = useState<number>(0);
   const [nmilkTotalAssets, setNmilkTotalAssets] = useState<number>(0);
@@ -52,7 +59,6 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
   const [nmilkApr, setNmilkApr] = useState<number>(0);
   const [nmilkAssetsPerMonth, setNmilkAssetsPerMonth] = useState<number>(0);
   const [nmilkProfitability, setNmilkProfitability] = useState<number>(0);
-
   const [nmilkUserAssets, setNmilkUserAssets] = useState<number>(0);
   const [nmilkUserDeposited, setNmilkUserDeposited] = useState<number>(0);
   const [nmilkUserEarns, setNmilkUserEarns] = useState<number>(0);
@@ -121,6 +127,22 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
     ).then((value: number) => setNacExchangeRate(formatUintToDecimal(value)));
 
     if (library && account) {
+      callFunction(
+        contracts.usdt[CHAIN_ID],
+        library,
+        [account],
+        "balanceOf",
+        NAC
+      ).then((value: number) => setUsdtUserAssets(formatUintToDecimal(value)));
+
+      callFunction(
+        contracts.nac[CHAIN_ID],
+        library,
+        [account],
+        "balanceOf",
+        NAC
+      ).then((value: number) => setNacUserAssets(formatUintToDecimal(value)));
+
       callFunction(
         contracts.nmilk[CHAIN_ID],
         library,
@@ -193,7 +215,11 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
   return (
     <PriceContext.Provider
       value={{
+        usdtUserAssets,
+
         nacTotalSupply,
+        nacUserAssets,
+
         nmilkTotalSupply,
         nmilkExchangeRate,
         nmilkTotalAssets,

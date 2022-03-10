@@ -12,6 +12,7 @@ interface TextfieldProps {
   disabled?: boolean;
   placeholder?: string;
   step?: number;
+  max?: number;
 }
 
 const Textfield: React.FC<TextfieldProps> = ({
@@ -25,7 +26,8 @@ const Textfield: React.FC<TextfieldProps> = ({
   inputClasses= '',
   disabled= false,
   placeholder = '',
-  step
+  step,
+  max
 }) => {
 
   return (
@@ -48,6 +50,7 @@ const Textfield: React.FC<TextfieldProps> = ({
         disabled={disabled}
         placeholder={placeholder}
         step={step}
+        max={max}
       />
     </div>
   );
