@@ -26,7 +26,7 @@ const Home: React.FC = () => {
       <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-2 mt-8">
         <HomeCardColored
           title={t("home.card.new_agro.title")}
-          mainText={t("home.card.new_agro.number", {value: nacTotalSupply})}
+          mainText={t("home.card.new_agro.number", {value: formatCurrency(nacTotalSupply)})}
           thirdText={t("home.card.new_agro.button_text")}
           onClickButton={() => navigate('/exchange')}
         />

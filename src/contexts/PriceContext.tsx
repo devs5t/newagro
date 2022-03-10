@@ -81,7 +81,7 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
       [],
       "totalSupply",
       NAC
-    ).then(setNacTotalSupply);
+    ).then((value) => setNacTotalSupply(formatUintToDecimal(value)));
 
     callViewFunction(
       CHAIN_ID,
