@@ -30,5 +30,14 @@
     <div id="portal-root"></div>
     <div id="portal-notification"></div>
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- A little help for the Netlify bots if you're not using a SSG -->
+    <form name="visit-field" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="text" name="lastName" />
+      <input type="email" name="email" />
+      <input type="date" name="date" />
+    </form>
+
   </body>
 </html>
