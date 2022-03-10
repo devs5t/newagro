@@ -11,6 +11,7 @@ interface TextfieldProps {
   inputClasses?: string;
   disabled?: boolean;
   placeholder?: string;
+  step?: number;
 }
 
 const Textfield: React.FC<TextfieldProps> = ({
@@ -24,6 +25,7 @@ const Textfield: React.FC<TextfieldProps> = ({
   inputClasses= '',
   disabled= false,
   placeholder = '',
+  step
 }) => {
 
   return (
@@ -45,6 +47,7 @@ const Textfield: React.FC<TextfieldProps> = ({
         value={value}
         disabled={disabled}
         placeholder={placeholder}
+        step={step}
       />
     </div>
   );

@@ -11,7 +11,7 @@ import {callViewFunction, callFunction} from "reblox-web3-utils";
 import {useEthers} from "@usedapp/core";
 import {NMILK_POOL_ID, NMILK_TOKENS_BY_COW} from "src/config/constants";
 import {get} from "lodash";
-import {format1e18Number, formatHexNumber} from "src/utils/formatUtils";
+import {formatUintToDecimal, formatHexNumber} from "src/utils/formatUtils";
 
 const PriceContext = createContext({
   nacTotalSupply: 0,
@@ -33,7 +33,7 @@ const PriceContext = createContext({
 
   historicalEarning: 0,
 
-  dollarExchangeRate: 0,
+  nacExchangeRate: 0,
   isLoading: true
 });
 
@@ -62,7 +62,7 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
 
   const [historicalEarning, setHistoricalEarning] = useState<number>(0);
 
-  const [dollarExchangeRate, setDollarExchangeRate] = useState<number>(0);
+  const [nacExchangeRate, setNacExchangeRate] = useState<number>(0);
 
   const [isLoading, setLoading] = useBoolean(true);
 
@@ -83,7 +83,7 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
       [],
       "totalSupply",
       NMILK
-    ).then((value: number) => setNmilkTotalSupply(format1e18Number(value)));
+    ).then((value: number) => setNmilkTotalSupply(formatUintToDecimal(value)));
 
     callViewFunction(
       CHAIN_ID,
@@ -93,7 +93,7 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
       MainStaking
     ).then((value: any) => {
       setNmilkRewardPerYear(value.nativePerSecond);
-      setNmilkAssetsPerMonth(format1e18Number(value.assetPerMonthPerFullWantToken))
+      setNmilkAssetsPerMonth(formatUintToDecimal(value.assetPerMonthPerFullWantToken))
     });
 
     callViewFunction(
@@ -110,7 +110,7 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
       [],
       "getPrice",
       OracleNMILK
-    ).then((value: number) => setNmilkExchangeRate(format1e18Number(value)));
+    ).then((value: number) => setNmilkExchangeRate(formatUintToDecimal(value)));
 
     callViewFunction(
       CHAIN_ID,
@@ -118,7 +118,7 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
       [],
       "getPrice",
       OracleFX
-    ).then((value: number) => setDollarExchangeRate(format1e18Number(value)));
+    ).then((value: number) => setNacExchangeRate(formatUintToDecimal(value)));
 
     if (library && account) {
       callFunction(
@@ -127,7 +127,7 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
         [account],
         "balanceOf",
         NMILK
-      ).then((value: number) => setNmilkUserAssets(format1e18Number(value)));
+      ).then((value: number) => setNmilkUserAssets(formatUintToDecimal(value)));
 
       callFunction(
         contracts.mainStaking[CHAIN_ID],
@@ -169,12 +169,12 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
 
   useEffect(() => {
     const nmilkTVL: number = nmilkBalance * nmilkExchangeRate;
-    let apr: number = ((nmilkRewardPerYear / nmilkTVL) * 100) / dollarExchangeRate;
+    let apr: number = ((nmilkRewardPerYear / nmilkTVL) * 100) / nacExchangeRate;
     if (!isFinite(apr)) {
       apr = 0
     }
     setNmilkApr(apr);
-  }, [nmilkRewardPerYear, nmilkBalance, dollarExchangeRate, nmilkExchangeRate]);
+  }, [nmilkRewardPerYear, nmilkBalance, nacExchangeRate, nmilkExchangeRate]);
 
   useEffect(() => {
     loadPrices();
@@ -211,7 +211,7 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
 
         historicalEarning,
 
-        dollarExchangeRate,
+        nacExchangeRate,
         isLoading
       }}
     >

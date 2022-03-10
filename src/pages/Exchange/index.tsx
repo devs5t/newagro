@@ -1,36 +1,69 @@
-import React, {useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { useTranslation } from "react-i18next";
 import Textfield from "src/components/Inputs/Textfield";
 import Tabs from "src/components/tabs/Tabs";
 import {upperCase} from "lodash";
 import Button from "src/components/Buttons/Button";
 import {ReactSVG} from "react-svg";
-import qs from "qs"
-import {useLocation} from "react-router-dom";
+import {CHAIN_ID} from "src/config";
+import contracts from "src/config/constants/contracts";
+import NMILKExchange from "src/config/abi/NMILKExchange.json";
+import {callViewFunction} from "reblox-web3-utils";
+import {formatDecimalToUint, formatUintToDecimal} from "src/utils/formatUtils";
+import {useDebounce} from "src/hooks/useDebounce";
+import {PriceContext} from "src/contexts/PriceContext";
 
 const Exchange: React.FC = () => {
   const { t } = useTranslation();
-
-  const location = useLocation();
-
-  const { token: toCurrencyFromQS } = qs.parse(location.search, {
-    ignoreQueryPrefix: true,
-    depth: 2,
-    plainObjects: true,
-  });
+  const { nacExchangeRate } = useContext(PriceContext);
 
   const [selectedTab, setSelectedTab] = useState<'buy' | 'sell'>('buy');
   const [fromAmount, setFromAmount] = useState<number>();
+
+  const debouncedFromAmount = useDebounce(fromAmount, 500);
+
   const [fromPrice, setFromPrice] = useState<number>();
   const [suggestedPrice, setSuggestedPrice] = useState<number>(23.4);
 
-  const [toAmount, setToAmount] = useState<number>();
+  const [toAmount, setToAmount] = useState<number>(0);
 
   const fromCurrencies: string[] = selectedTab === 'buy' ? ['usdt', 'nac', 'ars'] : ['nmilk', 'nbeef', 'nland'];
   const [selectedFromCurrency, setSelectedFromCurrency] = useState<string>(fromCurrencies[0]);
 
-  const toCurrencies: string[] = selectedTab === 'buy' ? ['nmilk', 'nbeef', 'nland'] : ['usdt'];
-  const [selectedToCurrency, setSelectedToCurrency] = useState<string>(toCurrencyFromQS || toCurrencies[0]);
+  const toCurrencies: ('nmilk' | 'nbeef' | 'nland' | 'usdt')[] = selectedTab === 'buy' ? ['nmilk', 'nbeef', 'nland'] : ['usdt'];
+  const [selectedToCurrency, setSelectedToCurrency] = useState<'nmilk' | 'nbeef' | 'nland' | 'usdt'>(toCurrencies[0]);
+
+  const config: any = {
+    nmilk: {abi: NMILKExchange, contract: contracts.exchangeNmilk[CHAIN_ID]},
+    nbeef: {abi: NMILKExchange, contract: contracts.exchangeNmilk[CHAIN_ID]},
+    nland: {abi: NMILKExchange, contract: contracts.exchangeNmilk[CHAIN_ID]}
+  }
+
+  useEffect(() => {
+    if (!debouncedFromAmount) {
+      setToAmount(0);
+      return;
+    }
+
+    const selectedAbi: any = config[selectedToCurrency].abi;
+    const selectedContract: string = config[selectedToCurrency].contract;
+
+    callViewFunction(
+      CHAIN_ID,
+      selectedContract,
+      [formatDecimalToUint(debouncedFromAmount)],
+      "getTokenOutputAmount",
+      selectedAbi
+    ).then((value: number) => {
+      value = formatUintToDecimal(value);
+      if (selectedFromCurrency === 'nac') {
+        setToAmount(value * nacExchangeRate);
+      } else {
+        setToAmount(value);
+      }
+    });
+
+  }, [debouncedFromAmount, selectedFromCurrency, selectedToCurrency]);
 
   return (
     <div className="flex justify-center">
@@ -147,6 +180,7 @@ const Exchange: React.FC = () => {
                 inputClasses="md:placeholder-transparent"
                 type="number"
                 placeholder={t(`exchange.amount`)}
+                disabled={selectedTab === 'buy'}
               />
             </div>
 
