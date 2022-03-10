@@ -299,6 +299,14 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
         nmilkUserDeposited,
         nmilkUserEarns,
 
+        // nbeefUserAssets,
+        // nbeefUserDeposited,
+        // nbeefUserEarns,
+
+        // nlandUserAssets,
+        // nlandUserDeposited,
+        // nlandUserEarns,
+
         milkingCows,
         userMilkingCows,
 
