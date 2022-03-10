@@ -12,8 +12,8 @@ const resources = {
         docs: "Documentation",
         news: "News",
         admin: "Admin",
-        pair_wallet: 'Pair Wallet',
-        wrong_wallet: 'Wrong Wallet'
+        pair_wallet: "Pair Wallet",
+        wrong_wallet: "Wrong Wallet",
       },
       footer: {
         exchange_rate: "Exchange Rate",
@@ -26,26 +26,29 @@ const resources = {
       },
       home: {
         banner_title: "SOON: NLAND Token",
-        banner_subtitle: "You will be able to invest in agricultural businesses with real support",
+        banner_subtitle:
+          "You will be able to invest in agricultural businesses with real support",
         card: {
           new_agro: {
             title: "New Agro coin generated",
             number: "{{value}} NAC",
-            button_text: "Buy Tokens"
+            button_text: "Buy Tokens",
           },
           actives: {
             title: "Total Assets",
             number: "{{value}} USD",
-            button_text: "Explanation of how your total assets are made up"
+            button_text: "Explanation of how your total assets are made up",
           },
           nmilk: {
             title: "Total NMILK Tokens",
-            description: "Each NMILK Token is equivalent to xxxx liters of real milk from the dairy. A new affordable and affordable way to invest in a dairy farm.",
-            button_text: "Buy New Milk"
+            description:
+              "Each NMILK Token is equivalent to xxxx liters of real milk from the dairy. A new affordable and affordable way to invest in a dairy farm.",
+            button_text: "Buy New Milk",
           },
           cows: {
             title: "Total Milking Cows",
-            description: "Each real Milking Cow is equivalent to 5,500“ New Milk ”Tokens (NMILK)",
+            description:
+              "Each real Milking Cow is equivalent to 5,500“ New Milk ”Tokens (NMILK)",
             button_text: "My investments",
             fourth_text: "Your assets",
             fifth_text: "{{nmilkUserAssets}} cows ({{userMilkingCows}} NMILK)",
@@ -53,23 +56,27 @@ const resources = {
         },
         map: {
           title: "Know the physical location of the Dairy",
-          location: "Tandil, Buenos Aires"
+          location: "Tandil, Buenos Aires",
         },
       },
       form: {
-        cancel: 'Cancel',
-        submit: 'Submit',
+        cancel: "Cancel",
+        submit: "Submit",
+        warning: "Warning",
+        success: "Successfull",
       },
       field_visit_form: {
-        name: 'Name',
-        lastname: 'Lastname',
-        mail: 'Mail',
-        tentative_date: 'Tentative date',
-        title: 'Field visit request',
-        description: 'Please, complete your information and we will contact you in the next 48 hours.',
-        submit: 'Request visit',
-        successfully_sent_title: 'Request sent successfully',
-        successfully_sent_description: 'We will contact you in the next 48 hours to confirm the visit'
+        name: "Name",
+        lastname: "Lastname",
+        mail: "Mail",
+        tentative_date: "Tentative date",
+        title: "Field visit request",
+        description:
+          "Please, complete your information and we will contact you in the next 48 hours.",
+        submit: "Request visit",
+        successfully_sent_title: "Request sent successfully",
+        successfully_sent_description:
+          "We will contact you in the next 48 hours to confirm the visit",
       },
       investment: {
         text: "*Remember that in order to receive your earnings it is necessary that you have your Tokens deposited",
@@ -100,27 +107,29 @@ const resources = {
         rentability: {
           title1: "Milking cows",
           title2: "Your field",
-          description: 'Each real Milking Cow is equivalent to 5,500 “New Milk” Tokens',
+          description:
+            "Each real Milking Cow is equivalent to 5,500 “New Milk” Tokens",
           subtitle1: "Profitability",
           profitability_description: "{{value}} NAC by cow monthly",
           subtitle2: "Historical earnings:",
-          currentBalance: "Your assets"
+          currentBalance: "Your assets",
         },
       },
       exchange: {
-        tab_buy: 'Buy',
-        tab_sell: 'Sell',
-        helper_top_buy: '* Deposit your tokens to receive the investment',
-        helper_top_sell: '* Keep in mind that selling your tokens is not instantaneous, since the transaction is made when there is a buyer for them',
-        helper_bottom_buy: 'currently available to buy',
-        helper_bottom_sell: 'available for sale',
-        from: 'From',
-        to: 'To',
-        amount: 'Amount',
-        price: 'Price',
-        suggested_price: 'Suggested price',
-        button_buy: 'Buy',
-        button_sell: 'Sell',
+        tab_buy: "Buy",
+        tab_sell: "Sell",
+        helper_top_buy: "* Deposit your tokens to receive the investment",
+        helper_top_sell:
+          "* Keep in mind that selling your tokens is not instantaneous, since the transaction is made when there is a buyer for them",
+        helper_bottom_buy: "currently available to buy",
+        helper_bottom_sell: "available for sale",
+        from: "From",
+        to: "To",
+        amount: "Amount",
+        price: "Price",
+        suggested_price: "Suggested price",
+        button_buy: "Buy",
+        button_sell: "Sell",
       },
       docs: {
         banner: {
@@ -140,15 +149,24 @@ const resources = {
           card3_subtitle: "4 live cameras",
           card4_title: "Caravan Listing",
           card4_subtitle: "756 Listings",
-        }
+        },
       },
       deposit_token_form: {
-        deposit: 'Deposit',
-        amount: 'Amount',
-        available: 'available',
-        cancel: 'Cancel',
-        warning_description: 'Are you sure you want to withdraw your Tokens {{token}}?\n By removing them, you will stop generating profits to have them.'
-      }
+        deposit: "Deposit",
+        amount: "Amount",
+        available: "available",
+        cancel: "Cancel",
+        warning_description: "You successfully deposited {{amount}} {{token}}",
+        approve: "Approve",
+      },
+      withdraw_token_form: {
+        withdraw: "Withdraw",
+        amount: "Amount",
+        available: "available",
+        cancel: "Cancel",
+        warning_description: "You successfully withdrew {{amount}} {{token}}",
+        approve: "Approve",
+      },
     },
   },
   es: {
@@ -160,8 +178,8 @@ const resources = {
         docs: "Documentación",
         news: "Novedades",
         admin: "Administrador",
-        pair_wallet: 'Vincular Billetera',
-        wrong_wallet: 'Billetera Equivocada'
+        pair_wallet: "Vincular Billetera",
+        wrong_wallet: "Billetera Equivocada",
       },
       footer: {
         exchange_rate: "Cotización USD Hoy",
@@ -174,26 +192,29 @@ const resources = {
       },
       home: {
         banner_title: "Próximamente: NLAND Token",
-        banner_subtitle: "Vas a poder invertir en negocios agropecuarios con respaldo real",
+        banner_subtitle:
+          "Vas a poder invertir en negocios agropecuarios con respaldo real",
         card: {
           new_agro: {
             title: "New Agro coin generados",
             number: "{{value}} NAC",
-            button_text: "Comprar New Agro Tokens"
+            button_text: "Comprar New Agro Tokens",
           },
           actives: {
             title: "Activos totales",
             number: "{{value}} USD",
-            third_text: "Explicación de cómo se componen sus activos totales"
+            third_text: "Explicación de cómo se componen sus activos totales",
           },
           nmilk: {
             title: "Tus Tokens NMILK",
-            description: "Cada NMILK Token equivale a xxxx Litros de leche reales del tambo. Una nueva forma accesible y económica de invertir en un tambo.",
-            button_text: "Comprar New Milk"
+            description:
+              "Cada NMILK Token equivale a xxxx Litros de leche reales del tambo. Una nueva forma accesible y económica de invertir en un tambo.",
+            button_text: "Comprar New Milk",
           },
           cows: {
             title: "Vacas de ordeñe",
-            description: "Cada Vaca de Ordeñe real, equivale a 5.500 Tokens “New Milk” (NMILK)",
+            description:
+              "Cada Vaca de Ordeñe real, equivale a 5.500 Tokens “New Milk” (NMILK)",
             button_text: "Mis inversiones",
             fourth_text: "Tus activos",
             fifth_text: "{{nmilkUserAssets}} vacas ({{userMilkingCows}} NMILK)",
@@ -201,24 +222,27 @@ const resources = {
         },
         map: {
           title: "Conocé la ubicación física del Tambo",
-          location: "Tandil, Buenos Aires"
-        }
+          location: "Tandil, Buenos Aires",
+        },
       },
       form: {
-        cancel: 'Cancelar',
-        submit: 'Enviar',
-        warning: 'Advertencia'
+        cancel: "Cancelar",
+        submit: "Enviar",
+        warning: "Advertencia",
+        success: "Exito",
       },
       field_visit_form: {
-        name: 'Nombre',
-        lastname: 'Apellido',
-        mail: 'Mail',
-        tentative_date: 'Fecha tentativa',
-        title: 'Solicitud de visita al campo',
-        description: 'Por favor, completá tus datos y nos pondremos en contacto con vos en las proximas 48hs.',
-        submit: 'Solicitar visita',
-        successfully_sent_title: 'Solicitud enviado con éxito',
-        successfully_sent_description: 'Nos pondremos en contacto con vos en las próximas 48 hs para confirmar la visita'
+        name: "Nombre",
+        lastname: "Apellido",
+        mail: "Mail",
+        tentative_date: "Fecha tentativa",
+        title: "Solicitud de visita al campo",
+        description:
+          "Por favor, completá tus datos y nos pondremos en contacto con vos en las proximas 48hs.",
+        submit: "Solicitar visita",
+        successfully_sent_title: "Solicitud enviado con éxito",
+        successfully_sent_description:
+          "Nos pondremos en contacto con vos en las próximas 48 hs para confirmar la visita",
       },
       investment: {
         text: "*Recordá que para poder recibir tus ganancias es necesario que tengas tus Tokens depositados",
@@ -234,7 +258,7 @@ const resources = {
         card_milk: {
           title: "New Milk (NMILK)",
           subtitle: "TNA 50%",
-          buy: "Comprar"
+          buy: "Comprar",
         },
         card_beef: {
           title: "New Beef (NBEEF)",
@@ -249,27 +273,29 @@ const resources = {
         rentability: {
           title1: "Vacas de ordeñe",
           title2: "Tu campo",
-          description: 'Cada Vaca de Ordeñe real, equivale a 5.500 Tokens “New Milk”',
+          description:
+            "Cada Vaca de Ordeñe real, equivale a 5.500 Tokens “New Milk”",
           subtitle1: "Rentabilidad",
           profitability_description: "{{value}} NAC por vaca mensualmente",
           subtitle2: "Ganancias históricas:",
-          currentBalance: "Tus activos"
+          currentBalance: "Tus activos",
         },
       },
       exchange: {
-        tab_buy: 'Comprar',
-        tab_sell: 'Vender',
-        helper_top_buy: '* Depositá tus tokens para recibir la inversion',
-        helper_top_sell: '* Tené en cuenta que vender tus tokens no es instantaneo, ya que la oparacion se efectua cuando haya un comprador para los mismos',
-        helper_bottom_buy: 'disponibles para comprar actualmente',
-        helper_bottom_sell: 'disponibles a la venta',
-        from: 'De',
-        to: 'A',
-        amount: 'Cantidad',
-        price: 'Precio',
-        suggested_price: 'Precio sugerido',
-        button_buy: 'Comprar',
-        button_sell: 'Vender',
+        tab_buy: "Comprar",
+        tab_sell: "Vender",
+        helper_top_buy: "* Depositá tus tokens para recibir la inversion",
+        helper_top_sell:
+          "* Tené en cuenta que vender tus tokens no es instantaneo, ya que la oparacion se efectua cuando haya un comprador para los mismos",
+        helper_bottom_buy: "disponibles para comprar actualmente",
+        helper_bottom_sell: "disponibles a la venta",
+        from: "De",
+        to: "A",
+        amount: "Cantidad",
+        price: "Precio",
+        suggested_price: "Precio sugerido",
+        button_buy: "Comprar",
+        button_sell: "Vender",
       },
       docs: {
         banner: {
@@ -289,30 +315,37 @@ const resources = {
           card3_subtitle: "4 camaras en vivo",
           card4_title: "Listado de caravanas",
           card4_subtitle: "756 Listados",
-        }
+        },
       },
       deposit_token_form: {
-        deposit: 'Depositar',
-        amount: 'Cantidad',
-        available: 'disponibles',
-        cancel: 'Cancelar',
-        warning_description: '¿Estás seguro de que querés retirar tus Tokens {{token}}? \n Al sacarlos, dejarás de generar ganancias para tenerlos.'
-      }
+        deposit: "Depositar",
+        amount: "Cantidad",
+        available: "disponibles",
+        cancel: "Cancelar",
+        warning_description: "Depositaste exitosamente {{amount}} {{token}}",
+        approve: "Aprobar",
+      },
+      withdraw_token_form: {
+        withdraw: "Retirar",
+        amount: "Cantidad",
+        available: "disponibles",
+        cancel: "Cancelar",
+        warning_description: "Retiraste exitosamente {{amount}} {{token}}",
+        approve: "Aprobar",
+      },
     },
   },
 };
 
 const browserLanguage = detectBrowserLanguage();
 
-i18n
-  .use(initReactI18next)
-  .init({
-    resources,
-    lng: localStorage.getItem('i18nextLng') || browserLanguage || "es",
-    fallbackLng: {
-      default: ["es"],
-    },
-    interpolation: {
-      escapeValue: false,
-    },
-  });
+i18n.use(initReactI18next).init({
+  resources,
+  lng: localStorage.getItem("i18nextLng") || browserLanguage || "es",
+  fallbackLng: {
+    default: ["es"],
+  },
+  interpolation: {
+    escapeValue: false,
+  },
+});

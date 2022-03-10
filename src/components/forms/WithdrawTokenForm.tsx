@@ -13,8 +13,6 @@ import {
 import { PriceContext } from "src/contexts/PriceContext";
 import {
   callFunction,
-  getTokenAllowance,
-  approveContract,
 } from "reblox-web3-utils";
 import contracts from "src/config/constants/contracts";
 import { useEthers } from "@usedapp/core";
@@ -23,39 +21,38 @@ import MainStaking from "src/config/abi/MainStaking.json";
 import { formatDecimalToUint } from "src/utils/formatUtils";
 import DoneIcon from "@mui/icons-material/Done";
 
-interface DepositTokenFormProps {
+interface WithdrawTokenFormProps {
   token: "nmilk" | "nbeef" | "nland";
 }
 
 const tokenKeyMap = {
   nmilk: {
     pId: NMILK_POOL_ID,
-    asset: "nmilkUserAssets",
+    asset: "nmilkUserDeposited",
     contract: contracts.nmilk[CHAIN_ID],
   },
   nbeef: {
     pId: NBEEF_POOL_ID,
-    asset: "nbeefUserAssets",
+    asset: "nbeefUserDeposited",
     contract: contracts.nmilk[CHAIN_ID],
   },
   nland: {
     pId: NLAND_POOL_ID,
-    asset: "nlandUserAssets",
+    asset: "nlandUserDeposited",
     contract: contracts.nmilk[CHAIN_ID],
   },
 };
 
-const DepositTokenForm: React.FC<DepositTokenFormProps> = ({ token }) => {
+const WithdrawTokenForm: React.FC<WithdrawTokenFormProps> = ({ token }) => {
   const { t } = useTranslation();
   const { setModal } = useContext(ModalContext);
   const priceContext = useContext(PriceContext);
 
   const [amount, setAmount] = useState<number>();
-  const [needsApproval, setNeedsApproval] = useState<boolean>(true);
   const [formSent, setFormSent] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const { account, library } = useEthers();
+  const { library } = useEthers();
 
   const [availableTokens] = useState<number>(
     priceContext[tokenKeyMap[token]?.asset]
@@ -68,7 +65,7 @@ const DepositTokenForm: React.FC<DepositTokenFormProps> = ({ token }) => {
       contracts.mainStaking[CHAIN_ID],
       library,
       [tokenKeyMap[token]?.pId, formatDecimalToUint(amount)],
-      "deposit",
+      "withdraw",
       MainStaking
     )
       .then(() => {
@@ -76,6 +73,11 @@ const DepositTokenForm: React.FC<DepositTokenFormProps> = ({ token }) => {
       })
       .finally(() => setIsLoading(false));
   };
+
+
+  const onMax = () => {
+    setAmount(availableTokens)
+  }
 
   const onChange = (value: number) => {
     if (value > availableTokens) {
@@ -85,36 +87,9 @@ const DepositTokenForm: React.FC<DepositTokenFormProps> = ({ token }) => {
     }
   };
 
-  const onMax = () => {
-    setAmount(availableTokens)
-  }
-
-  const onApprove = () => {
-    setIsLoading(true);
-    approveContract(
-      library,
-      contracts.mainStaking[CHAIN_ID],
-      tokenKeyMap[token].contract,
-      // MainStaking
-    )
-      .then(() => setNeedsApproval(false))
-      .finally(() => setIsLoading(false));
-  };
-
   const handleSlide = (event: Event, newValue: number) => {
     setAmount((availableTokens * newValue) / 100);
   };
-
-  useEffect(() => {
-    account &&
-      getTokenAllowance(
-        CHAIN_ID,
-        account,
-        tokenKeyMap[token].contract,
-        contracts.mainStaking[CHAIN_ID],
-        MainStaking
-      ).then((allowance: number) => setNeedsApproval(allowance == 0));
-  }, [account, token]);
 
   if (formSent) {
     return (
@@ -126,7 +101,7 @@ const DepositTokenForm: React.FC<DepositTokenFormProps> = ({ token }) => {
           {t("form.success")}
         </h3>
         <p className="text-blue text-sm text-center px-10">
-          {t("deposit_token_form.warning_description", {
+          {t("withdraw_token_form.warning_description", {
             amount,
             token: upperCase(token),
           })}
@@ -141,7 +116,7 @@ const DepositTokenForm: React.FC<DepositTokenFormProps> = ({ token }) => {
         <div className="flex flex-row justify-between items-end mt-8">
           <Textfield
             id="amount"
-            label={t("deposit_token_form.amount")}
+            label={t("withdraw_token_form.amount")}
             onChange={onChange}
             value={amount}
             required={true}
@@ -156,7 +131,7 @@ const DepositTokenForm: React.FC<DepositTokenFormProps> = ({ token }) => {
         </div>
 
         <p className="text-sm text-blue mt-2">
-          *{availableTokens} {token} {t("deposit_token_form.available")}
+          *{availableTokens} {token} {t("withdraw_token_form.available")}
         </p>
 
         <Slider
@@ -186,27 +161,16 @@ const DepositTokenForm: React.FC<DepositTokenFormProps> = ({ token }) => {
             type="button"
             onClick={() => setModal(undefined)}
           />
-          {needsApproval && (
-            <Button
-              isLoading={isLoading}
-              text={`${t("deposit_token_form.approve")} ${upperCase(token)}`}
-              extraClasses="h-10 bg-blue border-blue text-white text-center h-8 text-xs uppercase w-full ml-3"
-              type="button"
-              onClick={onApprove}
-            />
-          )}
-          {!needsApproval && (
-            <Button
-              isLoading={isLoading}
-              text={`${t("deposit_token_form.deposit")} ${upperCase(token)}`}
-              extraClasses="h-10 bg-blue border-blue text-white text-center h-8 text-xs uppercase w-full ml-3"
-              type="submit"
-            />
-          )}
+          <Button
+            isLoading={isLoading}
+            text={`${t("withdraw_token_form.withdraw")} ${upperCase(token)}`}
+            extraClasses="h-10 bg-blue border-blue text-white text-center h-8 text-xs uppercase w-full ml-3"
+            type="submit"
+          />
         </div>
       </div>
     </form>
   );
 };
 
-export default DepositTokenForm;
+export default WithdrawTokenForm;

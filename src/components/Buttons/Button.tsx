@@ -1,5 +1,6 @@
-import React, {ReactNode} from "react";
-import {Link} from "react-router-dom";
+import { CircularProgress } from "@mui/material";
+import React, { ReactNode } from "react";
+import { Link } from "react-router-dom";
 
 interface ButtonProps {
   text?: string;
@@ -7,8 +8,9 @@ interface ButtonProps {
   onClick?: () => void | undefined;
   extraClasses?: string;
   linkTarget?: string;
-  type?: 'button' | 'submit' | 'reset'
+  type?: "button" | "submit" | "reset";
   children?: ReactNode;
+  isLoading?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -17,8 +19,9 @@ const Button: React.FC<ButtonProps> = ({
   onClick = () => {},
   extraClasses,
   linkTarget,
-  type = 'button',
-  children
+  type = "button",
+  children,
+  isLoading = false,
 }) => {
   const Content = () => {
     return (
@@ -27,20 +30,21 @@ const Button: React.FC<ButtonProps> = ({
         onClick={onClick}
         type={type}
       >
-        {children || text}
+        {!isLoading && (children || text)}
+        {isLoading && <CircularProgress size={10} sx={{ color: "white" }} />}
       </button>
     );
   };
 
-  if (link)  {
+  if (link) {
     return (
-      <Link to={link} target={linkTarget || '_self'}>
-        <Content/>
+      <Link to={link} target={linkTarget || "_self"}>
+        <Content />
       </Link>
-    )
+    );
   }
 
-  return <Content />
-}
+  return <Content />;
+};
 
 export default Button;

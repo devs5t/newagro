@@ -5,6 +5,7 @@ import {PriceContext} from "src/contexts/PriceContext";
 import {ReactSVG} from "react-svg";
 import {NMILK_TOKENS_BY_COW} from "src/config/constants";
 import {formatCurrency} from "src/utils/currency";
+import { formatUintToDecimal } from "src/utils/formatUtils";
 
 const Investment: React.FC = () => {
   const { t } = useTranslation();
@@ -17,7 +18,7 @@ const Investment: React.FC = () => {
         <div className="col-span-3 px-5 py-5 lg:px-20 md:py-8 flex-3">
           <InvestCard
             title={t('investment.card_milk.title')}
-            subtitle={t('investment.card_milk.subtitle', {apr: nmilkApr})}
+            subtitle={t('investment.card_milk.subtitle', {apr: nmilkApr.toFixed(5)})}
             token={"nmilk"}
             deposit={nmilkUserDeposited}
             earn={nmilkUserEarns}
@@ -79,7 +80,7 @@ const Investment: React.FC = () => {
                 </div>
               </div>
               <h4 className="text-blue font-bold">{t('investment.rentability.subtitle2')}</h4>
-              <h3 className="text-green font-bold text-lg">{historicalEarning} NAC</h3>
+              <h3 className="text-green font-bold text-lg">{formatUintToDecimal(historicalEarning)} NAC</h3>
             </div>
           </div>
         </div>
