@@ -16,8 +16,6 @@ const ExchangeARSForm: React.FC<ExchangeARSFormProps> = ({
   const {t} = useTranslation();
   const {setModal} = useContext(ModalContext);
 
-  const formName: string = tab === 'buy' ? 'request-ars-purchase' : 'request-ars-sale';
-
   const [name, setName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -41,7 +39,8 @@ const ExchangeARSForm: React.FC<ExchangeARSFormProps> = ({
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: encode({
-        "form-name": formName,
+        "form-name": "purchase-or-sale-with-ars",
+        type: tab,
         name,
         lastName,
         email,
@@ -69,14 +68,20 @@ const ExchangeARSForm: React.FC<ExchangeARSFormProps> = ({
     <form
       className="w-full px-10"
       onSubmit={onSubmit}
-      name={formName}
+      name="purchase-or-sale-with-ars"
       method="POST"
       data-netlify="true"
     >
       <input
         type="hidden"
         name="form-name"
-        value={formName}
+        value="purchase-or-sale-with-ars"
+      />
+
+      <input
+        type="hidden"
+        name="type"
+        value={tab}
       />
 
       <p className="text-blue text-sm mb-6">{t("exchange_ars_form.description")}</p>

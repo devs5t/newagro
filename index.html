@@ -32,11 +32,20 @@
     <script type="module" src="/src/main.tsx"></script>
 
     <!-- A little help for the Netlify bots if you're not using a SSG -->
-    <form name="visit-field" netlify netlify-honeypot="bot-field" hidden>
+    <form name="visit-field" netlify hidden>
       <input type="text" name="name" />
       <input type="text" name="lastName" />
       <input type="email" name="email" />
       <input type="date" name="date" />
+    </form>
+
+    <form name="purchase-or-sale-with-ars" netlify hidden>
+      <input type="text" name="type" />
+      <input type="text" name="name" />
+      <input type="text" name="lastName" />
+      <input type="email" name="email" />
+      <input type="number" name="dni" />
+      <input type="text" name="phone" />
     </form>
 
   </body>
