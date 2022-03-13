@@ -9,7 +9,7 @@ import OracleFX from "src/config/abi/OracleFX.json";
 import MainStaking from "src/config/abi/MainStaking.json";
 import {callViewFunction, callFunction} from "reblox-web3-utils";
 import {useEthers} from "@usedapp/core";
-import {NLAND_POOL_ID, NMILK_POOL_ID, NMILK_TOKENS_BY_COW} from "src/config/constants";
+import {NMILK_POOL_ID, NMILK_TOKENS_BY_COW} from "src/config/constants";
 import {get} from "lodash";
 import {formatUintToDecimal, formatHexNumber} from "src/utils/formatUtils";
 
@@ -30,15 +30,6 @@ const PriceContext = createContext({
   nmilkUserAssets: 0,
   nmilkUserDeposited: 0,
   nmilkUserEarns: 0,
-
-  nbeefUserAssets: 0,
-  nbeefUserDeposited: 0,
-  nbeefUserEarns: 0,
-
-  nlandUserAssets: 0,
-  nlandUserDeposited: 0,
-  nlandUserEarns: 0,
-
 
   milkingCows: 0,
   userMilkingCows: 0,
@@ -68,17 +59,10 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
   const [nmilkApr, setNmilkApr] = useState<number>(0);
   const [nmilkAssetsPerMonth, setNmilkAssetsPerMonth] = useState<number>(0);
   const [nmilkProfitability, setNmilkProfitability] = useState<number>(0);
+
   const [nmilkUserAssets, setNmilkUserAssets] = useState<number>(0);
   const [nmilkUserDeposited, setNmilkUserDeposited] = useState<number>(0);
   const [nmilkUserEarns, setNmilkUserEarns] = useState<number>(0);
-
-  const [nbeefUserAssets, setNbeefUserAssets] = useState<number>(0);
-  const [nbeefUserDeposited, setNbeefUserDeposited] = useState<number>(0);
-  const [nbeefUserEarns, setNbeefUserEarns] = useState<number>(0);
-
-  const [nlandUserAssets, setNlandUserAssets] = useState<number>(0);
-  const [nlandUserDeposited, setNlandUserDeposited] = useState<number>(0);
-  const [nlandUserEarns, setNlandUserEarns] = useState<number>(0);
 
   const [milkingCows, setMilkingCows] = useState<number>(0);
   const [userMilkingCows, setUserMilkingCows] = useState<number>(0);
@@ -168,23 +152,6 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
         NMILK
       ).then((value: number) => setNmilkUserAssets(formatUintToDecimal(value)));
 
-      // callFunction(
-      //   contracts.nbeef[CHAIN_ID],
-      //   library,
-      //   [account],
-      //   "balanceOf",
-      //   NBEEF
-      // ).then((value: number) => setNbeefUserAssets(formatUintToDecimal(value)));
-
-
-      // callFunction(
-      //   contracts.nland[CHAIN_ID],
-      //   library,
-      //   [account],
-      //   "balanceOf",
-      //   NLAND
-      // ).then((value: number) => setNland(formatUintToDecimal(value)));
-
       callFunction(
         contracts.mainStaking[CHAIN_ID],
         library,
@@ -193,21 +160,6 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
         MainStaking
       ).then((userInfo: {amount: {_hex: string}}) => setNmilkUserDeposited(formatHexNumber(get(userInfo, 'amount._hex', '0x00'))));
 
-      // callFunction(
-      //   contracts.mainStaking[CHAIN_ID],
-      //   library,
-      //   [NBEEF_POOL_ID, account],
-      //   "userInfo",
-      //   MainStaking
-      // ).then((userInfo: {amount: {_hex: string}}) => setNbeefUserDeposited(formatHexNumber(get(userInfo, 'amount._hex', '0x00'))));
-
-      // callFunction(
-      //   contracts.mainStaking[CHAIN_ID],
-      //   library,
-      //   [NLAND_POOL_ID, account],
-      //   "userInfo",
-      //   MainStaking
-      // ).then((userInfo: {amount: {_hex: string}}) => setNlandUserDeposited(formatHexNumber(get(userInfo, 'amount._hex', '0x00'))));
 
       callFunction(
         contracts.mainStaking[CHAIN_ID],
@@ -216,23 +168,6 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
         "getPendingNative",
         MainStaking
       ).then((value: {_hex: string}) => setNmilkUserEarns(formatHexNumber(value._hex)));
-
-      // callFunction(
-      //   contracts.mainStaking[CHAIN_ID],
-      //   library,
-      //   [NBEEF_POOL_ID, account],
-      //   "getPendingNative",
-      //   MainStaking
-      // ).then((value: {_hex: string}) => setNbeefUserEarns(formatHexNumber(value._hex)));
-
-      // callFunction(
-      //   contracts.mainStaking[CHAIN_ID],
-      //   library,
-      //   [NLAND_POOL_ID, account],
-      //   "getPendingNative",
-      //   MainStaking
-      // ).then((value: {_hex: string}) => setNlandUserEarns(formatHexNumber(value._hex)));
-      
 
       callFunction(
         contracts.mainStaking[CHAIN_ID],
@@ -298,14 +233,6 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
         nmilkUserAssets,
         nmilkUserDeposited,
         nmilkUserEarns,
-
-        // nbeefUserAssets,
-        // nbeefUserDeposited,
-        // nbeefUserEarns,
-
-        // nlandUserAssets,
-        // nlandUserDeposited,
-        // nlandUserEarns,
 
         milkingCows,
         userMilkingCows,

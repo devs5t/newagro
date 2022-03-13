@@ -136,8 +136,8 @@ const resources = {
         helper_top_buy: "* Deposit your tokens to receive the investment",
         helper_top_sell:
           "* Keep in mind that selling your tokens is not instantaneous, since the transaction is made when there is a buyer for them",
-        helper_bottom_buy: "currently available to buy",
-        helper_bottom_sell: "available for sale",
+        helper_bottom_buy: "{{amount}} {{token}} currently available to buy",
+        helper_bottom_sell: "*Remember to withdraw your tokens from the pool to be able to sell them",
         from: "From",
         to: "To",
         amount: "Amount",
@@ -145,6 +145,7 @@ const resources = {
         suggested_price: "Suggested price",
         button_buy: "Buy",
         button_sell: "Sell",
+        user_from_assets: "{{amount}} {{token}} available"
       },
       docs: {
         banner: {
@@ -317,8 +318,8 @@ const resources = {
         helper_top_buy: "* Depositá tus tokens para recibir la inversion",
         helper_top_sell:
           "* Tené en cuenta que vender tus tokens no es instantaneo, ya que la oparacion se efectua cuando haya un comprador para los mismos",
-        helper_bottom_buy: "disponibles para comprar actualmente",
-        helper_bottom_sell: "disponibles a la venta",
+        helper_bottom_buy: "{{amount}} {{token}} disponibles para comprar actualmente",
+        helper_bottom_sell: "*Recordá retirar tus tokens del pool para poder venderlos",
         from: "De",
         to: "A",
         amount: "Cantidad",
@@ -326,6 +327,7 @@ const resources = {
         suggested_price: "Precio sugerido",
         button_buy: "Comprar",
         button_sell: "Vender",
+        user_from_assets: "{{amount}} {{token}} disponibles"
       },
       docs: {
         banner: {
