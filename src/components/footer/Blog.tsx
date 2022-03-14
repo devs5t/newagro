@@ -15,8 +15,8 @@ type Post = {
   title: string;
 };
 
-const API_URL = 'https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@barbecueswap';
-const BLOG_URL = "https://barbecueswap.medium.com/";
+const API_URL = 'https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@NewAgroCoin';
+const BLOG_URL = "https://medium.com/@NewAgroCoin";
 const POSTS_AMOUNT = 3;
 
 const Blog: React.FC = () => {

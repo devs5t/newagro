@@ -14,10 +14,10 @@ const Footer: React.FC = () => {
   const {nacExchangeRate} = useContext(PriceContext);
 
   const socialLinks: {name: string, url: string, icon: string}[] = [
-    {name: 'Instagram', url: 'https://instagram.com', icon: 'icons/instagram.svg'},
-    {name: 'Twitter', url: 'https://twitter.com', icon: 'icons/twitter.svg'},
-    {name: 'Medium', url: 'https://medium.com', icon: 'icons/medium.svg'},
-    {name: 'Telegram', url: 'https://telegram.com', icon: 'icons/telegram.svg'}
+    {name: 'Medium', url: 'https://medium.com/@NewAgroCoin', icon: 'icons/medium.svg'},
+    {name: 'Telegram', url: 'https://t.me/NewAgroCoin', icon: 'icons/telegram.svg'},
+    {name: 'LinkedIn', url: 'https://www.linkedin.com/company/newagro-coin', icon: 'icons/linkedin.svg'},
+    {name: 'Instagram', url: 'https://www.instagram.com/newagrocoin', icon: 'icons/instagram.svg'},
   ];
 
   const location = useLocation();
@@ -80,6 +80,8 @@ const Footer: React.FC = () => {
                 beforeInjection={(svg) => {
                   svg.classList.add('fill-white');
                   svg.classList.add('md:fill-green');
+                  svg.classList.add('w-6');
+                  svg.classList.add('h-6');
                 }}
               />
             </a>
