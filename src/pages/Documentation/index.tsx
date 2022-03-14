@@ -20,7 +20,9 @@ const Documentation: React.FC = () => {
       />
       <div className="w-full grid grid-cols-2 md:grid-cols-2 gap-2 mt-8 lg:px-16 xl:px-32 2xl:px-48 ">
         <a
-          href={"www.newagro.com"}
+          href="https://newagrocoin.gitbook.io/whitepaper"
+          target="_blank"
+          rel="noreferrer"
           className="flex flex-row inline-block text-tiny px-2 leading-none border rounded-full md:px-0 w-full
            border-1 border-blue text-blue py-2 justify-around pointer md:border-2 md:text-lg lg:px-4"
         >
@@ -37,7 +39,9 @@ const Documentation: React.FC = () => {
           />
         </a>
         <a
-          href={"www.newagro.com"}
+          href="https://newagro.com.ar"
+          target="_blank"
+          rel="noreferrer"
           className="flex flex-row inline-block text-tiny px-2 leading-none border rounded-full md:px-0 w-full
            border-1 border-blue text-blue py-2 justify-around pointer md:border-2 md:text-lg lg:px-4"
         >
@@ -70,7 +74,7 @@ const Documentation: React.FC = () => {
           subtitle={t("docs.cards.card1_subtitle")}
           linkText={t("docs.cards.see_docs")}
           link={"#"}
-          component={() =>  <SearchList listItems={[
+          component={<SearchList listItems={[
             { name: "Busqueda ", link: "example.com"},
             { name: "Remito-Salida-Leche-1-cod:2345-03/12/2021 ", link: "example.com"},
             { name: "Remito-Salida-Leche-1-cod:2346-04/12/2021", link: "example.com"},
@@ -83,7 +87,7 @@ const Documentation: React.FC = () => {
         <br />
         <DocumentationCard
           title={t("docs.cards.card2_title")}
-          component={() =>  <Map />}
+          component={<Map />}
         />
         <br />
         <DocumentationCard

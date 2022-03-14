@@ -8,7 +8,7 @@ interface DocumentationCardProps {
   link?: string;
   linkText?: () => void;
   containerClasses?: string;
-  component?: React.FC,
+  component?: JSX.Element,
 }
 
 const DocumentationCard: React.FC<DocumentationCardProps> = ({
@@ -44,7 +44,7 @@ const DocumentationCard: React.FC<DocumentationCardProps> = ({
       </div>
       {open && component && (
         <div className="w-full py-10 px-4 md:px-20 ">
-          {component()}
+          {component}
         </div>
       )}
     </div>

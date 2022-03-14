@@ -1,6 +1,5 @@
 import { CircularProgress } from "@mui/material";
 import React, { ReactNode } from "react";
-import { Link } from "react-router-dom";
 
 interface ButtonProps {
   text?: string;
@@ -41,9 +40,9 @@ const Button: React.FC<ButtonProps> = ({
 
   if (link) {
     return (
-      <Link to={link} target={linkTarget || "_self"}>
+      <a href={link} target={linkTarget || "_self"}>
         <Content />
-      </Link>
+      </a>
     );
   }
 

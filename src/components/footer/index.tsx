@@ -46,7 +46,9 @@ const Footer: React.FC = () => {
       <div className="flex flex-col md:flex-col-reverse justify-center md:mb-4 px-6 bg-blue md:bg-transparent py-20 md:py-2">
         <Button
           text={t("footer.about_us")}
-          extraClasses="hidden md:block border-green text-green font-bold"
+          extraClasses="hidden md:block border-green text-green font-bold w-full"
+          link="https://newagro.com.ar/"
+          linkTarget="_blank"
         />
         <Button
           text={t("footer.field_visit")}
