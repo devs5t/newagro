@@ -9,11 +9,13 @@ import Tabs from "src/components/tabs/Tabs";
 import {PriceContext} from "src/contexts/PriceContext";
 import {formatCurrency} from "src/utils/currency";
 import { useNavigate } from 'react-router-dom';
+import {NmilkContext} from "src/contexts/NmilkContext";
 
 const Home: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const {nacTotalSupply, nmilkTotalAssets, nmilkTotalSupply, milkingCows, nmilkUserAssets, userMilkingCows} = useContext(PriceContext);
+  const {nacTotalSupply} = useContext(PriceContext);
+  const {nmilkTotalAssets, nmilkTotalSupply, milkingCows, nmilkUserAssets, userMilkingCows} = useContext(NmilkContext);
 
   return (
     <div>

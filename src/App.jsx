@@ -22,6 +22,9 @@ import "./index.css";
 import {ModalProvider} from "src/contexts/ModalContext";
 import Modal from "src/components/Modal";
 import {PriceContextProvider} from "src/contexts/PriceContext";
+import {NmilkContextProvider} from "src/contexts/NmilkContext";
+import {NlandContextProvider} from "src/contexts/NlandContext";
+import {NbeefContextProvider} from "src/contexts/NbeefContext";
 
 const jss = create({
   ...jssPreset(),
@@ -67,7 +70,13 @@ function App() {
               <ThemeProvider theme={createTheme(theme)}>
                 <ModalProvider>
                   <PriceContextProvider>
-                    <Layout>{content}</Layout>
+                    <NmilkContextProvider>
+                      <NlandContextProvider>
+                        <NbeefContextProvider>
+                          <Layout>{content}</Layout>
+                        </NbeefContextProvider>
+                      </NlandContextProvider>
+                    </NmilkContextProvider>
                   </PriceContextProvider>
                   <Modal />
                 </ModalProvider>

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {useContext, useEffect, useMemo, useState} from "react";
 import { useTranslation } from "react-i18next";
 import Button from "src/components/Buttons/Button";
 import { ModalContext } from "src/contexts/ModalContext";
@@ -10,7 +10,6 @@ import {
   NBEEF_POOL_ID,
   NLAND_POOL_ID,
 } from "src/config/constants";
-import { PriceContext } from "src/contexts/PriceContext";
 import {
   callFunction,
   getTokenAllowance,
@@ -22,33 +21,20 @@ import { CHAIN_ID } from "src/config";
 import MainStaking from "src/config/abi/MainStaking.json";
 import { formatDecimalToUint } from "src/utils/formatUtils";
 import DoneIcon from "@mui/icons-material/Done";
+import {NmilkContext} from "src/contexts/NmilkContext";
+import {NbeefContext} from "src/contexts/NbeefContext";
+import {NlandContext} from "src/contexts/NlandContext";
 
 interface DepositTokenFormProps {
   token: "nmilk" | "nbeef" | "nland";
 }
 
-const tokenKeyMap = {
-  nmilk: {
-    pId: NMILK_POOL_ID,
-    asset: "nmilkUserAssets",
-    contract: contracts.nmilk[CHAIN_ID],
-  },
-  nbeef: {
-    pId: NBEEF_POOL_ID,
-    asset: "nbeefUserAssets",
-    contract: contracts.nmilk[CHAIN_ID],
-  },
-  nland: {
-    pId: NLAND_POOL_ID,
-    asset: "nlandUserAssets",
-    contract: contracts.nmilk[CHAIN_ID],
-  },
-};
-
 const DepositTokenForm: React.FC<DepositTokenFormProps> = ({ token }) => {
   const { t } = useTranslation();
   const { setModal } = useContext(ModalContext);
-  const priceContext = useContext(PriceContext);
+  const { nmilkUserAssets } = useContext(NmilkContext);
+  const { nlandUserAssets } = useContext(NlandContext);
+  const { nbeefUserAssets } = useContext(NbeefContext);
 
   const [amount, setAmount] = useState<number>();
   const [needsApproval, setNeedsApproval] = useState<boolean>(true);
@@ -57,9 +43,31 @@ const DepositTokenForm: React.FC<DepositTokenFormProps> = ({ token }) => {
 
   const { account, library } = useEthers();
 
-  const [availableTokens] = useState<number>(
-    priceContext[tokenKeyMap[token]?.asset]
-  );
+  const tokenKeyMap = {
+    nmilk: {
+      pId: NMILK_POOL_ID,
+      contract: contracts.nmilk[CHAIN_ID],
+    },
+    nbeef: {
+      pId: NBEEF_POOL_ID,
+      contract: contracts.nmilk[CHAIN_ID],
+    },
+    nland: {
+      pId: NLAND_POOL_ID,
+      contract: contracts.nmilk[CHAIN_ID],
+    },
+  };
+
+  const availableTokens = useMemo(() => {
+    switch (token) {
+      case "nmilk":
+        return nmilkUserAssets;
+      case "nland":
+        return nlandUserAssets;
+      case "nbeef":
+        return nbeefUserAssets;
+    }
+  }, [token, nmilkUserAssets, nlandUserAssets, nbeefUserAssets]);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

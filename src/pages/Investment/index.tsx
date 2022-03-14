@@ -6,10 +6,12 @@ import {ReactSVG} from "react-svg";
 import {NMILK_TOKENS_BY_COW} from "src/config/constants";
 import {formatCurrency} from "src/utils/currency";
 import { formatUintToDecimal } from "src/utils/formatUtils";
+import {NmilkContext} from "src/contexts/NmilkContext";
 
 const Investment: React.FC = () => {
   const { t } = useTranslation();
-  const {milkingCows, userMilkingCows, historicalEarning, nmilkUserDeposited, nmilkUserEarns, nmilkApr, nmilkProfitability, nmilkExchangeRate} = useContext(PriceContext);
+  const { historicalEarning } = useContext(PriceContext);
+  const { milkingCows, userMilkingCows, nmilkUserDeposited, nmilkUserEarns, nmilkApr, nmilkProfitability, nmilkExchangeRate } = useContext(NmilkContext);
 
   return (
     <div className="xl:p-10 xl:flex xl:flex-col">
