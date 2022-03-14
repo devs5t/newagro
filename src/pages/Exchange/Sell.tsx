@@ -15,15 +15,19 @@ import {PriceContext} from "src/contexts/PriceContext";
 import {useEthers} from "@usedapp/core";
 import {ModalContext} from "src/contexts/ModalContext";
 import ExchangeARSForm from "src/components/forms/ExchangeARSForm";
+import {NmilkContext} from "src/contexts/NmilkContext";
+import {NlandContext} from "src/contexts/NlandContext";
+import {NbeefContext} from "src/contexts/NbeefContext";
 
 const Sell: React.FC = () => {
   const { t } = useTranslation();
   const {setModal} = useContext(ModalContext);
 
   const { account, library } = useEthers();
-  const { nacExchangeRate } = useContext(PriceContext);
-
-  const [fromUserAssets, setFromUserAssets] = useState<number>(0);
+  const { nacExchangeRate, nacUserAssets } = useContext(PriceContext);
+  const { nmilkUserAssets } = useContext(NmilkContext);
+  const { nlandUserAssets } = useContext(NlandContext);
+  const { nbeefUserAssets } = useContext(NbeefContext);
 
   const [fromAmount, setFromAmount] = useState<number>(0);
   const debouncedFromAmount = useDebounce(fromAmount, 500);
@@ -38,6 +42,19 @@ const Sell: React.FC = () => {
 
   const toCurrencies: ('usdt' | 'ars')[] = ['usdt', 'ars'];
   const [selectedToCurrency, setSelectedToCurrency] = useState<'usdt' | 'ars'>(toCurrencies[0]);
+
+  const fromUserAssets: number = useMemo(() => {
+    switch (selectedFromCurrency) {
+      case "nac":
+        return nacUserAssets;
+      case "nmilk":
+        return nmilkUserAssets;
+      case "nland":
+        return nlandUserAssets;
+      case "nbeef":
+        return nbeefUserAssets;
+    }
+  }, [selectedFromCurrency, nmilkUserAssets, nlandUserAssets, nbeefUserAssets]);
 
   useEffect(() => {
     if (selectedToCurrency === 'ars') {
@@ -105,14 +122,27 @@ const Sell: React.FC = () => {
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (canSubmit) {
-      callFunction(
-        selectedContract,
-        library,
-        [formatDecimalToUint(fromAmount), formatDecimalToUint(fromPrice)],
-        'sell',
-        selectedAbi
-      )
-        .then(console.log)
+      if (selectedFromCurrency === 'nac') {
+        callFunction(
+          selectedContract,
+          library,
+          [formatDecimalToUint(fromAmount)],
+          'deposit',
+          selectedAbi
+        )
+          .then(console.log)
+      }
+
+      if (['nmilk', 'nland', 'nbeef'].includes(selectedFromCurrency)) {
+        callFunction(
+          selectedContract,
+          library,
+          [formatDecimalToUint(fromAmount), formatDecimalToUint(fromPrice)],
+          'sell',
+          selectedAbi
+        )
+          .then(console.log)
+      }
     }
   };
 
