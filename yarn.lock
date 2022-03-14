@@ -13574,6 +13574,13 @@ react-feather@2.0.9:
   dependencies:
     prop-types "^15.7.2"
 
+react-gapi@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-gapi/-/react-gapi-1.0.1.tgz#a3657e1f349a20ba7ad7e6ebdfd4910b5983925d"
+  integrity sha512-jFF1qoPrGcivG+gcBUPoPkdkUFMAfWeMgb2eME+jbtJ0doAuz8NEDanBOCY7vbwCdPN8anty2zK+7WWkQB9dVw==
+  dependencies:
+    react-weblibrary "^1.0.1"
+
 react-helmet-async@1.1.2:
   version "1.1.2"
   resolved "https://registry.npmjs.org/react-helmet-async/-/react-helmet-async-1.1.2.tgz"
@@ -13796,6 +13803,13 @@ react-use@17.3.1:
     throttle-debounce "^3.0.1"
     ts-easing "^0.2.0"
     tslib "^2.1.0"
+
+react-weblibrary@^1.0.1:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-weblibrary/-/react-weblibrary-1.0.2.tgz#72cc2f45ff1982c8c47651530ac6d67d5f32a578"
+  integrity sha512-jJcCTRKsUEjS/ixZlZJbzI0XTVyg54/CauQMIzyoeGauM8QOAG5ToRAoBrHiOb7IJnyln6kdR7wmicItss5oKg==
+  dependencies:
+    ts-essentials "^9.0.0"
 
 react@17.0.2:
   version "17.0.2"
@@ -15696,6 +15710,11 @@ ts-easing@^0.2.0:
   version "0.2.0"
   resolved "https://registry.npmjs.org/ts-easing/-/ts-easing-0.2.0.tgz"
   integrity sha512-Z86EW+fFFh/IFB1fqQ3/+7Zpf9t2ebOAxNI/V6Wo7r5gqiqtxmgTlQ1qbqQcjLKYeSHPTsEmvlJUDg/EuL0uHQ==
+
+ts-essentials@^9.0.0:
+  version "9.1.2"
+  resolved "https://registry.yarnpkg.com/ts-essentials/-/ts-essentials-9.1.2.tgz#46db6944b73b4cd603f3d959ef1123c16ba56f59"
+  integrity sha512-EaSmXsAhEiirrTY1Oaa7TSpei9dzuCuFPmjKRJRPamERYtfaGS8/KpOSbjergLz/Y76/aZlV9i/krgzsuWEBbg==
 
 ts-pnp@1.2.0, ts-pnp@^1.1.6:
   version "1.2.0"

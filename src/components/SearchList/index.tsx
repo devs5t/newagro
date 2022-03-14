@@ -12,10 +12,12 @@ type ListItem = {
 interface SearchListProps {
   listItems: ListItem[];
   containerClasses?: string;
+  onDownload: any;
 }
 const SearchList: React.FC<SearchListProps> = ({
  listItems,
- containerClasses
+ containerClasses,
+ onDownload
 }) => {
   const [search, setSearch] = useState("");
 
@@ -52,6 +54,7 @@ const SearchList: React.FC<SearchListProps> = ({
               <p className="text-blue w-10/12 md:w-11/12 text-ellipsis overflow-hidden">{item.name}</p>
               <div className="text-blue w-2/12 md:w-1/12  flex flex-row right">
                 <ReactSVG
+                  onClick={() => onDownload(item)}
                   src={"icons/download.svg"}
                   beforeInjection={(svg) => {
                     svg.classList.add('mr-4');
@@ -60,7 +63,7 @@ const SearchList: React.FC<SearchListProps> = ({
                     svg.classList.add('pointer');
                   }}
                 />
-                <ReactSVG
+                {/* <ReactSVG
                   src={"icons/delete.svg"}
                   beforeInjection={(svg) => {
                     svg.classList.add('mr-4');
@@ -68,7 +71,7 @@ const SearchList: React.FC<SearchListProps> = ({
                     svg.classList.add('md:text-lg');
                     svg.classList.add('pointer');
                   }}
-                />
+                /> */}
               </div>
             </div>
           )}

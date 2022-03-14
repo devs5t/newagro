@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import {ReactSVG} from "react-svg";
-import SearchList from "src/components/SearchList";
 
 interface DocumentationCardProps {
   title: string;
@@ -8,7 +7,8 @@ interface DocumentationCardProps {
   link?: string;
   linkText?: () => void;
   containerClasses?: string;
-  component?: JSX.Element,
+  component?: React.FC,
+  signIn?: any;
 }
 
 const DocumentationCard: React.FC<DocumentationCardProps> = ({
@@ -17,13 +17,17 @@ const DocumentationCard: React.FC<DocumentationCardProps> = ({
    link,
    linkText,
    containerClasses,
-   component
+   component,
+   signIn
  }) => {
 
   const [open, setOpen] = useState(false);
   return (
     <div className={`flex flex-col w-full rounded-lg bg-lightblue/[.15] p-4 shadow ${containerClasses}`}>
-      <div className="w-full flex flex-row" onClick={() => setOpen(!open)}>
+      <div className="w-full flex flex-row" onClick={() => {
+        signIn();
+        setOpen(!open);
+      }}>
         <div className="w-1/2">
           <h3 className="text-blue text-xl font-bold font-medium text-lg md:text-2xl mr-2">{title}</h3>
           <p className="text-blue my-3" >{subtitle}</p>

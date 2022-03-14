@@ -19,12 +19,13 @@ import routes from "./routes";
 import createTheme from "./theme";
 import Layout from "src/features/layouts/Layout";
 import "./index.css";
-import {ModalProvider} from "src/contexts/ModalContext";
+import { ModalProvider } from "src/contexts/ModalContext";
 import Modal from "src/components/Modal";
 import {PriceContextProvider} from "src/contexts/PriceContext";
 import {NmilkContextProvider} from "src/contexts/NmilkContext";
 import {NlandContextProvider} from "src/contexts/NlandContext";
 import {NbeefContextProvider} from "src/contexts/NbeefContext";
+import { GoogleApiProvider } from "react-gapi";
 
 const jss = create({
   ...jssPreset(),
@@ -73,7 +74,12 @@ function App() {
                     <NmilkContextProvider>
                       <NlandContextProvider>
                         <NbeefContextProvider>
-                          <Layout>{content}</Layout>
+                          {/* Client ID aca */}
+                          <GoogleApiProvider
+                            clientId={"Sin un client id es posible que rompa"}
+                          >
+                            <Layout>{content}</Layout>
+                          </GoogleApiProvider>
                         </NbeefContextProvider>
                       </NlandContextProvider>
                     </NmilkContextProvider>
