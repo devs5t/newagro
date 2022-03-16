@@ -16,7 +16,7 @@ const Investment: React.FC = () => {
   return (
     <div className="flex justify-center">
       <div className="py-10 xl:flex xl:flex-col max-w-7xl">
-        <h3 className="text-blue text-center text-xs md:text-md xl:px-10">{t('investment.text')}</h3>
+        <h3 className="text-blue text-center text-xs md:text-base xl:px-10">{t('investment.text')}</h3>
         <div className="xl:px-10 xl:grid xl:grid-cols-4 xl:gap-4">
           <div className="col-span-3 px-5 py-5 md:py-8 flex-3">
             <InvestCard
@@ -59,16 +59,16 @@ const Investment: React.FC = () => {
           <div className="lg:py-8">
             <div className={`flex flex-col items-center w-full rounded-lg border-green border-2 shadow`}>
               <div className={`w-full flex flex-col px-10 py-5 border-b-green border-b-2 border-green`}>
-                <h3 className="text-blue font-bold text-md">{t('investment.rentability.title1')}</h3>
+                <h3 className="text-blue font-bold text-base">{t('investment.rentability.title1')}</h3>
                 <p className="text-blue text-2xl mb-3">{Math.round(milkingCows)}</p>
                 <p className="text-blue text-xs">{t("investment.rentability.description")}</p>
-                <h3 className="text-blue font-bold text-md mt-3">{t('investment.rentability.subtitle1')}</h3>
+                <h3 className="text-blue font-bold text-base mt-3">{t('investment.rentability.subtitle1')}</h3>
                 <h4 className="text-blue font-bold text-sm">{t("investment.rentability.profitability_description", {value: formatCurrency(nmilkProfitability)})}</h4>
               </div>
               <div className={`w-full flex flex-col px-10 py-5 border-bottom-2 border-green/[.5]`}>
-                <h3 className="text-blue font-bold text-md mb-4">{t('investment.rentability.title2')}</h3>
+                <h3 className="text-blue font-bold text-base mb-4">{t('investment.rentability.title2')}</h3>
                 <div className="h-full flex flex-col justify-evenly mb-4 md:justify-betweenmd:px-7">
-                  <h3 className="text-green font-semibold text-sm md:text-md">{t('investment.rentability.currentBalance')}</h3>
+                  <h3 className="text-green font-semibold text-sm md:text-base">{t('investment.rentability.currentBalance')}</h3>
                   <div className="flex">
                     <ReactSVG
                       src="icons/cow.svg"
@@ -79,11 +79,11 @@ const Investment: React.FC = () => {
                         svg.classList.add('md:text-lg');
                       }}
                     />
-                    <p className="text-green font-semibold text-sm md:text-md">{t('investment.cows', {value:  Math.round(userMilkingCows / NMILK_TOKENS_BY_COW)})}</p>
+                    <p className="text-green font-semibold text-sm md:text-base">{t('investment.cows', {value:  Math.round(userMilkingCows / NMILK_TOKENS_BY_COW)})}</p>
                   </div>
                 </div>
-                <h4 className="text-blue font-bold text-md">{t('investment.rentability.subtitle2')}</h4>
-                <h3 className="text-green font-bold text-md">{formatUintToDecimal(historicalEarning)} NAC</h3>
+                <h4 className="text-blue font-bold text-base">{t('investment.rentability.subtitle2')}</h4>
+                <h3 className="text-green font-bold text-base">{formatUintToDecimal(historicalEarning)} NAC</h3>
               </div>
             </div>
           </div>

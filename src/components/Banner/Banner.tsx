@@ -17,7 +17,8 @@ const Banner = ({
   return (
     <div
       className={`flex flex-column justify-content-md-evenly items-center ${containerClasses}`}
-      style={{backgroundImage: `url(${image})`,
+      style={{
+        backgroundImage: `url(${image})`,
         borderRadius: 12,
         position: "relative",
         backgroundPosition: "50%",

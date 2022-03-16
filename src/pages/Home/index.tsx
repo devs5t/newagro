@@ -24,7 +24,7 @@ const Home: React.FC = () => {
           title={t("home.banner_title")}
           subtitle={t("home.banner_subtitle")}
           image={'images/photos/homebanner.jpeg'}
-          containerClasses={"p-10 md:p-10 "}
+          containerClasses={"p-10"}
         />
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
           <HomeCardColored

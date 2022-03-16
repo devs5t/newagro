@@ -83,7 +83,7 @@ const Navbar: React.FC = () => {
                 <NavLink
                   onClick={() => setSidebarOpen(false)}
                   to={link.path}
-                  className={({ isActive }) => `block text-white text-center uppercase text-md my-4 font-bold ${
+                  className={({ isActive }) => `block text-white text-center uppercase text-base my-4 font-bold ${
                     isActive ? 'underline underline-offset-8 decoration-green decoration-4' : ''
                   }`}
                   key={index}
