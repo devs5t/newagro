@@ -11,7 +11,7 @@ const Exchange: React.FC = () => {
 
   return (
     <div className="flex justify-center">
-      <div className="flex flex-col w-full items-center w-full max-w-3xl">
+      <div className="flex flex-col w-full items-center w-full max-w-4xl">
 
         <Tabs
           tabs={[
