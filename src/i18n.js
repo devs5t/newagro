@@ -88,6 +88,9 @@ const resources = {
         mail: "Mail",
         dni: "DNI",
         phone: "Phone",
+        token: "Token",
+        amount: "Amount",
+        price: "Price",
         submit: "Request {{tab}} ARS",
         successfully_sent_title: "Request sent successfully",
         successfully_sent_description:
@@ -270,6 +273,9 @@ const resources = {
         mail: "Mail",
         dni: "DNI",
         phone: "Teléfono",
+        token: "Token",
+        amount: "Cantidad",
+        price: "Precio",
         submit: "Solicitar {{tab}} ARS",
         successfully_sent_title: "Solicitud enviada con éxito",
         successfully_sent_description:

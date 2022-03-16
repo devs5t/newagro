@@ -1,7 +1,7 @@
 import React, {useCallback, useContext, useEffect, useMemo, useState} from "react";
 import { useTranslation } from "react-i18next";
 import Textfield from "src/components/Inputs/Textfield";
-import {method, min, upperCase} from "lodash";
+import {min, upperCase} from "lodash";
 import Button from "src/components/Buttons/Button";
 import {ReactSVG} from "react-svg";
 import {CHAIN_ID} from "src/config";
@@ -113,16 +113,16 @@ const Buy: React.FC = () => {
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
 
     e.preventDefault();
-
-    if (selectedFromCurrency === 'ars') {
-      setModal({
-        component: () => ExchangeARSForm({ tab: 'buy' }),
-        title: `${t("exchange_ars_form.title", {tab: t("exchange_ars_form.buy")})}`,
-      });
-      return;
-    }
-
     if (canSubmit) {
+
+      if (selectedFromCurrency === 'ars') {
+        setModal({
+          component: () => ExchangeARSForm({ tab: 'buy', token: selectedToCurrency, amount: fromAmount, price: suggestedPrice}),
+          title: `${t("exchange_ars_form.title", {tab: t("exchange_ars_form.buy")})}`,
+        });
+        return;
+      }
+
       approveContract(library, account, contracts[selectedFromCurrency][CHAIN_ID])
         .then((result: any) => {
           const method: string = selectedFromCurrency === 'nac' ? 'buyWithRewards' : 'buy';

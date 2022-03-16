@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useMemo, useState} from "react";
+import React, {useContext, useEffect, useMemo, useState} from "react";
 import { useTranslation } from "react-i18next";
 import Textfield from "src/components/Inputs/Textfield";
 import {upperCase} from "lodash";
@@ -10,14 +10,13 @@ import NMILKExchange from "src/config/abi/NMILKExchange.json";
 import RedeemRewards from "src/config/abi/RedeemRewards.json";
 import {callViewFunction, callFunction} from "reblox-web3-utils";
 import {formatDecimalToUint, formatUintToDecimal} from "src/utils/formatUtils";
-import {useDebounce} from "src/hooks/useDebounce";
 import {PriceContext} from "src/contexts/PriceContext";
 import {useEthers} from "@usedapp/core";
 import {ModalContext} from "src/contexts/ModalContext";
-import ExchangeARSForm from "src/components/forms/ExchangeARSForm";
 import {NmilkContext} from "src/contexts/NmilkContext";
 import {NlandContext} from "src/contexts/NlandContext";
 import {NbeefContext} from "src/contexts/NbeefContext";
+import ExchangeARSForm from "src/components/forms/ExchangeARSForm";
 
 const Sell: React.FC = () => {
   const { t } = useTranslation();
@@ -30,7 +29,6 @@ const Sell: React.FC = () => {
   const { nbeefUserAssets } = useContext(NbeefContext);
 
   const [fromAmount, setFromAmount] = useState<number>(0);
-  const debouncedFromAmount = useDebounce(fromAmount, 500);
 
   const [fromPrice, setFromPrice] = useState<number>(0);
   const [suggestedPrice, setSuggestedPrice] = useState<number>(0);
@@ -56,15 +54,6 @@ const Sell: React.FC = () => {
     }
   }, [selectedFromCurrency, nmilkUserAssets, nlandUserAssets, nbeefUserAssets]);
 
-  useEffect(() => {
-    if (selectedToCurrency === 'ars') {
-      setModal({
-        component: () => ExchangeARSForm({ tab: 'sell' }),
-        title: `${t("exchange_ars_form.title", {tab: t("exchange_ars_form.sell")})}`,
-      });
-    }
-  }, [selectedToCurrency]);
-
   const config: any = {
     nac: {abi: RedeemRewards, contract: contracts.redeemRewards[CHAIN_ID]},
     nmilk: {abi: NMILKExchange, contract: contracts.exchangeNmilk[CHAIN_ID]},
@@ -76,8 +65,8 @@ const Sell: React.FC = () => {
   const selectedContract: string = config[selectedFromCurrency].contract;
 
   useEffect(() => {
-    setToAmount(fromAmount * fromAmount);
-  }, [fromAmount, fromAmount]);
+    setToAmount(fromAmount * (fromPrice || 1));
+  }, [fromAmount, fromPrice]);
 
   useEffect(() => {
     if (selectedFromCurrency === 'nac') {
@@ -97,12 +86,21 @@ const Sell: React.FC = () => {
   }, [selectedFromCurrency]);
 
   const canSubmit: boolean = useMemo(() => {
-    return (account && library && fromAmount && fromPrice);
+    return !!(account && library && fromAmount && (fromPrice || selectedFromCurrency === 'nac'));
   }, [account, library, fromAmount, fromPrice]);
 
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (canSubmit) {
+
+      if (selectedToCurrency === 'ars') {
+        setModal({
+          component: () => ExchangeARSForm({ tab: 'sell', token: selectedFromCurrency, amount: fromAmount, price: fromPrice }),
+          title: `${t("exchange_ars_form.title", {tab: t("exchange_ars_form.sell")})}`,
+        });
+        return
+      }
+
       if (selectedFromCurrency === 'nac') {
         callFunction(
           selectedContract,
