@@ -10,7 +10,7 @@ const Admin: React.FC = () => {
   return (
     <div className="flex justify-center mt-8">
       <div className="max-w-3xl w-full">
-        <div className="w-full justify-center flex my-8">
+        <div className="w-full justify-center flex">
           <Tabs
             tabs={[
               {name: 'New Milk', selected: true},
@@ -20,7 +20,7 @@ const Admin: React.FC = () => {
             containerClass="max-w-md"
           />
         </div>
-        <div className="w-full grid grid-cols-1">
+        <div className="w-full grid grid-cols-1 mt-8">
           <div className="w-full flex justify-around">
             <h3 className="w-2/3 text-blue font-semibold md:font-bold text-sm">Fondos disponibles en el Fondo de Liquidez: </h3>
             <div className="w-1/3 text-right">

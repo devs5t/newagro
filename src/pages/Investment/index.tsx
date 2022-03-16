@@ -15,10 +15,10 @@ const Investment: React.FC = () => {
 
   return (
     <div className="flex justify-center">
-      <div className="py-10 xl:flex xl:flex-col max-w-7xl">
-        <h3 className="text-blue text-center text-xs md:text-base xl:px-10">{t('investment.text')}</h3>
-        <div className="xl:px-10 xl:grid xl:grid-cols-4 xl:gap-4">
-          <div className="col-span-3 px-5 py-5 md:py-8 flex-3">
+      <div className="mt-8 xl:flex xl:flex-col max-w-6xl">
+        <h3 className="text-blue text-center text-xs">{t('investment.text')}</h3>
+        <div className="xl:px-10 xl:grid xl:grid-cols-4 xl:gap-4 py-8">
+          <div className="col-span-3 flex-3 max-w-3xl">
             <InvestCard
               title={t('investment.card_milk.title')}
               subtitle={t('investment.card_milk.subtitle', {apr: nmilkApr.toFixed(5)})}
@@ -56,7 +56,7 @@ const Investment: React.FC = () => {
           </div>
 
 
-          <div className="lg:py-8">
+          <div className="w-full max-w-[20rem] m-auto xl:m-0">
             <div className={`flex flex-col items-center w-full rounded-lg border-green border-2 shadow`}>
               <div className={`w-full flex flex-col px-10 py-5 border-b-green border-b-2 border-green`}>
                 <h3 className="text-blue font-bold text-base">{t('investment.rentability.title1')}</h3>

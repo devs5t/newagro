@@ -67,9 +67,9 @@ const InvestCard: React.FC<InvestCardProps> = ({
     >
       <div
         style={{ backgroundImage: `url(${image})` }}
-        className="absolute rounded-full -top-6 -right-2 right-0 h-24 w-24 bg-center bg-cover opacity-75 md:h-44 md:w-44 md:top-1/2 md:transform md:-translate-y-1/2 md:-left-16"
+        className="absolute rounded-full -top-6 -right-2 right-0 h-24 w-24 bg-center bg-cover opacity-75 md:h-32 md:w-32 md:top-1/2 md:transform md:-translate-y-1/2 md:-left-16"
       />
-      <div className="w-full mt-5 relative md:pl-32 md:mt-0">
+      <div className="w-full mt-5 relative md:pl-16 md:mt-0">
         <h3 className="text-blue font-bold text-left text-lg md:text-2xl">
           {title}
         </h3>
