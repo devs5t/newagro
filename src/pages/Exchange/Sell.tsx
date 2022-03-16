@@ -24,7 +24,7 @@ const Sell: React.FC = () => {
   const {setModal} = useContext(ModalContext);
 
   const { account, library } = useEthers();
-  const { nacExchangeRate, nacUserAssets } = useContext(PriceContext);
+  const { nacUserAssets } = useContext(PriceContext);
   const { nmilkUserAssets } = useContext(NmilkContext);
   const { nlandUserAssets } = useContext(NlandContext);
   const { nbeefUserAssets } = useContext(NbeefContext);
@@ -32,7 +32,7 @@ const Sell: React.FC = () => {
   const [fromAmount, setFromAmount] = useState<number>(0);
   const debouncedFromAmount = useDebounce(fromAmount, 500);
 
-  const [fromPrice, setFromPrice] = useState<number>();
+  const [fromPrice, setFromPrice] = useState<number>(0);
   const [suggestedPrice, setSuggestedPrice] = useState<number>(0);
 
   const [toAmount, setToAmount] = useState<number>(0);
@@ -75,28 +75,9 @@ const Sell: React.FC = () => {
   const selectedAbi: any[] = config[selectedFromCurrency].abi;
   const selectedContract: string = config[selectedFromCurrency].contract;
 
-  const getValueBasedOnSelectedFromCurrency = useCallback((value: number) => {
-    if (selectedFromCurrency === 'nac') {
-      return value / nacExchangeRate;
-    }
-    return value;
-  }, [selectedFromCurrency, nacExchangeRate]);
-
   useEffect(() => {
-    if (!debouncedFromAmount) {
-      setToAmount(0);
-      return;
-    }
-
-    callViewFunction(
-      CHAIN_ID,
-      selectedContract,
-      [formatDecimalToUint(debouncedFromAmount)],
-      "getTokenOutputAmount",
-      selectedAbi
-    ).then((value: number) => setToAmount(getValueBasedOnSelectedFromCurrency(formatUintToDecimal(value))));
-
-  }, [debouncedFromAmount, selectedFromCurrency, selectedToCurrency]);
+    setToAmount(fromAmount * fromAmount);
+  }, [fromAmount, fromAmount]);
 
   useEffect(() => {
     if (selectedFromCurrency === 'nac') {
@@ -147,7 +128,7 @@ const Sell: React.FC = () => {
   };
 
   return (
-    <form onSubmit={submit}>
+    <form onSubmit={submit} className="w-full">
 
       <div className="flex flex-col w-full mt-12">
         <p className="text-blue text-left">{t(`exchange.helper_top_sell`)}</p>
@@ -162,7 +143,7 @@ const Sell: React.FC = () => {
                 id="amount"
                 onChange={setFromAmount}
                 value={fromAmount}
-                containerClasses="w-full mr-4 md:max-w-[8rem]"
+                containerClasses="w-full mr-4"
                 inputClasses="md:placeholder-transparent"
                 type="number"
                 placeholder={t(`exchange.amount`)}
@@ -250,7 +231,7 @@ const Sell: React.FC = () => {
               id="amount"
               onChange={setToAmount}
               value={toAmount}
-              containerClasses="w-full mr-4 md:max-w-[8rem]"
+              containerClasses="w-full mr-4"
               inputClasses="md:placeholder-transparent"
               type="number"
               placeholder={t(`exchange.amount`)}

@@ -1,13 +1,13 @@
 import React, {useCallback, useContext, useEffect, useMemo, useState} from "react";
 import { useTranslation } from "react-i18next";
 import Textfield from "src/components/Inputs/Textfield";
-import {min, upperCase} from "lodash";
+import {method, min, upperCase} from "lodash";
 import Button from "src/components/Buttons/Button";
 import {ReactSVG} from "react-svg";
 import {CHAIN_ID} from "src/config";
 import contracts from "src/config/constants/contracts";
 import NMILKExchange from "src/config/abi/NMILKExchange.json";
-import {callViewFunction, callFunction} from "reblox-web3-utils";
+import {callViewFunction, callFunction, approveContract} from "reblox-web3-utils";
 import {formatDecimalToUint, formatUintToDecimal} from "src/utils/formatUtils";
 import {useDebounce} from "src/hooks/useDebounce";
 import {PriceContext} from "src/contexts/PriceContext";
@@ -25,7 +25,7 @@ const Buy: React.FC = () => {
   const [fromMaxInput, setFromMaxInput] = useState<number>(0);
 
   const [fromAmount, setFromAmount] = useState<number>(0);
-  const debouncedFromAmount = useDebounce(fromAmount, 500);
+  const debouncedFromAmount: number = useDebounce(fromAmount, 500);
 
   const [suggestedPrice, setSuggestedPrice] = useState<number>(0);
 
@@ -38,16 +38,6 @@ const Buy: React.FC = () => {
 
   const toCurrencies: ('nmilk' | 'nbeef' | 'nland')[] = ['nmilk', 'nbeef', 'nland'];
   const [selectedToCurrency, setSelectedToCurrency] = useState<'nmilk' | 'nbeef' | 'nland'>(toCurrencies[0]);
-
-
-  useEffect(() => {
-    if (selectedFromCurrency === 'ars') {
-      setModal({
-        component: () => ExchangeARSForm({ tab: 'buy' }),
-        title: `${t("exchange_ars_form.title", {tab: t("exchange_ars_form.buy")})}`,
-      });
-    }
-  }, [selectedFromCurrency]);
 
   const config: any = {
     nmilk: {abi: NMILKExchange, contract: contracts.exchangeNmilk[CHAIN_ID]},
@@ -117,27 +107,38 @@ const Buy: React.FC = () => {
   }, [fromMaxInput, selectedFromCurrency, usdtUserAssets, nacUserAssets, nacExchangeRate]);
 
   const canSubmit: boolean = useMemo(() => {
-    return (account && library && fromAmount);
+    return !!(account && library && fromAmount);
   }, [account, library, fromAmount]);
 
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
+
     e.preventDefault();
+
+    if (selectedFromCurrency === 'ars') {
+      setModal({
+        component: () => ExchangeARSForm({ tab: 'buy' }),
+        title: `${t("exchange_ars_form.title", {tab: t("exchange_ars_form.buy")})}`,
+      });
+      return;
+    }
+
     if (canSubmit) {
-      const method: string = selectedFromCurrency === 'nac' ? 'buyWithRewards' : 'buy';
-      callFunction(
-        selectedContract,
-        library,
-        [formatDecimalToUint(fromAmount)],
-        method,
-        selectedAbi
-      )
-        .then(console.log)
-        .catch(console.log);
+      approveContract(library, account, contracts[selectedFromCurrency][CHAIN_ID])
+        .then((result: any) => {
+          const method: string = selectedFromCurrency === 'nac' ? 'buyWithRewards' : 'buy';
+          callFunction(
+            selectedContract,
+            library,
+            [formatDecimalToUint(fromAmount)],
+            method,
+            selectedAbi
+          );
+        })
     }
   };
 
   return (
-    <form onSubmit={submit}>
+    <form onSubmit={submit} className="w-full">
 
       <div className="flex flex-col w-full mt-12">
         <p className="text-blue text-left">{t(`exchange.helper_top_buy`)}</p>
