@@ -21,7 +21,7 @@ const Navbar: React.FC = () => {
     <>
       <div className="relative w-full bg-blue">
 
-        <div className="flex justify-between items-center py-4 mx-auto px-6 md:px-10">
+        <div className="flex justify-between items-center py-[0.75rem] mx-auto px-6 md:px-10">
           <div className="flex justify-start navbar-logo">
             <button
               className="lg:hidden cursor-pointer mr-4"
@@ -36,7 +36,7 @@ const Navbar: React.FC = () => {
             </button>
 
             <Link to="/" className="flex items-center flex-shrink-0 text-white md:mr-6">
-              <img className="h-4 xl:h-6 w-auto" src="logos/logo.svg" alt="logo"/>
+              <img className="h-4 w-auto" src="logos/logo.svg" alt="logo"/>
             </Link>
           </div>
 
@@ -44,7 +44,7 @@ const Navbar: React.FC = () => {
             {links.map((link, index) => (
               <NavLink
                 to={link.path}
-                className={({ isActive }) => `block text-white uppercase text-xs xl:text-sm font-bold ${
+                className={({ isActive }) => `block text-white uppercase text-xs  font-bold ${
                   isActive ? 'underline underline-offset-8 decoration-green decoration-2' : ''
                 }`}
                 key={index}

@@ -33,7 +33,7 @@ const Footer: React.FC = () => {
   }, [location.pathname]);
 
   return (
-    <div className={`w-full md:max-w-sm md:border-l-2 md:border-grey ${!isInHome ? 'md:hidden' : ''}`}>
+    <div className={`w-full md:w-72 xl:w-80 md:border-l-2 md:border-grey ${!isInHome ? 'md:hidden' : ''}`}>
       <div className="hidden md:flex flex-col justify-center items-center h-64 border-b-2 border-grey">
         <p className="uppercase font-medium text-xl	text-blue">{t('footer.exchange_rate')}</p>
         <p className="uppercase font-black mt-2 text-2xl text-blue">1 USD = {nacExchangeRate} NAC</p>

@@ -14,6 +14,7 @@ import {PriceContext} from "src/contexts/PriceContext";
 import {useEthers} from "@usedapp/core";
 import {ModalContext} from "src/contexts/ModalContext";
 import ExchangeARSForm from "src/components/forms/ExchangeARSForm";
+import {formatCurrency} from "src/utils/currency";
 
 const Buy: React.FC = () => {
   const { t } = useTranslation();
@@ -140,20 +141,20 @@ const Buy: React.FC = () => {
   return (
     <form onSubmit={submit} className="w-full">
 
-      <div className="flex flex-col w-full mt-12">
-        <p className="text-blue text-left">{t(`exchange.helper_top_buy`)}</p>
+      <div className="flex flex-col w-full mt-10">
+        <p className="text-blue text-xs text-left">{t(`exchange.helper_top_buy`)}</p>
 
-        <h3 className="mt-6 text-blue font-bold text-2xl md:text-3xl">{t(`exchange.from`)}</h3>
+        <h3 className="mt-6 text-blue font-bold text-xl">{t(`exchange.from`)}</h3>
 
-        <div className="relative flex flex-col border-4 border-green rounded-lg w-full mt-6 py-4 px-6">
+        <div className="relative flex flex-col border-2 shadow border-green rounded-lg w-full mt-6 py-2 px-6">
           <div className="flex justify-between items-center">
             <div className="flex flex-row items-center justify-between">
-              <div className="hidden md:flex h-full items-center font-bold text-xl text-blue mr-10">{t(`exchange.amount`)}</div>
+              <div className="hidden md:flex h-full items-center font-bold text-sm text-blue mr-10">{t(`exchange.amount`)}</div>
               <Textfield
                 id="amount"
                 onChange={setFromAmount}
                 value={fromAmount}
-                containerClasses="w-full mr-4"
+                containerClasses="w-full mr-4 md:max-w-[12rem]"
                 inputClasses="md:placeholder-transparent"
                 type="number"
                 placeholder={t(`exchange.amount`)}
@@ -170,7 +171,7 @@ const Buy: React.FC = () => {
               {fromCurrencies.map((fromCurrency: string, index: number) => (
                 <option
                   key={index}
-                  className="text-blue font-bold text-xl uppercase"
+                  className="text-blue font-bold uppercase"
                 >
                   {fromCurrency}
                 </option>
@@ -179,31 +180,30 @@ const Buy: React.FC = () => {
           </div>
         </div>
 
-        <p className="text-blue text-left mt-4">
+        <p className="text-blue text-left text-sm mt-4">
           {t('exchange.user_from_assets', {token: upperCase(selectedFromCurrency), amount: selectedFromCurrency === 'nac' ? nacUserAssets : usdtUserAssets})}
         </p>
 
-        <div className="flex justify-center mt-6">
+        <div className="flex justify-center mt-4">
           <ReactSVG
             src="icons/arrow.svg"
             beforeInjection={(svg) => {
               svg.classList.add('fill-blue');
               svg.classList.add('w-4');
-              svg.classList.add('md:w-5');
             }}
           />
         </div>
 
-        <h3 className="mt-2 text-blue font-bold text-2xl md:text-3xl">{t(`exchange.to`)}</h3>
+        <h3 className="mt-2 text-blue font-bold text-xl">{t(`exchange.to`)}</h3>
 
-        <div className="relative flex border-4 border-green rounded-lg w-full mt-6 justify-between items-center py-4 px-6">
+        <div className="relative flex border-2 shadow border-green rounded-lg w-full mt-4 justify-between items-center py-2 px-6">
           <div className="flex flex-row items-center justify-between">
-            <div className="hidden md:flex h-full items-center font-bold text-xl text-blue mr-10">{t(`exchange.amount`)}</div>
+            <div className="hidden md:flex h-full items-center font-bold text-sm text-blue mr-10">{t(`exchange.amount`)}</div>
             <Textfield
               id="amount"
               onChange={setToAmount}
               value={toAmount}
-              containerClasses="w-full mr-4"
+              containerClasses="w-full mr-4 md:max-w-[12rem]"
               inputClasses="md:placeholder-transparent"
               type="number"
               placeholder={t(`exchange.amount`)}
@@ -228,17 +228,17 @@ const Buy: React.FC = () => {
         </div>
 
         <div className="flex justify-between mt-4">
-          <p className="text-blue text-left mr-6">{t(`exchange.helper_bottom_buy`, {token: upperCase(selectedToCurrency), amount: totalTokensForSell})}</p>
+          <p className="text-blue text-sm text-left mr-6">{t(`exchange.helper_bottom_buy`, {token: upperCase(selectedToCurrency), amount: formatCurrency(totalTokensForSell)})}</p>
 
-          <p className="text-blue text-lg font-semibold">
-            {upperCase(selectedToCurrency)} ${t(`exchange.price`)} ${suggestedPrice}
+          <p className="text-blue text-sm font-semibold">
+            {upperCase(selectedToCurrency)} {t(`exchange.price`)} ${suggestedPrice}
           </p>
         </div>
 
-        <div className="flex justify-around mt-12">
+        <div className="flex justify-around mt-10">
           <Button
             text={t(`exchange.button_buy`)}
-            extraClasses="h-12 bg-green border-green text-white text-center w-48 text-md uppercase w-full shadow"
+            extraClasses="h-10 bg-green border-green text-white text-center w-48 text-sm uppercase w-full shadow"
             type="submit"
             disabled={!canSubmit}
           />

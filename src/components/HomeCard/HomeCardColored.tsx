@@ -19,8 +19,8 @@ const HomeCardColored: React.FC<HomeCardColoredProps> = ({
 
   return (
     <div className={`flex flex-col justify-center items-center w-full rounded-lg bg-lightblue/[.15] p-8 shadow ${containerClasses}`}>
-      <h3 className="text-blue font-medium text-center text-lg md:text-3xl">{title}</h3>
-      <h2 className="text-green my-3 text-center font-bold text-3xl lg:text-4xl xl:text-5xl" >{mainText}</h2>
+      <h3 className="text-blue font-medium text-center text-lg md:text-2xl">{title}</h3>
+      <h2 className="text-green my-3 text-center font-bold text-3xl md:text-4xl font-extrabold" >{mainText}</h2>
       {!onClickButton ? (
         <p className="text-md text-blue text-center px-5 md:my-4 md:px-10">{thirdText}</p>
       ) : (

@@ -19,14 +19,14 @@ const Home: React.FC = () => {
 
   return (
     <div className="w-full flex justify-center mt-8">
-      <div className="max-w-6xl">
+      <div className="max-w-4xl">
         <Banner
           title={t("home.banner_title")}
           subtitle={t("home.banner_subtitle")}
           image={'images/photos/homebanner.jpeg'}
           containerClasses={"p-10 md:p-10 "}
         />
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
           <HomeCardColored
             title={t("home.card.new_agro.title")}
             mainText={t("home.card.new_agro.number", {value: formatCurrency(nacTotalSupply)})}
@@ -46,10 +46,10 @@ const Home: React.FC = () => {
               {name: 'New Beef', disabled: true},
               {name: 'New Land', disabled: true}
             ]}
-            containerClass="max-w-xl"
+            containerClass="max-w-md"
           />
         </div>
-        <div className="w-full grid grid-cols-1 xl:grid-cols-2 gap-6 mt-8">
+        <div className="w-full grid grid-cols-1 xl:grid-cols-2 gap-4 mt-8">
           <HomeCard
             title={t("home.card.nmilk.title")}
             description={t("home.card.nmilk.description")}
