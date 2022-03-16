@@ -18,7 +18,7 @@ const routes = [
     element: <Exchange />,
   },
   {
-    path: "docs",
+    path: "transparency",
     element: <Documentation />,
   },
   {
