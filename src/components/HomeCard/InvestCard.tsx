@@ -70,10 +70,10 @@ const InvestCard: React.FC<InvestCardProps> = ({
         className="absolute rounded-full -top-6 -right-2 right-0 h-24 w-24 bg-center bg-cover opacity-75 md:h-44 md:w-44 md:top-1/2 md:transform md:-translate-y-1/2 md:-left-16"
       />
       <div className="w-full mt-5 relative md:pl-32 md:mt-0">
-        <h3 className="text-blue font-bold text-left text-lg md:text-3xl">
+        <h3 className="text-blue font-bold text-left text-lg md:text-2xl">
           {title}
         </h3>
-        <h2 className="text-blue font-bold text-left font-bold md:text-3xl">
+        <h2 className="text-blue font-bold text-left font-bold md:text-xl mb-2">
           {subtitle}
         </h2>
         <Link
@@ -81,33 +81,33 @@ const InvestCard: React.FC<InvestCardProps> = ({
           to={`/exchange?token=${token}`}
           target={"_self"}
         >
-          <span className="text-blue text-xs underline md:text-xl">
+          <span className="text-blue text-xs underline md:text-base mt-4">
             {t("investment.card_beef.buy")} {upperCase(token)}
           </span>
         </Link>
       </div>
       <div className={"grid grid-cols-2 gap-2 mt-5 w-full md:mt-0"}>
         <div className="border-2 border-green/[.5] rounded-lg w-full">
-          <h3 className="py-1 text-green font-bold text-center text-xs border-b-green/[.5] border-b-2 border-green md:text-lg">
-            {upperCase(token)} - {t("investment.deposited")}
+          <h3 className="py-1 text-green font-bold text-center text-xs border-b-green/[.5] border-b-2 border-green md:text-base">
+            {upperCase(token)} - {upperCase(t("investment.deposited"))}
           </h3>
-          <p className="text-3xl 2xl:text-6xl xl:text-4xl lg:text-3xl text-green text-center mt-2 md:mt-0">
+          <p className="text-3xl lg:text-4xl text-green text-center mt-2 md:mt-0">
             {formatUintToDecimal(deposit)}
           </p>
-          <p className="text-xs font-medium text-blue text-center mb-2 md:text-base">
+          <p className="text-xs font-medium text-blue text-center mb-2 md:text-sm">
             {t("investment.cows", {
               value: formatUintToDecimal(Math.round(deposit / NMILK_TOKENS_BY_COW)).toFixed(5),
             })}
           </p>
         </div>
         <div className="border-2 border-green/[.5] rounded-lg w-full">
-          <h3 className="py-1 text-green font-bold text-center text-xs border-b-green/[.5] border-b-2 border-green md:text-lg md:px-4">
-            NAC - {t("investment.earnings")}
+          <h3 className="py-1 text-green font-bold text-center text-xs border-b-green/[.5] border-b-2 border-green md:text-base md:px-4">
+            NAC - {upperCase(t("investment.earnings"))}
           </h3>
-          <p className="text-3xl 2xl:text-6xl xl:text-4xl lg:text-3xl text-green text-center mt-2 md:mt-0">
+          <p className="text-3xl lg:text-4xl text-green text-center mt-2 md:mt-0">
             {formatUintToDecimal(earn).toFixed(5)}
           </p>
-          <p className="text-xs font-medium text-blue text-center mb-2 md:text-base">
+          <p className="text-xs font-medium text-blue text-center mb-2 md:text-sm">
             {t("investment.cows", {
               value: formatUintToDecimal(Math.round(earn / NMILK_TOKENS_BY_COW)).toFixed(5),
             })}

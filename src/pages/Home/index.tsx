@@ -19,7 +19,7 @@ const Home: React.FC = () => {
 
   return (
     <div className="w-full flex justify-center mt-8">
-      <div className="max-w-4xl">
+      <div className="max-w-5xl">
         <Banner
           title={t("home.banner_title")}
           subtitle={t("home.banner_subtitle")}

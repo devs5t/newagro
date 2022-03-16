@@ -98,7 +98,7 @@ const resources = {
       },
       investment: {
         text: "*Remember that in order to receive your earnings it is necessary that you have your Tokens deposited",
-        cows: "({{value}} cows)",
+        cows: "{{value}} cows",
         watch_cams: "Watch live cameras",
         deposit_buy: "Deposit / Buy",
         retire: "Harvest",
@@ -283,7 +283,7 @@ const resources = {
       },
       investment: {
         text: "*Recordá que para poder recibir tus ganancias es necesario que tengas tus Tokens depositados",
-        cows: "({{value}} vacas)",
+        cows: "{{value}} vacas",
         watch_cams: "Ver camaras en vivo",
         deposit_buy: "Depositar / Comprar",
         retire: "Retirar",
