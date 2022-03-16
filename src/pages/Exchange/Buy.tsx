@@ -100,7 +100,10 @@ const Buy: React.FC = () => {
 
   }, [selectedToCurrency]);
 
-  const maxValue: number = useMemo(() => {
+  const maxValue: number | undefined = useMemo(() => {
+    if (selectedFromCurrency === 'ars') {
+      return undefined;
+    }
     if (selectedFromCurrency === 'nac') {
       return min([nacUserAssets, (fromMaxInput * nacExchangeRate)]);
     }
@@ -180,9 +183,12 @@ const Buy: React.FC = () => {
           </div>
         </div>
 
-        <p className="text-blue text-left text-sm mt-4">
-          {t('exchange.user_from_assets', {token: upperCase(selectedFromCurrency), amount: selectedFromCurrency === 'nac' ? nacUserAssets : usdtUserAssets})}
-        </p>
+        {['nac', 'usdt'].includes(selectedFromCurrency) && (
+          <p className="text-blue text-left text-sm mt-4">
+            {t('exchange.user_from_assets', {token: upperCase(selectedFromCurrency), amount: selectedFromCurrency === 'nac' ? nacUserAssets : usdtUserAssets})}
+          </p>
+        )}
+
 
         <div className="flex justify-center mt-4">
           <ReactSVG
@@ -220,6 +226,7 @@ const Buy: React.FC = () => {
               <option
                 key={index}
                 className="text-blue font-bold text-xl uppercase"
+                disabled={!['nmilk'].includes(toCurrency)}
               >
                 {toCurrency}
               </option>

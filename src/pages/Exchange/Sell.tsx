@@ -69,8 +69,8 @@ const Sell: React.FC = () => {
   }, [fromAmount, fromPrice]);
 
   useEffect(() => {
-    if (selectedFromCurrency === 'nac') {
-      return;
+    if (selectedToCurrency === 'ars' && selectedFromCurrency !== 'nac') {
+      setSelectedToCurrency('usdt');
     }
 
     if (['nmilk', 'nbeef', 'nland'].includes(selectedFromCurrency)) {
@@ -183,6 +183,7 @@ const Sell: React.FC = () => {
                 <option
                   key={index}
                   className="text-blue font-bold text-xl uppercase"
+                  disabled={!['nac', 'nmilk'].includes(fromCurrency)}
                 >
                   {fromCurrency}
                 </option>
@@ -245,6 +246,7 @@ const Sell: React.FC = () => {
               <option
                 key={index}
                 className="text-blue font-bold text-xl uppercase"
+                disabled={toCurrency === 'ars' && selectedFromCurrency !== 'nac'}
               >
                 {toCurrency}
               </option>
