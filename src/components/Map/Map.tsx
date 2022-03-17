@@ -31,7 +31,7 @@ const Map : React.FC = () => {
       <div className="rounded-l-lg">
       <GoogleMapReact
         bootstrapURLKeys={{ key: envGoogleMapApiKey }}
-        defaultZoom={11}
+        defaultZoom={16}
         defaultCenter={{lat: -37.997991, lng: -60.499003}}
         options={{ mapTypeId: "satellite", fullscreenControl: false }}
         onGoogleApiLoaded={({ map, maps }) => renderMarkers(map, maps)}
