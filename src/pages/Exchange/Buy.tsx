@@ -6,8 +6,9 @@ import Button from "src/components/Buttons/Button";
 import {ReactSVG} from "react-svg";
 import {CHAIN_ID} from "src/config";
 import contracts from "src/config/constants/contracts";
+import NMILK from "src/config/abi/NMILK.json";
 import NMILKExchange from "src/config/abi/NMILKExchange.json";
-import {callViewFunction, callFunction, approveContract} from "reblox-web3-utils";
+import {callViewFunction, callFunction, approveContract, getTokenAllowance} from "reblox-web3-utils";
 import {formatDecimalToUint, formatUintToDecimal} from "src/utils/formatUtils";
 import {useDebounce} from "src/hooks/useDebounce";
 import {PriceContext} from "src/contexts/PriceContext";
@@ -40,17 +41,22 @@ const Buy: React.FC = () => {
   const toCurrencies: ('nmilk' | 'nbeef' | 'nland')[] = ['nmilk', 'nbeef', 'nland'];
   const [selectedToCurrency, setSelectedToCurrency] = useState<'nmilk' | 'nbeef' | 'nland'>(toCurrencies[0]);
 
+  const [needsApproval, setNeedsApproval] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const config: any = {
-    nmilk: {abi: NMILKExchange, contract: contracts.exchangeNmilk[CHAIN_ID]},
-    nbeef: {abi: NMILKExchange, contract: contracts.exchangeNmilk[CHAIN_ID]},
-    nland: {abi: NMILKExchange, contract: contracts.exchangeNmilk[CHAIN_ID]}
+    nmilk: {abi: NMILK, exchangeAbi: NMILKExchange, contract: contracts.nmilk[CHAIN_ID], exchangeContract: contracts.exchangeNmilk[CHAIN_ID]},
+    nbeef: {abi: NMILK, exchangeAbi: NMILKExchange, contract: contracts.nmilk[CHAIN_ID], exchangeContract: contracts.exchangeNmilk[CHAIN_ID]},
+    nland: {abi: NMILK, exchangeAbi: NMILKExchange, contract: contracts.nmilk[CHAIN_ID], exchangeContract: contracts.exchangeNmilk[CHAIN_ID]}
   };
 
   const selectedAbi: any[] = config[selectedToCurrency].abi;
+  const selectedExchangeAbi: any[] = config[selectedToCurrency].exchangeAbi;
   const selectedContract: string = config[selectedToCurrency].contract;
+  const selectedExchangeContract: string = config[selectedToCurrency].exchangeContract;
 
   const getValueBasedOnSelectedFromCurrency = useCallback((value: number) => {
-    if (selectedFromCurrency === 'nac') {
+    if (['nac', 'ars'].includes(selectedFromCurrency)) {
       return value / nacExchangeRate;
     }
     return value;
@@ -64,10 +70,10 @@ const Buy: React.FC = () => {
 
     callViewFunction(
       CHAIN_ID,
-      selectedContract,
+      selectedExchangeContract,
       [formatDecimalToUint(debouncedFromAmount)],
       "getTokenOutputAmount",
-      selectedAbi
+      selectedExchangeAbi
     ).then((value: number) => setToAmount(getValueBasedOnSelectedFromCurrency(formatUintToDecimal(value))));
 
   }, [debouncedFromAmount, selectedFromCurrency, selectedToCurrency]);
@@ -76,29 +82,38 @@ const Buy: React.FC = () => {
 
     callViewFunction(
       CHAIN_ID,
-      selectedContract,
+      selectedExchangeContract,
       [],
       "getMaxInputAmount",
-      selectedAbi
+      selectedExchangeAbi
     ).then((value: number) => setFromMaxInput(getValueBasedOnSelectedFromCurrency(formatUintToDecimal(value))));
 
     callViewFunction(
       CHAIN_ID,
-      selectedContract,
+      selectedExchangeContract,
       [],
       "getSuggestedPrice",
-      selectedAbi
+      selectedExchangeAbi
     ).then((value: number) => setSuggestedPrice(formatUintToDecimal(value)));
 
     callViewFunction(
       CHAIN_ID,
-      selectedContract,
+      selectedExchangeContract,
       [],
       "getTotalTokensForSell",
-      selectedAbi
+      selectedExchangeAbi
     ).then((value: number) => setTotalTokensForSell(formatUintToDecimal(value)));
 
-  }, [selectedToCurrency]);
+    if (account && library) {
+      getTokenAllowance(
+        CHAIN_ID,
+        account,
+        selectedContract,
+        selectedExchangeContract
+      ).then((allowance: number) => setNeedsApproval(allowance == 0));
+    }
+
+  }, [account, selectedToCurrency]);
 
   const maxValue: number | undefined = useMemo(() => {
     if (selectedFromCurrency === 'ars') {
@@ -114,10 +129,22 @@ const Buy: React.FC = () => {
     return !!(account && library && fromAmount);
   }, [account, library, fromAmount]);
 
-  const submit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onApprove = () => {
+    setIsLoading(true);
+    approveContract(
+      library,
+      selectedExchangeContract,
+      selectedContract,
+    )
+      .then(() => setNeedsApproval(false))
+      .finally(() => setIsLoading(false));
+  };
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 
     e.preventDefault();
     if (canSubmit) {
+      setIsLoading(true);
 
       if (selectedFromCurrency === 'ars') {
         setModal({
@@ -127,22 +154,22 @@ const Buy: React.FC = () => {
         return;
       }
 
-      approveContract(library, account, contracts[selectedFromCurrency][CHAIN_ID])
-        .then((result: any) => {
-          const method: string = selectedFromCurrency === 'nac' ? 'buyWithRewards' : 'buy';
-          callFunction(
-            selectedContract,
-            library,
-            [formatDecimalToUint(fromAmount)],
-            method,
-            selectedAbi
-          );
-        })
+      const method: string = selectedFromCurrency === 'nac' ? 'buyWithRewards' : 'buy';
+
+      callFunction(
+        selectedExchangeContract,
+        library,
+        [formatDecimalToUint(fromAmount)],
+        method,
+        selectedExchangeAbi
+      )
+        .then(console.log)
+        .finally(() => setIsLoading(false));
     }
   };
 
   return (
-    <form onSubmit={submit} className="w-full">
+    <form onSubmit={onSubmit} className="w-full">
 
       <div className="flex flex-col w-full mt-10">
         <p className="text-blue text-xs text-left">{t(`exchange.helper_top_buy`)}</p>
@@ -243,12 +270,27 @@ const Buy: React.FC = () => {
         </div>
 
         <div className="flex justify-around mt-10">
-          <Button
-            text={t(`exchange.button_buy`)}
-            extraClasses="h-10 bg-green border-green text-white text-center w-48 text-sm uppercase w-full shadow"
-            type="submit"
-            disabled={!canSubmit}
-          />
+
+          {needsApproval && (
+            <Button
+              isLoading={isLoading}
+              text={`${t("exchange.button_approve")} ${upperCase(selectedToCurrency)}`}
+              extraClasses="h-10 bg-green border-green text-white text-center w-48 text-sm uppercase w-full shadow"
+              type="button"
+              onClick={onApprove}
+              disabled={!canSubmit}
+            />
+          )}
+
+          {!needsApproval && (
+            <Button
+              text={t(`exchange.button_buy`)}
+              extraClasses="h-10 bg-green border-green text-white text-center w-48 text-sm uppercase w-full shadow"
+              type="submit"
+              disabled={!canSubmit}
+            />
+          )}
+
         </div>
       </div>
 

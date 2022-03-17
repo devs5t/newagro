@@ -146,6 +146,7 @@ const resources = {
         amount: "Amount",
         price: "Price",
         suggested_price: "Suggested price",
+        button_approve: "Approve",
         button_buy: "Buy",
         button_sell: "Sell",
         user_from_assets: "{{amount}} {{token}} available"
@@ -331,6 +332,7 @@ const resources = {
         amount: "Cantidad",
         price: "Precio",
         suggested_price: "Precio sugerido",
+        button_approve: "Aprobar",
         button_buy: "Comprar",
         button_sell: "Vender",
         user_from_assets: "{{amount}} {{token}} disponibles"
