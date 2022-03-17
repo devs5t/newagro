@@ -8,7 +8,7 @@ import {CHAIN_ID} from "src/config";
 import contracts from "src/config/constants/contracts";
 import NMILKExchange from "src/config/abi/NMILKExchange.json";
 import RedeemRewards from "src/config/abi/RedeemRewards.json";
-import {callViewFunction, callFunction} from "reblox-web3-utils";
+import {callViewFunction, callFunction, approveContract, getTokenAllowance} from "reblox-web3-utils";
 import {formatDecimalToUint, formatUintToDecimal} from "src/utils/formatUtils";
 import {PriceContext} from "src/contexts/PriceContext";
 import {useEthers} from "@usedapp/core";
@@ -41,6 +41,9 @@ const Sell: React.FC = () => {
   const toCurrencies: ('usdt' | 'ars')[] = ['usdt', 'ars'];
   const [selectedToCurrency, setSelectedToCurrency] = useState<'usdt' | 'ars'>(toCurrencies[0]);
 
+  const [needsApproval, setNeedsApproval] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const fromUserAssets: number = useMemo(() => {
     switch (selectedFromCurrency) {
       case "nac":
@@ -55,14 +58,15 @@ const Sell: React.FC = () => {
   }, [selectedFromCurrency, nmilkUserAssets, nlandUserAssets, nbeefUserAssets]);
 
   const config: any = {
-    nac: {abi: RedeemRewards, contract: contracts.redeemRewards[CHAIN_ID]},
-    nmilk: {abi: NMILKExchange, contract: contracts.exchangeNmilk[CHAIN_ID]},
-    nbeef: {abi: NMILKExchange, contract: contracts.exchangeNmilk[CHAIN_ID]},
-    nland: {abi: NMILKExchange, contract: contracts.exchangeNmilk[CHAIN_ID]}
-  }
+    nac: {exchangeAbi: RedeemRewards, contract: contracts.nac[CHAIN_ID], exchangeContract: contracts.redeemRewards[CHAIN_ID]},
+    nmilk: {exchangeAbi: NMILKExchange, contract: contracts.nmilk[CHAIN_ID], exchangeContract: contracts.exchangeNmilk[CHAIN_ID]},
+    nbeef: {exchangeAbi: NMILKExchange, contract: contracts.nmilk[CHAIN_ID], exchangeContract: contracts.exchangeNmilk[CHAIN_ID]},
+    nland: {exchangeAbi: NMILKExchange, contract: contracts.nmilk[CHAIN_ID], exchangeContract: contracts.exchangeNmilk[CHAIN_ID]}
+  };
 
-  const selectedAbi: any[] = config[selectedFromCurrency].abi;
+  const selectedExchangeAbi: any[] = config[selectedFromCurrency].exchangeAbi;
   const selectedContract: string = config[selectedFromCurrency].contract;
+  const selectedExchangeContract: string = config[selectedFromCurrency].exchangeContract;
 
   useEffect(() => {
     if (selectedFromCurrency === 'nac') {
@@ -84,10 +88,10 @@ const Sell: React.FC = () => {
     if (['nmilk', 'nbeef', 'nland'].includes(selectedFromCurrency)) {
       callViewFunction(
         CHAIN_ID,
-        selectedContract,
+        selectedExchangeContract,
         [],
         "getSuggestedPrice",
-        selectedAbi
+        selectedExchangeAbi
       ).then((value: number) => setSuggestedPrice(formatUintToDecimal(value)));
     }
 
@@ -97,10 +101,32 @@ const Sell: React.FC = () => {
     return !!(account && library && fromAmount && (fromPrice || selectedFromCurrency === 'nac'));
   }, [account, library, fromAmount, fromPrice]);
 
-  const submit = (e: React.FormEvent<HTMLFormElement>) => {
+  useEffect(() => {
+    if (account && library) {
+      getTokenAllowance(
+        CHAIN_ID,
+        account,
+        selectedContract,
+        selectedExchangeContract
+      ).then((allowance: number) => setNeedsApproval(allowance == 0));
+    }
+  }, [account, selectedFromCurrency]);
+
+  const onApprove = () => {
+    setIsLoading(true);
+    approveContract(
+      library,
+      selectedExchangeContract,
+      selectedContract,
+    )
+      .then(() => setNeedsApproval(false))
+      .finally(() => setIsLoading(false));
+  };
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (canSubmit) {
-
+      setIsLoading(true);
       if (selectedToCurrency === 'ars') {
         setModal({
           component: () => ExchangeARSForm({ tab: 'sell', token: selectedFromCurrency, amount: fromAmount, price: fromPrice }),
@@ -111,30 +137,32 @@ const Sell: React.FC = () => {
 
       if (selectedFromCurrency === 'nac') {
         callFunction(
-          selectedContract,
+          selectedExchangeContract,
           library,
           [formatDecimalToUint(fromAmount)],
           'deposit',
-          selectedAbi
+          selectedExchangeAbi
         )
           .then(console.log)
+          .finally(() => setIsLoading(false));
       }
 
       if (['nmilk', 'nland', 'nbeef'].includes(selectedFromCurrency)) {
         callFunction(
-          selectedContract,
+          selectedExchangeContract,
           library,
           [formatDecimalToUint(fromAmount), formatDecimalToUint(fromPrice)],
           'sell',
-          selectedAbi
+          selectedExchangeAbi
         )
           .then(console.log)
+          .finally(() => setIsLoading(false));
       }
     }
   };
 
   return (
-    <form onSubmit={submit} className="w-full">
+    <form onSubmit={onSubmit} className="w-full">
 
       <div className="flex flex-col w-full mt-12">
         <p className="text-blue text-left text-xs">{t(`exchange.helper_top_sell`)}</p>
@@ -267,12 +295,25 @@ const Sell: React.FC = () => {
         </div>
 
         <div className="flex justify-around mt-10">
-          <Button
-            text={t(`exchange.button_sell`)}
-            extraClasses="h-10 bg-green border-green text-white text-center w-48 text-sm uppercase w-full shadow"
-            type="submit"
-            disabled={!canSubmit}
-          />
+          {needsApproval && (
+            <Button
+              isLoading={isLoading}
+              text={`${t("exchange.button_approve")} ${upperCase(selectedFromCurrency)}`}
+              extraClasses="h-10 bg-green border-green text-white text-center w-48 text-sm uppercase w-full shadow"
+              type="button"
+              onClick={onApprove}
+              disabled={!canSubmit}
+            />
+          )}
+
+          {!needsApproval && (
+            <Button
+              text={t(`exchange.button_sell`)}
+              extraClasses="h-10 bg-green border-green text-white text-center w-48 text-sm uppercase w-full shadow"
+              type="submit"
+              disabled={!canSubmit}
+            />
+          )}
         </div>
       </div>
 

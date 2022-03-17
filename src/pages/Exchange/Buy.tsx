@@ -45,12 +45,11 @@ const Buy: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const config: any = {
-    nmilk: {abi: NMILK, exchangeAbi: NMILKExchange, contract: contracts.nmilk[CHAIN_ID], exchangeContract: contracts.exchangeNmilk[CHAIN_ID]},
-    nbeef: {abi: NMILK, exchangeAbi: NMILKExchange, contract: contracts.nmilk[CHAIN_ID], exchangeContract: contracts.exchangeNmilk[CHAIN_ID]},
-    nland: {abi: NMILK, exchangeAbi: NMILKExchange, contract: contracts.nmilk[CHAIN_ID], exchangeContract: contracts.exchangeNmilk[CHAIN_ID]}
+    nmilk: {exchangeAbi: NMILKExchange, contract: contracts.nmilk[CHAIN_ID], exchangeContract: contracts.exchangeNmilk[CHAIN_ID]},
+    nbeef: {exchangeAbi: NMILKExchange, contract: contracts.nmilk[CHAIN_ID], exchangeContract: contracts.exchangeNmilk[CHAIN_ID]},
+    nland: {exchangeAbi: NMILKExchange, contract: contracts.nmilk[CHAIN_ID], exchangeContract: contracts.exchangeNmilk[CHAIN_ID]}
   };
 
-  const selectedAbi: any[] = config[selectedToCurrency].abi;
   const selectedExchangeAbi: any[] = config[selectedToCurrency].exchangeAbi;
   const selectedContract: string = config[selectedToCurrency].contract;
   const selectedExchangeContract: string = config[selectedToCurrency].exchangeContract;
