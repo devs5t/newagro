@@ -1,18 +1,25 @@
-import React, {useContext} from "react";
+import React, {useContext, useMemo} from "react";
 import InvestCard from "src/components/HomeCard/InvestCard";
 import {useTranslation} from "react-i18next";
 import {PriceContext} from "src/contexts/PriceContext";
 import {ReactSVG} from "react-svg";
-import {NMILK_TOKENS_BY_COW} from "src/config/constants";
+import {NMILK_POOL_ID, NMILK_TOKENS_BY_COW} from "src/config/constants";
 import {formatCurrency} from "src/utils/currency";
 import { formatUintToDecimal } from "src/utils/formatUtils";
 import {NmilkContext} from "src/contexts/NmilkContext";
 import Button from "src/components/Buttons/Button";
+import contracts from "src/config/constants/contracts";
+import {CHAIN_ID} from "src/config";
+import { callFunction } from "reblox-web3-utils";
+import MainStaking from "src/config/abi/MainStaking.json";
+import {useEthers} from "@usedapp/core";
 
 const Investment: React.FC = () => {
   const { t } = useTranslation();
-  const { historicalEarning } = useContext(PriceContext);
+  const { library } = useEthers();
+  const { historicalEarning, nacUserAssets } = useContext(PriceContext);
   const { milkingCows, userMilkingCows, nmilkUserDeposited, nmilkUserEarns, nmilkApr, nmilkProfitability, nmilkExchangeRate } = useContext(NmilkContext);
+  const userNacs: number = useMemo(() => nacUserAssets , []);
 
   return (
     <div className="flex justify-center">
@@ -21,10 +28,20 @@ const Investment: React.FC = () => {
           <h3 className="text-blue text-center text-xs md:mt-5">{t('investment.text')}</h3>
           <div className="flex flex-row justify-center mt-5 xl:mt-0">
             <p className="text-blue font-bold leading-5">NAC <br/> recaudados</p>
-            <p className="text-blue text-3xl mx-4 font-semibold">3.810</p>
+            <p className="text-blue text-3xl mx-4 font-semibold">{userNacs}</p>
             <Button
-              text={"Retirar Nac"}
+              text={`${t("investment.retire")} NAC`}
               extraClasses="border-blue border-2 text-blue px-4 font-bold text-tiny md:text-xs whitespace-nowrap text-center h-8 mt-1"
+              onClick={event => {
+                callFunction(
+                  contracts.mainStaking[CHAIN_ID],
+                  library,
+                  [NMILK_POOL_ID, "0"],
+                  "deposit",
+                  MainStaking
+                );
+                event.stopPropagation();
+              }}
             />
           </div>
         </div>
@@ -40,7 +57,6 @@ const Investment: React.FC = () => {
               image={'images/photos/bg_nmilk.jpeg'}
             />
             <br/>
-            <br/>
             <InvestCard
               title={t('investment.card_beef.title')}
               subtitle={t('investment.card_beef.subtitle', {apr: 0})}
@@ -51,7 +67,6 @@ const Investment: React.FC = () => {
               image={'images/photos/bg_nbeef.jpeg'}
               containerClasses={"opacity-50 pointer-events-none"}
             />
-            <br/>
             <br/>
             <InvestCard
               title={t('investment.card_land.title')}
