@@ -7,6 +7,7 @@ import {NMILK_TOKENS_BY_COW} from "src/config/constants";
 import {formatCurrency} from "src/utils/currency";
 import { formatUintToDecimal } from "src/utils/formatUtils";
 import {NmilkContext} from "src/contexts/NmilkContext";
+import Button from "src/components/Buttons/Button";
 
 const Investment: React.FC = () => {
   const { t } = useTranslation();
@@ -16,7 +17,17 @@ const Investment: React.FC = () => {
   return (
     <div className="flex justify-center">
       <div className="mt-8 xl:flex xl:flex-col max-w-6xl">
-        <h3 className="text-blue text-center text-xs">{t('investment.text')}</h3>
+        <div className="flex flex-col xl:flex-row justify-between pr-10">
+          <h3 className="text-blue text-center text-xs md:mt-5">{t('investment.text')}</h3>
+          <div className="flex flex-row justify-center mt-5 xl:mt-0">
+            <p className="text-blue font-bold leading-5">NAC <br/> recaudados</p>
+            <p className="text-blue text-3xl mx-4 font-semibold">3.810</p>
+            <Button
+              text={"Retirar Nac"}
+              extraClasses="border-blue border-2 text-blue px-4 font-bold text-tiny md:text-xs whitespace-nowrap text-center h-8 mt-1"
+            />
+          </div>
+        </div>
         <div className="xl:px-10 xl:grid xl:grid-cols-4 xl:gap-4 py-8">
           <div className="col-span-3 flex-3 max-w-3xl">
             <InvestCard

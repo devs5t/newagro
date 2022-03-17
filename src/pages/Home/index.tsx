@@ -18,7 +18,7 @@ const Home: React.FC = () => {
   const {nmilkTotalAssets, nmilkTotalSupply, milkingCows, nmilkUserAssets, userMilkingCows} = useContext(NmilkContext);
 
   return (
-    <div className="w-full flex justify-center mt-8">
+    <div className="w-full flex justify-center lg:pl-16 xl:pl-32 mt-8">
       <div className="max-w-5xl">
         <Banner
           title={t("home.banner_title")}

@@ -62,7 +62,7 @@ const InvestCard: React.FC<InvestCardProps> = ({
 
   return (
     <div
-      className={`flex flex-col md:flex-row  w-full rounded-lg bg-lightblue/[.15] py-8 px-5 shadow relative grid grid-cols-1 md:grid-cols-2 cursor-pointer ${containerClasses}`}
+      className={`flex flex-col md:flex-row  w-full rounded-lg bg-lightblue/[.15] py-5 px-5 shadow relative grid grid-cols-1 md:grid-cols-2 cursor-pointer ${containerClasses}`}
       onClick={() => setOpen(!open)}
     >
       <div
@@ -73,7 +73,7 @@ const InvestCard: React.FC<InvestCardProps> = ({
         <h3 className="text-blue font-bold text-left text-lg md:text-2xl">
           {title}
         </h3>
-        <h2 className="text-blue font-bold text-left font-bold md:text-xl mb-2">
+        <h2 className="text-blue font-bold text-left font-bold md:text-2xl mb-2">
           {subtitle}
         </h2>
         <Link
@@ -88,7 +88,7 @@ const InvestCard: React.FC<InvestCardProps> = ({
       </div>
       <div className={"grid grid-cols-2 gap-2 mt-5 w-full md:mt-0"}>
         <div className="border-2 border-green/[.5] rounded-lg w-full">
-          <h3 className="py-1 text-green font-bold text-center text-xs border-b-green/[.5] border-b-2 border-green md:text-base">
+          <h3 className="p-1 text-green font-bold text-center text-xs border-b-green/[.5] border-b-2 border-green md:text-sm">
             {upperCase(token)} - {upperCase(t("investment.deposited"))}
           </h3>
           <p className="text-3xl lg:text-4xl text-green text-center mt-2 md:mt-0">
@@ -101,7 +101,7 @@ const InvestCard: React.FC<InvestCardProps> = ({
           </p>
         </div>
         <div className="border-2 border-green/[.5] rounded-lg w-full">
-          <h3 className="py-1 text-green font-bold text-center text-xs border-b-green/[.5] border-b-2 border-green md:text-base md:px-4">
+          <h3 className="p-1 text-green font-bold text-center text-xs border-b-green/[.5] border-b-2 border-green md:text-sm md:px-4 ">
             NAC - {upperCase(t("investment.earnings"))}
           </h3>
           <p className="text-3xl lg:text-4xl text-green text-center mt-2 md:mt-0">
