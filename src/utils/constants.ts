@@ -20,3 +20,5 @@ export const warningColor = import.meta.env.VITE_WARNING_COLOR;
 export const dangerColor = import.meta.env.VITE_DANGER_COLOR;
 export const asideTouchStatus =
   import.meta.env.VITE_ASIDE_TOUCH_STATUS === "true";
+
+export const SECONDS_PER_YEAR = 31536000;

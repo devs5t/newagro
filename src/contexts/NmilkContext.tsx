@@ -11,6 +11,7 @@ import {NMILK_POOL_ID, NMILK_TOKENS_BY_COW} from "src/config/constants";
 import {get} from "lodash";
 import {formatUintToDecimal, formatHexNumber} from "src/utils/formatUtils";
 import {PriceContext} from "src/contexts/PriceContext";
+import {SECONDS_PER_YEAR} from "src/utils";
 
 const NmilkContext = createContext({
   nmilkTotalSupply: 0,
@@ -74,7 +75,7 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
       "poolInfo",
       MainStaking
     ).then((value: any) => {
-      setNmilkRewardPerYear(value.nativePerSecond);
+      setNmilkRewardPerYear(value.nativePerSecond * SECONDS_PER_YEAR);
       setNmilkAssetsPerMonth(formatUintToDecimal(value.assetPerMonthPerFullWantToken))
     });
 

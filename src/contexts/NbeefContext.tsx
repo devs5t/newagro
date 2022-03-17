@@ -11,6 +11,7 @@ import {NBEEF_POOL_ID} from "src/config/constants";
 import {get} from "lodash";
 import {formatUintToDecimal, formatHexNumber} from "src/utils/formatUtils";
 import {PriceContext} from "src/contexts/PriceContext";
+import {SECONDS_PER_YEAR} from "src/utils";
 
 const NbeefContext = createContext({
   nbeefTotalSupply: 0,
@@ -68,7 +69,7 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
       "poolInfo",
       MainStaking
     ).then((value: any) => {
-      setNbeefRewardPerYear(value.nativePerSecond);
+      setNbeefRewardPerYear(value.nativePerSecond * SECONDS_PER_YEAR);
       setNbeefAssetsPerMonth(formatUintToDecimal(value.assetPerMonthPerFullWantToken))
     });
 
