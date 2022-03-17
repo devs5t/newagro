@@ -23,7 +23,7 @@ const Sell: React.FC = () => {
   const {setModal} = useContext(ModalContext);
 
   const { account, library } = useEthers();
-  const { nacUserAssets } = useContext(PriceContext);
+  const { nacUserAssets, nacExchangeRate } = useContext(PriceContext);
   const { nmilkUserAssets } = useContext(NmilkContext);
   const { nlandUserAssets } = useContext(NlandContext);
   const { nbeefUserAssets } = useContext(NbeefContext);
@@ -65,8 +65,16 @@ const Sell: React.FC = () => {
   const selectedContract: string = config[selectedFromCurrency].contract;
 
   useEffect(() => {
-    setToAmount(fromAmount * (fromPrice || 1));
-  }, [fromAmount, fromPrice]);
+    if (selectedFromCurrency === 'nac') {
+      if (selectedToCurrency === 'usdt') {
+        setToAmount(fromAmount / nacExchangeRate);
+      } else if (selectedToCurrency === 'ars') {
+        setToAmount(fromAmount);
+      }
+    } else {
+      setToAmount(fromAmount * fromPrice);
+    }
+  }, [fromAmount, fromPrice, selectedFromCurrency, selectedToCurrency]);
 
   useEffect(() => {
     if (selectedToCurrency === 'ars' && selectedFromCurrency !== 'nac') {
