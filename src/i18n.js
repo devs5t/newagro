@@ -107,10 +107,12 @@ const resources = {
         earnings: "Earnings",
         withdraw: "Withdraw",
         assets: "Your total {{token}} assets",
+        raised: "raised",
         card_milk: {
           title: "New Milk (NMILK)",
           subtitle: "APR {{apr}}%",
           buy: "Buy",
+          description: "NMILK Tokens can be deposited into this pool to receive part of the rental income equivalent to a liter of milk from the rodeos they represent or withdrawn to sell. You will receive the rent in NAC that you can automatically exchange to USDT or use to buy other tokens."
         },
         card_beef: {
           title: "New Beef (NBEEF)",
@@ -293,10 +295,12 @@ const resources = {
         earnings: "Ganancias",
         withdraw: "Retirar",
         assets: "Tus Activos {{token}} Totales",
+        raised: "recaudados",
         card_milk: {
           title: "New Milk (NMILK)",
           subtitle: "TNA 50%",
           buy: "Comprar",
+          description: "Los Tokens NMILK pueden depositarse en este pool para recibir parte de la renta del alquiler equivalente a litro de leche de los rodeos que representan o retirarlos para venderlos. El alquiler lo recibirás en NAC que puedes intercambiar automáticamente a USDT o utilizar para comprar otros tokens."
         },
         card_beef: {
           title: "New Beef (NBEEF)",

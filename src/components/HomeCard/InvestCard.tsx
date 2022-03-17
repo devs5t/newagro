@@ -24,6 +24,7 @@ interface InvestCardProps {
   deposit: number;
   earn: number;
   totalAssets: number;
+  descriptionText?: string;
 }
 
 const tokenKeyMap = {
@@ -53,6 +54,7 @@ const InvestCard: React.FC<InvestCardProps> = ({
   deposit,
   earn,
   totalAssets,
+  descriptionText,
 }) => {
   const { t } = useTranslation();
   const { setModal } = useContext(ModalContext);
@@ -62,143 +64,146 @@ const InvestCard: React.FC<InvestCardProps> = ({
 
   return (
     <div
-      className={`flex flex-col md:flex-row  w-full rounded-lg bg-lightblue/[.15] py-5 px-5 shadow relative grid grid-cols-1 md:grid-cols-2 cursor-pointer ${containerClasses}`}
+      className={`flex flex-col w-full rounded-lg bg-lightblue/[.15] py-5 px-5 shadow relative cursor-pointer ${containerClasses}`}
       onClick={() => setOpen(!open)}
     >
-      <div
-        style={{ backgroundImage: `url(${image})` }}
-        className="absolute rounded-full -top-6 -right-2 right-0 h-24 w-24 bg-center bg-cover opacity-75 md:h-32 md:w-32 md:top-1/2 md:transform md:-translate-y-1/2 md:-left-16"
-      />
-      <div className="w-full mt-5 relative md:pl-16 md:mt-0">
-        <h3 className="text-blue font-bold text-left text-lg md:text-2xl">
-          {title}
-        </h3>
-        <h2 className="text-blue font-bold text-left font-bold md:text-2xl mb-2">
-          {subtitle}
-        </h2>
-        <Link
-          className="absolute bottom-0 right-0 md:relative"
-          to={`/exchange?token=${token}`}
-          target={"_self"}
-        >
+      <div className={`flex flex-col md:flex-row grid grid-cols-1 md:grid-cols-2`}>
+        <div
+          style={{ backgroundImage: `url(${image})` }}
+          className="absolute rounded-full -top-6 -right-2 right-0 h-24 w-24 bg-center bg-cover opacity-75 md:h-32 md:w-32 md:top-4 md:-left-16"
+        />
+        <div className="w-full mt-5 relative md:pl-16 md:mt-0">
+          <h3 className="text-blue font-bold text-left text-lg md:text-2xl">
+            {title}
+          </h3>
+          <h2 className="text-blue font-bold text-left font-bold md:text-2xl mb-2">
+            {subtitle}
+          </h2>
+          <Link
+            className="w-full underline text-blue font-bold pointer"
+            to={`/exchange?token=${token}`}
+            target={"_self"}
+          >
           <span className="text-blue text-xs underline md:text-base mt-4">
             {t("investment.card_beef.buy")} {upperCase(token)}
           </span>
-        </Link>
-      </div>
-      <div className={"grid grid-cols-2 gap-2 mt-5 w-full md:mt-0"}>
-        <div className="border-2 border-green/[.5] rounded-lg w-full">
-          <h3 className="p-1 text-green font-bold text-center text-xs border-b-green/[.5] border-b-2 border-green md:text-sm">
-            {upperCase(token)} - {upperCase(t("investment.deposited"))}
-          </h3>
-          <p className="text-3xl lg:text-4xl text-green text-center mt-2 md:mt-0">
-            {formatUintToDecimal(deposit)}
-          </p>
-          <p className="text-xs font-medium text-blue text-center mb-2 md:text-sm">
-            {t("investment.cows", {
-              value: formatUintToDecimal(Math.round(deposit / NMILK_TOKENS_BY_COW)).toFixed(5),
-            })}
-          </p>
+          </Link>
+          {open &&
+          <a className="w-full underline text-blue font-bold pointer">
+            <p className="w-full underline text-blue font-bold text-xs md:text-base">
+              {t("investment.watch_cams")}
+            </p>
+          </a>
+          }
         </div>
-        <div className="border-2 border-green/[.5] rounded-lg w-full">
-          <h3 className="p-1 text-green font-bold text-center text-xs border-b-green/[.5] border-b-2 border-green md:text-sm md:px-4 ">
-            NAC - {upperCase(t("investment.earnings"))}
-          </h3>
-          <p className="text-3xl lg:text-4xl text-green text-center mt-2 md:mt-0">
-            {formatUintToDecimal(earn).toFixed(5)}
-          </p>
-          <p className="text-xs font-medium text-blue text-center mb-2 md:text-sm">
-            {t("investment.cows", {
-              value: formatUintToDecimal(Math.round(earn / NMILK_TOKENS_BY_COW)).toFixed(5),
-            })}
-          </p>
+        <div className={"grid grid-cols-2 gap-2 mt-5 w-full md:mt-0"}>
+          <div className="border-2 border-green/[.5] rounded-lg w-full">
+            <h3 className="p-1 text-green font-bold text-center text-xs border-b-green/[.5] border-b-2 border-green md:text-sm">
+              {upperCase(token)} - {upperCase(t("investment.deposited"))}
+            </h3>
+            <p className="text-3xl lg:text-4xl text-green text-center mt-2 md:mt-0">
+              {formatUintToDecimal(deposit)}
+            </p>
+            <p className="text-xs font-medium text-blue text-center mb-2 md:text-sm">
+              {t("investment.cows", {
+                value: formatUintToDecimal(Math.round(deposit / NMILK_TOKENS_BY_COW)).toFixed(5),
+              })}
+            </p>
+          </div>
+          <div className="border-2 border-green/[.5] rounded-lg w-full">
+            <h3 className="p-1 text-green font-bold text-center text-xs border-b-green/[.5] border-b-2 border-green md:text-sm md:px-4 ">
+              NAC - {upperCase(t("investment.earnings"))}
+            </h3>
+            <p className="text-3xl lg:text-4xl text-green text-center mt-2 md:mt-0">
+              {formatUintToDecimal(earn).toFixed(5)}
+            </p>
+            <p className="text-xs font-medium text-blue text-center mb-2 md:text-sm">
+              {t("investment.cows", {
+                value: formatUintToDecimal(Math.round(earn / NMILK_TOKENS_BY_COW)).toFixed(5),
+              })}
+            </p>
+          </div>
         </div>
       </div>
 
       {open && (
-        <>
-          <div className="mt-4 w-full md:pl-32">
-            <a className="w-full underline text-blue font-bold pointer">
-              <p className="w-full underline text-blue font-bold">
-                {t("investment.watch_cams")}
-              </p>
-            </a>
-          </div>
-          <div className={"grid grid-cols-2 gap-2 mt-5 w-full mt-5"}>
-            <Button
-              text={t("investment.deposit_buy")}
-              extraClasses="px-2 md:px-0 w-full border-2 border-blue font-bold text-blue py-2 px-0"
-              onClick={(e) => {
-                e.stopPropagation();
-                setModal({
-                  component: () => DepositTokenForm({ token }),
-                  title: `${t("deposit_token_form.deposit")} ${upperCase(
-                    token
-                  )}`,
-                });
-              }}
-            />
-            <Button
-              text={`${t("investment.retire")} NAC`}
-              extraClasses="px-2 md:px-0 w-full border-2 border-blue font-bold text-blue py-2 px-0"
-              onClick={(e) => {
-                callFunction(
-                  contracts.mainStaking[CHAIN_ID],
-                  library,
-                  [tokenKeyMap[token]?.pId, "0"],
-                  "deposit",
-                  MainStaking
-                );
-                e.stopPropagation();
-              }}
-            />
-            <Button
-              text={`${t("investment.withdraw")} ${upperCase(token)}`}
-              extraClasses="px-2 md:px-0 w-full border-2 border-blue font-bold text-blue py-2 px-0"
-              onClick={(e) => {
-                e.stopPropagation();
-                setModal({
-                  component: () => WithdrawTokenForm({ token }),
-                  title: `${t("withdraw_token_form.withdraw")} ${upperCase(
-                    token
-                  )}`,
-                });
-              }}
-            />
-            <Button
-              text={`${t("investment.reinvest")} NAC`}
-              extraClasses="px-2 md:px-0 w-full border-2 border-blue font-bold text-blue py-2 px-0"
-              onClick={(e) => {
-                callFunction(
-                  contracts.mainStaking[CHAIN_ID],
-                  library,
-                  [tokenKeyMap[token]?.pId],
-                  "compound",
-                  MainStaking
-                );
-                e.stopPropagation();
-              }}
-            />
-          </div>
-          <div className="mt-6  w-full md:pl-32">
+        <div className="flex flex-col md:flex-row w-full">
+          <div className="w-full py-2 md:px-16 md:w-1/2">
             <p className="w-full text-blue text-xs">
-              Acá va a ir más info desplegada para el inversor desconocido /
-              usuarios nuevos
+              {descriptionText}
             </p>
           </div>
-          <div
-            className={
-              "rounded-lg border-2 border-green bg-blue/[.10] w-full mt-5 p-2"
-            }
-          >
-            <h4 className="text-blue text-center font-bold text-lg">
-              {t("investment.assets", { token: token.toUpperCase() })}
-            </h4>
-            <p className="text-center text-blue text-2xl">
-              USD {formatCurrency(formatUintToDecimal(totalAssets))}
-            </p>
+          <div className="md:w-1/2 w-full">
+            <div className={"grid grid-cols-2 gap-2 mt-5 w-full mt-5"}>
+              <Button
+                text={t("investment.deposit_buy")}
+                extraClasses="px-2 md:px-0 w-full border-2 border-blue font-bold text-blue py-2 px-0"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setModal({
+                    component: () => DepositTokenForm({ token }),
+                    title: `${t("deposit_token_form.deposit")} ${upperCase(
+                      token
+                    )}`,
+                  });
+                }}
+              />
+              <Button
+                text={`${t("investment.retire")} NAC`}
+                extraClasses="px-2 md:px-0 w-full border-2 border-blue font-bold text-blue py-2 px-0"
+                onClick={(e) => {
+                  callFunction(
+                    contracts.mainStaking[CHAIN_ID],
+                    library,
+                    [tokenKeyMap[token]?.pId, "0"],
+                    "deposit",
+                    MainStaking
+                  );
+                  e.stopPropagation();
+                }}
+              />
+              <Button
+                text={`${t("investment.withdraw")} ${upperCase(token)}`}
+                extraClasses="px-2 md:px-0 w-full border-2 border-blue font-bold text-blue py-2 px-0"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setModal({
+                    component: () => WithdrawTokenForm({ token }),
+                    title: `${t("withdraw_token_form.withdraw")} ${upperCase(
+                      token
+                    )}`,
+                  });
+                }}
+              />
+              <Button
+                text={`${t("investment.reinvest")} NAC`}
+                extraClasses="px-2 md:px-0 w-full border-2 border-blue font-bold text-blue py-2 px-0"
+                onClick={(e) => {
+                  callFunction(
+                    contracts.mainStaking[CHAIN_ID],
+                    library,
+                    [tokenKeyMap[token]?.pId],
+                    "compound",
+                    MainStaking
+                  );
+                  e.stopPropagation();
+                }}
+              />
+            </div>
+            <div
+              className={
+                "rounded-lg border-2 border-green bg-green/[.25] w-full mt-5 p-2"
+              }
+            >
+              <h4 className="text-blue text-center font-bold text-lg">
+                {t("investment.assets", { token: token.toUpperCase() })}
+              </h4>
+              <p className="text-center text-blue text-2xl">
+                USD {formatCurrency(formatUintToDecimal(totalAssets))}
+              </p>
+            </div>
           </div>
-        </>
+        </div>
       )}
     </div>
   );

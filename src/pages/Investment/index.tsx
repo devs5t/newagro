@@ -27,7 +27,7 @@ const Investment: React.FC = () => {
         <div className="flex flex-col xl:flex-row justify-between pr-10">
           <h3 className="text-blue text-center text-xs md:mt-5">{t('investment.text')}</h3>
           <div className="flex flex-row justify-center mt-5 xl:mt-0">
-            <p className="text-blue font-bold leading-5">NAC <br/> recaudados</p>
+            <p className="text-blue font-bold leading-5">NAC <br/> {t('investment.raised')}</p>
             <p className="text-blue text-3xl mx-4 font-semibold">{userNacs}</p>
             <Button
               text={`${t("investment.retire")} NAC`}
@@ -55,6 +55,7 @@ const Investment: React.FC = () => {
               earn={nmilkUserEarns}
               totalAssets={nmilkUserDeposited * nmilkExchangeRate}
               image={'images/photos/bg_nmilk.jpeg'}
+              descriptionText={t("investment.card_milk.description")}
             />
             <br/>
             <InvestCard
