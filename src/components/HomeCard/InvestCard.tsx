@@ -59,7 +59,34 @@ const InvestCard: React.FC<InvestCardProps> = ({
   const { setModal } = useContext(ModalContext);
   const [open, setOpen] = useState(false);
 
+  const [isHarvestingLoading, setIsHarvestingLoading] = useState<boolean>(false);
+  const [isReinvestingLoading, setIsReinvestingLoading] = useState<boolean>(false);
+
   const { library } = useEthers();
+
+  const onHarvest = (e: any) => {
+    e.stopPropagation();
+    setIsHarvestingLoading(true);
+    callFunction(
+      contracts.mainStaking[CHAIN_ID],
+      library,
+      [tokenKeyMap[token]?.pId, "0"],
+      "deposit",
+      MainStaking
+    ).finally(() => setIsHarvestingLoading(false));
+  };
+
+  const onReinvest = (e: any) => {
+    e.stopPropagation();
+    setIsReinvestingLoading(true);
+    callFunction(
+      contracts.mainStaking[CHAIN_ID],
+      library,
+      [tokenKeyMap[token]?.pId],
+      "compound",
+      MainStaking
+    ).finally(() => setIsReinvestingLoading(false));
+  };
 
   return (
     <div
@@ -150,16 +177,9 @@ const InvestCard: React.FC<InvestCardProps> = ({
               <Button
                 text={`${t("investment.retire")} NAC`}
                 extraClasses="px-2 md:px-0 w-full border-2 border-blue font-bold text-blue py-2 px-0"
-                onClick={(e) => {
-                  callFunction(
-                    contracts.mainStaking[CHAIN_ID],
-                    library,
-                    [tokenKeyMap[token]?.pId, "0"],
-                    "deposit",
-                    MainStaking
-                  );
-                  e.stopPropagation();
-                }}
+                onClick={onHarvest}
+                isLoading={isHarvestingLoading}
+                isLoadingColor="blue"
               />
               <Button
                 text={`${t("investment.withdraw")} ${upperCase(token)}`}
@@ -177,16 +197,9 @@ const InvestCard: React.FC<InvestCardProps> = ({
               <Button
                 text={`${t("investment.reinvest")} NAC`}
                 extraClasses="px-2 md:px-0 w-full border-2 border-blue font-bold text-blue py-2 px-0"
-                onClick={(e) => {
-                  callFunction(
-                    contracts.mainStaking[CHAIN_ID],
-                    library,
-                    [tokenKeyMap[token]?.pId],
-                    "compound",
-                    MainStaking
-                  );
-                  e.stopPropagation();
-                }}
+                onClick={onReinvest}
+                isLoading={isReinvestingLoading}
+                isLoadingColor="blue"
               />
             </div>
             <div
