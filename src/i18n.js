@@ -51,7 +51,7 @@ const resources = {
               "Each real Milking Cow is equivalent to 5,500“ New Milk ”Tokens (NMILK)",
             button_text: "My investments",
             fourth_text: "Your assets",
-            fifth_text: "{{nmilkUserAssets}} cows ({{userMilkingCows}} NMILK)",
+            fifth_text: "{{userMilkingCows}} cows ({{nmilkUserAssets}} NMILK)",
           },
         },
         map: {
@@ -248,7 +248,7 @@ const resources = {
               "Cada Vaca de Ordeñe real, equivale a 5.500 Tokens “New Milk” (NMILK)",
             button_text: "Mis inversiones",
             fourth_text: "Tus activos",
-            fifth_text: "{{nmilkUserAssets}} vacas ({{userMilkingCows}} NMILK)",
+            fifth_text: "{{userMilkingCows}} vacas ({{nmilkUserAssets}} NMILK)",
           },
         },
         map: {
