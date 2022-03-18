@@ -68,18 +68,18 @@ function App() {
           <StyledEngineProvider injectFirst>
             <MuiThemeProvider theme={createTheme(theme)}>
               <ThemeProvider theme={createTheme(theme)}>
-                <ModalProvider>
-                  <PriceContextProvider>
-                    <NmilkContextProvider>
-                      <NlandContextProvider>
-                        <NbeefContextProvider>
+                <PriceContextProvider>
+                  <NmilkContextProvider>
+                    <NlandContextProvider>
+                      <NbeefContextProvider>
+                        <ModalProvider>
                           <Layout>{content}</Layout>
-                        </NbeefContextProvider>
-                      </NlandContextProvider>
-                    </NmilkContextProvider>
-                  </PriceContextProvider>
-                  <Modal />
-                </ModalProvider>
+                          <Modal />
+                        </ModalProvider>
+                      </NbeefContextProvider>
+                    </NlandContextProvider>
+                  </NmilkContextProvider>
+                </PriceContextProvider>
               </ThemeProvider>
             </MuiThemeProvider>
           </StyledEngineProvider>
