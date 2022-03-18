@@ -142,7 +142,7 @@ const WithdrawTokenForm: React.FC<WithdrawTokenFormProps> = ({ token }) => {
         </div>
 
         <p className="text-sm text-blue mt-2">
-          *{availableTokens} {token} {t("withdraw_token_form.available")}
+          *{availableTokens} {upperCase(token)} {t("withdraw_token_form.available")}
         </p>
 
         <Slider

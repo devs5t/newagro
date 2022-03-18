@@ -164,7 +164,7 @@ const DepositTokenForm: React.FC<DepositTokenFormProps> = ({ token }) => {
         </div>
 
         <p className="text-sm text-blue mt-2">
-          *{availableTokens} {token} {t("deposit_token_form.available")}
+          *{availableTokens} {upperCase(token)} {t("deposit_token_form.available")}
         </p>
 
         <Slider
