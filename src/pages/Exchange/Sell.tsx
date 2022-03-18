@@ -9,7 +9,13 @@ import contracts from "src/config/constants/contracts";
 import NMILKExchange from "src/config/abi/NMILKExchange.json";
 import RedeemRewards from "src/config/abi/RedeemRewards.json";
 import {callViewFunction, callFunction, approveContract, getTokenAllowance} from "reblox-web3-utils";
-import {formatDecimalToUint, formatHexToDecimal, formatUintToDecimal} from "src/utils/formatUtils";
+import {
+  formatDateToDisplay,
+  formatDecimalToUint,
+  formatDecimalWithLeadingZeros, formatHexToDate,
+  formatHexToDecimal,
+  formatUintToDecimal
+} from "src/utils/formatUtils";
 import {PriceContext} from "src/contexts/PriceContext";
 import {useEthers} from "@usedapp/core";
 import {ModalContext} from "src/contexts/ModalContext";
@@ -20,8 +26,11 @@ import ExchangeARSForm from "src/components/forms/ExchangeARSForm";
 import {formatCurrency} from "src/utils/currency";
 
 type OrderType ={
+  index: number,
+  originalAmount: number,
   amount: number,
   price: number,
+  timestamp: Date,
   token: 'nmilk' | 'nland' | 'nbeef',
   status: 'confirmed' | 'processing',
 };
@@ -122,13 +131,16 @@ const Sell: React.FC = () => {
       ]).then(([nmilkOrders, nlandOrders, nbeefOrders]) => {
         orders = [
           ...nmilkOrders.map((nmilkOrder: any) => ({...nmilkOrder, token: 'nmilk'})),
-          ...nlandOrders.map((nlandOrder: any) => ({...nlandOrder, token: 'nland'})),
-          ...nbeefOrders.map((nbeefOrder: any) => ({...nbeefOrder, token: 'nbeef'})),
+          /*...nlandOrders.map((nlandOrder: any) => ({...nlandOrder, token: 'nland'})),
+          ...nbeefOrders.map((nbeefOrder: any) => ({...nbeefOrder, token: 'nbeef'})),*/
         ].map((order: OrderType) => ({
-          amount: formatHexToDecimal(get(order, 'amount._hex', '0x00')),
-          price: formatHexToDecimal(get(order, 'price._hex', '0x00')),
+          index: formatHexToDecimal(get(order, 'index._hex', '0x00')),
+          originalAmount: formatCurrency(formatHexToDecimal(get(order, 'originalAmount._hex', '0x00'))),
+          amount: formatCurrency(formatHexToDecimal(get(order, 'amount._hex', '0x00'))),
+          price: formatCurrency(formatHexToDecimal(get(order, 'price._hex', '0x00'))),
+          timestamp: formatHexToDate(get(order, 'timestamp._hex', '0x00')),
           token: order.token,
-          status: 'confirmed'
+          status: order.amount === 0 ? 'confirmed' : 'processing',
         }));
         setSellOrders(orders);
       });
@@ -166,7 +178,7 @@ const Sell: React.FC = () => {
 
   const canSubmit: boolean = useMemo(() => {
     return !!(account && library && fromAmount && (fromPrice || selectedFromCurrency === 'nac'));
-  }, [account, library, fromAmount, fromPrice]);
+  }, [account, library, fromAmount, fromPrice, selectedFromCurrency]);
 
   useEffect(() => {
     if (account && library) {
@@ -209,9 +221,7 @@ const Sell: React.FC = () => {
           [formatDecimalToUint(fromAmount)],
           'deposit',
           selectedExchangeAbi
-        )
-          .then(console.log)
-          .finally(() => setIsLoading(false));
+        ).finally(() => setIsLoading(false));
       }
 
       if (['nmilk', 'nland', 'nbeef'].includes(selectedFromCurrency)) {
@@ -221,9 +231,7 @@ const Sell: React.FC = () => {
           [formatDecimalToUint(fromAmount), formatDecimalToUint(fromPrice)],
           'sell',
           selectedExchangeAbi
-        )
-          .then(console.log)
-          .finally(() => setIsLoading(false));
+        ).finally(() => setIsLoading(false));
       }
     }
   };
@@ -419,10 +427,10 @@ const Sell: React.FC = () => {
                             extraClasses={`flex items-center cursor-default text-sm h-6 m-auto border-none ${order.status === 'processing' ? 'bg-green text-darkgray' : 'bg-blue text-white'}`}
                           />
                         </td>
-                        <td>#00001</td>
-                        <td>02/02/2022</td>
-                        <td>${formatCurrency(order.price * order.amount)}</td>
-                        <td>{`${formatCurrency(order.amount)} ${upperCase(order.token)}`}</td>
+                        <td>#{formatDecimalWithLeadingZeros(order.index + 1, 4)}</td>
+                        <td>{formatDateToDisplay(order.timestamp)}</td>
+                        <td>${order.originalAmount - order.amount} / ${order.originalAmount} ({((order.originalAmount - order.originalAmount) / order.originalAmount) * 100})%</td>
+                        <td>{`${order.originalAmount} ${upperCase(order.token)}`}</td>
                       </tr>
                     ))}
                   </tbody>
