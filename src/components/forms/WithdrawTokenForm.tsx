@@ -30,9 +30,9 @@ interface WithdrawTokenFormProps {
 const WithdrawTokenForm: React.FC<WithdrawTokenFormProps> = ({ token }) => {
   const { t } = useTranslation();
   const { setModal } = useContext(ModalContext);
-  const { nmilkUserAssets } = useContext(NmilkContext);
-  const { nlandUserAssets } = useContext(NlandContext);
-  const { nbeefUserAssets } = useContext(NbeefContext);
+  const { nmilkUserDeposited } = useContext(NmilkContext);
+  const { nlandUserDeposited } = useContext(NlandContext);
+  const { nbeefUserDeposited } = useContext(NbeefContext);
 
   const [amount, setAmount] = useState<number>();
   const [formSent, setFormSent] = useState<boolean>(false);
@@ -43,17 +43,14 @@ const WithdrawTokenForm: React.FC<WithdrawTokenFormProps> = ({ token }) => {
   const tokenKeyMap = {
     nmilk: {
       pId: NMILK_POOL_ID,
-      asset: "nmilkUserDeposited",
       contract: contracts.nmilk[CHAIN_ID],
     },
     nbeef: {
       pId: NBEEF_POOL_ID,
-      asset: "nbeefUserDeposited",
       contract: contracts.nmilk[CHAIN_ID],
     },
     nland: {
       pId: NLAND_POOL_ID,
-      asset: "nlandUserDeposited",
       contract: contracts.nmilk[CHAIN_ID],
     },
   };
@@ -61,13 +58,13 @@ const WithdrawTokenForm: React.FC<WithdrawTokenFormProps> = ({ token }) => {
   const availableTokens = useMemo(() => {
     switch (token) {
       case "nmilk":
-        return nmilkUserAssets;
+        return nmilkUserDeposited;
       case "nland":
-        return nlandUserAssets;
+        return nlandUserDeposited;
       case "nbeef":
-        return nbeefUserAssets;
+        return nbeefUserDeposited;
     }
-  }, [token, nmilkUserAssets, nlandUserAssets, nbeefUserAssets]);
+  }, [token, nmilkUserDeposited, nlandUserDeposited, nbeefUserDeposited]);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
