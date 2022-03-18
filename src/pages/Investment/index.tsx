@@ -3,7 +3,7 @@ import InvestCard from "src/components/HomeCard/InvestCard";
 import {useTranslation} from "react-i18next";
 import {PriceContext} from "src/contexts/PriceContext";
 import {ReactSVG} from "react-svg";
-import {NMILK_POOL_ID, NMILK_TOKENS_BY_COW} from "src/config/constants";
+import {NMILK_TOKENS_BY_COW} from "src/config/constants";
 import {formatCurrency} from "src/utils/currency";
 import {NmilkContext} from "src/contexts/NmilkContext";
 import Button from "src/components/Buttons/Button";

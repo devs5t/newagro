@@ -75,6 +75,22 @@ const Buy: React.FC = () => {
   }, [selectedFromCurrency, nacExchangeRate]);
 
   useEffect(() => {
+    if (account && library) {
+      if (selectedFromCurrency === 'ars') {
+        setNeedsApproval(false);
+        return;
+      }
+
+      getTokenAllowance(
+        CHAIN_ID,
+        account,
+        selectedSpenderContract,
+        selectedExchangeContract
+      ).then((allowance: number) => setNeedsApproval(allowance == 0));
+    }
+  }, [selectedFromCurrency]);
+
+  useEffect(() => {
     if (!debouncedFromAmount) {
       setToAmount(0);
       return;
@@ -115,16 +131,6 @@ const Buy: React.FC = () => {
       "getTotalTokensForSell",
       selectedExchangeAbi
     ).then((value: number) => setTotalTokensForSell(formatUintToDecimal(value)));
-
-    if (account && library) {
-      getTokenAllowance(
-        CHAIN_ID,
-        account,
-        selectedSpenderContract,
-        selectedExchangeContract
-      ).then((allowance: number) => setNeedsApproval(allowance == 0));
-    }
-
   }, [account, selectedToCurrency]);
 
   const maxValue: number | undefined = useMemo(() => {
@@ -170,6 +176,7 @@ const Buy: React.FC = () => {
           component: () => ExchangeARSForm({ tab: 'buy', token: selectedToCurrency, amount: fromAmount, price: suggestedPrice}),
           title: `${t("exchange_ars_form.title", {tab: t("exchange_ars_form.buy")})}`,
         });
+        setIsLoading(false);
         return;
       }
 

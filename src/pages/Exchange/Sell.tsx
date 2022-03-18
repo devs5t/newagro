@@ -188,6 +188,11 @@ const Sell: React.FC = () => {
 
   useEffect(() => {
     if (account && library) {
+      if (selectedToCurrency === 'ars') {
+        setNeedsApproval(false);
+        return;
+      }
+
       getTokenAllowance(
         CHAIN_ID,
         account,
@@ -195,7 +200,7 @@ const Sell: React.FC = () => {
         selectedExchangeContract
       ).then((allowance: number) => setNeedsApproval(allowance == 0));
     }
-  }, [account, selectedFromCurrency]);
+  }, [account, selectedFromCurrency, selectedToCurrency]);
 
   const onApprove = () => {
     setIsLoading(true);
@@ -217,6 +222,7 @@ const Sell: React.FC = () => {
           component: () => ExchangeARSForm({ tab: 'sell', token: selectedFromCurrency, amount: fromAmount, price: fromPrice }),
           title: `${t("exchange_ars_form.title", {tab: t("exchange_ars_form.sell")})}`,
         });
+        setIsLoading(false);
         return
       }
 

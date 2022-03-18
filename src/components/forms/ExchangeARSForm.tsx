@@ -168,16 +168,18 @@ const ExchangeARSForm: React.FC<ExchangeARSFormProps> = ({
           disabled={true}
         />
 
-        <Textfield
-          id="price"
-          label={t("exchange_ars_form.price")}
-          onChange={console.log}
-          value={price}
-          required={true}
-          type="number"
-          containerClasses="mb-6"
-          disabled={true}
-        />
+        {price && (
+          <Textfield
+            id="price"
+            label={t("exchange_ars_form.price")}
+            onChange={console.log}
+            value={price}
+            required={true}
+            type="number"
+            containerClasses="mb-6"
+            disabled={true}
+          />
+        )}
 
         <div className="flex justify-around py-6 mb-8">
           <Button
