@@ -5,7 +5,9 @@ export const formatNumber = (value = 0, decimals = 18) =>
 
 export const formatUintToDecimal = (number: number) => number / 1E18;
 
-export const formatHexToDecimal = (hex: string) => formatUintToDecimal(new BigNumber(hex).toNumber());
+export const formatHexToUintToDecimal = (hex: string) => formatUintToDecimal(new BigNumber(hex).toNumber());
+
+export const formatHexToDecimal = (hex: string) => new BigNumber(hex).toNumber();
 
 export const formatHexToDate = (hex: string) => new Date((new BigNumber(hex).toNumber() * 1000));
 

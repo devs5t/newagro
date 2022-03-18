@@ -174,9 +174,7 @@ const Buy: React.FC = () => {
         [formatDecimalToUint(fromAmount)],
         method,
         selectedExchangeAbi
-      )
-        .then(console.log)
-        .finally(() => setIsLoading(false));
+      ).finally(() => setIsLoading(false));
     }
   };
 
@@ -296,6 +294,7 @@ const Buy: React.FC = () => {
 
           {!needsApproval && (
             <Button
+              isLoading={isLoading}
               text={t(`exchange.button_buy`)}
               extraClasses="h-10 bg-green border-green text-white text-center w-48 text-sm uppercase w-full shadow"
               type="submit"

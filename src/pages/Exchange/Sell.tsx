@@ -12,8 +12,9 @@ import {callViewFunction, callFunction, approveContract, getTokenAllowance} from
 import {
   formatDateToDisplay,
   formatDecimalToUint,
-  formatDecimalWithLeadingZeros, formatHexToDate,
+  formatHexToDate,
   formatHexToDecimal,
+  formatHexToUintToDecimal,
   formatUintToDecimal
 } from "src/utils/formatUtils";
 import {PriceContext} from "src/contexts/PriceContext";
@@ -135,9 +136,9 @@ const Sell: React.FC = () => {
           ...nbeefOrders.map((nbeefOrder: any) => ({...nbeefOrder, token: 'nbeef'})),*/
         ].map((order: OrderType) => ({
           index: formatHexToDecimal(get(order, 'index._hex', '0x00')),
-          originalAmount: formatCurrency(formatHexToDecimal(get(order, 'originalAmount._hex', '0x00'))),
-          amount: formatCurrency(formatHexToDecimal(get(order, 'amount._hex', '0x00'))),
-          price: formatCurrency(formatHexToDecimal(get(order, 'price._hex', '0x00'))),
+          originalAmount: formatHexToUintToDecimal(get(order, 'originalAmount._hex', '0x00')),
+          amount: formatHexToUintToDecimal(get(order, 'amount._hex', '0x00')),
+          price: formatHexToUintToDecimal(get(order, 'price._hex', '0x00')),
           timestamp: formatHexToDate(get(order, 'timestamp._hex', '0x00')),
           token: order.token,
           status: order.amount === 0 ? 'confirmed' : 'processing',
@@ -383,6 +384,7 @@ const Sell: React.FC = () => {
 
           {!needsApproval && (
             <Button
+              isLoading={isLoading}
               text={t(`exchange.button_sell`)}
               extraClasses="h-10 bg-green border-green text-white text-center w-48 text-sm uppercase w-full shadow"
               type="submit"
@@ -427,9 +429,9 @@ const Sell: React.FC = () => {
                             extraClasses={`flex items-center cursor-default text-sm h-6 m-auto border-none ${order.status === 'processing' ? 'bg-green text-darkgray' : 'bg-blue text-white'}`}
                           />
                         </td>
-                        <td>#{formatDecimalWithLeadingZeros(order.index + 1, 4)}</td>
+                        <td>#{order.index + 1}</td>
                         <td>{formatDateToDisplay(order.timestamp)}</td>
-                        <td>${order.originalAmount - order.amount} / ${order.originalAmount} ({((order.originalAmount - order.originalAmount) / order.originalAmount) * 100})%</td>
+                        <td>${formatCurrency(order.originalAmount - order.amount)} / ${formatCurrency(order.originalAmount)} ({((order.originalAmount - order.amount) / order.originalAmount) * 100}%)</td>
                         <td>{`${order.originalAmount} ${upperCase(order.token)}`}</td>
                       </tr>
                     ))}

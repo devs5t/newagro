@@ -9,7 +9,7 @@ import {callViewFunction, callFunction} from "reblox-web3-utils";
 import {useEthers} from "@usedapp/core";
 import {NMILK_POOL_ID, NMILK_TOKENS_BY_COW} from "src/config/constants";
 import {get} from "lodash";
-import {formatUintToDecimal, formatHexToDecimal} from "src/utils/formatUtils";
+import {formatUintToDecimal, formatHexToUintToDecimal} from "src/utils/formatUtils";
 import {PriceContext} from "src/contexts/PriceContext";
 import {SECONDS_PER_YEAR} from "src/utils";
 
@@ -112,7 +112,7 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
         [NMILK_POOL_ID, account],
         "userInfo",
         MainStaking
-      ).then((userInfo: {amount: {_hex: string}}) => setNmilkUserDeposited(formatHexToDecimal(get(userInfo, 'amount._hex', '0x00'))));
+      ).then((userInfo: {amount: {_hex: string}}) => setNmilkUserDeposited(formatHexToUintToDecimal(get(userInfo, 'amount._hex', '0x00'))));
 
 
       callFunction(
@@ -121,7 +121,7 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
         [NMILK_POOL_ID, account],
         "getPendingNative",
         MainStaking
-      ).then((value: {_hex: string}) => setNmilkUserEarns(formatHexToDecimal(value._hex)));
+      ).then((value: {_hex: string}) => setNmilkUserEarns(formatHexToUintToDecimal(value._hex)));
     }
 
     setLoading(false);
