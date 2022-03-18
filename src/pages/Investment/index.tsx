@@ -12,12 +12,16 @@ import {CHAIN_ID} from "src/config";
 import { callFunction } from "reblox-web3-utils";
 import MainStaking from "src/config/abi/MainStaking.json";
 import {useEthers} from "@usedapp/core";
+import {NlandContext} from "src/contexts/NlandContext";
+import {NbeefContext} from "src/contexts/NbeefContext";
 
 const Investment: React.FC = () => {
   const { t } = useTranslation();
   const { library } = useEthers();
-  const { historicalEarning, nacUserAssets } = useContext(PriceContext);
+  const { historicalEarning } = useContext(PriceContext);
   const { milkingCows, userMilkingCows, nmilkUserDeposited, nmilkUserEarns, nmilkApr, nmilkProfitability, nmilkExchangeRate } = useContext(NmilkContext);
+  const { nlandUserEarns } = useContext(NlandContext);
+  const { nbeefUserEarns } = useContext(NbeefContext);
 
   return (
     <div className="flex justify-center">
@@ -26,7 +30,7 @@ const Investment: React.FC = () => {
           <h3 className="text-blue text-center text-xs md:mt-5">{t('investment.text')}</h3>
           <div className="flex flex-row justify-center mt-5 xl:mt-0">
             <p className="text-blue font-bold leading-5">NAC <br/> {t('investment.raised')}</p>
-            <p className="text-blue text-3xl mx-4 font-semibold">{nacUserAssets}</p>
+            <p className="text-blue text-3xl mx-4 font-semibold">{formatCurrency(nmilkUserEarns + nlandUserEarns + nbeefUserEarns )}</p>
             <Button
               text={`${t("investment.retire")} NAC`}
               extraClasses="border-blue border-2 text-blue px-4 font-bold text-tiny md:text-xs whitespace-nowrap text-center h-8 mt-1"
@@ -108,7 +112,7 @@ const Investment: React.FC = () => {
                   </div>
                 </div>
                 <h4 className="text-blue font-bold text-base">{t('investment.rentability.subtitle2')}</h4>
-                <h3 className="text-green font-bold text-base">{historicalEarning} NAC</h3>
+                <h3 className="text-green font-bold text-base">{formatCurrency(historicalEarning)} NAC</h3>
               </div>
             </div>
           </div>
