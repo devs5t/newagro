@@ -141,6 +141,13 @@ const Buy: React.FC = () => {
     return !!(account && library && fromAmount);
   }, [account, library, fromAmount]);
 
+  const availableTokens: number = useMemo(() => {
+    if (selectedFromCurrency === 'nac') {
+      return nacUserAssets;
+    }
+    return usdtUserAssets;
+  }, [selectedFromCurrency]);
+
   const onApprove = () => {
     setIsLoading(true);
     approveContract(
@@ -178,6 +185,16 @@ const Buy: React.FC = () => {
     }
   };
 
+  const onFromAmountChange = useCallback((value: number) => {
+    if (value > availableTokens) {
+      setFromAmount(availableTokens);
+    } else {
+      setFromAmount(value);
+    }
+  }, [availableTokens]);
+
+  const onMax = () => setFromAmount(availableTokens);
+
   return (
     <form onSubmit={onSubmit} className="w-full">
 
@@ -192,7 +209,7 @@ const Buy: React.FC = () => {
               <div className="hidden md:flex h-full items-center font-bold text-sm text-blue mr-10">{t(`exchange.amount`)}</div>
               <Textfield
                 id="amount"
-                onChange={setFromAmount}
+                onChange={onFromAmountChange}
                 value={fromAmount}
                 containerClasses="w-full mr-4 md:max-w-[12rem]"
                 inputClasses="md:placeholder-transparent"
@@ -200,6 +217,11 @@ const Buy: React.FC = () => {
                 placeholder={t(`exchange.amount`)}
                 step={0.01}
                 max={maxValue}
+              />
+              <Button
+                onClick={onMax}
+                text="MAX"
+                extraClasses="flex justify-center items-center h-12 mr-4 w-16 -mb-0.25 rounded-md text-white bg-blue text-base font-normal"
               />
             </div>
 
@@ -222,7 +244,7 @@ const Buy: React.FC = () => {
 
         {['nac', 'usdt'].includes(selectedFromCurrency) && (
           <p className="text-blue text-left text-sm mt-4">
-            {t('exchange.user_from_assets', {token: upperCase(selectedFromCurrency), amount: selectedFromCurrency === 'nac' ? nacUserAssets : usdtUserAssets})}
+            {t('exchange.user_from_assets', {token: upperCase(selectedFromCurrency), amount: availableTokens})}
           </p>
         )}
 

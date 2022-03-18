@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useMemo, useState} from "react";
+import React, {useCallback, useContext, useEffect, useMemo, useState} from "react";
 import { useTranslation } from "react-i18next";
 import Textfield from "src/components/Inputs/Textfield";
 import {get, upperCase} from "lodash";
@@ -237,6 +237,16 @@ const Sell: React.FC = () => {
     }
   };
 
+  const onFromAmountChange = useCallback((value: number) => {
+    if (value > fromUserAssets) {
+      setFromAmount(fromUserAssets);
+    } else {
+      setFromAmount(value);
+    }
+  }, [fromUserAssets]);
+
+  const onMax = () => setFromAmount(fromUserAssets);
+
   return (
     <form onSubmit={onSubmit} className="w-full">
 
@@ -251,7 +261,7 @@ const Sell: React.FC = () => {
               <div className="hidden md:flex h-full items-center font-bold text-sm text-blue mr-10">{t(`exchange.amount`)}</div>
               <Textfield
                 id="amount"
-                onChange={setFromAmount}
+                onChange={onFromAmountChange}
                 value={fromAmount}
                 containerClasses="w-full mr-4 md:max-w-[12rem]"
                 inputClasses="md:placeholder-transparent"
@@ -259,6 +269,11 @@ const Sell: React.FC = () => {
                 placeholder={t(`exchange.amount`)}
                 step={0.01}
                 max={fromUserAssets}
+              />
+              <Button
+                onClick={onMax}
+                text="MAX"
+                extraClasses="flex justify-center items-center h-12 mr-10 w-16 -mb-0.25 rounded-md text-white bg-blue text-base font-normal"
               />
             </div>
 
@@ -270,7 +285,7 @@ const Sell: React.FC = () => {
                   id="price"
                   onChange={setFromPrice}
                   value={fromPrice}
-                  containerClasses="w-full max-w-[8rem]"
+                  containerClasses="w-full max-w-[8rem] mr-10"
                   inputClasses="md:placeholder-transparent"
                   type="number"
                   disabled={false}
@@ -280,7 +295,7 @@ const Sell: React.FC = () => {
             )}
 
             {selectedFromCurrency !== 'nac' && (
-              <div className="hidden md:flex absolute right-28 -mt-32 w-48 h-8 justify-center items-center rounded-full text-center text-xs font-semibold text-white bg-green">
+              <div className="hidden md:flex absolute right-36 -mt-32 w-48 h-8 justify-center items-center rounded-full text-center text-xs font-semibold text-white bg-green">
                 {`${t(`exchange.suggested_price`)}: $${suggestedPrice}`}
               </div>
             )}
