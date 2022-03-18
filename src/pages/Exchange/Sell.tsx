@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useMemo, useState} from "react";
 import { useTranslation } from "react-i18next";
 import Textfield from "src/components/Inputs/Textfield";
-import {upperCase} from "lodash";
+import {get, upperCase} from "lodash";
 import Button from "src/components/Buttons/Button";
 import {ReactSVG} from "react-svg";
 import {CHAIN_ID} from "src/config";
@@ -9,7 +9,7 @@ import contracts from "src/config/constants/contracts";
 import NMILKExchange from "src/config/abi/NMILKExchange.json";
 import RedeemRewards from "src/config/abi/RedeemRewards.json";
 import {callViewFunction, callFunction, approveContract, getTokenAllowance} from "reblox-web3-utils";
-import {formatDecimalToUint, formatUintToDecimal} from "src/utils/formatUtils";
+import {formatDecimalToUint, formatHexToDecimal, formatUintToDecimal} from "src/utils/formatUtils";
 import {PriceContext} from "src/contexts/PriceContext";
 import {useEthers} from "@usedapp/core";
 import {ModalContext} from "src/contexts/ModalContext";
@@ -17,6 +17,14 @@ import {NmilkContext} from "src/contexts/NmilkContext";
 import {NlandContext} from "src/contexts/NlandContext";
 import {NbeefContext} from "src/contexts/NbeefContext";
 import ExchangeARSForm from "src/components/forms/ExchangeARSForm";
+import {formatCurrency} from "src/utils/currency";
+
+type OrderType ={
+  amount: number,
+  price: number,
+  token: 'nmilk' | 'nland' | 'nbeef',
+  status: 'confirmed' | 'processing',
+};
 
 const Sell: React.FC = () => {
   const { t } = useTranslation();
@@ -44,6 +52,8 @@ const Sell: React.FC = () => {
   const [needsApproval, setNeedsApproval] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const [sellOrders, setSellOrders] = useState<OrderType[]>([]);
+
   const fromUserAssets: number = useMemo(() => {
     switch (selectedFromCurrency) {
       case "nac":
@@ -57,16 +67,73 @@ const Sell: React.FC = () => {
     }
   }, [selectedFromCurrency, nmilkUserAssets, nlandUserAssets, nbeefUserAssets]);
 
-  const config: any = {
-    nac: {exchangeAbi: RedeemRewards, contract: contracts.nac[CHAIN_ID], exchangeContract: contracts.redeemRewards[CHAIN_ID]},
-    nmilk: {exchangeAbi: NMILKExchange, contract: contracts.nmilk[CHAIN_ID], exchangeContract: contracts.exchangeNmilk[CHAIN_ID]},
-    nbeef: {exchangeAbi: NMILKExchange, contract: contracts.nmilk[CHAIN_ID], exchangeContract: contracts.exchangeNmilk[CHAIN_ID]},
-    nland: {exchangeAbi: NMILKExchange, contract: contracts.nmilk[CHAIN_ID], exchangeContract: contracts.exchangeNmilk[CHAIN_ID]}
+  const configSpender: any = {
+    nac: {contract: contracts.nac[CHAIN_ID]},
+    nmilk: {contract: contracts.nmilk[CHAIN_ID]},
+    nbeef: {contract: contracts.nmilk[CHAIN_ID]},
+    nland: {contract: contracts.nmilk[CHAIN_ID]}
   };
 
-  const selectedExchangeAbi: any[] = config[selectedFromCurrency].exchangeAbi;
-  const selectedContract: string = config[selectedFromCurrency].contract;
-  const selectedExchangeContract: string = config[selectedFromCurrency].exchangeContract;
+  const selectedSpenderContract: string = useMemo(() => {
+    return configSpender[selectedFromCurrency].contract;
+  }, [selectedFromCurrency]);
+
+  const configExchange: any = {
+    nac: {exchangeAbi: RedeemRewards, exchangeContract: contracts.redeemRewards[CHAIN_ID]},
+    nmilk: {exchangeAbi: NMILKExchange, exchangeContract: contracts.exchangeNmilk[CHAIN_ID]},
+    nbeef: {exchangeAbi: NMILKExchange, exchangeContract: contracts.exchangeNmilk[CHAIN_ID]},
+    nland: {exchangeAbi: NMILKExchange, exchangeContract: contracts.exchangeNmilk[CHAIN_ID]}
+  };
+
+  const selectedExchangeAbi: any[] = useMemo(() => {
+    return configExchange[selectedFromCurrency].exchangeAbi;
+  }, [selectedFromCurrency]);
+
+  const selectedExchangeContract: string = useMemo(() => {
+    return configExchange[selectedFromCurrency].exchangeContract;
+  }, [selectedFromCurrency]);
+
+  useEffect(() => {
+    if (account && library) {
+      let orders: OrderType[] = [];
+
+      Promise.all([
+        callFunction(
+          configExchange.nmilk.exchangeContract,
+          library,
+          [account],
+          "getUserSellOrders",
+          configExchange.nmilk.exchangeAbi,
+        ),
+        callFunction(
+          configExchange.nland.exchangeContract,
+          library,
+          [account],
+          "getUserSellOrders",
+          configExchange.nland.exchangeAbi,
+        ),
+        callFunction(
+          configExchange.nbeef.exchangeContract,
+          library,
+          [account],
+          "getUserSellOrders",
+          configExchange.nbeef.exchangeAbi,
+        )
+      ]).then(([nmilkOrders, nlandOrders, nbeefOrders]) => {
+        orders = [
+          ...nmilkOrders.map((nmilkOrder: any) => ({...nmilkOrder, token: 'nmilk'})),
+          ...nlandOrders.map((nlandOrder: any) => ({...nlandOrder, token: 'nland'})),
+          ...nbeefOrders.map((nbeefOrder: any) => ({...nbeefOrder, token: 'nbeef'})),
+        ].map((order: OrderType) => ({
+          amount: formatHexToDecimal(get(order, 'amount._hex', '0x00')),
+          price: formatHexToDecimal(get(order, 'price._hex', '0x00')),
+          token: order.token,
+          status: 'confirmed'
+        }));
+        setSellOrders(orders);
+      });
+    }
+  }, [account]);
 
   useEffect(() => {
     if (selectedFromCurrency === 'nac') {
@@ -106,7 +173,7 @@ const Sell: React.FC = () => {
       getTokenAllowance(
         CHAIN_ID,
         account,
-        selectedContract,
+        selectedSpenderContract,
         selectedExchangeContract
       ).then((allowance: number) => setNeedsApproval(allowance == 0));
     }
@@ -117,7 +184,7 @@ const Sell: React.FC = () => {
     approveContract(
       library,
       selectedExchangeContract,
-      selectedContract,
+      selectedSpenderContract,
     )
       .then(() => setNeedsApproval(false))
       .finally(() => setIsLoading(false));
@@ -317,6 +384,54 @@ const Sell: React.FC = () => {
         </div>
       </div>
 
+      {sellOrders.length > 0 && (
+        <div className="flex flex-col my-16">
+          <div className="overflow-x-auto">
+            <div className="inline-block min-w-full">
+              <div className="overflow-hidden shadow-sm rounded-lg">
+                <table className="min-w-full bg-lightgreen/[.20]">
+                  <thead>
+                    <tr className="pb-10">
+                      {[
+                        t('exchange.table.state'),
+                        t('exchange.table.order_number'),
+                        t('exchange.table.date'),
+                        t('exchange.table.amount'),
+                        t('exchange.table.token'),
+                      ].map((header, key) => (
+                        <th
+                          scope="col"
+                          className="pt-6 pb-6 text-xs font-medium tracking-wider text-green font-bold text-base"
+                          key={key}
+                        >
+                          {header}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {sellOrders.map((order, key) => (
+                      <tr key={key} className="text-green text-center text-sm font-semibold whitespace-nowrap h-12">
+                        <td className="text-center text-sm font-semibold whitespace-nowrap">
+                          <Button
+                            text={t(`exchange.table.${order.status}`)}
+                            extraClasses={`flex items-center cursor-default text-sm h-6 m-auto border-none ${order.status === 'processing' ? 'bg-green text-darkgray' : 'bg-blue text-white'}`}
+                          />
+                        </td>
+                        <td>#00001</td>
+                        <td>02/02/2022</td>
+                        <td>${formatCurrency(order.price * order.amount)}</td>
+                        <td>{`${formatCurrency(order.amount)} ${upperCase(order.token)}`}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </form>
   );
 };

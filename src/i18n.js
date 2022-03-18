@@ -151,7 +151,16 @@ const resources = {
         button_approve: "Approve",
         button_buy: "Buy",
         button_sell: "Sell",
-        user_from_assets: "{{amount}} {{token}} available"
+        user_from_assets: "{{amount}} {{token}} available",
+        table: {
+          state: "Status",
+          order_number: "Order number",
+          date: "Date",
+          amount: "Amount",
+          token: "Token",
+          confirmed: "Confirmed",
+          processing: "Processing",
+        }
       },
       docs: {
         banner: {
@@ -339,7 +348,16 @@ const resources = {
         button_approve: "Aprobar",
         button_buy: "Comprar",
         button_sell: "Vender",
-        user_from_assets: "{{amount}} {{token}} disponibles"
+        user_from_assets: "{{amount}} {{token}} disponibles",
+        table: {
+          status: "Estado",
+          order_number: "N. de orden",
+          date: "Fecha",
+          amount: "Monto",
+          token: "Token",
+          confirmed: "Confirmada",
+          processing: "En Proceso",
+        }
       },
       docs: {
         banner: {
