@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import InvestCard from "src/components/HomeCard/InvestCard";
 import {useTranslation} from "react-i18next";
 import {PriceContext} from "src/contexts/PriceContext";
@@ -17,11 +17,25 @@ import {NbeefContext} from "src/contexts/NbeefContext";
 
 const Investment: React.FC = () => {
   const { t } = useTranslation();
-  const { library } = useEthers();
+  const { account, library } = useEthers();
   const { historicalEarning } = useContext(PriceContext);
   const { milkingCows, userMilkingCows, nmilkUserDeposited, nmilkUserEarns, nmilkApr, nmilkProfitability, nmilkExchangeRate } = useContext(NmilkContext);
   const { nlandUserEarns } = useContext(NlandContext);
   const { nbeefUserEarns } = useContext(NbeefContext);
+
+  const [isHarvestingLoading, setIsHarvestingLoading] = useState<boolean>(false);
+
+  const onHarvestAll = (e) => {
+    e.stopPropagation();
+    setIsHarvestingLoading(true);
+    callFunction(
+      contracts.mainStaking[CHAIN_ID],
+      library,
+      [],
+      "harvestAll",
+      MainStaking
+    ).finally(() => setIsHarvestingLoading(false));
+  };
 
   return (
     <div className="flex justify-center">
@@ -33,17 +47,11 @@ const Investment: React.FC = () => {
             <p className="text-blue text-3xl mx-4 font-semibold">{formatCurrency(nmilkUserEarns + nlandUserEarns + nbeefUserEarns )}</p>
             <Button
               text={`${t("investment.retire")} NAC`}
-              extraClasses="border-blue border-2 text-blue px-4 font-bold text-tiny md:text-xs whitespace-nowrap text-center h-8 mt-1"
-              onClick={event => {
-                callFunction(
-                  contracts.mainStaking[CHAIN_ID],
-                  library,
-                  [NMILK_POOL_ID, "0"],
-                  "deposit",
-                  MainStaking
-                );
-                event.stopPropagation();
-              }}
+              extraClasses="border-blue border-2 text-blue px-4 font-bold text-tiny md:text-xs whitespace-nowrap text-center h-8 w-32 mt-1"
+              onClick={onHarvestAll}
+              isLoading={isHarvestingLoading}
+              isLoadingColor="blue"
+              disabled={!account}
             />
           </div>
         </div>

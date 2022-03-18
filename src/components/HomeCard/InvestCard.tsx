@@ -62,7 +62,7 @@ const InvestCard: React.FC<InvestCardProps> = ({
   const [isHarvestingLoading, setIsHarvestingLoading] = useState<boolean>(false);
   const [isReinvestingLoading, setIsReinvestingLoading] = useState<boolean>(false);
 
-  const { library } = useEthers();
+  const { account, library } = useEthers();
 
   const onHarvest = (e: any) => {
     e.stopPropagation();
@@ -173,6 +173,7 @@ const InvestCard: React.FC<InvestCardProps> = ({
                     )}`,
                   });
                 }}
+                disabled={!account}
               />
               <Button
                 text={`${t("investment.retire")} NAC`}
@@ -180,6 +181,7 @@ const InvestCard: React.FC<InvestCardProps> = ({
                 onClick={onHarvest}
                 isLoading={isHarvestingLoading}
                 isLoadingColor="blue"
+                disabled={!account}
               />
               <Button
                 text={`${t("investment.withdraw")} ${upperCase(token)}`}
@@ -193,6 +195,7 @@ const InvestCard: React.FC<InvestCardProps> = ({
                     )}`,
                   });
                 }}
+                disabled={!account}
               />
               <Button
                 text={`${t("investment.reinvest")} NAC`}
@@ -200,6 +203,7 @@ const InvestCard: React.FC<InvestCardProps> = ({
                 onClick={onReinvest}
                 isLoading={isReinvestingLoading}
                 isLoadingColor="blue"
+                disabled={!account}
               />
             </div>
             <div
