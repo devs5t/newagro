@@ -101,11 +101,11 @@ const InvestCard: React.FC<InvestCardProps> = ({
               {upperCase(token)} - {upperCase(t("investment.deposited"))}
             </h3>
             <p className="text-3xl lg:text-4xl text-green text-center mt-2 md:mt-0">
-              {deposit}
+              {formatCurrency(deposit)}
             </p>
             <p className="text-xs font-medium text-blue text-center mb-2 md:text-sm">
               {t("investment.cows", {
-                value: Math.round(deposit / NMILK_TOKENS_BY_COW).toFixed(5),
+                value: Math.round(deposit / NMILK_TOKENS_BY_COW).toFixed(2),
               })}
             </p>
           </div>
@@ -114,11 +114,11 @@ const InvestCard: React.FC<InvestCardProps> = ({
               NAC - {upperCase(t("investment.earnings"))}
             </h3>
             <p className="text-3xl lg:text-4xl text-green text-center mt-2 md:mt-0">
-              {earn.toFixed(5)}
+              {formatCurrency(earn)}
             </p>
             <p className="text-xs font-medium text-blue text-center mb-2 md:text-sm">
               {t("investment.cows", {
-                value: Math.round(earn / NMILK_TOKENS_BY_COW).toFixed(5),
+                value: Math.round(earn / NMILK_TOKENS_BY_COW).toFixed(2),
               })}
             </p>
           </div>
