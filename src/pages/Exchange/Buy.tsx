@@ -148,10 +148,14 @@ const Buy: React.FC = () => {
   }, [account, library, fromAmount]);
 
   const availableTokens: number = useMemo(() => {
-    if (selectedFromCurrency === 'nac') {
-      return nacUserAssets;
+    switch (selectedFromCurrency) {
+      case "ars":
+        return 0;
+      case "nac":
+        return nacUserAssets;
+      case "usdt":
+        return usdtUserAssets;
     }
-    return usdtUserAssets;
   }, [selectedFromCurrency]);
 
   const onApprove = () => {

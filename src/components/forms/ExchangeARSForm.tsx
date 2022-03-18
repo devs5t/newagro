@@ -168,7 +168,7 @@ const ExchangeARSForm: React.FC<ExchangeARSFormProps> = ({
           disabled={true}
         />
 
-        {price && (
+        {(price > 0) && (
           <Textfield
             id="price"
             label={t("exchange_ars_form.price")}
