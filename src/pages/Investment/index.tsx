@@ -5,7 +5,6 @@ import {PriceContext} from "src/contexts/PriceContext";
 import {ReactSVG} from "react-svg";
 import {NMILK_POOL_ID, NMILK_TOKENS_BY_COW} from "src/config/constants";
 import {formatCurrency} from "src/utils/currency";
-import { formatUintToDecimal } from "src/utils/formatUtils";
 import {NmilkContext} from "src/contexts/NmilkContext";
 import Button from "src/components/Buttons/Button";
 import contracts from "src/config/constants/contracts";
@@ -48,7 +47,7 @@ const Investment: React.FC = () => {
           <div className="col-span-3 flex-3 max-w-3xl">
             <InvestCard
               title={t('investment.card_milk.title')}
-              subtitle={t('investment.card_milk.subtitle', {apr: nmilkApr.toFixed(5)})}
+              subtitle={t('investment.card_milk.subtitle', {apr: nmilkApr.toFixed(2)})}
               token={"nmilk"}
               deposit={nmilkUserDeposited}
               earn={nmilkUserEarns}
@@ -109,7 +108,7 @@ const Investment: React.FC = () => {
                   </div>
                 </div>
                 <h4 className="text-blue font-bold text-base">{t('investment.rentability.subtitle2')}</h4>
-                <h3 className="text-green font-bold text-base">{formatUintToDecimal(historicalEarning)} NAC</h3>
+                <h3 className="text-green font-bold text-base">{historicalEarning} NAC</h3>
               </div>
             </div>
           </div>
