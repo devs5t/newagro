@@ -6,7 +6,6 @@ import Button from "src/components/Buttons/Button";
 import {ReactSVG} from "react-svg";
 import {CHAIN_ID} from "src/config";
 import contracts from "src/config/constants/contracts";
-import NMILK from "src/config/abi/NMILK.json";
 import NMILKExchange from "src/config/abi/NMILKExchange.json";
 import {callViewFunction, callFunction, approveContract, getTokenAllowance} from "reblox-web3-utils";
 import {formatDecimalToUint, formatUintToDecimal} from "src/utils/formatUtils";
@@ -44,15 +43,29 @@ const Buy: React.FC = () => {
   const [needsApproval, setNeedsApproval] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const config: any = {
-    nmilk: {exchangeAbi: NMILKExchange, contract: contracts.nmilk[CHAIN_ID], exchangeContract: contracts.exchangeNmilk[CHAIN_ID]},
-    nbeef: {exchangeAbi: NMILKExchange, contract: contracts.nmilk[CHAIN_ID], exchangeContract: contracts.exchangeNmilk[CHAIN_ID]},
-    nland: {exchangeAbi: NMILKExchange, contract: contracts.nmilk[CHAIN_ID], exchangeContract: contracts.exchangeNmilk[CHAIN_ID]}
+  const configSpender: any = {
+    nac: {contract: contracts.nac[CHAIN_ID]},
+    usdt: {contract: contracts.usdt[CHAIN_ID]},
+    ars: {contract: ''}
   };
 
-  const selectedExchangeAbi: any[] = config[selectedToCurrency].exchangeAbi;
-  const selectedContract: string = config[selectedToCurrency].contract;
-  const selectedExchangeContract: string = config[selectedToCurrency].exchangeContract;
+  const selectedSpenderContract: string = useMemo(() => {
+    return configSpender[selectedFromCurrency].contract;
+  }, [selectedFromCurrency]);
+
+  const configExchange: any = {
+    nmilk: {exchangeAbi: NMILKExchange, exchangeContract: contracts.exchangeNmilk[CHAIN_ID]},
+    nbeef: {exchangeAbi: NMILKExchange, exchangeContract: contracts.exchangeNmilk[CHAIN_ID]},
+    nland: {exchangeAbi: NMILKExchange, exchangeContract: contracts.exchangeNmilk[CHAIN_ID]}
+  };
+
+  const selectedExchangeAbi: any[] = useMemo(() => {
+    return configExchange[selectedToCurrency].exchangeAbi;
+  }, [selectedToCurrency]);
+
+  const selectedExchangeContract: string = useMemo(() => {
+    return configExchange[selectedToCurrency].exchangeContract;
+  }, [selectedToCurrency]);
 
   const getValueBasedOnSelectedFromCurrency = useCallback((value: number) => {
     if (['nac', 'ars'].includes(selectedFromCurrency)) {
@@ -107,7 +120,7 @@ const Buy: React.FC = () => {
       getTokenAllowance(
         CHAIN_ID,
         account,
-        selectedContract,
+        selectedSpenderContract,
         selectedExchangeContract
       ).then((allowance: number) => setNeedsApproval(allowance == 0));
     }
@@ -133,7 +146,7 @@ const Buy: React.FC = () => {
     approveContract(
       library,
       selectedExchangeContract,
-      selectedContract,
+      selectedSpenderContract,
     )
       .then(() => setNeedsApproval(false))
       .finally(() => setIsLoading(false));
@@ -273,7 +286,7 @@ const Buy: React.FC = () => {
           {needsApproval && (
             <Button
               isLoading={isLoading}
-              text={`${t("exchange.button_approve")} ${upperCase(selectedToCurrency)}`}
+              text={`${t("exchange.button_approve")} ${upperCase(selectedFromCurrency)}`}
               extraClasses="h-10 bg-green border-green text-white text-center w-48 text-sm uppercase w-full shadow"
               type="button"
               onClick={onApprove}
