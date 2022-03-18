@@ -13,7 +13,6 @@ import { CHAIN_ID } from "src/config";
 import { useEthers } from "@usedapp/core";
 import MainStaking from "src/config/abi/MainStaking.json";
 import WithdrawTokenForm from "../forms/WithdrawTokenForm";
-import { formatUintToDecimal } from "src/utils/formatUtils";
 
 interface InvestCardProps {
   title: string;
@@ -102,11 +101,11 @@ const InvestCard: React.FC<InvestCardProps> = ({
               {upperCase(token)} - {upperCase(t("investment.deposited"))}
             </h3>
             <p className="text-3xl lg:text-4xl text-green text-center mt-2 md:mt-0">
-              {formatUintToDecimal(deposit)}
+              {deposit}
             </p>
             <p className="text-xs font-medium text-blue text-center mb-2 md:text-sm">
               {t("investment.cows", {
-                value: formatUintToDecimal(Math.round(deposit / NMILK_TOKENS_BY_COW)).toFixed(5),
+                value: Math.round(deposit / NMILK_TOKENS_BY_COW).toFixed(5),
               })}
             </p>
           </div>
@@ -115,11 +114,11 @@ const InvestCard: React.FC<InvestCardProps> = ({
               NAC - {upperCase(t("investment.earnings"))}
             </h3>
             <p className="text-3xl lg:text-4xl text-green text-center mt-2 md:mt-0">
-              {formatUintToDecimal(earn).toFixed(5)}
+              {earn.toFixed(5)}
             </p>
             <p className="text-xs font-medium text-blue text-center mb-2 md:text-sm">
               {t("investment.cows", {
-                value: formatUintToDecimal(Math.round(earn / NMILK_TOKENS_BY_COW)).toFixed(5),
+                value: Math.round(earn / NMILK_TOKENS_BY_COW).toFixed(5),
               })}
             </p>
           </div>
@@ -199,7 +198,7 @@ const InvestCard: React.FC<InvestCardProps> = ({
                 {t("investment.assets", { token: token.toUpperCase() })}
               </h4>
               <p className="text-center text-blue text-2xl">
-                USD {formatCurrency(formatUintToDecimal(totalAssets))}
+                USD {formatCurrency(totalAssets)}
               </p>
             </div>
           </div>
