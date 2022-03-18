@@ -160,6 +160,7 @@ const resources = {
           token: "Token",
           confirmed: "Confirmed",
           processing: "Processing",
+          remove: "Remove"
         }
       },
       docs: {
@@ -357,6 +358,7 @@ const resources = {
           token: "Token",
           confirmed: "Confirmada",
           processing: "En Proceso",
+          remove: "Borrar"
         }
       },
       docs: {

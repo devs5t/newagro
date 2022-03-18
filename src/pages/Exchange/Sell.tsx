@@ -61,6 +61,7 @@ const Sell: React.FC = () => {
 
   const [needsApproval, setNeedsApproval] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [loadingRemoveSellOrderIndex, setLoadingRemoveSellOrderIndex] = useState<number | undefined>(undefined);
 
   const [sellOrders, setSellOrders] = useState<OrderType[]>([]);
 
@@ -103,48 +104,52 @@ const Sell: React.FC = () => {
     return configExchange[selectedFromCurrency].exchangeContract;
   }, [selectedFromCurrency]);
 
+  const requestSellOrders = () => {
+    let orders: OrderType[] = [];
+
+    Promise.all([
+      callFunction(
+        configExchange.nmilk.exchangeContract,
+        library,
+        [account],
+        "getUserSellOrders",
+        configExchange.nmilk.exchangeAbi,
+      ),
+      callFunction(
+        configExchange.nland.exchangeContract,
+        library,
+        [account],
+        "getUserSellOrders",
+        configExchange.nland.exchangeAbi,
+      ),
+      callFunction(
+        configExchange.nbeef.exchangeContract,
+        library,
+        [account],
+        "getUserSellOrders",
+        configExchange.nbeef.exchangeAbi,
+      )
+    ]).then(([nmilkOrders, nlandOrders, nbeefOrders]) => {
+      orders = [
+        ...nmilkOrders.map((nmilkOrder: any) => ({...nmilkOrder, token: 'nmilk'})),
+        /*...nlandOrders.map((nlandOrder: any) => ({...nlandOrder, token: 'nland'})),
+        ...nbeefOrders.map((nbeefOrder: any) => ({...nbeefOrder, token: 'nbeef'})),*/
+      ].map((order: OrderType) => ({
+        index: formatHexToDecimal(get(order, 'index._hex', '0x00')),
+        originalAmount: formatHexToUintToDecimal(get(order, 'originalAmount._hex', '0x00')),
+        amount: formatHexToUintToDecimal(get(order, 'amount._hex', '0x00')),
+        price: formatHexToUintToDecimal(get(order, 'price._hex', '0x00')),
+        timestamp: formatHexToDate(get(order, 'timestamp._hex', '0x00')),
+        token: order.token,
+        status: order.amount === 0 ? 'confirmed' : 'processing',
+      }));
+      setSellOrders(orders);
+    });
+  };
+
   useEffect(() => {
     if (account && library) {
-      let orders: OrderType[] = [];
-
-      Promise.all([
-        callFunction(
-          configExchange.nmilk.exchangeContract,
-          library,
-          [account],
-          "getUserSellOrders",
-          configExchange.nmilk.exchangeAbi,
-        ),
-        callFunction(
-          configExchange.nland.exchangeContract,
-          library,
-          [account],
-          "getUserSellOrders",
-          configExchange.nland.exchangeAbi,
-        ),
-        callFunction(
-          configExchange.nbeef.exchangeContract,
-          library,
-          [account],
-          "getUserSellOrders",
-          configExchange.nbeef.exchangeAbi,
-        )
-      ]).then(([nmilkOrders, nlandOrders, nbeefOrders]) => {
-        orders = [
-          ...nmilkOrders.map((nmilkOrder: any) => ({...nmilkOrder, token: 'nmilk'})),
-          /*...nlandOrders.map((nlandOrder: any) => ({...nlandOrder, token: 'nland'})),
-          ...nbeefOrders.map((nbeefOrder: any) => ({...nbeefOrder, token: 'nbeef'})),*/
-        ].map((order: OrderType) => ({
-          index: formatHexToDecimal(get(order, 'index._hex', '0x00')),
-          originalAmount: formatHexToUintToDecimal(get(order, 'originalAmount._hex', '0x00')),
-          amount: formatHexToUintToDecimal(get(order, 'amount._hex', '0x00')),
-          price: formatHexToUintToDecimal(get(order, 'price._hex', '0x00')),
-          timestamp: formatHexToDate(get(order, 'timestamp._hex', '0x00')),
-          token: order.token,
-          status: order.amount === 0 ? 'confirmed' : 'processing',
-        }));
-        setSellOrders(orders);
-      });
+      requestSellOrders();
     }
   }, [account]);
 
@@ -246,6 +251,21 @@ const Sell: React.FC = () => {
   }, [fromUserAssets]);
 
   const onMax = () => setFromAmount(fromUserAssets);
+
+  const onRemoveSellOrder = (e: any, token: 'nmilk' | 'nbeef' | 'nland', index: number) => {
+    e.stopPropagation();
+    setLoadingRemoveSellOrderIndex(index);
+    callFunction(
+      configExchange[token].exchangeContract,
+      library,
+      [index],
+      'removeSell',
+      configExchange[token].exchangeAbi
+    ).finally(() => {
+      setLoadingRemoveSellOrderIndex(undefined);
+      requestSellOrders();
+    });
+  };
 
   return (
     <form onSubmit={onSubmit} className="w-full">
@@ -423,6 +443,7 @@ const Sell: React.FC = () => {
                         t('exchange.table.date'),
                         t('exchange.table.amount'),
                         t('exchange.table.token'),
+                        '',
                       ].map((header, key) => (
                         <th
                           scope="col"
@@ -448,6 +469,16 @@ const Sell: React.FC = () => {
                         <td>{formatDateToDisplay(order.timestamp)}</td>
                         <td>${formatCurrency(order.originalAmount - order.amount)} / ${formatCurrency(order.originalAmount)} ({((order.originalAmount - order.amount) / order.originalAmount) * 100}%)</td>
                         <td>{`${order.originalAmount} ${upperCase(order.token)}`}</td>
+                        <td>
+                          <Button
+                            text={t('exchange.table.remove')}
+                            extraClasses="flex justify-center items-center text-sm h-6 m-auto bg-white text-blue border-blue w-20"
+                            disabled={order.status === 'confirmed'}
+                            isLoading={loadingRemoveSellOrderIndex === order.index}
+                            isLoadingColor="blue"
+                            onClick={(e) => onRemoveSellOrder(e, order.token, order.index)}
+                          />
+                        </td>
                       </tr>
                     ))}
                   </tbody>
