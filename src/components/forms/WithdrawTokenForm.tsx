@@ -30,9 +30,9 @@ interface WithdrawTokenFormProps {
 const WithdrawTokenForm: React.FC<WithdrawTokenFormProps> = ({ token }) => {
   const { t } = useTranslation();
   const { setModal } = useContext(ModalContext);
-  const { nmilkUserAssets } = useContext(NmilkContext);
-  const { nlandUserAssets } = useContext(NlandContext);
-  const { nbeefUserAssets } = useContext(NbeefContext);
+  const { nmilkUserDeposited } = useContext(NmilkContext);
+  const { nlandUserDeposited } = useContext(NlandContext);
+  const { nbeefUserDeposited } = useContext(NbeefContext);
 
   const [amount, setAmount] = useState<number>();
   const [formSent, setFormSent] = useState<boolean>(false);
@@ -43,17 +43,14 @@ const WithdrawTokenForm: React.FC<WithdrawTokenFormProps> = ({ token }) => {
   const tokenKeyMap = {
     nmilk: {
       pId: NMILK_POOL_ID,
-      asset: "nmilkUserDeposited",
       contract: contracts.nmilk[CHAIN_ID],
     },
     nbeef: {
       pId: NBEEF_POOL_ID,
-      asset: "nbeefUserDeposited",
       contract: contracts.nmilk[CHAIN_ID],
     },
     nland: {
       pId: NLAND_POOL_ID,
-      asset: "nlandUserDeposited",
       contract: contracts.nmilk[CHAIN_ID],
     },
   };
@@ -61,13 +58,13 @@ const WithdrawTokenForm: React.FC<WithdrawTokenFormProps> = ({ token }) => {
   const availableTokens = useMemo(() => {
     switch (token) {
       case "nmilk":
-        return nmilkUserAssets;
+        return nmilkUserDeposited;
       case "nland":
-        return nlandUserAssets;
+        return nlandUserDeposited;
       case "nbeef":
-        return nbeefUserAssets;
+        return nbeefUserDeposited;
     }
-  }, [token, nmilkUserAssets, nlandUserAssets, nbeefUserAssets]);
+  }, [token, nmilkUserDeposited, nlandUserDeposited, nbeefUserDeposited]);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -105,7 +102,7 @@ const WithdrawTokenForm: React.FC<WithdrawTokenFormProps> = ({ token }) => {
   if (formSent) {
     return (
       <div className="flex h-84 justify-center items-center flex-col pt-10 pb-20">
-        <div className="w-24 h-24 rounded-full bg-yellow/[0.3] flex justify-center items-center mb-6">
+        <div className="w-24 h-24 rounded-full bg-green/[0.3] flex justify-center items-center mb-6">
           <DoneIcon className="fill-green h-12 w-12 m-auto" />
         </div>
         <h3 className="text-blue text-lg text-center font-bold mb-4">
@@ -142,7 +139,7 @@ const WithdrawTokenForm: React.FC<WithdrawTokenFormProps> = ({ token }) => {
         </div>
 
         <p className="text-sm text-blue mt-2">
-          *{availableTokens} {token} {t("withdraw_token_form.available")}
+          *{availableTokens} {upperCase(token)} {t("withdraw_token_form.available")}
         </p>
 
         <Slider

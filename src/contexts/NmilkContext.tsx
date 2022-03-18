@@ -9,8 +9,9 @@ import {callViewFunction, callFunction} from "reblox-web3-utils";
 import {useEthers} from "@usedapp/core";
 import {NMILK_POOL_ID, NMILK_TOKENS_BY_COW} from "src/config/constants";
 import {get} from "lodash";
-import {formatUintToDecimal, formatHexNumber} from "src/utils/formatUtils";
+import {formatUintToDecimal, formatHexToUintToDecimal} from "src/utils/formatUtils";
 import {PriceContext} from "src/contexts/PriceContext";
+import {SECONDS_PER_YEAR} from "src/utils";
 
 const NmilkContext = createContext({
   nmilkTotalSupply: 0,
@@ -74,7 +75,7 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
       "poolInfo",
       MainStaking
     ).then((value: any) => {
-      setNmilkRewardPerYear(value.nativePerSecond);
+      setNmilkRewardPerYear(value.nativePerSecond * SECONDS_PER_YEAR);
       setNmilkAssetsPerMonth(formatUintToDecimal(value.assetPerMonthPerFullWantToken))
     });
 
@@ -111,7 +112,7 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
         [NMILK_POOL_ID, account],
         "userInfo",
         MainStaking
-      ).then((userInfo: {amount: {_hex: string}}) => setNmilkUserDeposited(formatHexNumber(get(userInfo, 'amount._hex', '0x00'))));
+      ).then((userInfo: {amount: {_hex: string}}) => setNmilkUserDeposited(formatHexToUintToDecimal(get(userInfo, 'amount._hex', '0x00'))));
 
 
       callFunction(
@@ -120,7 +121,7 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
         [NMILK_POOL_ID, account],
         "getPendingNative",
         MainStaking
-      ).then((value: {_hex: string}) => setNmilkUserEarns(formatHexNumber(value._hex)));
+      ).then((value: {_hex: string}) => setNmilkUserEarns(formatHexToUintToDecimal(value._hex)));
     }
 
     setLoading(false);

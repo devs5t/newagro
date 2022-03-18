@@ -4,13 +4,20 @@ import Button from "src/components/Buttons/Button";
 import {ModalContext} from "src/contexts/ModalContext";
 import Textfield from "src/components/Inputs/Textfield";
 import DoneIcon from '@mui/icons-material/Done';
+import {upperCase} from "lodash";
 
 interface ExchangeARSFormProps {
   tab: 'buy' | 'sell';
+  token: 'nac' | 'nmilk' | 'nbeef' | 'nland';
+  amount: number;
+  price: number;
 }
 
 const ExchangeARSForm: React.FC<ExchangeARSFormProps> = ({
   tab,
+  token,
+  amount,
+  price
 }) => {
 
   const {t} = useTranslation();
@@ -138,6 +145,39 @@ const ExchangeARSForm: React.FC<ExchangeARSFormProps> = ({
             type="text"
           />
         </div>
+
+        <Textfield
+          id="token"
+          label={t("exchange_ars_form.token")}
+          onChange={console.log}
+          value={upperCase(token)}
+          required={true}
+          type="text"
+          containerClasses="mb-6"
+          disabled={true}
+        />
+
+        <Textfield
+          id="amount"
+          label={t("exchange_ars_form.amount")}
+          onChange={console.log}
+          value={amount}
+          required={true}
+          type="number"
+          containerClasses="mb-6"
+          disabled={true}
+        />
+
+        <Textfield
+          id="price"
+          label={t("exchange_ars_form.price")}
+          onChange={console.log}
+          value={price}
+          required={true}
+          type="number"
+          containerClasses="mb-6"
+          disabled={true}
+        />
 
         <div className="flex justify-around py-6 mb-8">
           <Button

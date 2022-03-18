@@ -9,8 +9,9 @@ import {callViewFunction, callFunction} from "reblox-web3-utils";
 import {useEthers} from "@usedapp/core";
 import {NLAND_POOL_ID} from "src/config/constants";
 import {get} from "lodash";
-import {formatUintToDecimal, formatHexNumber} from "src/utils/formatUtils";
+import {formatUintToDecimal, formatHexToUintToDecimal} from "src/utils/formatUtils";
 import {PriceContext} from "src/contexts/PriceContext";
+import {SECONDS_PER_YEAR} from "src/utils";
 
 const NlandContext = createContext({
   nlandTotalSupply: 0,
@@ -68,7 +69,7 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
       "poolInfo",
       MainStaking
     ).then((value: any) => {
-      setNlandRewardPerYear(value.nativePerSecond);
+      setNlandRewardPerYear(value.nativePerSecond * SECONDS_PER_YEAR);
       setNlandAssetsPerMonth(formatUintToDecimal(value.assetPerMonthPerFullWantToken))
     });
 
@@ -105,7 +106,7 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
         [NLAND_POOL_ID, account],
         "userInfo",
         MainStaking
-      ).then((userInfo: {amount: {_hex: string}}) => setNlandUserDeposited(formatHexNumber(get(userInfo, 'amount._hex', '0x00'))));
+      ).then((userInfo: {amount: {_hex: string}}) => setNlandUserDeposited(formatHexToUintToDecimal(get(userInfo, 'amount._hex', '0x00'))));
 
 
       callFunction(
@@ -114,7 +115,7 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
         [NLAND_POOL_ID, account],
         "getPendingNative",
         MainStaking
-      ).then((value: {_hex: string}) => setNlandUserEarns(formatHexNumber(value._hex)));
+      ).then((value: {_hex: string}) => setNlandUserEarns(formatHexToUintToDecimal(value._hex)));
     }
 
     setLoading(false);

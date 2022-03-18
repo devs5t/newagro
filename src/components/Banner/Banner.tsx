@@ -17,7 +17,8 @@ const Banner = ({
   return (
     <div
       className={`flex flex-column justify-content-md-evenly items-center ${containerClasses}`}
-      style={{backgroundImage: `url(${image})`,
+      style={{
+        backgroundImage: `url(${image})`,
         borderRadius: 12,
         position: "relative",
         backgroundPosition: "50%",
@@ -29,8 +30,8 @@ const Banner = ({
       }}
     >
       <Fade />
-      <h3 className="z-10 text-white text-center mb-5 font-medium text-xl md:mb-2 md:mb-10 md:text-6xl">{title}</h3>
-      <h5 className="z-10 text-white text-center mx-3 text-sm md:font-light md:px-20 md:text-3xl">{subtitle}</h5>
+      <h3 className="z-10 text-white text-center mb-5 font-medium text-xl md:mb-6 md:text-4xl">{title}</h3>
+      <h5 className="z-10 text-white text-center mx-3 text-sm md:font-light md:px-32 md:text-xl">{subtitle}</h5>
     </div>
   );
 }

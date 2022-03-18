@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import Banner from "src/components/Banner/Banner";
 import Tabs from "src/components/tabs/Tabs";
@@ -73,7 +73,7 @@ const Documentation: React.FC = () => {
       <Banner
         title={t("docs.banner.title")}
         subtitle={t("docs.banner.subtitle")}
-        image={"images/photos/bg_nmilk.jpeg"}
+        image={'images/photos/bg_nmilk.jpeg'}
         containerClasses={"p-4 md:p-4"}
       />
       <div className="w-full grid grid-cols-2 md:grid-cols-2 gap-2 mt-8 lg:px-16 xl:px-32 2xl:px-48 ">
@@ -88,11 +88,11 @@ const Documentation: React.FC = () => {
           <ReactSVG
             src={"icons/arrow.svg"}
             beforeInjection={(svg) => {
-              svg.classList.add("fill-blue");
-              svg.classList.add("text-tiny");
-              svg.classList.add("lg:w-4");
-              svg.classList.add("lg:h-4");
-              svg.classList.add("-rotate-[135deg]");
+              svg.classList.add('fill-blue');
+              svg.classList.add('text-tiny');
+              svg.classList.add('lg:w-4');
+              svg.classList.add('lg:h-4');
+              svg.classList.add('-rotate-[135deg]');
             }}
           />
         </a>
@@ -107,11 +107,11 @@ const Documentation: React.FC = () => {
           <ReactSVG
             src={"icons/arrow.svg"}
             beforeInjection={(svg) => {
-              svg.classList.add("fill-blue");
-              svg.classList.add("text-tiny");
-              svg.classList.add("lg:w-4");
-              svg.classList.add("lg:h-4");
-              svg.classList.add("-rotate-[135deg]");
+              svg.classList.add('fill-blue');
+              svg.classList.add('text-tiny');
+              svg.classList.add('lg:w-4');
+              svg.classList.add('lg:h-4');
+              svg.classList.add('-rotate-[135deg]');
             }}
           />
         </a>
@@ -119,9 +119,9 @@ const Documentation: React.FC = () => {
       <div className="w-full justify-center flex my-8">
         <Tabs
           tabs={[
-            { name: "New Milk", selected: true },
-            { name: "New Beef", disabled: true },
-            { name: "New Land", disabled: true },
+            {name: 'New Milk', selected: true},
+            {name: 'New Beef', disabled: true},
+            {name: 'New Land', disabled: true}
           ]}
           containerClass="max-w-xl"
         />
@@ -144,7 +144,7 @@ const Documentation: React.FC = () => {
         <br />
         <DocumentationCard
           title={t("docs.cards.card2_title")}
-          component={() => <Map />}
+          component={() =><Map />}
         />
         <br />
         <DocumentationCard

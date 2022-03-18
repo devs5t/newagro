@@ -9,7 +9,7 @@ const resources = {
         home: "Home",
         investment: "Investment",
         exchange: "Exchange",
-        docs: "Documentation",
+        transparency: "Transparency",
         news: "News",
         admin: "Admin",
         pair_wallet: "Pair Wallet",
@@ -51,7 +51,7 @@ const resources = {
               "Each real Milking Cow is equivalent to 5,500“ New Milk ”Tokens (NMILK)",
             button_text: "My investments",
             fourth_text: "Your assets",
-            fifth_text: "{{nmilkUserAssets}} cows ({{userMilkingCows}} NMILK)",
+            fifth_text: "{{userMilkingCows}} cows ({{nmilkUserAssets}} NMILK)",
           },
         },
         map: {
@@ -88,6 +88,9 @@ const resources = {
         mail: "Mail",
         dni: "DNI",
         phone: "Phone",
+        token: "Token",
+        amount: "Amount",
+        price: "Price",
         submit: "Request {{tab}} ARS",
         successfully_sent_title: "Request sent successfully",
         successfully_sent_description:
@@ -95,7 +98,7 @@ const resources = {
       },
       investment: {
         text: "*Remember that in order to receive your earnings it is necessary that you have your Tokens deposited",
-        cows: "({{value}} cows)",
+        cows: "{{value}} cows",
         watch_cams: "Watch live cameras",
         deposit_buy: "Deposit / Buy",
         retire: "Harvest",
@@ -104,10 +107,12 @@ const resources = {
         earnings: "Earnings",
         withdraw: "Withdraw",
         assets: "Your total {{token}} assets",
+        raised: "raised",
         card_milk: {
           title: "New Milk (NMILK)",
           subtitle: "APR {{apr}}%",
           buy: "Buy",
+          description: "NMILK Tokens can be deposited into this pool to receive part of the rental income equivalent to a liter of milk from the rodeos they represent or withdrawn to sell. You will receive the rent in NAC that you can automatically exchange to USDT or use to buy other tokens."
         },
         card_beef: {
           title: "New Beef (NBEEF)",
@@ -143,9 +148,20 @@ const resources = {
         amount: "Amount",
         price: "Price",
         suggested_price: "Suggested price",
+        button_approve: "Approve",
         button_buy: "Buy",
         button_sell: "Sell",
-        user_from_assets: "{{amount}} {{token}} available"
+        user_from_assets: "{{amount}} {{token}} available",
+        table: {
+          state: "Status",
+          order_number: "Order number",
+          date: "Date",
+          amount: "Amount",
+          token: "Token",
+          confirmed: "Confirmed",
+          processing: "Processing",
+          remove: "Remove"
+        }
       },
       docs: {
         banner: {
@@ -191,7 +207,7 @@ const resources = {
         home: "Inicio",
         investment: "Inversiones",
         exchange: "Compra/Venta",
-        docs: "Documentación",
+        transparency: "Transparencia",
         news: "Novedades",
         admin: "Administrador",
         pair_wallet: "Vincular Billetera",
@@ -233,7 +249,7 @@ const resources = {
               "Cada Vaca de Ordeñe real, equivale a 5.500 Tokens “New Milk” (NMILK)",
             button_text: "Mis inversiones",
             fourth_text: "Tus activos",
-            fifth_text: "{{nmilkUserAssets}} vacas ({{userMilkingCows}} NMILK)",
+            fifth_text: "{{userMilkingCows}} vacas ({{nmilkUserAssets}} NMILK)",
           },
         },
         map: {
@@ -270,6 +286,9 @@ const resources = {
         mail: "Mail",
         dni: "DNI",
         phone: "Teléfono",
+        token: "Token",
+        amount: "Cantidad",
+        price: "Precio",
         submit: "Solicitar {{tab}} ARS",
         successfully_sent_title: "Solicitud enviada con éxito",
         successfully_sent_description:
@@ -277,7 +296,7 @@ const resources = {
       },
       investment: {
         text: "*Recordá que para poder recibir tus ganancias es necesario que tengas tus Tokens depositados",
-        cows: "({{value}} vacas)",
+        cows: "{{value}} vacas",
         watch_cams: "Ver camaras en vivo",
         deposit_buy: "Depositar / Comprar",
         retire: "Retirar",
@@ -286,10 +305,12 @@ const resources = {
         earnings: "Ganancias",
         withdraw: "Retirar",
         assets: "Tus Activos {{token}} Totales",
+        raised: "recaudados",
         card_milk: {
           title: "New Milk (NMILK)",
           subtitle: "TNA 50%",
           buy: "Comprar",
+          description: "Los Tokens NMILK pueden depositarse en este pool para recibir parte de la renta del alquiler equivalente a litro de leche de los rodeos que representan o retirarlos para venderlos. El alquiler lo recibirás en NAC que puedes intercambiar automáticamente a USDT o utilizar para comprar otros tokens."
         },
         card_beef: {
           title: "New Beef (NBEEF)",
@@ -325,9 +346,20 @@ const resources = {
         amount: "Cantidad",
         price: "Precio",
         suggested_price: "Precio sugerido",
+        button_approve: "Aprobar",
         button_buy: "Comprar",
         button_sell: "Vender",
-        user_from_assets: "{{amount}} {{token}} disponibles"
+        user_from_assets: "{{amount}} {{token}} disponibles",
+        table: {
+          status: "Estado",
+          order_number: "N. de orden",
+          date: "Fecha",
+          amount: "Monto",
+          token: "Token",
+          confirmed: "Confirmada",
+          processing: "En Proceso",
+          remove: "Borrar"
+        }
       },
       docs: {
         banner: {

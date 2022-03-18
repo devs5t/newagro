@@ -9,8 +9,9 @@ import {callViewFunction, callFunction} from "reblox-web3-utils";
 import {useEthers} from "@usedapp/core";
 import {NBEEF_POOL_ID} from "src/config/constants";
 import {get} from "lodash";
-import {formatUintToDecimal, formatHexNumber} from "src/utils/formatUtils";
+import {formatUintToDecimal, formatHexToUintToDecimal} from "src/utils/formatUtils";
 import {PriceContext} from "src/contexts/PriceContext";
+import {SECONDS_PER_YEAR} from "src/utils";
 
 const NbeefContext = createContext({
   nbeefTotalSupply: 0,
@@ -68,7 +69,7 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
       "poolInfo",
       MainStaking
     ).then((value: any) => {
-      setNbeefRewardPerYear(value.nativePerSecond);
+      setNbeefRewardPerYear(value.nativePerSecond * SECONDS_PER_YEAR);
       setNbeefAssetsPerMonth(formatUintToDecimal(value.assetPerMonthPerFullWantToken))
     });
 
@@ -105,7 +106,7 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
         [NBEEF_POOL_ID, account],
         "userInfo",
         MainStaking
-      ).then((userInfo: {amount: {_hex: string}}) => setNbeefUserDeposited(formatHexNumber(get(userInfo, 'amount._hex', '0x00'))));
+      ).then((userInfo: {amount: {_hex: string}}) => setNbeefUserDeposited(formatHexToUintToDecimal(get(userInfo, 'amount._hex', '0x00'))));
 
 
       callFunction(
@@ -114,7 +115,7 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
         [NBEEF_POOL_ID, account],
         "getPendingNative",
         MainStaking
-      ).then((value: {_hex: string}) => setNbeefUserEarns(formatHexNumber(value._hex)));
+      ).then((value: {_hex: string}) => setNbeefUserEarns(formatHexToUintToDecimal(value._hex)));
     }
 
     setLoading(false);

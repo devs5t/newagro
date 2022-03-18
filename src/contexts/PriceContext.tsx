@@ -7,7 +7,7 @@ import OracleFX from "src/config/abi/OracleFX.json";
 import MainStaking from "src/config/abi/MainStaking.json";
 import {callViewFunction, callFunction} from "reblox-web3-utils";
 import {useEthers} from "@usedapp/core";
-import {formatUintToDecimal, formatHexNumber} from "src/utils/formatUtils";
+import {formatUintToDecimal, formatHexToUintToDecimal} from "src/utils/formatUtils";
 
 const PriceContext = createContext({
   usdtUserAssets: 0,
@@ -80,7 +80,7 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
         [account],
         "getUserHistoricalRewards",
         MainStaking
-      ).then((value: {_hex: string}) => setHistoricalEarning(formatHexNumber(value._hex)))
+      ).then((value: {_hex: string}) => setHistoricalEarning(formatHexToUintToDecimal(value._hex)))
     }
 
     setLoading(false);

@@ -23,17 +23,17 @@ const DocumentationCard: React.FC<DocumentationCardProps> = ({
 
   const [open, setOpen] = useState(false);
   return (
-    <div className={`flex flex-col w-full rounded-lg bg-lightblue/[.15] p-4 shadow ${containerClasses}`}>
+    <div className={`flex flex-col w-full rounded-lg bg-lightblue/[.15] p-6 shadow ${containerClasses}`}>
       <div className="w-full flex flex-row" onClick={() => {
         signIn();
         setOpen(!open);
       }}>
         <div className="w-1/2">
-          <h3 className="text-blue text-xl font-bold font-medium text-lg md:text-2xl mr-2">{title}</h3>
-          <p className="text-blue my-3" >{subtitle}</p>
+          <h3 className="text-blue font-bold font-medium text-lg mr-2">{title}</h3>
+          <p className="text-blue text-sm my-3">{subtitle}</p>
         </div>
         <div className="w-1/2 flex flex-col pr-4">
-          <a className="text-sm w-full font-bold text-blue text-right underline text-right" href={link} >{linkText}</a>
+          <a className="text-sm w-full font-bold text-blue text-right underline" href={link} >{linkText}</a>
           <ReactSVG
             src={"icons/arrow.svg"}
             beforeInjection={(svg) => {

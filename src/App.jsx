@@ -69,23 +69,23 @@ function App() {
           <StyledEngineProvider injectFirst>
             <MuiThemeProvider theme={createTheme(theme)}>
               <ThemeProvider theme={createTheme(theme)}>
-                <ModalProvider>
-                  <PriceContextProvider>
-                    <NmilkContextProvider>
-                      <NlandContextProvider>
-                        <NbeefContextProvider>
+                <PriceContextProvider>
+                  <NmilkContextProvider>
+                    <NlandContextProvider>
+                      <NbeefContextProvider>
+                        <ModalProvider>
                           {/* Client ID aca */}
                           <GoogleApiProvider
-                            clientId={"Sin un client id es posible que rompa"}
+                              clientId={"Sin un client id es posible que rompa"}
                           >
                             <Layout>{content}</Layout>
                           </GoogleApiProvider>
-                        </NbeefContextProvider>
-                      </NlandContextProvider>
-                    </NmilkContextProvider>
-                  </PriceContextProvider>
-                  <Modal />
-                </ModalProvider>
+                          <Modal />
+                        </ModalProvider>
+                      </NbeefContextProvider>
+                    </NlandContextProvider>
+                  </NmilkContextProvider>
+                </PriceContextProvider>
               </ThemeProvider>
             </MuiThemeProvider>
           </StyledEngineProvider>
