@@ -60,15 +60,6 @@ const SearchList: React.FC<SearchListProps> = ({
                     svg.classList.add('pointer');
                   }}
                 />
-                <ReactSVG
-                  src={"icons/delete.svg"}
-                  beforeInjection={(svg) => {
-                    svg.classList.add('mr-4');
-                    svg.classList.add('text-sm');
-                    svg.classList.add('md:text-lg');
-                    svg.classList.add('pointer');
-                  }}
-                />
               </div>
             </div>
           )}
