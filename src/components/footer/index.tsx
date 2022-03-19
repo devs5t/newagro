@@ -7,6 +7,7 @@ import {ModalContext} from "src/contexts/ModalContext";
 import VisitFieldForm from "src/components/forms/VisitFieldForm";
 import {useLocation} from "react-router-dom";
 import {PriceContext} from "src/contexts/PriceContext";
+import CountUp from "react-countup";
 
 const Footer: React.FC = () => {
   const { t } = useTranslation();
@@ -36,7 +37,15 @@ const Footer: React.FC = () => {
     <div className={`w-full md:w-72 xl:w-80 md:border-l-2 md:border-grey ${!isInHome ? 'md:hidden' : ''}`}>
       <div className="hidden md:flex flex-col justify-center items-center h-64 border-b-2 border-grey">
         <p className="uppercase font-medium text-xl	text-blue">{t('footer.exchange_rate')}</p>
-        <p className="uppercase font-black mt-2 text-2xl text-blue">1 USD = {nacExchangeRate} NAC</p>
+        <CountUp
+          className="uppercase font-black mt-2 text-2xl text-blue"
+          prefix="1 USD = "
+          suffix=" NAC"
+          end={nacExchangeRate}
+          decimals={2}
+          separator=","
+          decimal="."
+        />
       </div>
 
       {isInHome && (

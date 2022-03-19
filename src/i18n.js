@@ -31,12 +31,10 @@ const resources = {
         card: {
           new_agro: {
             title: "New Agro coin generated",
-            number: "{{value}} NAC",
             button_text: "Buy Tokens",
           },
           actives: {
             title: "Total Assets",
-            number: "{{value}} USD",
             third_text: "Corresponds to the market value of all NewLand, NewMilk and NewBeef issued up to today",
           },
           nmilk: {
@@ -97,8 +95,9 @@ const resources = {
           "We will contact you in the next 48 hours to confirm the {{tab}}",
       },
       investment: {
+        apr: "APR",
         text: "*Remember that in order to receive your earnings it is necessary that you have your Tokens deposited",
-        cows: "{{value}} cows",
+        cows: "cows",
         watch_cams: "Watch live cameras",
         deposit_buy: "Deposit / Buy",
         retire: "Harvest",
@@ -110,18 +109,15 @@ const resources = {
         raised: "raised",
         card_milk: {
           title: "New Milk (NMILK)",
-          subtitle: "APR {{apr}}%",
           buy: "Buy",
           description: "NMILK Tokens can be deposited into this pool to receive part of the rental income equivalent to a liter of milk from the rodeos they represent or withdrawn to sell. You will receive the rent in NAC that you can automatically exchange to USDT or use to buy other tokens."
         },
         card_beef: {
           title: "New Beef (NBEEF)",
-          subtitle: "APR {{apr}}%",
           buy: "Buy",
         },
         card_land: {
           title: "New LAND (NLAND)",
-          subtitle: "APR {{apr}}%",
           buy: "Buy",
         },
         rentability: {
@@ -130,7 +126,7 @@ const resources = {
           description:
             "Each real Milking Cow is equivalent to 5,500 “New Milk” Tokens",
           subtitle1: "Profitability",
-          profitability_description: "{{value}} NAC by cow monthly",
+          profitability_description: "NAC by cow monthly",
           subtitle2: "Historical earnings:",
           currentBalance: "Your assets",
         },
@@ -235,12 +231,10 @@ const resources = {
         card: {
           new_agro: {
             title: "New Agro coin generados",
-            number: "{{value}} NAC",
             button_text: "Comprar New Agro Tokens",
           },
           actives: {
             title: "Activos totales",
-            number: "{{value}} USD",
             third_text: "Corresponde al valor de mercado de todos los NewLand, NewMilk y NewBeef emitidos hasta hoy",
           },
           nmilk: {
@@ -301,8 +295,9 @@ const resources = {
           "Nos pondremos en contacto con vos en las próximas 48 hs para confirmar la {{tab}}",
       },
       investment: {
+        apr: "TNA",
         text: "*Recordá que para poder recibir tus ganancias es necesario que tengas tus Tokens depositados",
-        cows: "{{value}} vacas",
+        cows: "vacas",
         watch_cams: "Ver camaras en vivo",
         deposit_buy: "Depositar / Comprar",
         retire: "Retirar",
@@ -314,18 +309,15 @@ const resources = {
         raised: "recaudados",
         card_milk: {
           title: "New Milk (NMILK)",
-          subtitle: "TNA 50%",
           buy: "Comprar",
           description: "Los Tokens NMILK pueden depositarse en este pool para recibir parte de la renta del alquiler equivalente a litro de leche de los rodeos que representan o retirarlos para venderlos. El alquiler lo recibirás en NAC que puedes intercambiar automáticamente a USDT o utilizar para comprar otros tokens."
         },
         card_beef: {
           title: "New Beef (NBEEF)",
-          subtitle: "TNA 50%",
           buy: "Comprar",
         },
         card_land: {
           title: "New LAND (NLAND)",
-          subtitle: "TNA 50%",
           buy: "Comprar",
         },
         rentability: {
@@ -334,7 +326,7 @@ const resources = {
           description:
             "Cada Vaca de Ordeñe real, equivale a 5.500 Tokens “New Milk”",
           subtitle1: "Rentabilidad",
-          profitability_description: "{{value}} NAC por vaca mensualmente",
+          profitability_description: "NAC por vaca mensualmente",
           subtitle2: "Ganancias históricas:",
           currentBalance: "Tus activos",
         },

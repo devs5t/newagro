@@ -14,10 +14,11 @@ import { useEthers } from "@usedapp/core";
 import MainStaking from "src/config/abi/MainStaking.json";
 import WithdrawTokenForm from "../forms/WithdrawTokenForm";
 import {useReloadPrices} from "src/hooks/useReloadPrices";
+import CountUp from "react-countup";
 
 interface InvestCardProps {
   title: string;
-  subtitle: string;
+  apr: number;
   token: "nmilk" | "nbeef" | "nland";
   containerClasses?: string;
   image: string;
@@ -47,7 +48,7 @@ const tokenKeyMap = {
 
 const InvestCard: React.FC<InvestCardProps> = ({
   title,
-  subtitle,
+  apr,
   token,
   containerClasses,
   image,
@@ -106,13 +107,19 @@ const InvestCard: React.FC<InvestCardProps> = ({
           style={{ backgroundImage: `url(${image})` }}
           className="absolute rounded-full -top-6 -right-2 right-0 h-24 w-24 bg-center bg-cover opacity-75 md:h-32 md:w-32 md:top-4 md:-left-16"
         />
-        <div className="w-full mt-5 relative md:pl-16 md:mt-0">
+        <div className="flex flex-col w-full mt-5 relative md:pl-16 md:mt-0">
           <h3 className="text-blue font-bold text-left text-lg md:text-2xl">
             {title}
           </h3>
-          <h2 className="text-blue font-bold text-left font-bold md:text-2xl mb-2">
-            {subtitle}
-          </h2>
+          <CountUp
+            className="text-blue font-bold text-left font-bold md:text-2xl mb-2"
+            end={apr}
+            prefix={`${t('investment.apr')} `}
+            suffix="%"
+            decimals={2}
+            separator=","
+            decimal="."
+          />
           <Link
             className="w-full underline text-blue font-bold pointer"
             to={`/exchange?token=${token}`}
@@ -135,27 +142,42 @@ const InvestCard: React.FC<InvestCardProps> = ({
             <h3 className="p-1 text-green font-bold text-center text-xs border-b-green/[.5] border-b-2 border-green md:text-sm">
               {upperCase(token)} - {upperCase(t("investment.deposited"))}
             </h3>
-            <p className="text-3xl lg:text-4xl text-green text-center mt-2 md:mt-0">
-              {formatCurrency(deposit)}
-            </p>
-            <p className="text-xs font-medium text-blue text-center mb-2 md:text-sm">
-              {t("investment.cows", {
-                value: (deposit / NMILK_TOKENS_BY_COW).toFixed(2),
-              })}
-            </p>
+            <CountUp
+              className=" flex justify-center w-full text-3xl text-green text-center mt-2 md:mt-0"
+              end={deposit}
+              decimals={2}
+              separator=","
+              decimal="."
+            />
+
+            <CountUp
+              className=" flex justify-center w-full text-xs font-medium text-blue text-center mb-2 md:text-sm"
+              end={deposit / NMILK_TOKENS_BY_COW}
+              suffix={` ${t("investment.cows")}`}
+              decimals={2}
+              separator=","
+              decimal="."
+            />
           </div>
           <div className="border-2 border-green/[.5] rounded-lg w-full">
             <h3 className="p-1 text-green font-bold text-center text-xs border-b-green/[.5] border-b-2 border-green md:text-sm md:px-4 ">
               NAC - {upperCase(t("investment.earnings"))}
             </h3>
-            <p className="text-3xl lg:text-4xl text-green text-center mt-2 md:mt-0">
-              {formatCurrency(earn)}
-            </p>
-            <p className="text-xs font-medium text-blue text-center mb-2 md:text-sm">
-              {t("investment.cows", {
-                value: (earn / NMILK_TOKENS_BY_COW).toFixed(2),
-              })}
-            </p>
+            <CountUp
+              className=" flex justify-center w-full text-3xl text-green text-center mt-2 md:mt-0"
+              end={earn}
+              decimals={2}
+              separator=","
+              decimal="."
+            />
+            <CountUp
+              className=" flex justify-center w-full text-xs font-medium text-blue text-center mb-2 md:text-sm"
+              end={earn / NMILK_TOKENS_BY_COW}
+              suffix={` ${t("investment.cows")}`}
+              decimals={2}
+              separator=","
+              decimal="."
+            />
           </div>
         </div>
       </div>
@@ -222,9 +244,14 @@ const InvestCard: React.FC<InvestCardProps> = ({
               <h4 className="text-blue text-center font-bold text-lg">
                 {t("investment.assets", { token: token.toUpperCase() })}
               </h4>
-              <p className="text-center text-blue text-2xl">
-                USD {formatCurrency(totalAssets)}
-              </p>
+              <CountUp
+                className="flex justify-center text-center text-blue text-2xl"
+                end={totalAssets}
+                prefix="USD "
+                decimals={2}
+                separator=","
+                decimal="."
+              />
             </div>
           </div>
         </div>

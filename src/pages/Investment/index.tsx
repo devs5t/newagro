@@ -14,6 +14,7 @@ import {useEthers} from "@usedapp/core";
 import {NlandContext} from "src/contexts/NlandContext";
 import {NbeefContext} from "src/contexts/NbeefContext";
 import {useReloadPrices} from "src/hooks/useReloadPrices";
+import CountUp from "react-countup";
 
 const Investment: React.FC = () => {
   const { t } = useTranslation();
@@ -26,7 +27,7 @@ const Investment: React.FC = () => {
 
   const [isHarvestingLoading, setIsHarvestingLoading] = useState<boolean>(false);
 
-  const onHarvestAll = (e) => {
+  const onHarvestAll = (e: any) => {
     e.stopPropagation();
     setIsHarvestingLoading(true);
     callFunction(
@@ -48,7 +49,13 @@ const Investment: React.FC = () => {
           <h3 className="text-blue text-center text-xs md:mt-5">{t('investment.text')}</h3>
           <div className="flex flex-row justify-center mt-5 xl:mt-0">
             <p className="text-blue font-bold leading-5">NAC <br/> {t('investment.raised')}</p>
-            <p className="text-blue text-3xl mx-4 font-semibold">{formatCurrency(nmilkUserEarns + nlandUserEarns + nbeefUserEarns )}</p>
+            <CountUp
+              className="text-blue text-3xl mx-4 font-semibold"
+              end={nmilkUserEarns + nlandUserEarns + nbeefUserEarns}
+              decimals={2}
+              separator=","
+              decimal="."
+            />
             <Button
               text={`${t("investment.retire")} NAC`}
               extraClasses="border-blue border-2 text-blue px-4 font-bold text-tiny md:text-xs whitespace-nowrap text-center h-8 w-32 mt-1"
@@ -63,7 +70,7 @@ const Investment: React.FC = () => {
           <div className="col-span-3 flex-3 max-w-3xl">
             <InvestCard
               title={t('investment.card_milk.title')}
-              subtitle={t('investment.card_milk.subtitle', {apr: nmilkApr.toFixed(2)})}
+              apr={nmilkApr}
               token={"nmilk"}
               deposit={nmilkUserDeposited}
               earn={nmilkUserEarns}
@@ -74,7 +81,7 @@ const Investment: React.FC = () => {
             <br/>
             <InvestCard
               title={t('investment.card_beef.title')}
-              subtitle={t('investment.card_beef.subtitle', {apr: 0})}
+              apr={0}
               token={"nbeef"}
               deposit={0}
               earn={0}
@@ -85,7 +92,7 @@ const Investment: React.FC = () => {
             <br/>
             <InvestCard
               title={t('investment.card_land.title')}
-              subtitle={t('investment.card_land.subtitle', {apr: 0})}
+              apr={0}
               token={"nland"}
               deposit={0}
               earn={0}
@@ -101,10 +108,21 @@ const Investment: React.FC = () => {
             <div className={`flex flex-col items-center w-full rounded-lg border-green border-2 shadow`}>
               <div className={`w-full flex flex-col px-10 py-5 border-b-green border-b-2 border-green`}>
                 <h3 className="text-blue font-bold text-base">{t('investment.rentability.title1')}</h3>
-                <p className="text-blue text-2xl mb-3">{Math.round(milkingCows)}</p>
+                <CountUp
+                  className="text-blue text-2xl mb-3"
+                  end={milkingCows}
+                  separator=","
+                />
                 <p className="text-blue text-xs">{t("investment.rentability.description")}</p>
                 <h3 className="text-blue font-bold text-base mt-3">{t('investment.rentability.subtitle1')}</h3>
-                <h4 className="text-blue font-bold text-sm">{t("investment.rentability.profitability_description", {value: formatCurrency(nmilkProfitability)})}</h4>
+                <CountUp
+                  className="text-blue font-bold text-sm"
+                  end={nmilkProfitability}
+                  separator=","
+                  decimal="."
+                  decimals={2}
+                  suffix={` ${t("investment.rentability.profitability_description")}`}
+                />
               </div>
               <div className={`w-full flex flex-col px-10 py-5 border-bottom-2 border-green/[.5]`}>
                 <h3 className="text-blue font-bold text-base mb-4">{t('investment.rentability.title2')}</h3>
@@ -120,11 +138,25 @@ const Investment: React.FC = () => {
                         svg.classList.add('md:text-lg');
                       }}
                     />
-                    <p className="text-green font-semibold text-sm md:text-base">{t('investment.cows', {value: userMilkingCows.toFixed(2)})}</p>
+                    <CountUp
+                      className="text-green font-bold text-base"
+                      end={userMilkingCows}
+                      separator=","
+                      decimal="."
+                      decimals={2}
+                      suffix={` ${t('investment.cows')}`}
+                    />
                   </div>
                 </div>
                 <h4 className="text-blue font-bold text-base">{t('investment.rentability.subtitle2')}</h4>
-                <h3 className="text-green font-bold text-base">{formatCurrency(historicalEarning)} NAC</h3>
+                <CountUp
+                  className="text-green font-bold text-base"
+                  end={historicalEarning}
+                  separator=","
+                  decimal="."
+                  decimals={2}
+                  suffix=" NAC"
+                />
               </div>
             </div>
           </div>

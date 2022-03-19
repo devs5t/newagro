@@ -1,11 +1,12 @@
 import React from "react";
 import Button from '../Buttons/Button';
 import {ReactSVG} from "react-svg";
+import CountUp from "react-countup";
 
 interface HomeCardSecondaryProps {
   title: string;
   description: string;
-  thirdText: number;
+  amount: number;
   onClickButton?: () => void;
   containerClasses?: string;
   buttonText: string,
@@ -17,7 +18,7 @@ interface HomeCardSecondaryProps {
 const HomeCardSecondary: React.FC<HomeCardSecondaryProps> = ({
   title,
   description,
-  thirdText,
+                                                               amount,
   buttonText,
   onClickButton,
   containerClasses,
@@ -33,7 +34,11 @@ const HomeCardSecondary: React.FC<HomeCardSecondaryProps> = ({
           <p className="text-blue text-tiny md:text-xs">{description}</p>
         </div>
         <div className={`h-full w-3/6 flex flex-col justify-between px-3`}>
-          <h3 className="text-blue text-lg text-3xl md:text-4xl mb-5 text-right">{thirdText}</h3>
+          <CountUp
+            className="text-blue text-lg text-3xl md:text-4xl mb-5 text-right"
+            end={amount}
+            separator=","
+          />
         </div>
       </div>
       <div className="flex justify-between items-center w-full md:border-green/[.25] md:border-t-2">

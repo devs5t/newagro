@@ -1,18 +1,21 @@
 import React from "react";
 import Button from '../Buttons/Button';
+import CountUp from "react-countup";
 
 interface HomeCardColoredProps {
   title: string;
-  mainText: string;
-  thirdText: string;
+  amount: number;
+  currency: string;
+  subtitle?: string;
   onClickButton?: () => void;
   containerClasses?: string;
 }
 
 const HomeCardColored: React.FC<HomeCardColoredProps> = ({
   title,
-  mainText,
-  thirdText,
+  amount,
+  currency,
+  subtitle,
   onClickButton,
   containerClasses
 }) => {
@@ -20,11 +23,18 @@ const HomeCardColored: React.FC<HomeCardColoredProps> = ({
   return (
     <div className={`flex flex-col justify-center items-center w-full rounded-lg bg-lightblue/[.15] p-8 shadow ${containerClasses}`}>
       <h3 className="text-blue font-medium text-center text-lg md:text-2xl">{title}</h3>
-      <h2 className="text-green my-3 text-center font-bold text-3xl md:text-4xl font-extrabold" >{mainText}</h2>
+      <CountUp
+        className="text-green my-3 text-center font-bold text-3xl md:text-4xl font-extrabold"
+        prefix={`${currency} `}
+        end={amount}
+        decimals={2}
+        separator=","
+        decimal="."
+      />
       {!onClickButton ? (
-        <p className="text-blue text-center px-5 md:my-4 md:px-10 text-sm">{thirdText}</p>
+        <p className="text-blue text-center px-5 md:my-4 md:px-10 text-sm">{subtitle}</p>
       ) : (
-        <Button text={thirdText} onClick={onClickButton} extraClasses="md:my-4 bg-blue border-blue font-bold text-white px-4 py-4" />
+        <Button text={subtitle} onClick={onClickButton} extraClasses="md:my-4 bg-blue border-blue font-bold text-white px-4 py-4" />
       )}
     </div>
   );
