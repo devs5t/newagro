@@ -122,7 +122,7 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
   };
 
   useEffect(() => {
-    setNlandTotalAssets(nlandExchangeRate * nlandTotalSupply);
+    setNlandTotalAssets((nlandTotalSupply * nlandExchangeRate) / nacExchangeRate);
   }, [nlandExchangeRate, nlandTotalSupply, nlandUserAssets]);
 
   useEffect(() => {

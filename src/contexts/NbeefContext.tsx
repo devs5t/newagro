@@ -122,7 +122,7 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
   };
 
   useEffect(() => {
-    setNbeefTotalAssets(nbeefExchangeRate * nbeefTotalSupply);
+    setNbeefTotalAssets((nbeefTotalSupply * nbeefExchangeRate) / nacExchangeRate);
   }, [nbeefExchangeRate, nbeefTotalSupply, nbeefUserAssets]);
 
   useEffect(() => {
