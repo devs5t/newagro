@@ -45,6 +45,7 @@ const Footer: React.FC = () => {
           decimals={2}
           separator=","
           decimal="."
+          preserveValue={true}
         />
       </div>
 

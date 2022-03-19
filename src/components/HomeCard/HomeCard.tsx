@@ -30,6 +30,7 @@ const HomeCard: React.FC<HomeCardProps> = ({
           className="text-blue text-lg text-3xl text-right md:text-4xl"
           end={amount}
           separator=","
+          preserveValue={true}
         />
         <Button text={buttonText} onClick={onClickButton} extraClasses="px-2 md:px-0 w-full border-2 border-blue font-bold text-blue py-2 px-0 text-xs" />
       </div>

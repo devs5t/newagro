@@ -118,6 +118,7 @@ const InvestCard: React.FC<InvestCardProps> = ({
             decimals={2}
             separator=","
             decimal="."
+            preserveValue={true}
           />
           <Link
             className="w-full underline text-blue font-bold pointer"
@@ -147,6 +148,7 @@ const InvestCard: React.FC<InvestCardProps> = ({
               decimals={2}
               separator=","
               decimal="."
+              preserveValue={true}
             />
 
             <CountUp
@@ -156,6 +158,7 @@ const InvestCard: React.FC<InvestCardProps> = ({
               decimals={2}
               separator=","
               decimal="."
+              preserveValue={true}
             />
           </div>
           <div className="border-2 border-green/[.5] rounded-lg w-full">
@@ -168,6 +171,7 @@ const InvestCard: React.FC<InvestCardProps> = ({
               decimals={2}
               separator=","
               decimal="."
+              preserveValue={true}
             />
             <CountUp
               className=" flex justify-center w-full text-xs font-medium text-blue text-center mb-2 md:text-sm"
@@ -176,6 +180,7 @@ const InvestCard: React.FC<InvestCardProps> = ({
               decimals={2}
               separator=","
               decimal="."
+              preserveValue={true}
             />
           </div>
         </div>
@@ -250,6 +255,7 @@ const InvestCard: React.FC<InvestCardProps> = ({
                 decimals={2}
                 separator=","
                 decimal="."
+                preserveValue={true}
               />
             </div>
           </div>

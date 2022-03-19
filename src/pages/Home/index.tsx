@@ -34,7 +34,7 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     calculateTotalSupply();
-    const interval = setInterval(calculateTotalSupply, 5000);
+    const interval = setInterval(calculateTotalSupply, 10000);
     return () => clearInterval(interval);
   }, [nacTotalSupply, nmilkLastRewardDate, nmilkRewardPerSecond, nlandLastRewardDate, nlandRewardPerSecond, nbeefLastRewardDate, nbeefRewardPerSecond]);
 

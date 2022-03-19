@@ -38,6 +38,7 @@ const HomeCardSecondary: React.FC<HomeCardSecondaryProps> = ({
             className="text-blue text-lg text-3xl md:text-4xl mb-5 text-right"
             end={amount}
             separator=","
+            preserveValue={true}
           />
         </div>
       </div>

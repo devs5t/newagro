@@ -54,6 +54,7 @@ const Investment: React.FC = () => {
               decimals={2}
               separator=","
               decimal="."
+              preserveValue={true}
             />
             <Button
               text={`${t("investment.retire")} NAC`}
@@ -111,6 +112,7 @@ const Investment: React.FC = () => {
                   className="text-blue text-2xl mb-3"
                   end={milkingCows}
                   separator=","
+                  preserveValue={true}
                 />
                 <p className="text-blue text-xs">{t("investment.rentability.description")}</p>
                 <h3 className="text-blue font-bold text-base mt-3">{t('investment.rentability.subtitle1')}</h3>
@@ -121,6 +123,7 @@ const Investment: React.FC = () => {
                   decimal="."
                   decimals={2}
                   suffix={` ${t("investment.rentability.profitability_description")}`}
+                  preserveValue={true}
                 />
               </div>
               <div className={`w-full flex flex-col px-10 py-5 border-bottom-2 border-green/[.5]`}>
@@ -144,6 +147,7 @@ const Investment: React.FC = () => {
                       decimal="."
                       decimals={2}
                       suffix={` ${t('investment.cows')}`}
+                      preserveValue={true}
                     />
                   </div>
                 </div>
@@ -155,6 +159,7 @@ const Investment: React.FC = () => {
                   decimal="."
                   decimals={2}
                   suffix=" NAC"
+                  preserveValue={true}
                 />
               </div>
             </div>

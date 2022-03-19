@@ -118,17 +118,21 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
         MainStaking
       ).then((userInfo: {amount: {_hex: string}}) => setNmilkUserDeposited(formatHexToUintToDecimal(get(userInfo, 'amount._hex', '0x00'))));
 
-
-      callFunction(
-        contracts.mainStaking[CHAIN_ID],
-        library,
-        [NMILK_POOL_ID, account],
-        "getPendingNative",
-        MainStaking
-      ).then((value: {_hex: string}) => setNmilkUserEarns(formatHexToUintToDecimal(value._hex)));
+      requestUserEarns()
+      setInterval(() => requestUserEarns(), 10000);
     }
 
     setLoading(false);
+  };
+
+  const requestUserEarns = () => {
+    callFunction(
+      contracts.mainStaking[CHAIN_ID],
+      library,
+      [NMILK_POOL_ID, account],
+      "getPendingNative",
+      MainStaking
+    ).then((value: {_hex: string}) => setNmilkUserEarns(formatHexToUintToDecimal(value._hex)));
   };
 
   useEffect(() => {

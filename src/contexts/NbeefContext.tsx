@@ -112,18 +112,22 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
         MainStaking
       ).then((userInfo: {amount: {_hex: string}}) => setNbeefUserDeposited(formatHexToUintToDecimal(get(userInfo, 'amount._hex', '0x00'))));
 
-
-      callFunction(
-        contracts.mainStaking[CHAIN_ID],
-        library,
-        [NBEEF_POOL_ID, account],
-        "getPendingNative",
-        MainStaking
-      ).then((value: {_hex: string}) => setNbeefUserEarns(formatHexToUintToDecimal(value._hex)));
+      requestUserEarns()
+      setInterval(() => requestUserEarns(), 10000);
     }
 
     setLoading(false);
   };
+
+  const requestUserEarns = () => {
+    callFunction(
+      contracts.mainStaking[CHAIN_ID],
+      library,
+      [NBEEF_POOL_ID, account],
+      "getPendingNative",
+      MainStaking
+    ).then((value: {_hex: string}) => setNbeefUserEarns(formatHexToUintToDecimal(value._hex)));
+  }
 
   useEffect(() => {
     setNbeefTotalAssets((nbeefTotalSupply * nbeefExchangeRate) / nacExchangeRate);
