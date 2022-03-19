@@ -19,12 +19,13 @@ import routes from "./routes";
 import createTheme from "./theme";
 import Layout from "src/features/layouts/Layout";
 import "./index.css";
-import {ModalProvider} from "src/contexts/ModalContext";
+import { ModalProvider } from "src/contexts/ModalContext";
 import Modal from "src/components/Modal";
 import {PriceContextProvider} from "src/contexts/PriceContext";
 import {NmilkContextProvider} from "src/contexts/NmilkContext";
 import {NlandContextProvider} from "src/contexts/NlandContext";
 import {NbeefContextProvider} from "src/contexts/NbeefContext";
+import { GoogleApiProvider } from "react-gapi";
 
 const jss = create({
   ...jssPreset(),
@@ -39,6 +40,7 @@ function App() {
   const [referrerId, setReferrerId] = useLocalStorage("referrerId", null);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const navigate = useNavigate();
+  const envGoogleDriveApiKey = import.meta.env.VITE_APP_GOOGLE_DRIVE_API_KEY;
 
   useEffect(() => {
     const { pathname, search } = location;
@@ -73,7 +75,12 @@ function App() {
                     <NlandContextProvider>
                       <NbeefContextProvider>
                         <ModalProvider>
-                          <Layout>{content}</Layout>
+                          {/* Client ID aca */}
+                          <GoogleApiProvider
+                              clientId={envGoogleDriveApiKey}
+                          >
+                            <Layout>{content}</Layout>
+                          </GoogleApiProvider>
                           <Modal />
                         </ModalProvider>
                       </NbeefContextProvider>
