@@ -143,7 +143,7 @@ const Sell: React.FC = () => {
         price: formatHexToUintToDecimal(get(order, 'price._hex', '0x00')),
         timestamp: formatHexToDate(get(order, 'timestamp._hex', '0x00')),
         token: order.token,
-        status: order.amount === 0 ? 'confirmed' : 'processing',
+        status: (formatHexToDecimal(get(order, 'amount._hex', '0x00'))) === 0 ? 'confirmed' : 'processing',
       }));
       setSellOrders(orders);
     });
