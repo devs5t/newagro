@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { createContext, ReactNode, useState } from "react";
 import { useBoolean } from "react-use";
 import {CHAIN_ID} from "src/config";
 import contracts from "src/config/constants/contracts";
@@ -18,7 +18,9 @@ const PriceContext = createContext({
 
   historicalEarning: 0,
 
-  isLoading: true
+  isLoading: true,
+
+  loadPrices: () => {},
 });
 
 interface PriceContextProviderProps {
@@ -86,21 +88,6 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
     setLoading(false);
   };
 
-
-  useEffect(() => {
-    loadPrices();
-  }, [account]);
-
-  useEffect(() => {
-    /*const priceInterval = setInterval(async () => {
-      loadPrices();
-    }, 30000);
-
-    return () => clearInterval(priceInterval);*/
-
-    loadPrices();
-  }, []);
-
   return (
     <PriceContext.Provider
       value={{
@@ -112,7 +99,8 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
         nacUserAssets,
         historicalEarning,
 
-        isLoading
+        isLoading,
+        loadPrices
       }}
     >
       {children}

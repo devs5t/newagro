@@ -13,6 +13,7 @@ import { CHAIN_ID } from "src/config";
 import { useEthers } from "@usedapp/core";
 import MainStaking from "src/config/abi/MainStaking.json";
 import WithdrawTokenForm from "../forms/WithdrawTokenForm";
+import {useReloadPrices} from "src/hooks/useReloadPrices";
 
 interface InvestCardProps {
   title: string;
@@ -56,6 +57,7 @@ const InvestCard: React.FC<InvestCardProps> = ({
   descriptionText,
 }) => {
   const { t } = useTranslation();
+  const { reloadPrices } = useReloadPrices();
   const { setModal } = useContext(ModalContext);
   const [open, setOpen] = useState(false);
 
@@ -73,7 +75,10 @@ const InvestCard: React.FC<InvestCardProps> = ({
       [tokenKeyMap[token]?.pId, "0"],
       "deposit",
       MainStaking
-    ).finally(() => setIsHarvestingLoading(false));
+    ).finally(() => {
+      setIsHarvestingLoading(false);
+      reloadPrices();
+    });
   };
 
   const onReinvest = (e: any) => {
@@ -85,7 +90,10 @@ const InvestCard: React.FC<InvestCardProps> = ({
       [tokenKeyMap[token]?.pId],
       "compound",
       MainStaking
-    ).finally(() => setIsReinvestingLoading(false));
+    ).finally(() => {
+      setIsReinvestingLoading(false);
+      reloadPrices();
+    });
   };
 
   return (

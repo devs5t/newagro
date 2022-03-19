@@ -1,8 +1,19 @@
 import Navbar from "../../components/navbar/Navbar";
 import Footer from "src/components/footer";
-import React from "react";
+import React, {useEffect} from "react";
+import {useEthers} from "@usedapp/core";
+import {useReloadPrices} from "src/hooks/useReloadPrices";
 
 const Layout: React.FC = ({ children }) => {
+  const {reloadPrices} = useReloadPrices();
+  const {account} = useEthers();
+
+  useEffect(() => {
+    // This is done because account value initialize as undefined, then goes to null nad finally the user address
+    if (account !== undefined) {
+      reloadPrices();
+    }
+  }, [account]);
 
   return (
     <>

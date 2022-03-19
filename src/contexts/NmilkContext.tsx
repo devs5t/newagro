@@ -29,7 +29,8 @@ const NmilkContext = createContext({
   milkingCows: 0,
   userMilkingCows: 0,
 
-  isLoading: true
+  isLoading: true,
+  loadPrices: () => {},
 });
 
 interface NmilkContextProviderProps {
@@ -146,20 +147,6 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
     setNmilkApr(apr);
   }, [nmilkRewardPerYear, nmilkBalance, nacExchangeRate, nmilkExchangeRate]);
 
-  useEffect(() => {
-    loadPrices();
-  }, [account]);
-
-  useEffect(() => {
-    /*const priceInterval = setInterval(async () => {
-      loadPrices();
-    }, 30000);
-
-    return () => clearInterval(priceInterval);*/
-
-    loadPrices();
-  }, []);
-
   return (
     <NmilkContext.Provider
       value={{
@@ -178,7 +165,8 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
         milkingCows,
         userMilkingCows,
 
-        isLoading
+        isLoading,
+        loadPrices
       }}
     >
       {children}

@@ -15,10 +15,12 @@ import {useEthers} from "@usedapp/core";
 import {ModalContext} from "src/contexts/ModalContext";
 import ExchangeARSForm from "src/components/forms/ExchangeARSForm";
 import {formatCurrency} from "src/utils/currency";
+import {useReloadPrices} from "src/hooks/useReloadPrices";
 
 const Buy: React.FC = () => {
   const { t } = useTranslation();
   const {setModal} = useContext(ModalContext);
+  const { reloadPrices } = useReloadPrices();
 
   const { account, library } = useEthers();
   const { nacExchangeRate, nacUserAssets, usdtUserAssets } = useContext(PriceContext);
@@ -156,7 +158,7 @@ const Buy: React.FC = () => {
       case "usdt":
         return usdtUserAssets;
     }
-  }, [selectedFromCurrency]);
+  }, [selectedFromCurrency, nacUserAssets, usdtUserAssets]);
 
   const onApprove = () => {
     setIsLoading(true);
@@ -192,7 +194,10 @@ const Buy: React.FC = () => {
         [formatDecimalToUint(fromAmount)],
         method,
         selectedExchangeAbi
-      ).finally(() => setIsLoading(false));
+      ).finally(() => {
+        setIsLoading(false);
+        reloadPrices();
+      });
     }
   };
 

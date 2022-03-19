@@ -26,7 +26,8 @@ const NbeefContext = createContext({
   nbeefUserDeposited: 0,
   nbeefUserEarns: 0,
 
-  isLoading: true
+  isLoading: true,
+  loadPrices: () => {},
 });
 
 interface NbeefContextProviderProps {
@@ -138,20 +139,6 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
     setNbeefApr(apr);
   }, [nbeefRewardPerYear, nbeefBalance, nacExchangeRate, nbeefExchangeRate]);
 
-  useEffect(() => {
-    loadPrices();
-  }, [account]);
-
-  useEffect(() => {
-    /*const priceInterval = setInterval(async () => {
-      loadPrices();
-    }, 30000);
-
-    return () => clearInterval(priceInterval);*/
-
-    loadPrices();
-  }, []);
-
   return (
     <NbeefContext.Provider
       value={{
@@ -167,7 +154,8 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
         nbeefUserDeposited,
         nbeefUserEarns,
 
-        isLoading
+        isLoading,
+        loadPrices
       }}
     >
       {children}

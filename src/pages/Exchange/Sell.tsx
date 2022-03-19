@@ -25,6 +25,7 @@ import {NlandContext} from "src/contexts/NlandContext";
 import {NbeefContext} from "src/contexts/NbeefContext";
 import ExchangeARSForm from "src/components/forms/ExchangeARSForm";
 import {formatCurrency} from "src/utils/currency";
+import {useReloadPrices} from "src/hooks/useReloadPrices";
 
 type OrderType ={
   index: number,
@@ -39,6 +40,7 @@ type OrderType ={
 const Sell: React.FC = () => {
   const { t } = useTranslation();
   const {setModal} = useContext(ModalContext);
+  const { reloadPrices } = useReloadPrices();
 
   const { account, library } = useEthers();
   const { nacUserAssets, nacExchangeRate } = useContext(PriceContext);
@@ -233,7 +235,10 @@ const Sell: React.FC = () => {
           [formatDecimalToUint(fromAmount)],
           'deposit',
           selectedExchangeAbi
-        ).finally(() => setIsLoading(false));
+        ).finally(() => {
+          setIsLoading(false);
+          reloadPrices();
+        });
       }
 
       if (['nmilk', 'nland', 'nbeef'].includes(selectedFromCurrency)) {
@@ -243,7 +248,10 @@ const Sell: React.FC = () => {
           [formatDecimalToUint(fromAmount), formatDecimalToUint(fromPrice)],
           'sell',
           selectedExchangeAbi
-        ).finally(() => setIsLoading(false));
+        ).finally(() => {
+          setIsLoading(false);
+          reloadPrices();
+        });
       }
     }
   };

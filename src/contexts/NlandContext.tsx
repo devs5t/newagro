@@ -26,7 +26,8 @@ const NlandContext = createContext({
   nlandUserDeposited: 0,
   nlandUserEarns: 0,
 
-  isLoading: true
+  isLoading: true,
+  loadPrices: () => {},
 });
 
 interface NlandContextProviderProps {
@@ -138,20 +139,6 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
     setNlandApr(apr);
   }, [nlandRewardPerYear, nlandBalance, nacExchangeRate, nlandExchangeRate]);
 
-  useEffect(() => {
-    loadPrices();
-  }, [account]);
-
-  useEffect(() => {
-    /*const priceInterval = setInterval(async () => {
-      loadPrices();
-    }, 30000);
-
-    return () => clearInterval(priceInterval);*/
-
-    loadPrices();
-  }, []);
-
   return (
     <NlandContext.Provider
       value={{
@@ -167,7 +154,8 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
         nlandUserDeposited,
         nlandUserEarns,
 
-        isLoading
+        isLoading,
+        loadPrices
       }}
     >
       {children}

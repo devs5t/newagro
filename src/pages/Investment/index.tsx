@@ -3,7 +3,6 @@ import InvestCard from "src/components/HomeCard/InvestCard";
 import {useTranslation} from "react-i18next";
 import {PriceContext} from "src/contexts/PriceContext";
 import {ReactSVG} from "react-svg";
-import {NMILK_TOKENS_BY_COW} from "src/config/constants";
 import {formatCurrency} from "src/utils/currency";
 import {NmilkContext} from "src/contexts/NmilkContext";
 import Button from "src/components/Buttons/Button";
@@ -14,10 +13,12 @@ import MainStaking from "src/config/abi/MainStaking.json";
 import {useEthers} from "@usedapp/core";
 import {NlandContext} from "src/contexts/NlandContext";
 import {NbeefContext} from "src/contexts/NbeefContext";
+import {useReloadPrices} from "src/hooks/useReloadPrices";
 
 const Investment: React.FC = () => {
   const { t } = useTranslation();
   const { account, library } = useEthers();
+  const { reloadPrices } = useReloadPrices();
   const { historicalEarning, nacExchangeRate } = useContext(PriceContext);
   const { milkingCows, userMilkingCows, nmilkUserDeposited, nmilkUserEarns, nmilkApr, nmilkProfitability, nmilkExchangeRate } = useContext(NmilkContext);
   const { nlandUserEarns } = useContext(NlandContext);
@@ -34,7 +35,10 @@ const Investment: React.FC = () => {
       [],
       "harvestAll",
       MainStaking
-    ).finally(() => setIsHarvestingLoading(false));
+    ).finally(() => {
+      setIsHarvestingLoading(false);
+      reloadPrices();
+    });
   };
 
   return (
