@@ -6,7 +6,6 @@ import { ModalContext } from "src/contexts/ModalContext";
 import DepositTokenForm from "src/components/forms/DepositTokenForm";
 import { upperCase } from "lodash";
 import { NMILK_POOL_ID, NMILK_TOKENS_BY_COW, NBEEF_POOL_ID, NLAND_POOL_ID } from "src/config/constants";
-import { formatCurrency } from "src/utils/currency";
 import contracts from "src/config/constants/contracts";
 import { callFunction } from "reblox-web3-utils";
 import { CHAIN_ID } from "src/config";

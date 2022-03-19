@@ -83,7 +83,7 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
       [contracts.mainStaking[CHAIN_ID]],
       "balanceOf",
       NLAND
-    ).then(setNlandBalance);
+    ).then((value: number) => setNlandBalance(formatUintToDecimal(value)));
 
     callViewFunction(
       CHAIN_ID,

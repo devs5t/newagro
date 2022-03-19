@@ -89,7 +89,7 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
       [contracts.mainStaking[CHAIN_ID]],
       "balanceOf",
       NMILK
-    ).then(setNmilkBalance);
+    ).then((value: number) => setNmilkBalance(formatUintToDecimal(value)));
 
     callViewFunction(
       CHAIN_ID,

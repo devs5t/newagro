@@ -83,7 +83,7 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
       [contracts.mainStaking[CHAIN_ID]],
       "balanceOf",
       NBEEF
-    ).then(setNbeefBalance);
+    ).then((value: number) => setNbeefBalance(formatUintToDecimal(value)));
 
     callViewFunction(
       CHAIN_ID,
