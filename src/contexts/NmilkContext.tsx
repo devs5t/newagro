@@ -17,7 +17,8 @@ const NmilkContext = createContext({
   nmilkTotalSupply: 0,
   nmilkExchangeRate: 0,
   nmilkTotalAssets: 0,
-  nmilkRewardPerYear: 0,
+  nmilkLastRewardDate: new Date(),
+  nmilkRewardPerSecond: 0,
   nmilkBalance: 0,
   nmilkApr: 0,
   nmilkProfitability: 0,
@@ -43,7 +44,8 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
   const [nmilkTotalSupply, setNmilkTotalSupply] = useState<number>(0);
   const [nmilkExchangeRate, setNmilkExchangeRate] = useState<number>(0);
   const [nmilkTotalAssets, setNmilkTotalAssets] = useState<number>(0);
-  const [nmilkRewardPerYear, setNmilkRewardPerYear] = useState<number>(0);
+  const [nmilkLastRewardDate, setNmilkLastRewardDate] = useState<Date>(new Date());
+  const [nmilkRewardPerSecond, setNmilkRewardPerSecond] = useState<number>(0);
   const [nmilkBalance, setNmilkBalance] = useState<number>(0);
   const [nmilkApr, setNmilkApr] = useState<number>(0);
   const [nmilkAssetsPerMonth, setNmilkAssetsPerMonth] = useState<number>(0);
@@ -76,7 +78,8 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
       "poolInfo",
       MainStaking
     ).then((value: any) => {
-      setNmilkRewardPerYear(value.nativePerSecond * SECONDS_PER_YEAR);
+      setNmilkLastRewardDate(new Date(value.lastRewardTimestamp * 1000));
+      setNmilkRewardPerSecond(formatUintToDecimal(value.nativePerSecond));
       setNmilkAssetsPerMonth(formatUintToDecimal(value.assetPerMonthPerFullWantToken))
     });
 
@@ -140,12 +143,12 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
 
   useEffect(() => {
     const nmilkTVL: number = nmilkBalance * nmilkExchangeRate;
-    let apr: number = ((nmilkRewardPerYear / nmilkTVL) * 100) / nacExchangeRate;
+    let apr: number = (((nmilkRewardPerSecond * SECONDS_PER_YEAR) / nmilkTVL) * 100) / nacExchangeRate;
     if (!isFinite(apr)) {
       apr = 0
     }
     setNmilkApr(apr);
-  }, [nmilkRewardPerYear, nmilkBalance, nacExchangeRate, nmilkExchangeRate]);
+  }, [nmilkRewardPerSecond, nmilkBalance, nacExchangeRate, nmilkExchangeRate]);
 
   return (
     <NmilkContext.Provider
@@ -153,7 +156,8 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
         nmilkTotalSupply,
         nmilkExchangeRate,
         nmilkTotalAssets,
-        nmilkRewardPerYear,
+        nmilkLastRewardDate,
+        nmilkRewardPerSecond,
         nmilkBalance,
         nmilkApr,
         nmilkProfitability,

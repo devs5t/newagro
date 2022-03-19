@@ -13,12 +13,6 @@ export const formatHexToDate = (hex: string) => new Date((new BigNumber(hex).toN
 
 export const formatDecimalToUint = (number: number) => new BigNumber(number).times(new BigNumber(10).pow(18)).toString();
 
-export const formatDecimalWithLeadingZeros = (number: number, size = 3) => {
-  let num: string = number.toString();
-  while (num.length < size) {
-    num = "0" + num;
-  }
-  return num;
-};
-
 export const formatDateToDisplay = (date: Date) => `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+
+export const formatDateToUnixTimestamp = (date: Date) => Math.floor(date.getTime() / 1000);

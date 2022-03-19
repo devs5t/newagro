@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useCallback, useContext, useEffect, useState} from "react";
 import { useTranslation } from "react-i18next";
 import Banner from "src/components/Banner/Banner";
 import HomeCardColored from "src/components/HomeCard/HomeCardColored";
@@ -9,12 +9,34 @@ import Tabs from "src/components/tabs/Tabs";
 import {PriceContext} from "src/contexts/PriceContext";
 import { useNavigate } from 'react-router-dom';
 import {NmilkContext} from "src/contexts/NmilkContext";
+import {formatDateToUnixTimestamp} from "src/utils/formatUtils";
+import {NlandContext} from "src/contexts/NlandContext";
+import {NbeefContext} from "src/contexts/NbeefContext";
 
 const Home: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const {nacTotalSupply} = useContext(PriceContext);
-  const {nmilkTotalAssets, nmilkTotalSupply, milkingCows, nmilkUserAssets, userMilkingCows} = useContext(NmilkContext);
+  const {nmilkTotalAssets, nmilkTotalSupply, milkingCows, nmilkUserAssets, userMilkingCows, nmilkLastRewardDate, nmilkRewardPerSecond} = useContext(NmilkContext);
+  const {nlandLastRewardDate, nlandRewardPerSecond} = useContext(NlandContext);
+  const {nbeefLastRewardDate, nbeefRewardPerSecond} = useContext(NbeefContext);
+
+  const [totalSupply, setTotalSupply] = useState<number>(0);
+
+  const calculateTotalSupply = useCallback(() => {
+    const pendingNmilkNac = (formatDateToUnixTimestamp(new Date()) - formatDateToUnixTimestamp(nmilkLastRewardDate)) * nmilkRewardPerSecond;
+    const pendingNlandNac = (formatDateToUnixTimestamp(new Date()) - formatDateToUnixTimestamp(nlandLastRewardDate)) * nlandRewardPerSecond;
+    const pendingNbeefNac = (formatDateToUnixTimestamp(new Date()) - formatDateToUnixTimestamp(nbeefLastRewardDate)) * nbeefRewardPerSecond;
+
+    setTotalSupply(nacTotalSupply + pendingNmilkNac + pendingNlandNac + pendingNbeefNac);
+
+  }, [nacTotalSupply, nmilkLastRewardDate, nmilkRewardPerSecond, nlandLastRewardDate, nlandRewardPerSecond, nbeefLastRewardDate, nbeefRewardPerSecond]);
+
+  useEffect(() => {
+    calculateTotalSupply();
+    const interval = setInterval(calculateTotalSupply, 5000);
+    return () => clearInterval(interval);
+  }, [nacTotalSupply, nmilkLastRewardDate, nmilkRewardPerSecond, nlandLastRewardDate, nlandRewardPerSecond, nbeefLastRewardDate, nbeefRewardPerSecond]);
 
   return (
     <div className="w-full flex justify-center mt-8">
@@ -28,7 +50,7 @@ const Home: React.FC = () => {
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
           <HomeCardColored
             title={t("home.card.new_agro.title")}
-            amount={nacTotalSupply}
+            amount={totalSupply}
             currency="NAC"
             subtitle={t("home.card.new_agro.button_text")}
             onClickButton={() => navigate('/exchange')}

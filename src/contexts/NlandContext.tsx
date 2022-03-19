@@ -17,7 +17,8 @@ const NlandContext = createContext({
   nlandTotalSupply: 0,
   nlandExchangeRate: 0,
   nlandTotalAssets: 0,
-  nlandRewardPerYear: 0,
+  nlandLastRewardDate: new Date(),
+  nlandRewardPerSecond: 0,
   nlandBalance: 0,
   nlandApr: 0,
   nlandProfitability: 0,
@@ -40,7 +41,8 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
   const [nlandTotalSupply, setNlandTotalSupply] = useState<number>(0);
   const [nlandExchangeRate, setNlandExchangeRate] = useState<number>(0);
   const [nlandTotalAssets, setNlandTotalAssets] = useState<number>(0);
-  const [nlandRewardPerYear, setNlandRewardPerYear] = useState<number>(0);
+  const [nlandLastRewardDate, setNlandLastRewardDate] = useState<Date>(new Date());
+  const [nlandRewardPerSecond, setNlandRewardPerSecond] = useState<number>(0);
   const [nlandBalance, setNlandBalance] = useState<number>(0);
   const [nlandApr, setNlandApr] = useState<number>(0);
   const [nlandAssetsPerMonth, setNlandAssetsPerMonth] = useState<number>(0);
@@ -70,7 +72,8 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
       "poolInfo",
       MainStaking
     ).then((value: any) => {
-      setNlandRewardPerYear(value.nativePerSecond * SECONDS_PER_YEAR);
+      setNlandLastRewardDate(new Date(value.lastRewardTimestamp * 1000));
+      setNlandRewardPerSecond(formatUintToDecimal(value.nativePerSecond));
       setNlandAssetsPerMonth(formatUintToDecimal(value.assetPerMonthPerFullWantToken))
     });
 
@@ -132,12 +135,12 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
 
   useEffect(() => {
     const nlandTVL: number = nlandBalance * nlandExchangeRate;
-    let apr: number = ((nlandRewardPerYear / nlandTVL) * 100) / nacExchangeRate;
+    let apr: number = (((nlandRewardPerSecond * SECONDS_PER_YEAR) / nlandTVL) * 100) / nacExchangeRate;
     if (!isFinite(apr)) {
       apr = 0
     }
     setNlandApr(apr);
-  }, [nlandRewardPerYear, nlandBalance, nacExchangeRate, nlandExchangeRate]);
+  }, [nlandRewardPerSecond, nlandBalance, nacExchangeRate, nlandExchangeRate]);
 
   return (
     <NlandContext.Provider
@@ -145,7 +148,8 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
         nlandTotalSupply,
         nlandExchangeRate,
         nlandTotalAssets,
-        nlandRewardPerYear,
+        nlandLastRewardDate,
+        nlandRewardPerSecond,
         nlandBalance,
         nlandApr,
         nlandProfitability,

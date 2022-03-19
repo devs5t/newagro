@@ -30,6 +30,7 @@ const HomeCardColored: React.FC<HomeCardColoredProps> = ({
         decimals={2}
         separator=","
         decimal="."
+        preserveValue={true}
       />
       {!onClickButton ? (
         <p className="text-blue text-center px-5 md:my-4 md:px-10 text-sm">{subtitle}</p>

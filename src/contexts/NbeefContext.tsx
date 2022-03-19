@@ -17,7 +17,8 @@ const NbeefContext = createContext({
   nbeefTotalSupply: 0,
   nbeefExchangeRate: 0,
   nbeefTotalAssets: 0,
-  nbeefRewardPerYear: 0,
+  nbeefLastRewardDate: new Date(),
+  nbeefRewardPerSecond: 0,
   nbeefBalance: 0,
   nbeefApr: 0,
   nbeefProfitability: 0,
@@ -40,7 +41,8 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
   const [nbeefTotalSupply, setNbeefTotalSupply] = useState<number>(0);
   const [nbeefExchangeRate, setNbeefExchangeRate] = useState<number>(0);
   const [nbeefTotalAssets, setNbeefTotalAssets] = useState<number>(0);
-  const [nbeefRewardPerYear, setNbeefRewardPerYear] = useState<number>(0);
+  const [nbeefLastRewardDate, setNbeefLastRewardDate] = useState<Date>(new Date());
+  const [nbeefRewardPerSecond, setNbeefRewardPerSecond] = useState<number>(0);
   const [nbeefBalance, setNbeefBalance] = useState<number>(0);
   const [nbeefApr, setNbeefApr] = useState<number>(0);
   const [nbeefAssetsPerMonth, setNbeefAssetsPerMonth] = useState<number>(0);
@@ -70,7 +72,8 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
       "poolInfo",
       MainStaking
     ).then((value: any) => {
-      setNbeefRewardPerYear(value.nativePerSecond * SECONDS_PER_YEAR);
+      setNbeefLastRewardDate(new Date(value.lastRewardTimestamp * 1000));
+      setNbeefRewardPerSecond(formatUintToDecimal(value.nativePerSecond));
       setNbeefAssetsPerMonth(formatUintToDecimal(value.assetPerMonthPerFullWantToken))
     });
 
@@ -132,12 +135,12 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
 
   useEffect(() => {
     const nbeefTVL: number = nbeefBalance * nbeefExchangeRate;
-    let apr: number = ((nbeefRewardPerYear / nbeefTVL) * 100) / nacExchangeRate;
+    let apr: number = (((nbeefRewardPerSecond * SECONDS_PER_YEAR) / nbeefTVL) * 100) / nacExchangeRate;
     if (!isFinite(apr)) {
       apr = 0
     }
     setNbeefApr(apr);
-  }, [nbeefRewardPerYear, nbeefBalance, nacExchangeRate, nbeefExchangeRate]);
+  }, [nbeefRewardPerSecond, nbeefBalance, nacExchangeRate, nbeefExchangeRate]);
 
   return (
     <NbeefContext.Provider
@@ -145,7 +148,8 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
         nbeefTotalSupply,
         nbeefExchangeRate,
         nbeefTotalAssets,
-        nbeefRewardPerYear,
+        nbeefLastRewardDate,
+        nbeefRewardPerSecond,
         nbeefBalance,
         nbeefApr,
         nbeefProfitability,
