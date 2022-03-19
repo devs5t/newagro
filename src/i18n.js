@@ -37,7 +37,7 @@ const resources = {
           actives: {
             title: "Total Assets",
             number: "{{value}} USD",
-            button_text: "Explanation of how your total assets are made up",
+            third_text: "Corresponds to the market value of all NewLand, NewMilk and NewBeef issued up to today",
           },
           nmilk: {
             title: "Total NMILK Tokens",
@@ -241,7 +241,7 @@ const resources = {
           actives: {
             title: "Activos totales",
             number: "{{value}} USD",
-            third_text: "Explicación de cómo se componen sus activos totales",
+            third_text: "Corresponde al valor de mercado de todos los NewLand, NewMilk y NewBeef emitidos hasta hoy",
           },
           nmilk: {
             title: "Tus Tokens NMILK",

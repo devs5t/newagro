@@ -18,7 +18,7 @@ import {NbeefContext} from "src/contexts/NbeefContext";
 const Investment: React.FC = () => {
   const { t } = useTranslation();
   const { account, library } = useEthers();
-  const { historicalEarning } = useContext(PriceContext);
+  const { historicalEarning, nacExchangeRate } = useContext(PriceContext);
   const { milkingCows, userMilkingCows, nmilkUserDeposited, nmilkUserEarns, nmilkApr, nmilkProfitability, nmilkExchangeRate } = useContext(NmilkContext);
   const { nlandUserEarns } = useContext(NlandContext);
   const { nbeefUserEarns } = useContext(NbeefContext);
@@ -63,7 +63,7 @@ const Investment: React.FC = () => {
               token={"nmilk"}
               deposit={nmilkUserDeposited}
               earn={nmilkUserEarns}
-              totalAssets={nmilkUserDeposited * nmilkExchangeRate}
+              totalAssets={(nmilkUserDeposited * nmilkExchangeRate) / nacExchangeRate}
               image={'images/photos/bg_nmilk.jpeg'}
               descriptionText={t("investment.card_milk.description")}
             />
