@@ -40,6 +40,7 @@ function App() {
   const [referrerId, setReferrerId] = useLocalStorage("referrerId", null);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const navigate = useNavigate();
+  const envGoogleDriveApiKey = import.meta.env.VITE_APP_GOOGLE_DRIVE_API_KEY;
 
   useEffect(() => {
     const { pathname, search } = location;
@@ -76,7 +77,7 @@ function App() {
                         <ModalProvider>
                           {/* Client ID aca */}
                           <GoogleApiProvider
-                              clientId={"Sin un client id es posible que rompa"}
+                              clientId={envGoogleDriveApiKey}
                           >
                             <Layout>{content}</Layout>
                           </GoogleApiProvider>

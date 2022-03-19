@@ -199,6 +199,12 @@ const resources = {
         warning_description: "You successfully withdrew {{amount}} {{token}}",
         approve: "Approve",
       },
+      error: {
+        generic: "Opsss, an error has occurred, try again later."
+      },
+      list: {
+        not_found: "Files not found",
+      },
     },
   },
   es: {
@@ -397,6 +403,12 @@ const resources = {
         warning_description: "Retiraste exitosamente {{amount}} {{token}}",
         approve: "Aprobar",
       },
+      error: {
+        generic: "Opsss, ocurrió un error. Intente mas tarde."
+      },
+      list: {
+        not_found: "No hay archivos encontrados",
+      }
     },
   },
 };

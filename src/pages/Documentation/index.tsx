@@ -1,16 +1,31 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
+import React, {useState} from "react";
+import {useTranslation} from "react-i18next";
 import Banner from "src/components/Banner/Banner";
 import Tabs from "src/components/tabs/Tabs";
-import { ReactSVG } from "react-svg";
+import {ReactSVG} from "react-svg";
 import DocumentationCard from "src/components/HomeCard/DocumentationCard";
 import SearchList from "src/components/SearchList";
 import Map from "src/components/Map/Map";
-import { useGoogleApi } from "react-gapi";
+import {useGoogleApi} from "react-gapi";
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const Documentation: React.FC = () => {
   const { t } = useTranslation();
-  const [files, setFiles] = useState();
+  const [files, setFiles] = useState([]);
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = (event: any, reason: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   const gapi = useGoogleApi({
     discoveryDocs: [
@@ -24,15 +39,17 @@ const Documentation: React.FC = () => {
 
   const auth = gapi?.auth2.getAuthInstance();
 
-  var req = gapi?.client?.drive?.files.list();
-
-  !files &&
-    req?.execute(function (resp) {
-      // console.debug(resp)
-      setFiles(
-        resp.files.filter((file) => file.mimeType === "application/pdf")
-      );
+  const getFiles = (fodlerId = "1zjAEMOvfzcl9JwbSxvbO0gObjIdcqs46"): void => {
+    const req = gapi?.client?.drive?.files.list({
+      'q': `'${fodlerId}' in parents and mimeType='application/pdf'`
     });
+
+    files.length === 0 && req?.execute(response =>
+      response.code > 299 ?
+        setOpen(true) :
+        setFiles(response.files)
+    );
+  }
 
   const onDownload = async (item) => {
     console.debug(item);
@@ -41,21 +58,20 @@ const Documentation: React.FC = () => {
         fileId: item.id,
         alt: "media",
       })
-      .then((r) => {
+      .then((r: { body: any; }) => {
         console.debug("ressss", r);
 
-        let binaryString = r.body;
-        let binaryLen = binaryString.length;
-        let bytes = new Uint8Array(binaryLen);
+        const binaryString = r.body;
+        const binaryLen = binaryString.length;
+        const bytes = new Uint8Array(binaryLen);
 
         for (let i = 0; i < binaryLen; i++) {
-          let ascii = binaryString.charCodeAt(i);
-          bytes[i] = ascii;
+          bytes[i] = binaryString.charCodeAt(i);
         }
 
-        let blob = new Blob([bytes], { type: item.mimeType });
+        const blob = new Blob([bytes], { type: item.mimeType });
 
-        let link = document.createElement("a");
+        const link = document.createElement("a");
 
         link.href = window.URL.createObjectURL(blob);
         link.download = item.name;
@@ -63,13 +79,18 @@ const Documentation: React.FC = () => {
         link.click();
       });
 
-    res.execute(function (resp) {
+    res.execute(function (resp: any) {
       console.debug("resp", resp);
     });
   };
 
   return (
     <div className="xl:py-8 2xl:px-56 xl:px-48">
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert severity="error" onClose={handleClose}>
+          {t("error.generic")}
+        </Alert>
+      </Snackbar>
       <Banner
         title={t("docs.banner.title")}
         subtitle={t("docs.banner.subtitle")}
@@ -137,14 +158,13 @@ const Documentation: React.FC = () => {
               auth?.signIn();
             }
           }}
-          component={() => (
-            <SearchList listItems={files || []} onDownload={onDownload} />
-          )}
+          onClick={() => auth?.isSignedIn.get() && getFiles()}
+          component={<SearchList listItems={files} onDownload={onDownload} />}
         />
         <br />
         <DocumentationCard
           title={t("docs.cards.card2_title")}
-          component={() =><Map />}
+          component={<Map />}
         />
         <br />
         <DocumentationCard

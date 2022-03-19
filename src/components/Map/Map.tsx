@@ -1,7 +1,6 @@
 import React from 'react';
 import GoogleMapReact from 'google-map-react';
 import {ReactSVG} from "react-svg";
-import darkTheme from "src/components/Map/utils";
 import {useTranslation} from "react-i18next";
 
 const Map : React.FC = () => {

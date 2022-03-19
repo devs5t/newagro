@@ -7,8 +7,9 @@ interface DocumentationCardProps {
   link?: string;
   linkText?: () => void;
   containerClasses?: string;
-  component?: React.FC,
+  component?: React.Component,
   signIn?: any;
+  onClick?: () => void;
 }
 
 const DocumentationCard: React.FC<DocumentationCardProps> = ({
@@ -18,14 +19,16 @@ const DocumentationCard: React.FC<DocumentationCardProps> = ({
    linkText,
    containerClasses,
    component,
-   signIn
+   signIn,
+   onClick
  }) => {
 
   const [open, setOpen] = useState(false);
   return (
     <div className={`flex flex-col w-full rounded-lg bg-lightblue/[.15] p-6 shadow ${containerClasses}`}>
       <div className="w-full flex flex-row" onClick={() => {
-        signIn();
+        signIn && signIn();
+        onClick && onClick()
         setOpen(!open);
       }}>
         <div className="w-1/2">
@@ -46,11 +49,11 @@ const DocumentationCard: React.FC<DocumentationCardProps> = ({
           />
         </div>
       </div>
-      {open && component && (
+      {open && component &&
         <div className="w-full py-10 px-4 md:px-20 ">
           {component}
         </div>
-      )}
+      }
     </div>
   );
 }
