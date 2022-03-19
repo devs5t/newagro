@@ -24,6 +24,7 @@ import DoneIcon from "@mui/icons-material/Done";
 import {NmilkContext} from "src/contexts/NmilkContext";
 import {NbeefContext} from "src/contexts/NbeefContext";
 import {NlandContext} from "src/contexts/NlandContext";
+import {useReloadPrices} from "src/hooks/useReloadPrices";
 
 interface DepositTokenFormProps {
   token: "nmilk" | "nbeef" | "nland";
@@ -31,6 +32,7 @@ interface DepositTokenFormProps {
 
 const DepositTokenForm: React.FC<DepositTokenFormProps> = ({ token }) => {
   const { t } = useTranslation();
+  const { reloadPrices } = useReloadPrices();
   const { setModal } = useContext(ModalContext);
   const { nmilkUserAssets } = useContext(NmilkContext);
   const { nlandUserAssets } = useContext(NlandContext);
@@ -78,11 +80,11 @@ const DepositTokenForm: React.FC<DepositTokenFormProps> = ({ token }) => {
       [tokenKeyMap[token]?.pId, formatDecimalToUint(amount)],
       "deposit",
       MainStaking
-    )
-      .then(() => {
-        setFormSent(true);
-      })
-      .finally(() => setIsLoading(false));
+    ).finally(() => {
+      setFormSent(true);
+      setIsLoading(false);
+      reloadPrices();
+    });
   };
 
   const onChange = (value: number) => {

@@ -22,6 +22,7 @@ import DoneIcon from "@mui/icons-material/Done";
 import {NmilkContext} from "src/contexts/NmilkContext";
 import {NlandContext} from "src/contexts/NlandContext";
 import {NbeefContext} from "src/contexts/NbeefContext";
+import {useReloadPrices} from "src/hooks/useReloadPrices";
 
 interface WithdrawTokenFormProps {
   token: "nmilk" | "nbeef" | "nland";
@@ -29,6 +30,7 @@ interface WithdrawTokenFormProps {
 
 const WithdrawTokenForm: React.FC<WithdrawTokenFormProps> = ({ token }) => {
   const { t } = useTranslation();
+  const { reloadPrices } = useReloadPrices();
   const { setModal } = useContext(ModalContext);
   const { nmilkUserDeposited } = useContext(NmilkContext);
   const { nlandUserDeposited } = useContext(NlandContext);
@@ -75,11 +77,11 @@ const WithdrawTokenForm: React.FC<WithdrawTokenFormProps> = ({ token }) => {
       [tokenKeyMap[token]?.pId, formatDecimalToUint(amount)],
       "withdraw",
       MainStaking
-    )
-      .then(() => {
-        setFormSent(true);
-      })
-      .finally(() => setIsLoading(false));
+    ).finally(() => {
+      setFormSent(true);
+      setIsLoading(false);
+      reloadPrices()
+    });
   };
 
 
