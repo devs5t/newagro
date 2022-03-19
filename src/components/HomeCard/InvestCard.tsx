@@ -132,7 +132,7 @@ const InvestCard: React.FC<InvestCardProps> = ({
             </p>
             <p className="text-xs font-medium text-blue text-center mb-2 md:text-sm">
               {t("investment.cows", {
-                value: Math.round(deposit / NMILK_TOKENS_BY_COW).toFixed(2),
+                value: (deposit / NMILK_TOKENS_BY_COW).toFixed(2),
               })}
             </p>
           </div>
@@ -145,7 +145,7 @@ const InvestCard: React.FC<InvestCardProps> = ({
             </p>
             <p className="text-xs font-medium text-blue text-center mb-2 md:text-sm">
               {t("investment.cows", {
-                value: Math.round(earn / NMILK_TOKENS_BY_COW).toFixed(2),
+                value: (earn / NMILK_TOKENS_BY_COW).toFixed(2),
               })}
             </p>
           </div>
