@@ -116,7 +116,7 @@ const Investment: React.FC = () => {
                         svg.classList.add('md:text-lg');
                       }}
                     />
-                    <p className="text-green font-semibold text-sm md:text-base">{t('investment.cows', {value:  Math.round(userMilkingCows / NMILK_TOKENS_BY_COW)})}</p>
+                    <p className="text-green font-semibold text-sm md:text-base">{t('investment.cows', {value: userMilkingCows.toFixed(2)})}</p>
                   </div>
                 </div>
                 <h4 className="text-blue font-bold text-base">{t('investment.rentability.subtitle2')}</h4>
