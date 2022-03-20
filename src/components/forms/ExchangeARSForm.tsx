@@ -93,7 +93,7 @@ const ExchangeARSForm: React.FC<ExchangeARSFormProps> = ({
 
       <p className="text-blue text-sm mb-6">{t("exchange_ars_form.description")}</p>
 
-      <div className="px-0 md:px-10">
+      <div className="px-0">
         <div className="flex flex-wrap mb-6">
           <Textfield
             id="name"

@@ -2,20 +2,22 @@ import React, {useContext} from "react";
 import {ModalContext} from "src/contexts/ModalContext";
 import {ReactSVG} from "react-svg";
 import {get} from "lodash";
-import {Modal as MaterialModal} from '@mui/material';
+import {Dialog, DialogTitle, DialogContent} from '@mui/material';
 
 const Modal: React.FC = () => {
   const {modal, setModal} = useContext(ModalContext);
 
   return (
-    <MaterialModal
+    <Dialog
       open={!!modal}
       onClose={() => setModal(undefined)}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
+      scroll="body"
+      aria-labelledby="scroll-dialog-title"
+      aria-describedby="scroll-dialog-description"
+      className="p-0 rounded-lg shadow-lg border-2 border-blue"
     >
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white w-4/5 max-w-xl mx-auto rounded-lg shadow-lg z-50 overflow-y-auto border-2 border-blue">
 
+      <DialogTitle id="scroll-dialog-title">
         <div className="flex justify-between items-center py-6 mb-6 items-center border-b-2 border-blue">
           {get(modal, 'title', false) && (
             <h3 className="text-2xl font-bold text-blue ml-10">{get(modal, 'title')}</h3>
@@ -31,12 +33,15 @@ const Modal: React.FC = () => {
             />
           </div>
         </div>
+      </DialogTitle>
 
+      <DialogContent>
         {modal !== undefined && (
           <modal.component />
         )}
-      </div>
-    </MaterialModal>
+
+      </DialogContent>
+    </Dialog>
   );
 }
 

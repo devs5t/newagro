@@ -122,7 +122,7 @@ const WithdrawTokenForm: React.FC<WithdrawTokenFormProps> = ({ token }) => {
 
   return (
     <form className="w-full px-10" onSubmit={onSubmit}>
-      <div className="px-0 md:px-10">
+      <div className="px-0">
         <div className="flex flex-row justify-between items-end mt-8">
           <Textfield
             id="amount"

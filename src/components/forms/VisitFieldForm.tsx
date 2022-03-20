@@ -70,7 +70,7 @@ const VisitFieldForm: React.FC = () => {
 
       <p className="text-blue text-sm mb-6">{t("field_visit_form.description")}</p>
 
-      <div className="px-0 md:px-10">
+      <div className="px-0">
         <div className="flex flex-wrap mb-6">
           <Textfield
             id="name"
