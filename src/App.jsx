@@ -25,7 +25,7 @@ import {PriceContextProvider} from "src/contexts/PriceContext";
 import {NmilkContextProvider} from "src/contexts/NmilkContext";
 import {NlandContextProvider} from "src/contexts/NlandContext";
 import {NbeefContextProvider} from "src/contexts/NbeefContext";
-// import { GoogleApiProvider } from "react-gapi";
+import { GoogleApiProvider } from "react-gapi";
 
 const jss = create({
   ...jssPreset(),
@@ -75,9 +75,9 @@ function App() {
                     <NlandContextProvider>
                       <NbeefContextProvider>
                         <ModalProvider>
-                          {/*<GoogleApiProvider clientId={envGoogleDriveApiKey}>*/}
+                          <GoogleApiProvider clientId={envGoogleDriveApiKey}>
                             <Layout>{content}</Layout>
-                          {/*</GoogleApiProvider>*/}
+                          </GoogleApiProvider>
                           <Modal />
                         </ModalProvider>
                       </NbeefContextProvider>
