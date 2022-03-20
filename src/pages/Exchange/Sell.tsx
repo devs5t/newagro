@@ -345,8 +345,9 @@ const Sell: React.FC = () => {
                   key={index}
                   className="text-blue font-bold text-xl uppercase"
                   disabled={!['nac', 'nmilk'].includes(fromCurrency)}
+                  value={fromCurrency}
                 >
-                  {fromCurrency}
+                  {upperCase(fromCurrency)}
                 </option>
               ))}
             </select>
@@ -388,13 +389,13 @@ const Sell: React.FC = () => {
             <div className="hidden md:flex h-full items-center font-bold text-sm text-blue mr-10">{t(`exchange.amount`)}</div>
             <Textfield
               id="amount"
-              onChange={setToAmount}
+              onChange={() => {}}
               value={toAmount}
               containerClasses="w-full mr-4 md:max-w-[12rem]"
               inputClasses="md:placeholder-transparent"
               type="number"
               placeholder={t(`exchange.amount`)}
-              disabled={false}
+              disabled={true}
             />
           </div>
 

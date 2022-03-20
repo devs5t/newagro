@@ -202,12 +202,12 @@ const Buy: React.FC = () => {
   };
 
   const onFromAmountChange = useCallback((value: number) => {
-    if (value > availableTokens) {
+    if (['usdt', 'nac'].includes(selectedFromCurrency) && value > availableTokens) {
       setFromAmount(availableTokens);
-    } else {
-      setFromAmount(value);
+      return;
     }
-  }, [availableTokens]);
+    setFromAmount(value);
+  }, [selectedFromCurrency, availableTokens]);
 
   const onMax = () => setFromAmount(availableTokens);
 
@@ -250,8 +250,9 @@ const Buy: React.FC = () => {
                 <option
                   key={index}
                   className="text-blue font-bold uppercase"
+                  value={fromCurrency}
                 >
-                  {fromCurrency}
+                  {upperCase(fromCurrency)}
                 </option>
               ))}
             </select>
@@ -282,7 +283,7 @@ const Buy: React.FC = () => {
             <div className="hidden md:flex h-full items-center font-bold text-sm text-blue mr-10">{t(`exchange.amount`)}</div>
             <Textfield
               id="amount"
-              onChange={setToAmount}
+              onChange={() => {}}
               value={toAmount}
               containerClasses="w-full mr-4 md:max-w-[12rem]"
               inputClasses="md:placeholder-transparent"
