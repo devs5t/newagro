@@ -14,10 +14,15 @@ const Modal: React.FC = () => {
       scroll="body"
       aria-labelledby="scroll-dialog-title"
       aria-describedby="scroll-dialog-description"
-      className="p-0 rounded-lg shadow-lg border-2 border-blue"
+      PaperProps={{
+        className: "p-0 rounded-lg shadow-lg border-2 border-blue"
+      }}
     >
 
-      <DialogTitle id="scroll-dialog-title">
+      <DialogTitle
+        className="p-0"
+        id="scroll-dialog-title"
+      >
         <div className="flex justify-between items-center py-6 mb-6 items-center border-b-2 border-blue">
           {get(modal, 'title', false) && (
             <h3 className="text-2xl font-bold text-blue ml-10">{get(modal, 'title')}</h3>
@@ -35,7 +40,9 @@ const Modal: React.FC = () => {
         </div>
       </DialogTitle>
 
-      <DialogContent>
+      <DialogContent
+        className="p-0"
+      >
         {modal !== undefined && (
           <modal.component />
         )}
