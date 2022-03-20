@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {ReactNode, useState} from "react";
 import {ReactSVG} from "react-svg";
 
 interface DocumentationCardProps {
@@ -7,7 +7,7 @@ interface DocumentationCardProps {
   link?: string;
   linkText?: () => void;
   containerClasses?: string;
-  component?: React.Component,
+  component?: ReactNode,
   signIn?: any;
   onClick?: () => void;
   allowOpen?: boolean

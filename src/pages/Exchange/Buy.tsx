@@ -90,7 +90,7 @@ const Buy: React.FC = () => {
         selectedExchangeContract
       ).then((allowance: number) => setNeedsApproval(allowance == 0));
     }
-  }, [selectedFromCurrency]);
+  }, [account, selectedFromCurrency]);
 
   useEffect(() => {
     if (!debouncedFromAmount) {
