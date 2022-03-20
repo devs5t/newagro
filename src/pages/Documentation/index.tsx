@@ -98,7 +98,7 @@ const Documentation: React.FC = () => {
           image={'images/photos/bg_nmilk.jpeg'}
           containerClasses={"p-4 md:p-4"}
         />
-        <div className="w-full grid grid-cols-2 md:grid-cols-2 gap-2 mt-8 lg:px-16 xl:px-32 2xl:px-48 ">
+        <div className="w-full grid grid-cols-2 md:grid-cols-2 gap-2 mt-8 lg:px-16 xl:px-32 ">
           <a
             href="https://newagrocoin.gitbook.io/whitepaper"
             target="_blank"
@@ -106,14 +106,14 @@ const Documentation: React.FC = () => {
             className="flex flex-row inline-block text-tiny px-2 leading-none border rounded-full md:px-0 w-full
              border-1 border-blue text-blue py-2 justify-around pointer md:border-2 md:text-lg lg:px-4"
           >
-            {t("docs.buttons.doc_tech")}
+            <p className="text-base">{t("docs.buttons.doc_tech")}</p>
             <ReactSVG
               src={"icons/arrow.svg"}
               beforeInjection={(svg) => {
                 svg.classList.add('fill-blue');
                 svg.classList.add('text-tiny');
-                svg.classList.add('lg:w-4');
-                svg.classList.add('lg:h-4');
+                svg.classList.add('w-4');
+                svg.classList.add('h-4');
                 svg.classList.add('-rotate-[135deg]');
               }}
             />
@@ -125,14 +125,14 @@ const Documentation: React.FC = () => {
             className="flex flex-row inline-block text-tiny px-2 leading-none border rounded-full md:px-0 w-full
              border-1 border-blue text-blue py-2 justify-around pointer md:border-2 md:text-lg lg:px-4"
           >
-            {t("docs.buttons.page_inst")}
+            <p className="text-base">{t("docs.buttons.page_inst")}</p>
             <ReactSVG
               src={"icons/arrow.svg"}
               beforeInjection={(svg) => {
                 svg.classList.add('fill-blue');
                 svg.classList.add('text-tiny');
-                svg.classList.add('lg:w-4');
-                svg.classList.add('lg:h-4');
+                svg.classList.add('w-4');
+                svg.classList.add('h-4');
                 svg.classList.add('-rotate-[135deg]');
               }}
             />
@@ -159,6 +159,7 @@ const Documentation: React.FC = () => {
                 auth?.signIn();
               }
             }}
+            allowOpen={!!auth?.isSignedIn.get()}
             onClick={() => auth?.isSignedIn.get() && getFiles()}
             component={<SearchList listItems={files} onDownload={onDownload} />}
           />

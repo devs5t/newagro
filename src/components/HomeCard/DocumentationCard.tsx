@@ -10,6 +10,7 @@ interface DocumentationCardProps {
   component?: React.Component,
   signIn?: any;
   onClick?: () => void;
+  allowOpen?: boolean
 }
 
 const DocumentationCard: React.FC<DocumentationCardProps> = ({
@@ -20,7 +21,8 @@ const DocumentationCard: React.FC<DocumentationCardProps> = ({
    containerClasses,
    component,
    signIn,
-   onClick
+   onClick,
+   allowOpen= true,
  }) => {
 
   const [open, setOpen] = useState(false);
@@ -29,7 +31,7 @@ const DocumentationCard: React.FC<DocumentationCardProps> = ({
       <div className="w-full flex flex-row" onClick={() => {
         signIn && signIn();
         onClick && onClick()
-        setOpen(!open);
+        allowOpen && setOpen(!open);
       }}>
         <div className="w-1/2">
           <h3 className="text-blue font-bold font-medium text-lg mr-2">{title}</h3>
