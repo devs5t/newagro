@@ -98,45 +98,30 @@ const Documentation: React.FC = () => {
           image={'images/photos/bg_nmilk.jpeg'}
           containerClasses={"p-4 md:p-4"}
         />
-        <div className="w-full grid grid-cols-2 md:grid-cols-2 gap-2 mt-8 lg:px-16 xl:px-32 ">
-          <a
-            href="https://newagrocoin.gitbook.io/whitepaper"
-            target="_blank"
-            rel="noreferrer"
-            className="flex flex-row inline-block text-tiny px-2 leading-none border rounded-full md:px-0 w-full
-             border-1 border-blue text-blue py-2 justify-around pointer md:border-2 md:text-lg lg:px-4"
-          >
-            <p className="text-base">{t("docs.buttons.doc_tech")}</p>
-            <ReactSVG
-              src={"icons/arrow.svg"}
-              beforeInjection={(svg) => {
-                svg.classList.add('fill-blue');
-                svg.classList.add('text-tiny');
-                svg.classList.add('w-4');
-                svg.classList.add('h-4');
-                svg.classList.add('-rotate-[135deg]');
-              }}
-            />
-          </a>
-          <a
-            href="https://newagro.com.ar"
-            target="_blank"
-            rel="noreferrer"
-            className="flex flex-row inline-block text-tiny px-2 leading-none border rounded-full md:px-0 w-full
-             border-1 border-blue text-blue py-2 justify-around pointer md:border-2 md:text-lg lg:px-4"
-          >
-            <p className="text-base">{t("docs.buttons.page_inst")}</p>
-            <ReactSVG
-              src={"icons/arrow.svg"}
-              beforeInjection={(svg) => {
-                svg.classList.add('fill-blue');
-                svg.classList.add('text-tiny');
-                svg.classList.add('w-4');
-                svg.classList.add('h-4');
-                svg.classList.add('-rotate-[135deg]');
-              }}
-            />
-          </a>
+        <div className="w-full flex justify-between max-w-xl mt-6 mx-auto">
+          {[
+            {link: "https://newagrocoin.gitbook.io/whitepaper", label: t("docs.buttons.doc_tech")},
+            {link: "https://newagro.com.ar", label: t("docs.buttons.page_inst")}
+          ].map((button, key) => (
+            <a
+              key={key}
+              href={button.link}
+              target="_blank"
+              rel="noreferrer"
+              className="flex flex-row items-center px-4 py-2 md:py-0 border rounded-full md:px-0 w-full border-1 border-blue text-blue justify-around pointer md:border-2 text-sm mx-3"
+            >
+              {button.label}
+              <ReactSVG
+                src={"icons/arrow.svg"}
+                beforeInjection={(svg) => {
+                  svg.classList.add('fill-blue');
+                  svg.classList.add('w-2');
+                  svg.classList.add('lg:w-4');
+                  svg.classList.add('-rotate-[135deg]');
+                }}
+              />
+            </a>
+          ))}
         </div>
         <div className="w-full justify-center flex my-8">
           <Tabs
