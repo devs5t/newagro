@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import Button from "../Buttons/Button";
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ModalContext } from "src/contexts/ModalContext";
 import DepositTokenForm from "src/components/forms/DepositTokenForm";
@@ -57,6 +57,7 @@ const InvestCard: React.FC<InvestCardProps> = ({
   descriptionText,
 }) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const { reloadPrices } = useReloadPrices();
   const { setModal } = useContext(ModalContext);
   const [open, setOpen] = useState(false);
@@ -196,16 +197,20 @@ const InvestCard: React.FC<InvestCardProps> = ({
           <div className="md:w-1/2 w-full">
             <div className={"grid grid-cols-2 gap-2 mt-5 w-full mt-5"}>
               <Button
-                text={t("investment.deposit_buy")}
+                text={deposit > 0 ? t("investment.deposit") : t("investment.buy")}
                 extraClasses="px-2 md:px-0 w-full border-2 border-blue font-bold text-blue py-2 px-0"
                 onClick={(e) => {
                   e.stopPropagation();
-                  setModal({
-                    component: () => DepositTokenForm({ token }),
-                    title: `${t("deposit_token_form.deposit")} ${upperCase(
-                      token
-                    )}`,
-                  });
+                  if (deposit > 0) {
+                    setModal({
+                      component: () => DepositTokenForm({ token }),
+                      title: `${t("deposit_token_form.deposit")} ${upperCase(
+                        token
+                      )}`,
+                    });
+                  } else {
+                    navigate('/exchange');
+                  }
                 }}
                 disabled={!account}
               />
