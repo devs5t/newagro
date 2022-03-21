@@ -149,7 +149,7 @@ const resources = {
         button_sell: "Sell",
         user_from_assets: "{{amount}} {{token}} available",
         table: {
-          state: "Status",
+          status: "Status",
           order_number: "Order number",
           date: "Date",
           amount: "Amount",
