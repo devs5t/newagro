@@ -4,6 +4,7 @@ import Button from "src/components/Buttons/Button";
 import {ModalContext} from "src/contexts/ModalContext";
 import Textfield from "src/components/Inputs/Textfield";
 import DoneIcon from '@mui/icons-material/Done';
+import moment from "moment";
 
 const VisitFieldForm: React.FC = () => {
 
@@ -44,7 +45,7 @@ const VisitFieldForm: React.FC = () => {
 
   if (formSent) {
     return (
-      <div className="flex h-84 justify-center items-center flex-col pt-10 pb-20">
+      <div className="flex h-84 justify-center items-center flex-col pt-10 pb-20 px-10">
         <div className="w-24 h-24 rounded-full bg-green/[0.3] flex justify-center items-center mb-6">
           <DoneIcon className="fill-green h-12 w-12 m-auto"/>
         </div>
@@ -110,6 +111,7 @@ const VisitFieldForm: React.FC = () => {
           required={true}
           type="date"
           containerClasses="mb-6"
+          min={moment().format("YYYY-MM-DD")}
         />
 
         <div className="flex justify-around py-6 mb-8">
