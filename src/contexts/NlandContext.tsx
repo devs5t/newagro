@@ -140,21 +140,21 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
   }
 
   useEffect(() => {
-    setNlandTotalAssets((nlandTotalSupply * nlandExchangeRate) / nacExchangeRate);
-  }, [nlandExchangeRate, nlandTotalSupply, nlandUserAssets]);
+    setNlandTotalAssets(nlandTotalSupply * nlandSuggestedPrice);
+  }, [nlandSuggestedPrice, nlandTotalSupply]);
 
   useEffect(() => {
     setNlandProfitability((nlandAssetsPerMonth * nlandExchangeRate));
   }, [nlandAssetsPerMonth, nlandExchangeRate]);
 
   useEffect(() => {
-    const nlandTVL: number = nlandBalance * nlandExchangeRate;
+    const nlandTVL: number = nlandBalance * nlandSuggestedPrice;
     let apr: number = (((nlandRewardPerSecond * SECONDS_PER_YEAR) / nlandTVL) * 100) / nacExchangeRate;
     if (!isFinite(apr)) {
       apr = 0
     }
     setNlandApr(apr);
-  }, [nlandRewardPerSecond, nlandBalance, nacExchangeRate, nlandExchangeRate]);
+  }, [nlandRewardPerSecond, nlandBalance, nacExchangeRate, nlandSuggestedPrice]);
 
   return (
     <NlandContext.Provider

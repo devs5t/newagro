@@ -146,23 +146,23 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
   };
 
   useEffect(() => {
-    setNmilkTotalAssets((nmilkTotalSupply * nmilkExchangeRate) / nacExchangeRate);
+    setNmilkTotalAssets(nmilkTotalSupply * nmilkSuggestedPrice);
     setMilkingCows(nmilkTotalSupply / NMILK_TOKENS_BY_COW);
     setUserMilkingCows(nmilkUserAssets / NMILK_TOKENS_BY_COW);
-  }, [nmilkExchangeRate, nmilkTotalSupply, nmilkUserAssets]);
+  }, [nmilkSuggestedPrice, nmilkTotalSupply, nmilkUserAssets]);
 
   useEffect(() => {
     setNmilkProfitability((nmilkAssetsPerMonth * nmilkExchangeRate * NMILK_TOKENS_BY_COW));
   }, [nmilkAssetsPerMonth, nmilkExchangeRate]);
 
   useEffect(() => {
-    const nmilkTVL: number = nmilkBalance * nmilkExchangeRate;
+    const nmilkTVL: number = nmilkBalance * nmilkSuggestedPrice;
     let apr: number = (((nmilkRewardPerSecond * SECONDS_PER_YEAR) / nmilkTVL) * 100) / nacExchangeRate;
     if (!isFinite(apr)) {
       apr = 0
     }
     setNmilkApr(apr);
-  }, [nmilkRewardPerSecond, nmilkBalance, nacExchangeRate, nmilkExchangeRate]);
+  }, [nmilkRewardPerSecond, nmilkBalance, nacExchangeRate, nmilkSuggestedPrice]);
 
   return (
     <NmilkContext.Provider

@@ -12,7 +12,7 @@ import {get} from "lodash";
 import {formatUintToDecimal, formatHexToUintToDecimal} from "src/utils/formatUtils";
 import {PriceContext} from "src/contexts/PriceContext";
 import {SECONDS_PER_YEAR} from "src/utils";
-import NLANDExchange from "src/config/abi/NLANDExchange.json";
+import NBEEFExchange from "src/config/abi/NBEEFExchange.json";
 
 const NbeefContext = createContext({
   nbeefTotalSupply: 0,
@@ -101,7 +101,7 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
       contracts.exchangeNbeef[CHAIN_ID],
       [],
       "getSuggestedPrice",
-      NLANDExchange
+      NBEEFExchange
     ).then((value: number) => setNbeefSuggestedPrice(formatUintToDecimal(value)));
 
     if (library && account) {
@@ -140,21 +140,21 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
   }
 
   useEffect(() => {
-    setNbeefTotalAssets((nbeefTotalSupply * nbeefExchangeRate) / nacExchangeRate);
-  }, [nbeefExchangeRate, nbeefTotalSupply, nbeefUserAssets]);
+    setNbeefTotalAssets(nbeefTotalSupply * nbeefSuggestedPrice);
+  }, [nbeefSuggestedPrice, nbeefTotalSupply]);
 
   useEffect(() => {
     setNbeefProfitability((nbeefAssetsPerMonth * nbeefExchangeRate));
   }, [nbeefAssetsPerMonth, nbeefExchangeRate]);
 
   useEffect(() => {
-    const nbeefTVL: number = nbeefBalance * nbeefExchangeRate;
+    const nbeefTVL: number = nbeefBalance * nbeefSuggestedPrice;
     let apr: number = (((nbeefRewardPerSecond * SECONDS_PER_YEAR) / nbeefTVL) * 100) / nacExchangeRate;
     if (!isFinite(apr)) {
       apr = 0
     }
     setNbeefApr(apr);
-  }, [nbeefRewardPerSecond, nbeefBalance, nacExchangeRate, nbeefExchangeRate]);
+  }, [nbeefRewardPerSecond, nbeefBalance, nacExchangeRate, nbeefSuggestedPrice]);
 
   return (
     <NbeefContext.Provider
