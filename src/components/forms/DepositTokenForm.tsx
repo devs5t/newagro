@@ -131,7 +131,7 @@ const DepositTokenForm: React.FC<DepositTokenFormProps> = ({ token }) => {
 
   if (formSent) {
     return (
-      <div className="flex h-84 justify-center items-center flex-col pt-10 pb-20">
+      <div className="flex h-84 justify-center items-center flex-col pt-10 pb-20 px-10">
         <div className="w-24 h-24 rounded-full bg-green/[0.3] flex justify-center items-center mb-6">
           <DoneIcon className="fill-green h-12 w-12 m-auto" />
         </div>
