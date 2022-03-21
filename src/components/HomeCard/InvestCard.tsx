@@ -22,6 +22,7 @@ interface InvestCardProps {
   containerClasses?: string;
   image: string;
   deposit: number;
+  assets: number;
   earn: number;
   totalAssets: number;
   descriptionText?: string;
@@ -52,6 +53,7 @@ const InvestCard: React.FC<InvestCardProps> = ({
   containerClasses,
   image,
   deposit,
+  assets,
   earn,
   totalAssets,
   descriptionText,
@@ -197,11 +199,11 @@ const InvestCard: React.FC<InvestCardProps> = ({
           <div className="md:w-1/2 w-full">
             <div className={"grid grid-cols-2 gap-2 mt-5 w-full mt-5"}>
               <Button
-                text={deposit > 0 ? t("investment.deposit") : t("investment.buy")}
+                text={assets > 0 ? t("investment.deposit") : t("investment.buy")}
                 extraClasses="px-2 md:px-0 w-full border-2 border-blue font-bold text-blue py-2 px-0"
                 onClick={(e) => {
                   e.stopPropagation();
-                  if (deposit > 0) {
+                  if (assets > 0) {
                     setModal({
                       component: () => DepositTokenForm({ token }),
                       title: `${t("deposit_token_form.deposit")} ${upperCase(

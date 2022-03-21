@@ -20,7 +20,7 @@ const Investment: React.FC = () => {
   const { account, library } = useEthers();
   const { reloadPrices } = useReloadPrices();
   const { historicalEarning } = useContext(PriceContext);
-  const { milkingCows, userMilkingCows, nmilkUserDeposited, nmilkUserEarns, nmilkApr, nmilkProfitability, nmilkExchangeRate } = useContext(NmilkContext);
+  const { milkingCows, userMilkingCows, nmilkUserDeposited, nmilkUserEarns, nmilkApr, nmilkProfitability, nmilkExchangeRate, nmilkUserAssets } = useContext(NmilkContext);
   const { nlandUserEarns } = useContext(NlandContext);
   const { nbeefUserEarns } = useContext(NbeefContext);
 
@@ -73,6 +73,7 @@ const Investment: React.FC = () => {
               apr={nmilkApr}
               token={"nmilk"}
               deposit={nmilkUserDeposited}
+              assets={nmilkUserAssets}
               earn={nmilkUserEarns}
               totalAssets={nmilkUserDeposited * nmilkExchangeRate}
               image={'images/photos/bg_nmilk.jpeg'}
@@ -84,6 +85,7 @@ const Investment: React.FC = () => {
               apr={0}
               token={"nbeef"}
               deposit={0}
+              assets={0}
               earn={0}
               totalAssets={0}
               image={'images/photos/bg_nbeef.jpeg'}
@@ -95,6 +97,7 @@ const Investment: React.FC = () => {
               apr={0}
               token={"nland"}
               deposit={0}
+              assets={0}
               earn={0}
               totalAssets={0}
               image={'images/photos/bg_nland.jpeg'}

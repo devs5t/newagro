@@ -77,11 +77,14 @@ const WithdrawTokenForm: React.FC<WithdrawTokenFormProps> = ({ token }) => {
       [tokenKeyMap[token]?.pId, formatDecimalToUint(amount)],
       "withdraw",
       MainStaking
-    ).finally(() => {
-      setFormSent(true);
-      setIsLoading(false);
-      reloadPrices()
-    });
+    )
+      .then(() => {
+        setFormSent(true);
+        reloadPrices();
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
 

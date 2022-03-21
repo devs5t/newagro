@@ -80,11 +80,14 @@ const DepositTokenForm: React.FC<DepositTokenFormProps> = ({ token }) => {
       [tokenKeyMap[token]?.pId, formatDecimalToUint(amount)],
       "deposit",
       MainStaking
-    ).finally(() => {
-      setFormSent(true);
-      setIsLoading(false);
-      reloadPrices();
-    });
+    )
+      .then(() => {
+        setFormSent(true);
+        reloadPrices();
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   const onChange = (value: number) => {
