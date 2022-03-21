@@ -314,7 +314,7 @@ const Buy: React.FC = () => {
           <p className="text-blue text-sm text-left mr-6">{t(`exchange.helper_bottom_buy`, {token: upperCase(selectedToCurrency), amount: formatCurrency(totalTokensForSell)})}</p>
 
           <p className="text-blue text-sm font-semibold">
-            {upperCase(selectedToCurrency)} {t(`exchange.price`)} ${suggestedPrice}
+            {upperCase(selectedToCurrency)} {t(`exchange.price`)} ${formatCurrency(suggestedPrice)}
           </p>
         </div>
 
