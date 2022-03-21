@@ -19,7 +19,7 @@ const Investment: React.FC = () => {
   const { t } = useTranslation();
   const { account, library } = useEthers();
   const { reloadPrices } = useReloadPrices();
-  const { historicalEarning, nacExchangeRate } = useContext(PriceContext);
+  const { historicalEarning } = useContext(PriceContext);
   const { milkingCows, userMilkingCows, nmilkUserDeposited, nmilkUserEarns, nmilkApr, nmilkProfitability, nmilkExchangeRate } = useContext(NmilkContext);
   const { nlandUserEarns } = useContext(NlandContext);
   const { nbeefUserEarns } = useContext(NbeefContext);
@@ -74,7 +74,7 @@ const Investment: React.FC = () => {
               token={"nmilk"}
               deposit={nmilkUserDeposited}
               earn={nmilkUserEarns}
-              totalAssets={(nmilkUserDeposited * nmilkExchangeRate) / nacExchangeRate}
+              totalAssets={nmilkUserDeposited * nmilkExchangeRate}
               image={'images/photos/bg_nmilk.jpeg'}
               descriptionText={t("investment.card_milk.description")}
             />
