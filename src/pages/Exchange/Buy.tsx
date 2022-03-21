@@ -108,6 +108,16 @@ const Buy: React.FC = () => {
 
   }, [debouncedFromAmount, selectedFromCurrency, selectedToCurrency]);
 
+  const requestTotalTokensForSell = () => {
+    callViewFunction(
+      CHAIN_ID,
+      selectedExchangeContract,
+      [],
+      "getTotalTokensForSell",
+      selectedExchangeAbi
+    ).then((value: number) => setTotalTokensForSell(formatUintToDecimal(value)));
+  };
+
   useEffect(() => {
 
     callViewFunction(
@@ -126,13 +136,8 @@ const Buy: React.FC = () => {
       selectedExchangeAbi
     ).then((value: number) => setSuggestedPrice(formatUintToDecimal(value)));
 
-    callViewFunction(
-      CHAIN_ID,
-      selectedExchangeContract,
-      [],
-      "getTotalTokensForSell",
-      selectedExchangeAbi
-    ).then((value: number) => setTotalTokensForSell(formatUintToDecimal(value)));
+    requestTotalTokensForSell();
+
   }, [account, selectedToCurrency]);
 
   const maxValue: number | undefined = useMemo(() => {
@@ -197,6 +202,7 @@ const Buy: React.FC = () => {
       ).finally(() => {
         setIsLoading(false);
         reloadPrices();
+        requestTotalTokensForSell();
       });
     }
   };
