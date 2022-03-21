@@ -7,8 +7,10 @@ import {ReactSVG} from "react-svg";
 import {CHAIN_ID} from "src/config";
 import contracts from "src/config/constants/contracts";
 import NMILKExchange from "src/config/abi/NMILKExchange.json";
+import NLANDExchange from "src/config/abi/NLANDExchange.json";
+import NBEEFExchange from "src/config/abi/NBEEFExchange.json";
 import RedeemRewards from "src/config/abi/RedeemRewards.json";
-import {callViewFunction, callFunction, approveContract, getTokenAllowance} from "reblox-web3-utils";
+import {callFunction, approveContract, getTokenAllowance} from "reblox-web3-utils";
 import {
   formatDateToDisplay,
   formatDecimalToUint,
@@ -44,14 +46,13 @@ const Sell: React.FC = () => {
 
   const { account, library } = useEthers();
   const { nacUserAssets, nacExchangeRate } = useContext(PriceContext);
-  const { nmilkUserAssets } = useContext(NmilkContext);
-  const { nlandUserAssets } = useContext(NlandContext);
-  const { nbeefUserAssets } = useContext(NbeefContext);
+  const { nmilkUserAssets, nmilkSuggestedPrice } = useContext(NmilkContext);
+  const { nlandUserAssets, nlandSuggestedPrice } = useContext(NlandContext);
+  const { nbeefUserAssets, nbeefSuggestedPrice } = useContext(NbeefContext);
 
   const [fromAmount, setFromAmount] = useState<number>(0);
 
   const [fromPrice, setFromPrice] = useState<number>(0);
-  const [suggestedPrice, setSuggestedPrice] = useState<number>(0);
 
   const [toAmount, setToAmount] = useState<number>(0);
 
@@ -94,8 +95,8 @@ const Sell: React.FC = () => {
   const configExchange: any = {
     nac: {exchangeAbi: RedeemRewards, exchangeContract: contracts.redeemRewards[CHAIN_ID]},
     nmilk: {exchangeAbi: NMILKExchange, exchangeContract: contracts.exchangeNmilk[CHAIN_ID]},
-    nbeef: {exchangeAbi: NMILKExchange, exchangeContract: contracts.exchangeNmilk[CHAIN_ID]},
-    nland: {exchangeAbi: NMILKExchange, exchangeContract: contracts.exchangeNmilk[CHAIN_ID]}
+    nbeef: {exchangeAbi: NBEEFExchange, exchangeContract: contracts.exchangeNbeef[CHAIN_ID]},
+    nland: {exchangeAbi: NLANDExchange, exchangeContract: contracts.exchangeNland[CHAIN_ID]}
   };
 
   const selectedExchangeAbi: any[] = useMemo(() => {
@@ -171,18 +172,20 @@ const Sell: React.FC = () => {
     if (selectedToCurrency === 'ars' && selectedFromCurrency !== 'nac') {
       setSelectedToCurrency('usdt');
     }
-
-    if (['nmilk', 'nbeef', 'nland'].includes(selectedFromCurrency)) {
-      callViewFunction(
-        CHAIN_ID,
-        selectedExchangeContract,
-        [],
-        "getSuggestedPrice",
-        selectedExchangeAbi
-      ).then((value: number) => setSuggestedPrice(formatUintToDecimal(value)));
-    }
-
   }, [selectedFromCurrency]);
+
+  const suggestedPrice: number = useMemo(() => {
+    switch (selectedFromCurrency) {
+      case "nac":
+        return 0;
+      case "nmilk":
+        return nmilkSuggestedPrice;
+      case "nland":
+        return nlandSuggestedPrice;
+      case "nbeef":
+        return nbeefSuggestedPrice;
+    }
+  }, [selectedFromCurrency, nmilkSuggestedPrice, nlandSuggestedPrice, nbeefSuggestedPrice]);
 
   const canSubmit: boolean = useMemo(() => {
     return !!(account && library && fromAmount && (fromPrice || selectedFromCurrency === 'nac'));

@@ -7,6 +7,8 @@ import {ReactSVG} from "react-svg";
 import {CHAIN_ID} from "src/config";
 import contracts from "src/config/constants/contracts";
 import NMILKExchange from "src/config/abi/NMILKExchange.json";
+import NLANDExchange from "src/config/abi/NLANDExchange.json";
+import NBEEFExchange from "src/config/abi/NBEEFExchange.json";
 import {callViewFunction, callFunction, approveContract, getTokenAllowance} from "reblox-web3-utils";
 import {formatDecimalToUint, formatUintToDecimal} from "src/utils/formatUtils";
 import {useDebounce} from "src/hooks/useDebounce";
@@ -16,6 +18,9 @@ import {ModalContext} from "src/contexts/ModalContext";
 import ExchangeARSForm from "src/components/forms/ExchangeARSForm";
 import {formatCurrency} from "src/utils/currency";
 import {useReloadPrices} from "src/hooks/useReloadPrices";
+import {NmilkContext} from "src/contexts/NmilkContext";
+import {NlandContext} from "src/contexts/NlandContext";
+import {NbeefContext} from "src/contexts/NbeefContext";
 
 const Buy: React.FC = () => {
   const { t } = useTranslation();
@@ -24,13 +29,14 @@ const Buy: React.FC = () => {
 
   const { account, library } = useEthers();
   const { nacExchangeRate, nacUserAssets, usdtUserAssets } = useContext(PriceContext);
+  const { nmilkSuggestedPrice } = useContext(NmilkContext);
+  const { nlandSuggestedPrice } = useContext(NlandContext);
+  const { nbeefSuggestedPrice } = useContext(NbeefContext);
 
   const [fromMaxInput, setFromMaxInput] = useState<number>(0);
 
   const [fromAmount, setFromAmount] = useState<number>(0);
   const debouncedFromAmount: number = useDebounce(fromAmount, 500);
-
-  const [suggestedPrice, setSuggestedPrice] = useState<number>(0);
 
   const [totalTokensForSell, setTotalTokensForSell] = useState<number>(0);
 
@@ -57,8 +63,8 @@ const Buy: React.FC = () => {
 
   const configExchange: any = {
     nmilk: {exchangeAbi: NMILKExchange, exchangeContract: contracts.exchangeNmilk[CHAIN_ID]},
-    nbeef: {exchangeAbi: NMILKExchange, exchangeContract: contracts.exchangeNmilk[CHAIN_ID]},
-    nland: {exchangeAbi: NMILKExchange, exchangeContract: contracts.exchangeNmilk[CHAIN_ID]}
+    nbeef: {exchangeAbi: NBEEFExchange, exchangeContract: contracts.exchangeNbeef[CHAIN_ID]},
+    nland: {exchangeAbi: NLANDExchange, exchangeContract: contracts.exchangeNland[CHAIN_ID]}
   };
 
   const selectedExchangeAbi: any[] = useMemo(() => {
@@ -128,14 +134,6 @@ const Buy: React.FC = () => {
       selectedExchangeAbi
     ).then((value: number) => setFromMaxInput(getValueBasedOnSelectedFromCurrency(formatUintToDecimal(value))));
 
-    callViewFunction(
-      CHAIN_ID,
-      selectedExchangeContract,
-      [],
-      "getSuggestedPrice",
-      selectedExchangeAbi
-    ).then((value: number) => setSuggestedPrice(formatUintToDecimal(value)));
-
     requestTotalTokensForSell();
 
   }, [account, selectedToCurrency]);
@@ -153,6 +151,17 @@ const Buy: React.FC = () => {
   const canSubmit: boolean = useMemo(() => {
     return !!(account && library && fromAmount);
   }, [account, library, fromAmount]);
+
+  const suggestedPrice: number = useMemo(() => {
+    switch (selectedToCurrency) {
+      case "nmilk":
+        return nmilkSuggestedPrice;
+      case "nland":
+        return nlandSuggestedPrice;
+      case "nbeef":
+        return nbeefSuggestedPrice;
+    }
+  }, [selectedToCurrency, nmilkSuggestedPrice, nlandSuggestedPrice, nbeefSuggestedPrice]);
 
   const availableTokens: number = useMemo(() => {
     switch (selectedFromCurrency) {

@@ -3,6 +3,7 @@ import { useBoolean } from "react-use";
 import {CHAIN_ID} from "src/config";
 import contracts from "src/config/constants/contracts";
 import NMILK from "src/config/abi/NMILK.json";
+import NMILKExchange from "src/config/abi/NMILKExchange.json";
 import OracleNMILK from "src/config/abi/OracleNMILK.json";
 import MainStaking from "src/config/abi/MainStaking.json";
 import {callViewFunction, callFunction} from "reblox-web3-utils";
@@ -16,6 +17,7 @@ import {SECONDS_PER_YEAR} from "src/utils";
 const NmilkContext = createContext({
   nmilkTotalSupply: 0,
   nmilkExchangeRate: 0,
+  nmilkSuggestedPrice: 0,
   nmilkTotalAssets: 0,
   nmilkLastRewardDate: new Date(),
   nmilkRewardPerSecond: 0,
@@ -43,6 +45,7 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
 
   const [nmilkTotalSupply, setNmilkTotalSupply] = useState<number>(0);
   const [nmilkExchangeRate, setNmilkExchangeRate] = useState<number>(0);
+  const [nmilkSuggestedPrice, setNmilkSuggestedPrice] = useState<number>(0);
   const [nmilkTotalAssets, setNmilkTotalAssets] = useState<number>(0);
   const [nmilkLastRewardDate, setNmilkLastRewardDate] = useState<Date>(new Date());
   const [nmilkRewardPerSecond, setNmilkRewardPerSecond] = useState<number>(0);
@@ -99,6 +102,13 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
       OracleNMILK
     ).then((value: number) => setNmilkExchangeRate(formatUintToDecimal(value)));
 
+    callViewFunction(
+      CHAIN_ID,
+      contracts.exchangeNmilk[CHAIN_ID],
+      [],
+      "getSuggestedPrice",
+      NMILKExchange
+    ).then((value: number) => setNmilkSuggestedPrice(formatUintToDecimal(value)));
 
     if (library && account) {
 
@@ -159,6 +169,7 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
       value={{
         nmilkTotalSupply,
         nmilkExchangeRate,
+        nmilkSuggestedPrice,
         nmilkTotalAssets,
         nmilkLastRewardDate,
         nmilkRewardPerSecond,

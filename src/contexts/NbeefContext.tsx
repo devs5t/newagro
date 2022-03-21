@@ -12,10 +12,12 @@ import {get} from "lodash";
 import {formatUintToDecimal, formatHexToUintToDecimal} from "src/utils/formatUtils";
 import {PriceContext} from "src/contexts/PriceContext";
 import {SECONDS_PER_YEAR} from "src/utils";
+import NLANDExchange from "src/config/abi/NLANDExchange.json";
 
 const NbeefContext = createContext({
   nbeefTotalSupply: 0,
   nbeefExchangeRate: 0,
+  nbeefSuggestedPrice: 0,
   nbeefTotalAssets: 0,
   nbeefLastRewardDate: new Date(),
   nbeefRewardPerSecond: 0,
@@ -40,6 +42,7 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
 
   const [nbeefTotalSupply, setNbeefTotalSupply] = useState<number>(0);
   const [nbeefExchangeRate, setNbeefExchangeRate] = useState<number>(0);
+  const [nbeefSuggestedPrice, setNbeefSuggestedPrice] = useState<number>(0);
   const [nbeefTotalAssets, setNbeefTotalAssets] = useState<number>(0);
   const [nbeefLastRewardDate, setNbeefLastRewardDate] = useState<Date>(new Date());
   const [nbeefRewardPerSecond, setNbeefRewardPerSecond] = useState<number>(0);
@@ -93,6 +96,13 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
       OracleNBEEF
     ).then((value: number) => setNbeefExchangeRate(formatUintToDecimal(value)));
 
+    callViewFunction(
+      CHAIN_ID,
+      contracts.exchangeNbeef[CHAIN_ID],
+      [],
+      "getSuggestedPrice",
+      NLANDExchange
+    ).then((value: number) => setNbeefSuggestedPrice(formatUintToDecimal(value)));
 
     if (library && account) {
 
@@ -151,6 +161,7 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
       value={{
         nbeefTotalSupply,
         nbeefExchangeRate,
+        nbeefSuggestedPrice,
         nbeefTotalAssets,
         nbeefLastRewardDate,
         nbeefRewardPerSecond,

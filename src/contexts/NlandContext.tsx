@@ -12,10 +12,12 @@ import {get} from "lodash";
 import {formatUintToDecimal, formatHexToUintToDecimal} from "src/utils/formatUtils";
 import {PriceContext} from "src/contexts/PriceContext";
 import {SECONDS_PER_YEAR} from "src/utils";
+import NLANDExchange from "src/config/abi/NLANDExchange.json";
 
 const NlandContext = createContext({
   nlandTotalSupply: 0,
   nlandExchangeRate: 0,
+  nlandSuggestedPrice: 0,
   nlandTotalAssets: 0,
   nlandLastRewardDate: new Date(),
   nlandRewardPerSecond: 0,
@@ -40,6 +42,7 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
 
   const [nlandTotalSupply, setNlandTotalSupply] = useState<number>(0);
   const [nlandExchangeRate, setNlandExchangeRate] = useState<number>(0);
+  const [nlandSuggestedPrice, setNlandSuggestedPrice] = useState<number>(0);
   const [nlandTotalAssets, setNlandTotalAssets] = useState<number>(0);
   const [nlandLastRewardDate, setNlandLastRewardDate] = useState<Date>(new Date());
   const [nlandRewardPerSecond, setNlandRewardPerSecond] = useState<number>(0);
@@ -93,6 +96,13 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
       OracleNLAND
     ).then((value: number) => setNlandExchangeRate(formatUintToDecimal(value)));
 
+    callViewFunction(
+      CHAIN_ID,
+      contracts.exchangeNland[CHAIN_ID],
+      [],
+      "getSuggestedPrice",
+      NLANDExchange
+    ).then((value: number) => setNlandSuggestedPrice(formatUintToDecimal(value)));
 
     if (library && account) {
 
@@ -151,6 +161,7 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
       value={{
         nlandTotalSupply,
         nlandExchangeRate,
+        nlandSuggestedPrice,
         nlandTotalAssets,
         nlandLastRewardDate,
         nlandRewardPerSecond,
