@@ -101,10 +101,10 @@ const Buy: React.FC = () => {
     callViewFunction(
       CHAIN_ID,
       selectedExchangeContract,
-      [formatDecimalToUint(debouncedFromAmount)],
+      [formatDecimalToUint(getValueBasedOnSelectedFromCurrency(debouncedFromAmount))],
       "getTokenOutputAmount",
       selectedExchangeAbi
-    ).then((value: number) => setToAmount(getValueBasedOnSelectedFromCurrency(formatUintToDecimal(value))));
+    ).then((value: number) => setToAmount(formatUintToDecimal(value)));
 
   }, [debouncedFromAmount, selectedFromCurrency, selectedToCurrency]);
 
@@ -261,7 +261,7 @@ const Buy: React.FC = () => {
 
         {['nac', 'usdt'].includes(selectedFromCurrency) && (
           <p className="text-blue text-left text-sm mt-4">
-            {t('exchange.user_from_assets', {token: upperCase(selectedFromCurrency), amount: availableTokens})}
+            {t('exchange.user_from_assets', {token: upperCase(selectedFromCurrency), amount: formatCurrency(availableTokens)})}
           </p>
         )}
 

@@ -369,7 +369,7 @@ const Sell: React.FC = () => {
         </div>
 
         <p className="text-blue text-left mt-4 text-sm">
-          {t('exchange.user_from_assets', {token: upperCase(selectedFromCurrency), amount: fromUserAssets})}
+          {t('exchange.user_from_assets', {token: upperCase(selectedFromCurrency), amount: formatCurrency(fromUserAssets)})}
         </p>
 
         <div className="flex justify-center mt-4">
@@ -453,7 +453,7 @@ const Sell: React.FC = () => {
                   <thead>
                     <tr className="pb-10">
                       {[
-                        t('exchange.table.state'),
+                        t('exchange.table.status'),
                         t('exchange.table.order_number'),
                         t('exchange.table.date'),
                         t('exchange.table.amount'),
