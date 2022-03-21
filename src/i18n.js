@@ -232,7 +232,7 @@ const resources = {
         card: {
           new_agro: {
             title: "New Agro coin generados",
-            button_text: "Comprar New Agro Tokens",
+            button_text: "Comprar Tokens",
           },
           actives: {
             title: "Activos totales",
