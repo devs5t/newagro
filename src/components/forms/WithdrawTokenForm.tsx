@@ -37,6 +37,7 @@ const WithdrawTokenForm: React.FC<WithdrawTokenFormProps> = ({ token }) => {
   const { nbeefUserDeposited } = useContext(NbeefContext);
 
   const [amount, setAmount] = useState<number>();
+  const [sliderValue, setSliderValue] = useState<number>(0);
   const [formSent, setFormSent] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -94,13 +95,16 @@ const WithdrawTokenForm: React.FC<WithdrawTokenFormProps> = ({ token }) => {
 
   const onChange = (value: number) => {
     if (value > availableTokens) {
+      setSliderValue(100);
       setAmount(availableTokens);
     } else {
+      setSliderValue((value * 100) / availableTokens);
       setAmount(value);
     }
   };
 
   const handleSlide = (event: Event, newValue: number) => {
+    setSliderValue(newValue);
     setAmount((availableTokens * newValue) / 100);
   };
 
@@ -150,6 +154,7 @@ const WithdrawTokenForm: React.FC<WithdrawTokenFormProps> = ({ token }) => {
         <Slider
           defaultValue={0}
           aria-label="Default"
+          value={sliderValue}
           valueLabelDisplay="auto"
           color="secondary"
           className="text-green mt-6"
