@@ -1,5 +1,5 @@
 import React, {useContext, useState} from "react";
-import InvestCard from "src/components/cards/InvestCard";
+import InvestmentCard from "src/components/cards/InvestmentCard";
 import {useTranslation} from "react-i18next";
 import {PriceContext} from "src/contexts/PriceContext";
 import {ReactSVG} from "react-svg";
@@ -68,7 +68,7 @@ const Investment: React.FC = () => {
         </div>
         <div className="xl:px-10 xl:grid xl:grid-cols-4 xl:gap-4 py-8">
           <div className="col-span-3 flex-3 max-w-3xl">
-            <InvestCard
+            <InvestmentCard
               title={t('investment.card_milk.title')}
               apr={nmilkApr}
               token={"nmilk"}
@@ -80,7 +80,7 @@ const Investment: React.FC = () => {
               descriptionText={t("investment.card_milk.description")}
             />
             <br/>
-            <InvestCard
+            <InvestmentCard
               title={t('investment.card_beef.title')}
               apr={0}
               token={"nbeef"}
@@ -92,7 +92,7 @@ const Investment: React.FC = () => {
               containerClasses={"opacity-50 pointer-events-none"}
             />
             <br/>
-            <InvestCard
+            <InvestmentCard
               title={t('investment.card_land.title')}
               apr={0}
               token={"nland"}

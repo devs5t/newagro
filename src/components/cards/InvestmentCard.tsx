@@ -15,7 +15,7 @@ import WithdrawTokenForm from "../forms/WithdrawTokenForm";
 import {useReloadPrices} from "src/hooks/useReloadPrices";
 import CountUp from "react-countup";
 
-interface InvestCardProps {
+interface InvestmentCardProps {
   title: string;
   apr: number;
   token: "nmilk" | "nbeef" | "nland";
@@ -46,7 +46,7 @@ const tokenKeyMap = {
   },
 };
 
-const InvestCard: React.FC<InvestCardProps> = ({
+const InvestmentCard: React.FC<InvestmentCardProps> = ({
   title,
   apr,
   token,
@@ -272,4 +272,4 @@ const InvestCard: React.FC<InvestCardProps> = ({
   );
 };
 
-export default InvestCard;
+export default InvestmentCard;
