@@ -254,7 +254,7 @@ const InvestmentCard: React.FC<InvestmentCardProps> = ({
             </div>
             <div
               className={
-                "rounded-lg border-2 border-green bg-green/[.25] w-full mt-5 p-2"
+                "rounded-lg border-2 border-green bg-green/[.15] w-full mt-5 p-2"
               }
             >
               <h4 className="text-blue text-center font-bold text-lg">
