@@ -241,7 +241,7 @@ const InvestmentCard: React.FC<InvestmentCardProps> = ({
                     )}`,
                   });
                 }}
-                disabled={!account}
+                disabled={!account || deposit === 0}
               />
               <Button
                 text={`${t("investment.reinvest")} NAC`}
