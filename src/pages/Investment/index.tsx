@@ -1,5 +1,5 @@
 import React, {useContext, useState} from "react";
-import InvestCard from "src/components/HomeCard/InvestCard";
+import InvestCard from "src/components/cards/InvestCard";
 import {useTranslation} from "react-i18next";
 import {PriceContext} from "src/contexts/PriceContext";
 import {ReactSVG} from "react-svg";

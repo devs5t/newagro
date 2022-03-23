@@ -1,9 +1,9 @@
 import React, {useCallback, useContext, useEffect, useState} from "react";
 import { useTranslation } from "react-i18next";
 import Banner from "src/components/Banner/Banner";
-import HomeCardColored from "src/components/HomeCard/HomeCardColored";
-import HomeCard from "src/components/HomeCard/HomeCard";
-import HomeCardSecondary from "src/components/HomeCard/HomeCardSecondary";
+import HomeCardColored from "src/components/cards/HomeCardColored";
+import HomeCard from "src/components/cards/HomeCard";
+import HomeCardSecondary from "src/components/cards/HomeCardSecondary";
 import Map from "src/components/Map/Map";
 import Tabs from "src/components/tabs/Tabs";
 import {PriceContext} from "src/contexts/PriceContext";

@@ -1,8 +1,8 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import Tabs from "src/components/tabs/Tabs";
-import AdminCard from "src/components/HomeCard/AdminCard";
-import AdminCardTable from "src/components/HomeCard/AdminCardTable";
+import AdminCard from "src/components/cards/AdminCard";
+import AdminCardTable from "src/components/cards/AdminCardTable";
 
 const Admin: React.FC = () => {
   const { t } = useTranslation();

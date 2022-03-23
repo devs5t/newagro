@@ -3,7 +3,7 @@ import {useTranslation} from "react-i18next";
 import Banner from "src/components/Banner/Banner";
 import Tabs from "src/components/tabs/Tabs";
 import {ReactSVG} from "react-svg";
-import DocumentationCard from "src/components/HomeCard/DocumentationCard";
+import DocumentationCard from "src/components/cards/DocumentationCard";
 import SearchList from "src/components/SearchList";
 import Map from "src/components/Map/Map";
 import {useGoogleApi} from "react-gapi";
