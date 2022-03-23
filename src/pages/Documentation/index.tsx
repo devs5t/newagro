@@ -157,7 +157,7 @@ const Documentation: React.FC = () => {
           <DocumentationCard
             title={t("docs.cards.card3_title")}
             subtitle={t("docs.cards.card3_subtitle")}
-            linkText={t("docs.cards.see_docs")}
+            linkText={t("docs.cards.card3_goto")}
             link={"#"}
           />
           <br />

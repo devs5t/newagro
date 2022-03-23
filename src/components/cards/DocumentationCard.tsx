@@ -6,11 +6,12 @@ interface DocumentationCardProps {
   subtitle?: string;
   link?: string;
   linkText?: () => void;
+  linkTarget: string;
   containerClasses?: string;
   component?: ReactNode,
   signIn?: any;
   onClick?: () => void;
-  allowOpen?: boolean
+  allowOpen?: boolean;
 }
 
 const DocumentationCard: React.FC<DocumentationCardProps> = ({
@@ -18,6 +19,7 @@ const DocumentationCard: React.FC<DocumentationCardProps> = ({
    subtitle,
    link,
    linkText,
+   linkTarget= "_self",
    containerClasses,
    component,
    signIn,
@@ -28,9 +30,10 @@ const DocumentationCard: React.FC<DocumentationCardProps> = ({
   const [open, setOpen] = useState(false);
   return (
     <div className={`flex flex-col w-full rounded-lg bg-lightblue/[.15] p-6 shadow ${containerClasses}`}>
-      <div className="w-full flex flex-row" onClick={() => {
+      <div className="w-full flex flex-row" onClick={event => {
         signIn && signIn();
-        onClick && onClick()
+        onClick && onClick();
+        onClick && event.preventDefault();
         allowOpen && setOpen(!open);
       }}>
         <div className="w-1/2">
@@ -38,7 +41,7 @@ const DocumentationCard: React.FC<DocumentationCardProps> = ({
           <p className="text-blue text-sm my-3">{subtitle}</p>
         </div>
         <div className="w-1/2 flex flex-col pr-4">
-          <a className="text-sm w-full font-bold text-blue text-right underline" href={link} >{linkText}</a>
+          <a className="text-sm w-full font-bold text-blue text-right underline uppercase" href={link} target={linkTarget}>{linkText}</a>
           <ReactSVG
             src={"icons/arrow.svg"}
             beforeInjection={(svg) => {
