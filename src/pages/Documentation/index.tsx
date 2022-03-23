@@ -136,7 +136,7 @@ const Documentation: React.FC = () => {
         <div className="w-full grid grid-cols-1 mt-8">
           <DocumentationCard
             title={t("docs.cards.card1_title")}
-            subtitle={t("docs.cards.card1_subtitle")}
+            subtitle={files.length ? t("docs.cards.card1_subtitle", {filesLength: files.length}) : ""}
             linkText={t("docs.cards.see_docs")}
             link={"#"}
             signIn={() => {

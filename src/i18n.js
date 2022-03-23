@@ -194,7 +194,7 @@ const resources = {
         },
         cards: {
           card1_title: "Milk delivery remittance",
-          card1_subtitle: "566 Remittance",
+          card1_subtitle: "{{filesLength}} Remittance",
           see_docs: "SEE DOCUMENTATION",
           card2_title: "Georeference",
           card3_title: "Live Camera",
@@ -418,7 +418,7 @@ const resources = {
         },
         cards: {
           card1_title: "Remito de salida de Leche",
-          card1_subtitle: "566 Remitos",
+          card1_subtitle: "{{filesLength}} Remitos",
           see_docs: "VER DOCUMENTACIÓN",
           card2_title: "Georeferencia",
           card3_title: "Camara en vivo",
