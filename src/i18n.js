@@ -30,7 +30,7 @@ const resources = {
           "You will be able to invest in agricultural businesses with real support",
         card: {
           new_agro: {
-            title: "New Agro coin generated",
+            title: "New Agro Coin generated",
             button_text: "Buy Tokens",
           },
           actives: {
@@ -308,7 +308,7 @@ const resources = {
           assets: "Tus activos",
           investment: "Mis inversiones",
           nmilk: {
-            title: "Vacas de ordeñe",
+            title: "Vacas en ordeñe",
             description: "Se emitieron NMILK representando un rodeo equivalente a esta cantidad de vacas en ordeñe.",
             assetsDescription: "{{userAssetsAuxiliary}} vacas",
           },
@@ -324,7 +324,7 @@ const resources = {
           }
         },
         map: {
-          title: "Conocé la ubicación física del Tambo",
+          title: "Conocé la ubicación física del Campo",
           location: "Tandil, Buenos Aires",
         },
       },
