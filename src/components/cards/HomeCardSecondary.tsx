@@ -2,30 +2,29 @@ import React from "react";
 import Button from '../Buttons/Button';
 import {ReactSVG} from "react-svg";
 import CountUp from "react-countup";
+import {useTranslation} from "react-i18next";
 
 interface HomeCardSecondaryProps {
   title: string;
   description: string;
   amount: number;
+  assetsDescription: string;
   onClickButton?: () => void;
   containerClasses?: string;
-  buttonText: string,
-  fourthText: string;
-  fifthText: string;
   icon?: string;
 }
 
 const HomeCardSecondary: React.FC<HomeCardSecondaryProps> = ({
   title,
   description,
-                                                               amount,
-  buttonText,
+  amount,
+  assetsDescription,
   onClickButton,
   containerClasses,
-  fourthText,
-  fifthText,
   icon
 }) => {
+  const { t } = useTranslation();
+
   return (
     <div className={`min-h-280 flex flex-col w-full rounded-lg border-green/[.5] border-2 shadow ${containerClasses}`}>
       <div className={`flex justify-center items-center w-full p-4 pb-0 md:pb-4`}>
@@ -44,24 +43,24 @@ const HomeCardSecondary: React.FC<HomeCardSecondaryProps> = ({
       </div>
       <div className="flex justify-between items-center w-full md:border-green/[.25] md:border-t-2">
         <div className="h-full w-3/6 flex p-4 flex-col justify-evenly md:justify-betweenmd:px-7 md:p-4">
-          <h3 className="text-green font-semibold text-sm">{fourthText}</h3>
-          <div className="flex">
+          <h3 className="text-green font-semibold text-sm">{t(`home.secondary_card.assets`)}</h3>
+          <div className="flex items-center h-8">
             {icon && (
               <ReactSVG
                 src={icon}
                 beforeInjection={(svg) => {
                   svg.classList.add('fill-green');
                   svg.classList.add('mr-4');
-                  svg.classList.add('text-sm');
-                  svg.classList.add('md:text-lg');
+                  svg.classList.add('w-6');
+                  svg.classList.add('h-6');
                 }}
               />
             )}
-            <p className="text-green font-semibold text-sm">{fifthText}</p>
+            <p className="text-green font-semibold text-sm">{assetsDescription}</p>
           </div>
         </div>
         <div className="h-full w-3/6 flex flex-col justify-end md:px-7 p-4">
-          <Button text={buttonText} onClick={onClickButton} extraClasses="w-full border-2 border-blue font-bold text-blue text-xs py-2 px-0"/>
+          <Button text={t(`home.secondary_card.investment`)} onClick={onClickButton} extraClasses="w-full border-2 border-blue font-bold text-blue text-xs py-2 px-0"/>
         </div>
       </div>
     </div>

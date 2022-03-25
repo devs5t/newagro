@@ -1,11 +1,11 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useCallback, useContext, useState} from "react";
 import Button from "../Buttons/Button";
 import {Link, useNavigate} from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ModalContext } from "src/contexts/ModalContext";
 import DepositTokenForm from "src/components/forms/DepositTokenForm";
 import { upperCase } from "lodash";
-import { NMILK_POOL_ID, NMILK_TOKENS_BY_COW, NBEEF_POOL_ID, NLAND_POOL_ID } from "src/config/constants";
+import { NMILK_POOL_ID, NBEEF_POOL_ID, NLAND_POOL_ID } from "src/config/constants";
 import contracts from "src/config/constants/contracts";
 import { callFunction } from "reblox-web3-utils";
 import { CHAIN_ID } from "src/config";
@@ -16,16 +16,17 @@ import {useReloadPrices} from "src/hooks/useReloadPrices";
 import CountUp from "react-countup";
 
 interface InvestmentCardProps {
-  title: string;
   apr: number;
   token: "nmilk" | "nbeef" | "nland";
+  selectedToken: "nmilk" | "nbeef" | "nland" | undefined;
   setSelectedToken: (token: "nmilk" | "nbeef" | "nland" | undefined) => void;
   image: string;
   deposit: number;
+  depositAuxiliary: number;
   assets: number;
   earn: number;
+  earnAuxiliary: number;
   totalAssets: number;
-  descriptionText?: string;
   disabled?: boolean;
 }
 
@@ -48,36 +49,28 @@ const tokenKeyMap = {
 };
 
 const InvestmentCard: React.FC<InvestmentCardProps> = ({
-  title,
   apr,
   token,
+  selectedToken,
   setSelectedToken,
   image,
   deposit,
+  depositAuxiliary,
   assets,
   earn,
+  earnAuxiliary,
   totalAssets,
-  descriptionText,
   disabled= false
 }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { reloadPrices } = useReloadPrices();
   const { setModal } = useContext(ModalContext);
-  const [open, setOpen] = useState(false);
 
   const [isHarvestingLoading, setIsHarvestingLoading] = useState<boolean>(false);
   const [isReinvestingLoading, setIsReinvestingLoading] = useState<boolean>(false);
 
   const { account, library } = useEthers();
-
-  useEffect(() => {
-    if (open) {
-      setSelectedToken(token);
-    } else {
-      setSelectedToken(undefined);
-    }
-  }, [open]);
 
   const onHarvest = (e: any) => {
     e.stopPropagation();
@@ -109,10 +102,18 @@ const InvestmentCard: React.FC<InvestmentCardProps> = ({
     });
   };
 
+  const handleOpenClick = useCallback(() => {
+    if (token === selectedToken) {
+      setSelectedToken(undefined);
+    } else {
+      setSelectedToken(token);
+    }
+  }, [selectedToken]);
+
   return (
     <div
       className={`flex flex-col w-full rounded-lg bg-lightblue/[.15] py-5 px-5 shadow relative cursor-pointer mb-6 md:mb-0 ${disabled ? 'opacity-50 pointer-events-none' : ''}`}
-      onClick={() => setOpen(!open)}
+      onClick={handleOpenClick}
     >
       <div className={`flex flex-col md:flex-row grid grid-cols-1 md:grid-cols-2`}>
         <div
@@ -121,7 +122,7 @@ const InvestmentCard: React.FC<InvestmentCardProps> = ({
         />
         <div className="flex flex-col justify-around w-full mt-5 relative md:pl-16 md:mt-0 py-4">
           <h3 className="text-blue font-bold text-left text-lg md:text-2xl">
-            {title}
+            {t(`investment.cards.${token}.title`)}
           </h3>
           <CountUp
             className="text-blue font-bold text-left font-bold md:text-xl"
@@ -133,13 +134,16 @@ const InvestmentCard: React.FC<InvestmentCardProps> = ({
             decimal="."
             preserveValue={true}
           />
-          <Link
-            className="underline text-blue pointer text-xs md:text-sm"
-            to={`/exchange`}
-          >
-            {t("investment.card_beef.buy")} {upperCase(token)}
-          </Link>
-          {open && (
+          <div>
+            <Link
+              className="underline text-blue pointer text-xs md:text-sm"
+              to={`/exchange`}
+            >
+              {t("investment.buy")} {upperCase(token)}
+            </Link>
+          </div>
+
+          {selectedToken === token && (
             <a className="w-full underline text-blue font-bold pointer text-xs md:text-base uppercase">
               {t("investment.watch_cams")}
             </a>
@@ -161,8 +165,8 @@ const InvestmentCard: React.FC<InvestmentCardProps> = ({
 
             <CountUp
               className=" flex justify-center w-full text-xs font-medium text-blue text-center mb-2 md:text-sm"
-              end={deposit / NMILK_TOKENS_BY_COW}
-              suffix={` ${t("investment.cows")}`}
+              end={depositAuxiliary}
+              suffix={` ${t(`investment.cards.${token}.auxiliaryDescription`)}`}
               decimals={2}
               separator=","
               decimal="."
@@ -183,8 +187,8 @@ const InvestmentCard: React.FC<InvestmentCardProps> = ({
             />
             <CountUp
               className=" flex justify-center w-full text-xs font-medium text-blue text-center mb-2 md:text-sm"
-              end={earn / NMILK_TOKENS_BY_COW}
-              suffix={` ${t("investment.cows")}`}
+              end={earnAuxiliary}
+              suffix={` ${t(`investment.cards.${token}.auxiliaryDescription`)}`}
               decimals={2}
               separator=","
               decimal="."
@@ -194,11 +198,11 @@ const InvestmentCard: React.FC<InvestmentCardProps> = ({
         </div>
       </div>
 
-      {open && (
+      {selectedToken === token && (
         <div className="flex flex-col md:flex-row w-full pt-8">
           <div className="w-full mb-8 md:mb-0 md:px-16 md:w-1/2">
             <p className="w-full text-blue text-xs">
-              {descriptionText}
+              {t(`investment.cards.${token}.description`)}
             </p>
           </div>
           <div className="md:w-1/2 w-full">

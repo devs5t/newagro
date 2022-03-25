@@ -7,7 +7,7 @@ import OracleNLAND from "src/config/abi/OracleNMILK.json";
 import MainStaking from "src/config/abi/MainStaking.json";
 import {callViewFunction, callFunction} from "reblox-web3-utils";
 import {useEthers} from "@usedapp/core";
-import {NLAND_POOL_ID} from "src/config/constants";
+import {NLAND_POOL_ID, NLAND_TOKENS_BY_HECTARE} from "src/config/constants";
 import {get} from "lodash";
 import {formatUintToDecimal, formatHexToUintToDecimal} from "src/utils/formatUtils";
 import {PriceContext} from "src/contexts/PriceContext";
@@ -28,6 +28,9 @@ const NlandContext = createContext({
   nlandUserAssets: 0,
   nlandUserDeposited: 0,
   nlandUserEarns: 0,
+
+  totalHectares: 0,
+  userHectares: 0,
 
   isLoading: true,
   loadPrices: () => {},
@@ -54,6 +57,9 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
   const [nlandUserAssets, setNlandUserAssets] = useState<number>(0);
   const [nlandUserDeposited, setNlandUserDeposited] = useState<number>(0);
   const [nlandUserEarns, setNlandUserEarns] = useState<number>(0);
+
+  const [totalHectares, setTotalHectares] = useState<number>(0);
+  const [userHectares, setUserHectares] = useState<number>(0);
 
   const [isLoading, setLoading] = useBoolean(true);
 
@@ -141,7 +147,12 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
 
   useEffect(() => {
     setNlandTotalAssets(nlandTotalSupply * nlandSuggestedPrice);
+    setTotalHectares(nlandTotalSupply / NLAND_TOKENS_BY_HECTARE);
   }, [nlandSuggestedPrice, nlandTotalSupply]);
+
+  useEffect(() => {
+    setUserHectares(nlandUserAssets / NLAND_TOKENS_BY_HECTARE);
+  }, [nlandUserAssets]);
 
   useEffect(() => {
     setNlandProfitability((nlandAssetsPerMonth * nlandExchangeRate));
@@ -172,6 +183,9 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
         nlandUserAssets,
         nlandUserDeposited,
         nlandUserEarns,
+
+        totalHectares,
+        userHectares,
 
         isLoading,
         loadPrices

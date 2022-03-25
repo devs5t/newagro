@@ -29,8 +29,8 @@ const NmilkContext = createContext({
   nmilkUserDeposited: 0,
   nmilkUserEarns: 0,
 
-  milkingCows: 0,
-  userMilkingCows: 0,
+  totalCows: 0,
+  userCows: 0,
 
   isLoading: true,
   loadPrices: () => {},
@@ -58,8 +58,8 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
   const [nmilkUserDeposited, setNmilkUserDeposited] = useState<number>(0);
   const [nmilkUserEarns, setNmilkUserEarns] = useState<number>(0);
 
-  const [milkingCows, setMilkingCows] = useState<number>(0);
-  const [userMilkingCows, setUserMilkingCows] = useState<number>(0);
+  const [totalCows, setTotalCows] = useState<number>(0);
+  const [userCows, setUserCows] = useState<number>(0);
 
   const [isLoading, setLoading] = useBoolean(true);
 
@@ -147,9 +147,12 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
 
   useEffect(() => {
     setNmilkTotalAssets(nmilkTotalSupply * nmilkSuggestedPrice);
-    setMilkingCows(nmilkTotalSupply / NMILK_TOKENS_BY_COW);
-    setUserMilkingCows(nmilkUserAssets / NMILK_TOKENS_BY_COW);
-  }, [nmilkSuggestedPrice, nmilkTotalSupply, nmilkUserAssets]);
+    setTotalCows(nmilkTotalSupply / NMILK_TOKENS_BY_COW);
+  }, [nmilkSuggestedPrice, nmilkTotalSupply]);
+
+  useEffect(() => {
+    setUserCows(nmilkUserAssets / NMILK_TOKENS_BY_COW);
+  }, [nmilkUserAssets]);
 
   useEffect(() => {
     setNmilkProfitability((nmilkAssetsPerMonth * nmilkExchangeRate * NMILK_TOKENS_BY_COW));
@@ -181,8 +184,8 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
         nmilkUserDeposited,
         nmilkUserEarns,
 
-        milkingCows,
-        userMilkingCows,
+        totalCows,
+        userCows,
 
         isLoading,
         loadPrices

@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from "react";
+import React, {useCallback, useContext, useEffect, useMemo, useState} from "react";
 import { useTranslation } from "react-i18next";
 import Banner from "src/components/Banner/Banner";
 import HomeCardColored from "src/components/cards/HomeCardColored";
@@ -17,9 +17,9 @@ const Home: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const {nacTotalSupply} = useContext(PriceContext);
-  const {nmilkTotalAssets, nmilkTotalSupply, milkingCows, nmilkUserAssets, userMilkingCows, nmilkLastRewardDate, nmilkRewardPerSecond} = useContext(NmilkContext);
-  const {nlandLastRewardDate, nlandRewardPerSecond} = useContext(NlandContext);
-  const {nbeefLastRewardDate, nbeefRewardPerSecond} = useContext(NbeefContext);
+  const {nmilkTotalAssets, nmilkTotalSupply, totalCows, userCows, nmilkLastRewardDate, nmilkRewardPerSecond} = useContext(NmilkContext);
+  const {nlandTotalAssets, nlandTotalSupply, totalHectares, userHectares, nlandLastRewardDate, nlandRewardPerSecond} = useContext(NlandContext);
+  const {nbeefTotalAssets, nbeefTotalSupply, totalSteers, userSteers, nbeefLastRewardDate, nbeefRewardPerSecond} = useContext(NbeefContext);
 
   const [totalSupply, setTotalSupply] = useState<number>(0);
 
@@ -37,6 +37,19 @@ const Home: React.FC = () => {
     const interval = setInterval(calculateTotalSupply, 10000);
     return () => clearInterval(interval);
   }, [nacTotalSupply, nmilkLastRewardDate, nmilkRewardPerSecond, nlandLastRewardDate, nlandRewardPerSecond, nbeefLastRewardDate, nbeefRewardPerSecond]);
+
+  const [selectedToken, setSelectedToken] = useState<'nmilk' | 'nland' | 'nbeef'>('nmilk');
+
+  const [selectedTokenTotalSupply, totalAssetsAuxiliary, userAssetsAuxiliary, selectedTokenIcon] = useMemo(() => {
+    switch (selectedToken) {
+      case "nmilk":
+        return [nmilkTotalSupply, totalCows, userCows, 'icons/milk.svg'];
+      case "nland":
+        return [nlandTotalSupply, totalHectares, userHectares, 'icons/land.svg'];
+      case "nbeef":
+        return [nbeefTotalSupply, totalSteers, userSteers, 'icons/beef.svg'];
+    }
+  }, [selectedToken, nmilkTotalSupply, totalCows, userCows, nlandTotalSupply, totalHectares, userHectares, nbeefTotalSupply, totalSteers, userSteers]);
 
   return (
     <div className="w-full flex justify-center mt-8">
@@ -57,7 +70,7 @@ const Home: React.FC = () => {
           />
           <HomeCardColored
             title={t("home.card.actives.title")}
-            amount={nmilkTotalAssets}
+            amount={nmilkTotalAssets + nlandTotalAssets + nbeefTotalAssets}
             currency="USD"
             subtitle={t("home.card.actives.third_text")}
           />
@@ -65,30 +78,28 @@ const Home: React.FC = () => {
         <div className="w-full justify-center flex my-8">
           <Tabs
             tabs={[
-              {name: 'New Milk', selected: true},
-              {name: 'New Beef', disabled: true},
-              {name: 'New Land', disabled: true}
+              {name: 'New Milk', selected: selectedToken === 'nmilk', onClick: () => setSelectedToken('nmilk')},
+              {name: 'New Land', selected: selectedToken === 'nland', onClick: () => setSelectedToken('nland')},
+              {name: 'New Beef', selected: selectedToken === 'nbeef', onClick: () => setSelectedToken('nbeef'), disabled: true},
             ]}
             containerClass="max-w-md"
           />
         </div>
         <div className="w-full grid grid-cols-1 xl:grid-cols-2 gap-4 mt-8">
           <HomeCard
-            title={t("home.card.nmilk.title")}
-            description={t("home.card.nmilk.description")}
-            amount={nmilkTotalSupply}
+            title={t(`home.card.${selectedToken}.title`)}
+            description={t(`home.card.${selectedToken}.description`)}
+            amount={selectedTokenTotalSupply}
             onClickButton={() => navigate('/exchange')}
-            buttonText={t("home.card.nmilk.button_text")}
+            buttonText={t(`home.card.${selectedToken}.button_text`)}
           />
           <HomeCardSecondary
-            title={t("home.card.cows.title")}
-            description={t("home.card.cows.description")}
-            amount={milkingCows}
+            title={t(`home.secondary_card.${selectedToken}.title`)}
+            description={t(`home.secondary_card.${selectedToken}.description`)}
+            amount={totalAssetsAuxiliary}
             onClickButton={() => navigate('/investment')}
-            buttonText={t("home.card.cows.button_text")}
-            fourthText={t("home.card.cows.fourth_text")}
-            fifthText={t("home.card.cows.fifth_text", {nmilkUserAssets, userMilkingCows: userMilkingCows.toFixed(2)})}
-            icon="icons/cow.svg"
+            assetsDescription={t(`home.secondary_card.${selectedToken}.assetsDescription`, {userAssetsAuxiliary: userAssetsAuxiliary.toFixed(2)})}
+            icon={selectedTokenIcon}
           />
         </div>
 

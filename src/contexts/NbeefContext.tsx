@@ -7,7 +7,7 @@ import OracleNBEEF from "src/config/abi/OracleNMILK.json";
 import MainStaking from "src/config/abi/MainStaking.json";
 import {callViewFunction, callFunction} from "reblox-web3-utils";
 import {useEthers} from "@usedapp/core";
-import {NBEEF_POOL_ID} from "src/config/constants";
+import {NBEEF_POOL_ID, NBEEF_TOKENS_BY_STEER} from "src/config/constants";
 import {get} from "lodash";
 import {formatUintToDecimal, formatHexToUintToDecimal} from "src/utils/formatUtils";
 import {PriceContext} from "src/contexts/PriceContext";
@@ -28,6 +28,9 @@ const NbeefContext = createContext({
   nbeefUserAssets: 0,
   nbeefUserDeposited: 0,
   nbeefUserEarns: 0,
+
+  totalSteers: 0,
+  userSteers: 0,
 
   isLoading: true,
   loadPrices: () => {},
@@ -54,6 +57,9 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
   const [nbeefUserAssets, setNbeefUserAssets] = useState<number>(0);
   const [nbeefUserDeposited, setNbeefUserDeposited] = useState<number>(0);
   const [nbeefUserEarns, setNbeefUserEarns] = useState<number>(0);
+
+  const [totalSteers, setTotalSteers] = useState<number>(0);
+  const [userSteers, setUserSteers] = useState<number>(0);
 
   const [isLoading, setLoading] = useBoolean(true);
 
@@ -141,7 +147,12 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
 
   useEffect(() => {
     setNbeefTotalAssets(nbeefTotalSupply * nbeefSuggestedPrice);
+    setTotalSteers(nbeefTotalSupply / NBEEF_TOKENS_BY_STEER);
   }, [nbeefSuggestedPrice, nbeefTotalSupply]);
+
+  useEffect(() => {
+    setUserSteers(nbeefUserAssets / NBEEF_TOKENS_BY_STEER);
+  }, [nbeefUserAssets]);
 
   useEffect(() => {
     setNbeefProfitability((nbeefAssetsPerMonth * nbeefExchangeRate));
@@ -172,6 +183,9 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
         nbeefUserAssets,
         nbeefUserDeposited,
         nbeefUserEarns,
+
+        totalSteers,
+        userSteers,
 
         isLoading,
         loadPrices

@@ -39,18 +39,38 @@ const resources = {
           },
           nmilk: {
             title: "Total NMILK Tokens",
-            description:
-              "Each NMILK Token is equivalent to xxxx liters of real milk from the dairy. A new affordable and affordable way to invest in a dairy farm.",
-            button_text: "Buy New Milk",
+            description: "Each NMILK Token is equivalent to xxxx liters of real milk from the dairy. A new affordable and affordable way to invest in a dairy farm.",
+            button_text: "Buy NMILK",
           },
-          cows: {
-            title: "Total Milking Cows",
-            description:
-              "Each real Milking Cow is equivalent to 5,500“ New Milk ”Tokens (NMILK)",
-            button_text: "My investments",
-            fourth_text: "Your assets",
-            fifth_text: "{{userMilkingCows}} cows ({{nmilkUserAssets}} NMILK)",
+          nland: {
+            title: "Total NLAND Tokens",
+            description: "Each NLAND token is equivalent to a productive hectare that yields 10 quintals of soy annually.",
+            button_text: "Buy NLAND",
           },
+          nbeef: {
+            title: "Total NBEEF Tokens",
+            description: "The NBEEF Tokens will be equivalent to a beef production cattle rodeo for which you will receive equivalent income in kilograms of meat.",
+            button_text: "Buy NBEEF",
+          },
+        },
+        secondary_card: {
+          assets: "Your assets",
+          investment: "My investments",
+          nmilk: {
+            title: "Milking cows",
+            description: "NMILK were issued representing a herd equivalent to this number of milking cows.",
+            assetsDescription: "{{userAssetsAuxiliary}} cows",
+          },
+          nland: {
+            title: "Productive Hectares",
+            description: "NLAND were issued representing this amount of hectares.",
+            assetsDescription: "{{userAssetsAuxiliary}} hectares",
+          },
+          nbeef: {
+            title: "Beef Roundup",
+            description: "NBEEF will be issued representing a real number of animals.",
+            assetsDescription: "{{userAssetsAuxiliary}} steers",
+          }
         },
         map: {
           title: "Know the physical location of the Dairy",
@@ -97,7 +117,6 @@ const resources = {
       investment: {
         apr: "APR",
         text: "*Remember that in order to receive your earnings it is necessary that you have your Tokens deposited",
-        cows: "cows",
         watch_cams: "Watch live cameras",
         deposit: "Deposit",
         buy: "Buy",
@@ -108,18 +127,22 @@ const resources = {
         withdraw: "Withdraw",
         total_assets: "Your total {{token}} assets",
         pending : "pending",
-        card_milk: {
-          title: "New Milk (NMILK)",
-          buy: "Buy",
-          description: "NMILK Tokens can be deposited into this pool to receive part of the rental income equivalent to a liter of milk from the rodeos they represent or withdrawn to sell. You will receive the rent in NAC that you can automatically exchange to USDT or use to buy other tokens."
-        },
-        card_beef: {
-          title: "New Beef (NBEEF)",
-          buy: "Buy",
-        },
-        card_land: {
-          title: "New LAND (NLAND)",
-          buy: "Buy",
+        cards: {
+          nmilk: {
+            title: "New Milk (NMILK)",
+            description: "NMILK Tokens can be deposited into this pool to receive part of the rental income equivalent to a liter of milk from the rodeos they represent or withdrawn to sell. You will receive the rent in NAC that you can automatically exchange to USDT or use to buy other tokens.",
+            auxiliaryDescription: "cows"
+          },
+          nland: {
+            title: "New LAND (NLAND)",
+            description: "NLAND Tokens can be deposited in this pool to receive part of the rental income equivalent to kilos of soybeans from the fields they represent or withdraw them to sell them. You will receive the rent in NACoin that you can automatically exchange to USDT or use to buy other tokens.",
+            auxiliaryDescription: "hectares"
+          },
+          nbeef: {
+            title: "New Beef (NBEEF)",
+            description: "",
+            auxiliaryDescription: "steers"
+          }
         },
         assets: {
           title: 'Your Field 3.0',
@@ -263,19 +286,42 @@ const resources = {
             third_text: "Corresponde al valor de mercado de todos los NewLand, NewMilk y NewBeef emitidos hasta hoy",
           },
           nmilk: {
-            title: "Tus Tokens NMILK",
+            title: "Tokens NMILK tolales",
             description:
               "Cada NMILK Token equivale a xxxx Litros de leche reales del tambo. Una nueva forma accesible y económica de invertir en un tambo.",
-            button_text: "Comprar New Milk",
+            button_text: "Comprar NMILK",
           },
-          cows: {
-            title: "Vacas de ordeñe",
+          nland: {
+            title: "Tokens NLAND tolales",
             description:
-              "Cada Vaca de Ordeñe real, equivale a 5.500 Tokens “New Milk” (NMILK)",
-            button_text: "Mis inversiones",
-            fourth_text: "Tus activos",
-            fifth_text: "{{userMilkingCows}} vacas ({{nmilkUserAssets}} NMILK)",
+              "Cada token de NLAND equivale a una hectárea productiva que rinde 10 quintales de soja anuales.",
+            button_text: "Comprar NLAND",
           },
+          nbeef: {
+            title: "Tokens NBEEF tolales",
+            description:
+              "Los Tokens NBEEF van a equivaler a un rodeo vacuno de producción de carne por el que recibirás renta equivalente en kilogramos de carne.",
+            button_text: "Comprar NBEEF",
+          },
+        },
+        secondary_card: {
+          assets: "Tus activos",
+          investment: "Mis inversiones",
+          nmilk: {
+            title: "Vacas de ordeñe",
+            description: "Se emitieron NMILK representando un rodeo equivalente a esta cantidad de vacas en ordeñe.",
+            assetsDescription: "{{userAssetsAuxiliary}} vacas",
+          },
+          nland: {
+            title: "Hectáreas Productivas",
+            description: "Se emitieron NLAND representando esta cantidad de hectáreas.",
+            assetsDescription: "{{userAssetsAuxiliary}} hectáreas",
+          },
+          nbeef: {
+            title: "Rodeo Vacuno",
+            description: "Se emitirán NewBeef representando una cantidad real de animales.",
+            assetsDescription: "{{userAssetsAuxiliary}} novillos",
+          }
         },
         map: {
           title: "Conocé la ubicación física del Tambo",
@@ -322,7 +368,6 @@ const resources = {
       investment: {
         apr: "TNA",
         text: "*Recordá que para poder recibir tus ganancias es necesario que tengas tus Tokens depositados",
-        cows: "vacas",
         watch_cams: "Ver camaras en vivo",
         deposit: "Depositar",
         buy: "Comprar",
@@ -333,18 +378,22 @@ const resources = {
         withdraw: "Retirar",
         total_assets: "Tus Activos {{token}} Totales",
         pending: "pendientes",
-        card_milk: {
-          title: "New Milk (NMILK)",
-          buy: "Comprar",
-          description: "Los Tokens NMILK pueden depositarse en este pool para recibir parte de la renta del alquiler equivalente a litro de leche de los rodeos que representan o retirarlos para venderlos. El alquiler lo recibirás en NAC que puedes intercambiar automáticamente a USDT o utilizar para comprar otros tokens."
-        },
-        card_beef: {
-          title: "New Beef (NBEEF)",
-          buy: "Comprar",
-        },
-        card_land: {
-          title: "New LAND (NLAND)",
-          buy: "Comprar",
+        cards: {
+          nmilk: {
+            title: "New Milk (NMILK)",
+            description: "Los Tokens NMILK pueden depositarse en este pool para recibir parte de la renta del alquiler equivalente a litro de leche de los rodeos que representan o retirarlos para venderlos. El alquiler lo recibirás en NAC que puedes intercambiar automáticamente a USDT o utilizar para comprar otros tokens.",
+            auxiliaryDescription: "vacas"
+          },
+          nland: {
+            title: "New LAND (NLAND)",
+            description: "Los Tokens NLAND pueden depositarse en este pool para recibir parte de la renta del alquiler equivalentes a kilos de soja de los campos que representan o retirarlos para venderlos. El alquiler lo recibirás en NACoin que puedes intercambiar automáticamente a USDT o utilizar para comprar otros tokens.",
+            auxiliaryDescription: "hectáreas"
+          },
+          nbeef: {
+            title: "New Beef (NBEEF)",
+            description: "",
+            auxiliaryDescription: "novillos"
+          }
         },
         assets: {
           title: 'Tu Campo 3.0',

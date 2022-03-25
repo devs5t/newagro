@@ -15,15 +15,16 @@ import {useReloadPrices} from "src/hooks/useReloadPrices";
 import CountUp from "react-countup";
 import InvestmentAssetsCard from "src/components/cards/InvestmentAssetsCard";
 import {ReactSVG} from "react-svg";
+import {NMILK_TOKENS_BY_COW, NLAND_TOKENS_BY_HECTARE, NBEEF_TOKENS_BY_STEER } from "src/config/constants";
 
 const Investment: React.FC = () => {
   const { t } = useTranslation();
   const { account, library } = useEthers();
   const { reloadPrices } = useReloadPrices();
   const { historicalEarning } = useContext(PriceContext);
-  const { milkingCows, userMilkingCows, nmilkUserDeposited, nmilkUserEarns, nmilkApr, nmilkProfitability, nmilkSuggestedPrice, nmilkUserAssets } = useContext(NmilkContext);
-  const { nlandUserEarns } = useContext(NlandContext);
-  const { nbeefUserEarns } = useContext(NbeefContext);
+  const { totalCows, userCows, nmilkUserDeposited, nmilkUserEarns, nmilkApr, nmilkProfitability, nmilkSuggestedPrice, nmilkUserAssets } = useContext(NmilkContext);
+  const { totalHectares, userHectares, nlandUserDeposited, nlandUserEarns, nlandApr, nlandProfitability, nlandSuggestedPrice, nlandUserAssets } = useContext(NlandContext);
+  const { totalSteers, userSteers, nbeefUserDeposited, nbeefUserEarns, nbeefApr, nbeefProfitability, nbeefSuggestedPrice, nbeefUserAssets } = useContext(NbeefContext);
 
   const [selectedToken, setSelectedToken] = useState<undefined | 'nmilk' | 'nland' | 'nbeef'>(undefined);
 
@@ -47,17 +48,21 @@ const Investment: React.FC = () => {
   const [selectedTokenAssets, selectedTokenProfitability, selectedTokenUserAssets, selectedTokenHistoricalEarning, selectedTokenIcon] = useMemo(() => {
     switch (selectedToken) {
       case 'nmilk':
-        return [milkingCows, nmilkProfitability, userMilkingCows, historicalEarning, 'icons/milk.svg'];
+        return [totalCows, nmilkProfitability, userCows, historicalEarning, 'icons/milk.svg'];
+      case 'nland':
+        return [totalHectares, nlandProfitability, userHectares, historicalEarning, 'icons/land.svg'];
+      case 'nbeef':
+        return [totalSteers, nbeefProfitability, userSteers, historicalEarning, 'icons/beef.svg'];
       default:
-        return [milkingCows, nmilkProfitability, userMilkingCows, historicalEarning, 'icons/milk.svg'];
+        return [0, 0, 0, 0, ''];
     }
   }, [selectedToken]);
 
   const userAssets: {amount: number, description: string, icon: string}[] = useMemo(() => [
-    {amount: milkingCows, description: t('investment.assets.nmilk'), icon: 'icons/milk.svg'},
-    {amount: 0, description: t('investment.assets.nland'), icon: 'icons/land.svg'},
-    {amount: 0, description: t('investment.assets.nbeef'), icon: 'icons/beef.svg'}
-  ], [userMilkingCows]);
+    {amount: userCows, description: t('investment.assets.nmilk'), icon: 'icons/milk.svg'},
+    {amount: userHectares, description: t('investment.assets.nland'), icon: 'icons/land.svg'},
+    {amount: userSteers, description: t('investment.assets.nbeef'), icon: 'icons/beef.svg'}
+  ], [userCows, userHectares, userSteers]);
 
   return (
     <div className="flex justify-center">
@@ -87,41 +92,45 @@ const Investment: React.FC = () => {
         <div className="xl:pl-10 xl:grid xl:grid-cols-4 xl:gap-4 py-8">
           <div className="col-span-3 flex-3 max-w-3xl">
             <InvestmentCard
-              title={t('investment.card_milk.title')}
               apr={nmilkApr}
               token="nmilk"
+              selectedToken={selectedToken}
               setSelectedToken={setSelectedToken}
               deposit={nmilkUserDeposited}
+              depositAuxiliary={nmilkUserDeposited / NMILK_TOKENS_BY_COW}
               assets={nmilkUserAssets}
               earn={nmilkUserEarns}
+              earnAuxiliary={nmilkUserEarns / NMILK_TOKENS_BY_COW}
               totalAssets={nmilkUserDeposited * nmilkSuggestedPrice}
               image={'images/photos/bg_nmilk.jpeg'}
-              descriptionText={t("investment.card_milk.description")}
             />
             <br/>
             <InvestmentCard
-              title={t('investment.card_beef.title')}
+              apr={nlandApr}
+              token="nland"
+              selectedToken={selectedToken}
+              setSelectedToken={setSelectedToken}
+              deposit={nlandUserDeposited}
+              depositAuxiliary={nlandUserDeposited / NLAND_TOKENS_BY_HECTARE}
+              assets={nlandUserAssets}
+              earn={nlandUserEarns}
+              earnAuxiliary={nlandUserEarns / NLAND_TOKENS_BY_HECTARE}
+              totalAssets={nlandUserDeposited * nlandSuggestedPrice}
+              image={'images/photos/bg_nland.jpeg'}
+            />
+            <br/>
+            <InvestmentCard
               apr={0}
               token="nbeef"
+              selectedToken={selectedToken}
               setSelectedToken={setSelectedToken}
-              deposit={0}
-              assets={0}
-              earn={0}
-              totalAssets={0}
+              deposit={nbeefUserDeposited}
+              depositAuxiliary={nbeefUserDeposited / NBEEF_TOKENS_BY_STEER}
+              assets={nbeefUserAssets}
+              earn={nbeefUserEarns}
+              earnAuxiliary={nbeefUserEarns / NBEEF_TOKENS_BY_STEER}
+              totalAssets={nbeefUserAssets}
               image={'images/photos/bg_nbeef.jpeg'}
-              disabled={true}
-            />
-            <br/>
-            <InvestmentCard
-              title={t('investment.card_land.title')}
-              apr={0}
-              token="nland"
-              setSelectedToken={setSelectedToken}
-              deposit={0}
-              assets={0}
-              earn={0}
-              totalAssets={0}
-              image={'images/photos/bg_nland.jpeg'}
               disabled={true}
             />
             <br/>
@@ -134,8 +143,8 @@ const Investment: React.FC = () => {
                   <h3 className="text-blue font-bold text-base">{t(`investment.assets.title`)}</h3>
                   <p className="text-blue mt-4 mb-10 text-xs">{t(`investment.assets.description`)}</p>
 
-                  {userAssets.map(userAsset => (
-                    <div className="flex justify-between items-center mb-2">
+                  {userAssets.map((userAsset, key) => (
+                    <div className="flex justify-between items-center mb-2" key={key}>
                       <p className="text-sm font-semibold text-green">{userAsset.amount} {userAsset.description}</p>
                       <ReactSVG
                         src={userAsset.icon}

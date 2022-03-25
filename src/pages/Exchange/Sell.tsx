@@ -17,7 +17,6 @@ import {
   formatHexToDate,
   formatHexToDecimal,
   formatHexToUintToDecimal,
-  formatUintToDecimal
 } from "src/utils/formatUtils";
 import {PriceContext} from "src/contexts/PriceContext";
 import {useEthers} from "@usedapp/core";
@@ -56,7 +55,7 @@ const Sell: React.FC = () => {
 
   const [toAmount, setToAmount] = useState<number>(0);
 
-  const fromCurrencies: ('nac' | 'nmilk' | 'nbeef' | 'nland')[] =  ['nac', 'nmilk', 'nbeef', 'nland'];
+  const fromCurrencies: ('nac' | 'nmilk' | 'nbeef' | 'nland')[] =  ['nac', 'nmilk', 'nland', 'nbeef'];
   const [selectedFromCurrency, setSelectedFromCurrency] = useState<'nac' | 'nmilk' | 'nbeef' | 'nland'>(fromCurrencies[0]);
 
   const toCurrencies: ('usdt' | 'ars')[] = ['usdt', 'ars'];
@@ -135,8 +134,8 @@ const Sell: React.FC = () => {
     ]).then(([nmilkOrders, nlandOrders, nbeefOrders]) => {
       orders = [
         ...nmilkOrders.map((nmilkOrder: any) => ({...nmilkOrder, token: 'nmilk'})),
-        /*...nlandOrders.map((nlandOrder: any) => ({...nlandOrder, token: 'nland'})),
-        ...nbeefOrders.map((nbeefOrder: any) => ({...nbeefOrder, token: 'nbeef'})),*/
+        ...nlandOrders.map((nlandOrder: any) => ({...nlandOrder, token: 'nland'})),
+        // ...nbeefOrders.map((nbeefOrder: any) => ({...nbeefOrder, token: 'nbeef'})),
       ].map((order: OrderType) => ({
         index: formatHexToDecimal(get(order, 'index._hex', '0x00')),
         originalAmount: formatHexToUintToDecimal(get(order, 'originalAmount._hex', '0x00')),
@@ -347,7 +346,7 @@ const Sell: React.FC = () => {
                 <option
                   key={index}
                   className="text-blue font-bold text-xl uppercase"
-                  disabled={!['nac', 'nmilk'].includes(fromCurrency)}
+                  disabled={!['nac', 'nmilk', 'nland'].includes(fromCurrency)}
                   value={fromCurrency}
                 >
                   {upperCase(fromCurrency)}
