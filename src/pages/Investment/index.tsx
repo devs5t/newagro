@@ -59,8 +59,8 @@ const Investment: React.FC = () => {
   }, [selectedToken]);
 
   const userAssets: {amount: number, description: string, icon: string}[] = useMemo(() => [
-    {amount: userCows, description: t('investment.assets.nmilk'), icon: 'icons/milk.svg'},
     {amount: userHectares, description: t('investment.assets.nland'), icon: 'icons/land.svg'},
+    {amount: userCows, description: t('investment.assets.nmilk'), icon: 'icons/milk.svg'},
     {amount: userSteers, description: t('investment.assets.nbeef'), icon: 'icons/beef.svg'}
   ], [userCows, userHectares, userSteers]);
 
@@ -92,20 +92,6 @@ const Investment: React.FC = () => {
         <div className="xl:pl-10 xl:grid xl:grid-cols-4 xl:gap-4 py-8">
           <div className="col-span-3 flex-3 max-w-3xl">
             <InvestmentCard
-              apr={nmilkApr}
-              token="nmilk"
-              selectedToken={selectedToken}
-              setSelectedToken={setSelectedToken}
-              deposit={nmilkUserDeposited}
-              depositAuxiliary={nmilkUserDeposited / NMILK_TOKENS_BY_COW}
-              assets={nmilkUserAssets}
-              earn={nmilkUserEarns}
-              earnAuxiliary={nmilkUserEarns / NMILK_TOKENS_BY_COW}
-              totalAssets={nmilkUserDeposited * nmilkSuggestedPrice}
-              image={'images/photos/bg_nmilk.jpeg'}
-            />
-            <br/>
-            <InvestmentCard
               apr={nlandApr}
               token="nland"
               selectedToken={selectedToken}
@@ -117,6 +103,20 @@ const Investment: React.FC = () => {
               earnAuxiliary={nlandUserEarns / NLAND_TOKENS_BY_HECTARE}
               totalAssets={nlandUserDeposited * nlandSuggestedPrice}
               image={'images/photos/bg_nland.jpeg'}
+            />
+            <br/>
+            <InvestmentCard
+              apr={nmilkApr}
+              token="nmilk"
+              selectedToken={selectedToken}
+              setSelectedToken={setSelectedToken}
+              deposit={nmilkUserDeposited}
+              depositAuxiliary={nmilkUserDeposited / NMILK_TOKENS_BY_COW}
+              assets={nmilkUserAssets}
+              earn={nmilkUserEarns}
+              earnAuxiliary={nmilkUserEarns / NMILK_TOKENS_BY_COW}
+              totalAssets={nmilkUserDeposited * nmilkSuggestedPrice}
+              image={'images/photos/bg_nmilk.jpeg'}
             />
             <br/>
             <InvestmentCard

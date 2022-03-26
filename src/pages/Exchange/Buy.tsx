@@ -45,7 +45,7 @@ const Buy: React.FC = () => {
   const fromCurrencies: ('usdt' | 'nac' | 'ars')[] = ['usdt', 'nac', 'ars'];
   const [selectedFromCurrency, setSelectedFromCurrency] = useState<'usdt' | 'nac' | 'ars'>(fromCurrencies[0]);
 
-  const toCurrencies: ('nmilk' | 'nbeef' | 'nland')[] = ['nmilk', 'nland', 'nbeef'];
+  const toCurrencies: ('nmilk' | 'nbeef' | 'nland')[] = ['nland', 'nmilk', 'nbeef'];
   const [selectedToCurrency, setSelectedToCurrency] = useState<'nmilk' | 'nbeef' | 'nland'>(toCurrencies[0]);
 
   const [needsApproval, setNeedsApproval] = useState<boolean>(true);

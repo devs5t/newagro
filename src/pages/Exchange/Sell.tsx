@@ -55,7 +55,7 @@ const Sell: React.FC = () => {
 
   const [toAmount, setToAmount] = useState<number>(0);
 
-  const fromCurrencies: ('nac' | 'nmilk' | 'nbeef' | 'nland')[] =  ['nac', 'nmilk', 'nland', 'nbeef'];
+  const fromCurrencies: ('nac' | 'nmilk' | 'nbeef' | 'nland')[] =  ['nac', 'nland', 'nmilk', 'nbeef'];
   const [selectedFromCurrency, setSelectedFromCurrency] = useState<'nac' | 'nmilk' | 'nbeef' | 'nland'>(fromCurrencies[0]);
 
   const toCurrencies: ('usdt' | 'ars')[] = ['usdt', 'ars'];

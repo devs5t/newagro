@@ -78,8 +78,8 @@ const Home: React.FC = () => {
         <div className="w-full justify-center flex my-8">
           <Tabs
             tabs={[
-              {name: 'New Milk', selected: selectedToken === 'nmilk', onClick: () => setSelectedToken('nmilk')},
               {name: 'New Land', selected: selectedToken === 'nland', onClick: () => setSelectedToken('nland')},
+              {name: 'New Milk', selected: selectedToken === 'nmilk', onClick: () => setSelectedToken('nmilk')},
               {name: 'New Beef', selected: selectedToken === 'nbeef', onClick: () => setSelectedToken('nbeef'), disabled: true},
             ]}
             containerClass="max-w-md"
