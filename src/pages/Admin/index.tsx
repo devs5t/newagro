@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { useTranslation } from "react-i18next";
 import Tabs from "src/components/tabs/Tabs";
 import AdminCard from "src/components/cards/AdminCard";
@@ -6,6 +6,7 @@ import AdminCardTable from "src/components/cards/AdminCardTable";
 
 const Admin: React.FC = () => {
   const { t } = useTranslation();
+  const [selectedToken, setSelectedToken] = useState<'nmilk' | 'nland' | 'nbeef'>('nland');
 
   return (
     <div className="flex justify-center mt-8">
@@ -13,9 +14,9 @@ const Admin: React.FC = () => {
         <div className="w-full justify-center flex">
           <Tabs
             tabs={[
-              {name: 'New Milk', selected: true},
-              {name: 'New Beef', disabled: true},
-              {name: 'New Land', disabled: true}
+              {name: 'New Land', selected: selectedToken === 'nland', onClick: () => setSelectedToken('nland')},
+              {name: 'New Milk', selected: selectedToken === 'nmilk', onClick: () => setSelectedToken('nmilk')},
+              {name: 'New Beef', selected: selectedToken === 'nbeef', onClick: () => setSelectedToken('nbeef'), disabled: true},
             ]}
             containerClass="max-w-md"
           />

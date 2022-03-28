@@ -38,7 +38,7 @@ const Home: React.FC = () => {
     return () => clearInterval(interval);
   }, [nacTotalSupply, nmilkLastRewardDate, nmilkRewardPerSecond, nlandLastRewardDate, nlandRewardPerSecond, nbeefLastRewardDate, nbeefRewardPerSecond]);
 
-  const [selectedToken, setSelectedToken] = useState<'nmilk' | 'nland' | 'nbeef'>('nmilk');
+  const [selectedToken, setSelectedToken] = useState<'nmilk' | 'nland' | 'nbeef'>('nland');
 
   const [selectedTokenTotalSupply, totalAssetsAuxiliary, userAssetsAuxiliary, selectedTokenIcon] = useMemo(() => {
     switch (selectedToken) {

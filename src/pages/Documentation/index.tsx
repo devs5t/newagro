@@ -17,7 +17,8 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 const Documentation: React.FC = () => {
   const { t } = useTranslation();
   const [files, setFiles] = useState([]);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [selectedToken, setSelectedToken] = useState<'nmilk' | 'nland' | 'nbeef'>('nland');
 
   const handleClose = (event: any, reason: string) => {
     if (reason === 'clickaway') {
@@ -126,11 +127,11 @@ const Documentation: React.FC = () => {
         <div className="w-full justify-center flex my-8">
           <Tabs
             tabs={[
-              {name: 'New Milk', selected: true},
-              {name: 'New Beef', disabled: true},
-              {name: 'New Land', disabled: true}
+              {name: 'New Land', selected: selectedToken === 'nland', onClick: () => setSelectedToken('nland')},
+              {name: 'New Milk', selected: selectedToken === 'nmilk', onClick: () => setSelectedToken('nmilk')},
+              {name: 'New Beef', selected: selectedToken === 'nbeef', onClick: () => setSelectedToken('nbeef'), disabled: true},
             ]}
-            containerClass="max-w-xl"
+            containerClass="max-w-md"
           />
         </div>
         <div className="w-full grid grid-cols-1 mt-8">
