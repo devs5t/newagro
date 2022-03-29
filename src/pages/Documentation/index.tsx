@@ -18,7 +18,7 @@ const Documentation: React.FC = () => {
   const { t } = useTranslation();
   const [files, setFiles] = useState([]);
   const [open, setOpen] = useState(false);
-  const [selectedToken, setSelectedToken] = useState<'nmilk' | 'nland' | 'nbeef'>('nland');
+  const [selectedToken, setSelectedToken] = useState<'nmilk' | 'nland' | 'nbeef'>('nmilk');
 
   const handleClose = (event: any, reason: string) => {
     if (reason === 'clickaway') {
@@ -128,8 +128,8 @@ const Documentation: React.FC = () => {
         <div className="w-full justify-center flex my-8">
           <Tabs
             tabs={[
-              {name: 'New Land', selected: selectedToken === 'nland', onClick: () => setSelectedToken('nland')},
               {name: 'New Milk', selected: selectedToken === 'nmilk', onClick: () => setSelectedToken('nmilk')},
+              {name: 'New Land', selected: selectedToken === 'nland', onClick: () => setSelectedToken('nland'), disabled: true},
               {name: 'New Beef', selected: selectedToken === 'nbeef', onClick: () => setSelectedToken('nbeef'), disabled: true},
             ]}
             containerClass="max-w-md"

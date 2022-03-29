@@ -53,7 +53,7 @@ const Sell: React.FC = () => {
 
   const [toAmount, setToAmount] = useState<number>(0);
 
-  const fromCurrencies: ('nac' | 'nmilk' | 'nbeef' | 'nland')[] =  ['nac', 'nland', 'nmilk', 'nbeef'];
+  const fromCurrencies: ('nac' | 'nmilk' | 'nbeef' | 'nland')[] =  ['nac', 'nmilk', 'nland', 'nbeef'];
   const [selectedFromCurrency, setSelectedFromCurrency] = useState<'nac' | 'nmilk' | 'nbeef' | 'nland'>(fromCurrencies[0]);
 
   const toCurrencies: ('usdt' | 'ars')[] = ['usdt', 'ars'];
@@ -344,7 +344,7 @@ const Sell: React.FC = () => {
                 <option
                   key={index}
                   className="text-blue font-bold text-xl uppercase"
-                  disabled={!['nac', 'nmilk', 'nland'].includes(fromCurrency)}
+                  disabled={!['nac', 'nmilk'].includes(fromCurrency)}
                   value={fromCurrency}
                   label={upperCase(fromCurrency)}
                 >
