@@ -11,7 +11,7 @@ import {upperCase} from "lodash";
 import {NmilkContext} from "src/contexts/NmilkContext";
 import {NlandContext} from "src/contexts/NlandContext";
 import {NbeefContext} from "src/contexts/NbeefContext";
-import {NMILK_TOKENS_BY_COW} from "src/config/constants";
+import {NBEEF_TOKENS_BY_STEER, NLAND_TOKENS_BY_HECTARE, NMILK_TOKENS_BY_COW} from "src/config/constants";
 import {ModalContext} from "src/contexts/ModalContext";
 import TokenIssueForm from "src/components/forms/TokenIssueForm";
 import NACIssueForm from "src/components/forms/NACIssueForm";
@@ -31,14 +31,14 @@ const Admin: React.FC = () => {
 
   const address: string = contracts.redeemRewards[CHAIN_ID];
 
-  const [selectedTokenNacEmitted, selectedTokenTotalSupply] = useMemo(() => {
+  const [selectedTokenNacEmitted, selectedTokenAuxiliary, selectedTokenTotalSupply] = useMemo(() => {
     switch (selectedToken) {
       case "nmilk":
-        return [nmilkAssetsPerMonth * NMILK_TOKENS_BY_COW, nmilkTotalSupply];
+        return [nmilkAssetsPerMonth, NMILK_TOKENS_BY_COW, nmilkTotalSupply];
       case "nland":
-        return [nlandAssetsPerMonth, nlandTotalSupply];
+        return [nlandAssetsPerMonth, NLAND_TOKENS_BY_HECTARE, nlandTotalSupply];
       case "nbeef":
-        return [nbeefAssetsPerMonth, nbeefTotalSupply];
+        return [nbeefAssetsPerMonth, NBEEF_TOKENS_BY_STEER, nbeefTotalSupply];
     }
   }, [selectedToken, nmilkAssetsPerMonth, nlandAssetsPerMonth, nbeefAssetsPerMonth, nmilkTotalSupply, nlandTotalSupply, nbeefTotalSupply]);
 
@@ -92,12 +92,13 @@ const Admin: React.FC = () => {
 
           <AdminCard
             title={t("admin.nac_emitted", {token: upperCase(selectedToken)})}
-            quantity={selectedTokenNacEmitted}
+            quantity={selectedTokenNacEmitted * selectedTokenAuxiliary}
             onClick={() => {
               setModal({
                 component: () => NACIssueForm({
                   token: selectedToken,
-                  nacEmitted: selectedTokenNacEmitted
+                  tokenAuxiliary: selectedTokenAuxiliary,
+                  nacEmitted: selectedTokenNacEmitted * selectedTokenAuxiliary
                 }),
                 title: t("admin.nac_issue.title"),
               });
