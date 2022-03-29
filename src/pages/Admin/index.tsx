@@ -31,14 +31,14 @@ const Admin: React.FC = () => {
 
   const address: string = contracts.redeemRewards[CHAIN_ID];
 
-  const [selectedTokenNacEmitted, selectedTokenAuxiliary, selectedTokenTotalSupply] = useMemo(() => {
+  const [selectedTokenNacEmitted, selectedTokenPeriod, selectedTokenAuxiliary, selectedTokenTotalSupply] = useMemo(() => {
     switch (selectedToken) {
       case "nmilk":
-        return [nmilkAssetsPerMonth, NMILK_TOKENS_BY_COW, nmilkTotalSupply];
+        return [nmilkAssetsPerMonth, 1, NMILK_TOKENS_BY_COW, nmilkTotalSupply];
       case "nland":
-        return [nlandAssetsPerMonth, NLAND_TOKENS_BY_HECTARE, nlandTotalSupply];
+        return [nlandAssetsPerMonth, 12, NLAND_TOKENS_BY_HECTARE, nlandTotalSupply];
       case "nbeef":
-        return [nbeefAssetsPerMonth, NBEEF_TOKENS_BY_STEER, nbeefTotalSupply];
+        return [nbeefAssetsPerMonth, 1, NBEEF_TOKENS_BY_STEER, nbeefTotalSupply];
     }
   }, [selectedToken, nmilkAssetsPerMonth, nlandAssetsPerMonth, nbeefAssetsPerMonth, nmilkTotalSupply, nlandTotalSupply, nbeefTotalSupply]);
 
@@ -103,13 +103,14 @@ const Admin: React.FC = () => {
 
         <AdminCard
           title={t(`admin.nac_emitted_${selectedToken}`)}
-          quantity={selectedTokenNacEmitted * selectedTokenAuxiliary}
+          quantity={selectedTokenNacEmitted * selectedTokenAuxiliary * selectedTokenPeriod}
           onClick={() => {
             setModal({
               component: () => NACIssueForm({
                 token: selectedToken,
                 tokenAuxiliary: selectedTokenAuxiliary,
-                nacEmitted: selectedTokenNacEmitted * selectedTokenAuxiliary
+                tokenPeriod: selectedTokenPeriod,
+                nacEmitted: selectedTokenNacEmitted * selectedTokenAuxiliary * selectedTokenPeriod
               }),
               title: t("admin.nac_issue.title"),
             });

@@ -16,12 +16,14 @@ import {useReloadPrices} from "src/hooks/useReloadPrices";
 interface NACIssueFormProps {
   token: 'nmilk' | 'nbeef' | 'nland';
   tokenAuxiliary: number,
+  tokenPeriod: number,
   nacEmitted: number;
 }
 
 const NACIssueForm: React.FC<NACIssueFormProps> = ({
   token,
   tokenAuxiliary,
+  tokenPeriod,
   nacEmitted,
 }) => {
 
@@ -53,7 +55,7 @@ const NACIssueForm: React.FC<NACIssueFormProps> = ({
     callFunction(
       contracts.mainStaking[CHAIN_ID],
       library,
-      [TokenKeyMap[token]?.pId, formatDecimalToUint(nacToEmmit / tokenAuxiliary)],
+      [TokenKeyMap[token]?.pId, formatDecimalToUint(nacToEmmit / tokenAuxiliary / tokenPeriod)],
       "setAssetPerMonthPerFullWantToken",
       MainStaking
     )
