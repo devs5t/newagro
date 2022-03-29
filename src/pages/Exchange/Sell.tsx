@@ -251,6 +251,7 @@ const Sell: React.FC = () => {
         ).finally(() => {
           setIsLoading(false);
           reloadPrices();
+          requestSellOrders();
         });
       }
     }
