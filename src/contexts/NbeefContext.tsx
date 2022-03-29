@@ -156,7 +156,7 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
   }, [nbeefUserAssets]);
 
   useEffect(() => {
-    setNbeefProfitability((nbeefAssetsPerMonth * nbeefExchangeRate));
+    setNbeefProfitability((nbeefAssetsPerMonth * nbeefExchangeRate * NBEEF_TOKENS_BY_STEER));
   }, [nbeefAssetsPerMonth, nbeefExchangeRate]);
 
   useEffect(() => {

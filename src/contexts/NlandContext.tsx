@@ -156,7 +156,7 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
   }, [nlandUserAssets]);
 
   useEffect(() => {
-    setNlandProfitability((nlandAssetsPerMonth * nlandExchangeRate));
+    setNlandProfitability((nlandAssetsPerMonth * nlandExchangeRate * NLAND_TOKENS_BY_HECTARE));
   }, [nlandAssetsPerMonth, nlandExchangeRate]);
 
   useEffect(() => {
