@@ -40,9 +40,10 @@ const Documentation: React.FC = () => {
 
   const auth = gapi?.auth2.getAuthInstance();
 
-  const getFiles = (fodlerId = "1zjAEMOvfzcl9JwbSxvbO0gObjIdcqs46"): void => {
+  const getFiles = (): void => {
+    const folderId:string = selectedToken === "nmilk" ? "1NKjUFFDRMsSUfiYS1-E2D0GDvyWvVLzX" : "1Pj-FQrNbf3TRdPoALSq-KZX1kWvxSMtD"
     const req = gapi?.client?.drive?.files.list({
-      'q': `'${fodlerId}' in parents and mimeType='application/pdf'`
+      'q': `'${folderId}' in parents and mimeType='application/pdf'`
     });
 
     files.length === 0 && req?.execute(response =>
@@ -136,7 +137,7 @@ const Documentation: React.FC = () => {
         </div>
         <div className="w-full grid grid-cols-1 mt-8">
           <DocumentationCard
-            title={t("docs.cards.card1_title")}
+            title={t(selectedToken === "nmilk" ? "docs.cards.card1_title" : "docs.cards.card1_title2")}
             subtitle={files.length ? t("docs.cards.card1_subtitle", {filesLength: files.length}) : ""}
             linkText={t("docs.cards.see_docs")}
             link={"#"}

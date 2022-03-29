@@ -217,6 +217,7 @@ const resources = {
         },
         cards: {
           card1_title: "Milk delivery remittance",
+          card1_title2: "Land delivery remittance",
           card1_subtitle: "{{filesLength}} Remittance",
           see_docs: "SEE DOCUMENTATION",
           card2_title: "Georeference",
@@ -501,6 +502,7 @@ const resources = {
         },
         cards: {
           card1_title: "Remito de salida de Leche",
+          card1_title2: "Remito de salida de Tierras",
           card1_subtitle: "{{filesLength}} Remitos",
           see_docs: "VER DOCUMENTACIÓN",
           card2_title: "Georeferencia",
