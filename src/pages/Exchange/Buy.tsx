@@ -252,7 +252,7 @@ const Buy: React.FC = () => {
               <Button
                 onClick={onMax}
                 text="MAX"
-                extraClasses="flex justify-center items-center h-12 mr-4 w-16 -mb-0.25 rounded-md text-white bg-blue text-base font-normal"
+                extraClasses="flex justify-center items-center h-8 mr-10 rounded-lg text-white bg-blue text-sm font-normal"
               />
             </div>
 

@@ -309,7 +309,7 @@ const Sell: React.FC = () => {
               <Button
                 onClick={onMax}
                 text="MAX"
-                extraClasses="flex justify-center items-center h-12 mr-10 w-16 -mb-0.25 rounded-md text-white bg-blue text-base font-normal"
+                extraClasses="flex justify-center items-center h-8 mr-10 rounded-lg text-white bg-blue text-sm font-normal"
               />
             </div>
 
@@ -331,7 +331,7 @@ const Sell: React.FC = () => {
             )}
 
             {selectedFromCurrency !== 'nac' && (
-              <div className="hidden md:flex absolute right-36 -mt-32 w-48 h-8 justify-center items-center rounded-full text-center text-xs font-semibold text-white bg-green">
+              <div className="flex absolute right-0 md:right-36 -mt-32 w-48 h-8 justify-center items-center rounded-full text-center text-xs font-semibold text-white bg-green">
                 {`${t(`exchange.suggested_price`)}: $${formatCurrency(suggestedPrice)}`}
               </div>
             )}
@@ -355,17 +355,22 @@ const Sell: React.FC = () => {
             </select>
           </div>
 
+          <div className="flex md:hidden h-full items-center font-bold text-sm text-blue mt-2">{t(`exchange.amount`)}</div>
+
           {selectedFromCurrency !== 'nac' && (
-            <div className="md:hidden flex-row items-center justify-between">
-              <Textfield
-                id="price"
-                onChange={setFromPrice}
-                value={fromPrice}
-                containerClasses="w-full mt-4"
-                type="number"
-                placeholder={t(`exchange.price`)}
-              />
-            </div>
+            <>
+              <div className="md:hidden flex-row items-center justify-between">
+                <Textfield
+                  id="price"
+                  onChange={setFromPrice}
+                  value={fromPrice}
+                  containerClasses="w-full mt-4"
+                  type="number"
+                  placeholder={t(`exchange.price`)}
+                />
+              </div>
+              <div className="flex md:hidden h-full items-center font-bold text-sm text-blue mt-2">{t(`exchange.price`)}</div>
+            </>
           )}
 
         </div>

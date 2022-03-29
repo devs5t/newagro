@@ -35,7 +35,7 @@ const Footer: React.FC = () => {
 
   return (
     <div className={`w-full md:w-72 xl:w-80 md:border-l-2 md:border-grey ${!isInHome ? 'md:hidden' : ''}`}>
-      <div className="hidden md:flex flex-col justify-center items-center h-64 border-b-2 border-grey">
+      <div className="flex flex-col justify-center items-center h-40 md:h-64 border-b-2 border-t-2 md:border-t-0 border-grey">
         <p className="uppercase font-medium text-xl	text-blue">{t('footer.exchange_rate')}</p>
         <CountUp
           className="uppercase font-black mt-2 text-2xl text-blue"

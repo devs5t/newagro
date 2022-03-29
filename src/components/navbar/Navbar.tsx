@@ -46,7 +46,14 @@ const Navbar: React.FC = () => {
             </button>
 
             <Link to="/" className="flex items-center flex-shrink-0 text-white md:mr-6">
-              <img className="h-4 w-auto" src="logos/logo.svg" alt="logo"/>
+              <picture>
+                <source media="(min-width: 480px)" srcSet="logos/logo.svg"/>
+                <img
+                  className="h-8 ml-2 md:h-4 md:ml-0 w-auto"
+                  src="logos/logo-mini.svg"
+                  alt="logo"
+                />
+              </picture>
             </Link>
           </div>
 

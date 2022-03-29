@@ -296,7 +296,7 @@ const resources = {
         transparency: "Transparencia",
         news: "Novedades",
         admin: "Administrador",
-        pair_wallet: "Vincular Billetera",
+        pair_wallet: "Conectar Billetera",
         wrong_wallet: "Billetera Equivocada",
       },
       footer: {

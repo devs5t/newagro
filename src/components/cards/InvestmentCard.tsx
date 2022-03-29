@@ -100,7 +100,7 @@ const InvestmentCard: React.FC<InvestmentCardProps> = ({
       <div className={`flex flex-col md:flex-row grid grid-cols-1 md:grid-cols-2`}>
         <div
           style={{ backgroundImage: `url(${image})` }}
-          className="absolute rounded-full -top-6 -right-2 right-0 h-26 w-26 bg-center bg-cover opacity-75 md:h-32 md:w-32 md:top-6 md:-left-16"
+          className="absolute rounded-full -top-8 -right-2 h-28 w-28 bg-center bg-cover opacity-75 md:h-32 md:w-32 md:top-6 md:-left-16"
         />
         <div className="flex flex-col justify-around w-full mt-5 relative md:pl-16 md:mt-0 py-4">
           <h3 className="text-blue font-bold text-left text-lg md:text-2xl">
