@@ -5,8 +5,6 @@ import {ModalContext} from "src/contexts/ModalContext";
 import Textfield from "src/components/Inputs/Textfield";
 import DoneIcon from '@mui/icons-material/Done';
 import {upperCase} from "lodash";
-import contracts from "src/config/constants/contracts";
-import {CHAIN_ID} from "src/config";
 import { callFunction } from "reblox-web3-utils";
 import {useEthers} from "@usedapp/core";
 import {TokenKeyMap} from "src/config/constants";
