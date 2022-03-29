@@ -6,9 +6,7 @@ import Button from "src/components/Buttons/Button";
 import {ReactSVG} from "react-svg";
 import {CHAIN_ID} from "src/config";
 import contracts from "src/config/constants/contracts";
-import NMILKExchange from "src/config/abi/NMILKExchange.json";
-import NLANDExchange from "src/config/abi/NLANDExchange.json";
-import NBEEFExchange from "src/config/abi/NBEEFExchange.json";
+import NewTokenExchange from "src/config/abi/NewTokenExchange.json";
 import RedeemRewards from "src/config/abi/RedeemRewards.json";
 import {callFunction, approveContract, getTokenAllowance} from "reblox-web3-utils";
 import {
@@ -83,8 +81,8 @@ const Sell: React.FC = () => {
   const configSpender: any = {
     nac: {contract: contracts.nac[CHAIN_ID]},
     nmilk: {contract: contracts.nmilk[CHAIN_ID]},
-    nbeef: {contract: contracts.nmilk[CHAIN_ID]},
-    nland: {contract: contracts.nmilk[CHAIN_ID]}
+    nland: {contract: contracts.nland[CHAIN_ID]},
+    nbeef: {contract: contracts.nbeef[CHAIN_ID]},
   };
 
   const selectedSpenderContract: string = useMemo(() => {
@@ -93,9 +91,9 @@ const Sell: React.FC = () => {
 
   const configExchange: any = {
     nac: {exchangeAbi: RedeemRewards, exchangeContract: contracts.redeemRewards[CHAIN_ID]},
-    nmilk: {exchangeAbi: NMILKExchange, exchangeContract: contracts.exchangeNmilk[CHAIN_ID]},
-    nbeef: {exchangeAbi: NBEEFExchange, exchangeContract: contracts.exchangeNbeef[CHAIN_ID]},
-    nland: {exchangeAbi: NLANDExchange, exchangeContract: contracts.exchangeNland[CHAIN_ID]}
+    nmilk: {exchangeAbi: NewTokenExchange, exchangeContract: contracts.exchangeNmilk[CHAIN_ID]},
+    nland: {exchangeAbi: NewTokenExchange, exchangeContract: contracts.exchangeNland[CHAIN_ID]},
+    nbeef: {exchangeAbi: NewTokenExchange, exchangeContract: contracts.exchangeNbeef[CHAIN_ID]},
   };
 
   const selectedExchangeAbi: any[] = useMemo(() => {

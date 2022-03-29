@@ -2,9 +2,9 @@ import {createContext, ReactNode, useContext, useEffect, useState} from "react";
 import { useBoolean } from "react-use";
 import {CHAIN_ID} from "src/config";
 import contracts from "src/config/constants/contracts";
-import NMILK from "src/config/abi/NMILK.json";
-import NMILKExchange from "src/config/abi/NMILKExchange.json";
-import OracleNMILK from "src/config/abi/OracleNMILK.json";
+import NewToken from "src/config/abi/NewToken.json";
+import NewTokenExchange from "src/config/abi/NewTokenExchange.json";
+import NewTokenOracle from "src/config/abi/NewTokenOracle.json";
 import MainStaking from "src/config/abi/MainStaking.json";
 import {callViewFunction, callFunction} from "reblox-web3-utils";
 import {useEthers} from "@usedapp/core";
@@ -72,7 +72,7 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
       contracts.nmilk[CHAIN_ID],
       [],
       "totalSupply",
-      NMILK
+      NewToken
     ).then((value: number) => setNmilkTotalSupply(formatUintToDecimal(value)));
 
     callViewFunction(
@@ -92,7 +92,7 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
       contracts.nmilk[CHAIN_ID],
       [contracts.mainStaking[CHAIN_ID]],
       "balanceOf",
-      NMILK
+      NewToken
     ).then((value: number) => setNmilkBalance(formatUintToDecimal(value)));
 
     callViewFunction(
@@ -100,7 +100,7 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
       contracts.oracleNmilk[CHAIN_ID],
       [],
       "getPrice",
-      OracleNMILK
+      NewTokenOracle
     ).then((value: number) => setNmilkExchangeRate(formatUintToDecimal(value)));
 
     callViewFunction(
@@ -108,7 +108,7 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
       contracts.exchangeNmilk[CHAIN_ID],
       [],
       "getSuggestedPrice",
-      NMILKExchange
+      NewTokenExchange
     ).then((value: number) => setNmilkSuggestedPrice(formatUintToDecimal(value)));
 
     if (library && account) {
@@ -118,7 +118,7 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
         library,
         [account],
         "balanceOf",
-        NMILK
+        NewToken
       ).then((value: number) => setNmilkUserAssets(formatUintToDecimal(value)));
 
       callFunction(

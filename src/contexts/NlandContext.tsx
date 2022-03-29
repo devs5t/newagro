@@ -2,8 +2,9 @@ import {createContext, ReactNode, useContext, useEffect, useState} from "react";
 import { useBoolean } from "react-use";
 import {CHAIN_ID} from "src/config";
 import contracts from "src/config/constants/contracts";
-import NLAND from "src/config/abi/NMILK.json";
-import OracleNLAND from "src/config/abi/OracleNMILK.json";
+import NewToken from "src/config/abi/NewToken.json";
+import NewTokenExchange from "src/config/abi/NewTokenExchange.json";
+import NewTokenOracle from "src/config/abi/NewTokenOracle.json";
 import MainStaking from "src/config/abi/MainStaking.json";
 import {callViewFunction, callFunction} from "reblox-web3-utils";
 import {useEthers} from "@usedapp/core";
@@ -12,7 +13,6 @@ import {get} from "lodash";
 import {formatUintToDecimal, formatHexToUintToDecimal} from "src/utils/formatUtils";
 import {PriceContext} from "src/contexts/PriceContext";
 import {SECONDS_PER_YEAR} from "src/utils";
-import NLANDExchange from "src/config/abi/NLANDExchange.json";
 
 const NlandContext = createContext({
   nlandTotalSupply: 0,
@@ -72,7 +72,7 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
       contracts.nland[CHAIN_ID],
       [],
       "totalSupply",
-      NLAND
+      NewToken
     ).then((value: number) => setNlandTotalSupply(formatUintToDecimal(value)));
 
     callViewFunction(
@@ -92,7 +92,7 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
       contracts.nland[CHAIN_ID],
       [contracts.mainStaking[CHAIN_ID]],
       "balanceOf",
-      NLAND
+      NewToken
     ).then((value: number) => setNlandBalance(formatUintToDecimal(value)));
 
     callViewFunction(
@@ -100,7 +100,7 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
       contracts.oracleNland[CHAIN_ID],
       [],
       "getPrice",
-      OracleNLAND
+      NewTokenOracle
     ).then((value: number) => setNlandExchangeRate(formatUintToDecimal(value)));
 
     callViewFunction(
@@ -108,7 +108,7 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
       contracts.exchangeNland[CHAIN_ID],
       [],
       "getSuggestedPrice",
-      NLANDExchange
+      NewTokenExchange
     ).then((value: number) => setNlandSuggestedPrice(formatUintToDecimal(value)));
 
     if (library && account) {
@@ -118,7 +118,7 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
         library,
         [account],
         "balanceOf",
-        NLAND
+        NewToken
       ).then((value: number) => setNlandUserAssets(formatUintToDecimal(value)));
 
       callFunction(

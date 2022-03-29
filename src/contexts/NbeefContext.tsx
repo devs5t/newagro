@@ -2,8 +2,9 @@ import {createContext, ReactNode, useContext, useEffect, useState} from "react";
 import { useBoolean } from "react-use";
 import {CHAIN_ID} from "src/config";
 import contracts from "src/config/constants/contracts";
-import NBEEF from "src/config/abi/NMILK.json";
-import OracleNBEEF from "src/config/abi/OracleNMILK.json";
+import NewToken from "src/config/abi/NewToken.json";
+import NewTokenExchange from "src/config/abi/NewTokenExchange.json";
+import NewTokenOracle from "src/config/abi/NewTokenOracle.json";
 import MainStaking from "src/config/abi/MainStaking.json";
 import {callViewFunction, callFunction} from "reblox-web3-utils";
 import {useEthers} from "@usedapp/core";
@@ -12,7 +13,6 @@ import {get} from "lodash";
 import {formatUintToDecimal, formatHexToUintToDecimal} from "src/utils/formatUtils";
 import {PriceContext} from "src/contexts/PriceContext";
 import {SECONDS_PER_YEAR} from "src/utils";
-import NBEEFExchange from "src/config/abi/NBEEFExchange.json";
 
 const NbeefContext = createContext({
   nbeefTotalSupply: 0,
@@ -72,7 +72,7 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
       contracts.nbeef[CHAIN_ID],
       [],
       "totalSupply",
-      NBEEF
+      NewToken
     ).then((value: number) => setNbeefTotalSupply(formatUintToDecimal(value)));
 
     callViewFunction(
@@ -92,7 +92,7 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
       contracts.nbeef[CHAIN_ID],
       [contracts.mainStaking[CHAIN_ID]],
       "balanceOf",
-      NBEEF
+      NewToken
     ).then((value: number) => setNbeefBalance(formatUintToDecimal(value)));
 
     callViewFunction(
@@ -100,7 +100,7 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
       contracts.oracleNbeef[CHAIN_ID],
       [],
       "getPrice",
-      OracleNBEEF
+      NewTokenOracle
     ).then((value: number) => setNbeefExchangeRate(formatUintToDecimal(value)));
 
     callViewFunction(
@@ -108,7 +108,7 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
       contracts.exchangeNbeef[CHAIN_ID],
       [],
       "getSuggestedPrice",
-      NBEEFExchange
+      NewTokenExchange
     ).then((value: number) => setNbeefSuggestedPrice(formatUintToDecimal(value)));
 
     if (library && account) {
@@ -118,7 +118,7 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
         library,
         [account],
         "balanceOf",
-        NBEEF
+        NewToken
       ).then((value: number) => setNbeefUserAssets(formatUintToDecimal(value)));
 
       callFunction(

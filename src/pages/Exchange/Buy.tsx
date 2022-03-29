@@ -6,9 +6,6 @@ import Button from "src/components/Buttons/Button";
 import {ReactSVG} from "react-svg";
 import {CHAIN_ID} from "src/config";
 import contracts from "src/config/constants/contracts";
-import NMILKExchange from "src/config/abi/NMILKExchange.json";
-import NLANDExchange from "src/config/abi/NLANDExchange.json";
-import NBEEFExchange from "src/config/abi/NBEEFExchange.json";
 import {callViewFunction, callFunction, approveContract, getTokenAllowance} from "reblox-web3-utils";
 import {formatDecimalToUint, formatUintToDecimal} from "src/utils/formatUtils";
 import {useDebounce} from "src/hooks/useDebounce";
@@ -21,6 +18,8 @@ import {useReloadPrices} from "src/hooks/useReloadPrices";
 import {NmilkContext} from "src/contexts/NmilkContext";
 import {NlandContext} from "src/contexts/NlandContext";
 import {NbeefContext} from "src/contexts/NbeefContext";
+import {TokenKeyMap} from "src/config/constants";
+import NewTokenExchange from "src/config/abi/NewTokenExchange.json";
 
 const Buy: React.FC = () => {
   const { t } = useTranslation();
@@ -61,18 +60,12 @@ const Buy: React.FC = () => {
     return configSpender[selectedFromCurrency].contract;
   }, [selectedFromCurrency]);
 
-  const configExchange: any = {
-    nmilk: {exchangeAbi: NMILKExchange, exchangeContract: contracts.exchangeNmilk[CHAIN_ID]},
-    nbeef: {exchangeAbi: NBEEFExchange, exchangeContract: contracts.exchangeNbeef[CHAIN_ID]},
-    nland: {exchangeAbi: NLANDExchange, exchangeContract: contracts.exchangeNland[CHAIN_ID]}
-  };
-
   const selectedExchangeAbi: any[] = useMemo(() => {
-    return configExchange[selectedToCurrency].exchangeAbi;
+    return TokenKeyMap[selectedToCurrency].exchangeAbi;
   }, [selectedToCurrency]);
 
   const selectedExchangeContract: string = useMemo(() => {
-    return configExchange[selectedToCurrency].exchangeContract;
+    return TokenKeyMap[selectedToCurrency].exchangeContract;
   }, [selectedToCurrency]);
 
   const getValueBasedOnSelectedFromCurrency = useCallback((value: number) => {
@@ -109,7 +102,7 @@ const Buy: React.FC = () => {
       selectedExchangeContract,
       [formatDecimalToUint(getValueBasedOnSelectedFromCurrency(debouncedFromAmount))],
       "getTokenOutputAmount",
-      selectedExchangeAbi
+      NewTokenExchange
     ).then((value: number) => setToAmount(formatUintToDecimal(value)));
 
   }, [debouncedFromAmount, selectedFromCurrency, selectedToCurrency]);
@@ -120,7 +113,7 @@ const Buy: React.FC = () => {
       selectedExchangeContract,
       [],
       "getTotalTokensForSell",
-      selectedExchangeAbi
+      NewTokenExchange
     ).then((value: number) => setTotalTokensForSell(formatUintToDecimal(value)));
   };
 
@@ -131,7 +124,7 @@ const Buy: React.FC = () => {
       selectedExchangeContract,
       [],
       "getMaxInputAmount",
-      selectedExchangeAbi
+      NewTokenExchange
     ).then((value: number) => setFromMaxInput(getValueBasedOnSelectedFromCurrency(formatUintToDecimal(value))));
 
     requestTotalTokensForSell();

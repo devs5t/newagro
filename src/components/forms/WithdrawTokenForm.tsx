@@ -5,14 +5,8 @@ import { ModalContext } from "src/contexts/ModalContext";
 import Textfield from "src/components/Inputs/Textfield";
 import { Slider } from "@mui/material";
 import { upperCase } from "lodash";
-import {
-  NMILK_POOL_ID,
-  NBEEF_POOL_ID,
-  NLAND_POOL_ID, TokenKeyMap,
-} from "src/config/constants";
-import {
-  callFunction,
-} from "reblox-web3-utils";
+import { TokenKeyMap} from "src/config/constants";
+import {callFunction} from "reblox-web3-utils";
 import contracts from "src/config/constants/contracts";
 import { useEthers } from "@usedapp/core";
 import { CHAIN_ID } from "src/config";

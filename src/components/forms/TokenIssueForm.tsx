@@ -10,6 +10,7 @@ import {useEthers} from "@usedapp/core";
 import {TokenKeyMap} from "src/config/constants";
 import {formatDecimalToUint} from "src/utils/formatUtils";
 import {useReloadPrices} from "src/hooks/useReloadPrices";
+import NewToken from "src/config/abi/NewToken.json";
 
 interface TokenIssueFormProps {
   token: 'nmilk' | 'nbeef' | 'nland';
@@ -52,7 +53,7 @@ const TokenIssueForm: React.FC<TokenIssueFormProps> = ({
       library,
       [account, formatDecimalToUint(tokensToEmmit), links[0], links[1], links[2]],
       "mint",
-      TokenKeyMap[token]?.abi
+      NewToken
     )
       .then(() => {
         setFormSent(true);

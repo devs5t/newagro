@@ -1,8 +1,5 @@
 import contracts from "src/config/constants/contracts";
 import {CHAIN_ID} from "src/config";
-import NMILK from "src/config/abi/NMILK.json";
-import NLAND from "src/config/abi/NMILK.json";
-import NBEEF from "src/config/abi/NMILK.json";
 
 export { default as poolsConfig } from "./pools";
 
@@ -20,16 +17,16 @@ export const TokenKeyMap = {
   nmilk: {
     pId: NMILK_POOL_ID,
     contract: contracts.nmilk[CHAIN_ID],
-    abi: NMILK,
+    exchangeContract: contracts.exchangeNmilk[CHAIN_ID]
   },
   nland: {
     pId: NLAND_POOL_ID,
     contract: contracts.nmilk[CHAIN_ID],
-    abi: NLAND,
+    exchangeContract: contracts.exchangeNland[CHAIN_ID]
   },
   nbeef: {
     pId: NBEEF_POOL_ID,
     contract: contracts.nmilk[CHAIN_ID],
-    abi: NBEEF,
+    exchangeContract: contracts.exchangeNbeef[CHAIN_ID]
   },
 };
