@@ -11,6 +11,7 @@ import { callFunction } from "reblox-web3-utils";
 import {useEthers} from "@usedapp/core";
 import {TokenKeyMap} from "src/config/constants";
 import {formatDecimalToUint} from "src/utils/formatUtils";
+import {useReloadPrices} from "src/hooks/useReloadPrices";
 
 interface TokenIssueFormProps {
   token: 'nmilk' | 'nbeef' | 'nland';
@@ -25,6 +26,7 @@ const TokenIssueForm: React.FC<TokenIssueFormProps> = ({
   const {t} = useTranslation();
   const {setModal} = useContext(ModalContext);
   const { account, library } = useEthers();
+  const { reloadPrices } = useReloadPrices();
 
   const [confirmationPhrase, setConfirmationPhrase] = useState<string>('');
   const [tokensToEmmit, setTokensToEmmit] = useState<number>(0);
@@ -47,7 +49,7 @@ const TokenIssueForm: React.FC<TokenIssueFormProps> = ({
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     callFunction(
-      contracts.mainStaking[CHAIN_ID],
+      TokenKeyMap[token]?.contract,
       library,
       [account, formatDecimalToUint(tokensToEmmit), links[0], links[1], links[2]],
       "mint",
@@ -55,6 +57,7 @@ const TokenIssueForm: React.FC<TokenIssueFormProps> = ({
     )
       .then(() => {
         setFormSent(true);
+        reloadPrices();
       })
       .finally(() => {
         setIsLoading(false);
@@ -101,7 +104,7 @@ const TokenIssueForm: React.FC<TokenIssueFormProps> = ({
         <div className="flex flex-wrap mb-6">
           <Textfield
             id="tokenEmitted"
-            label={t("admin.token_issue.actual_issue")}
+            label={t("admin.token_issue.total_issue")}
             onChange={console.log}
             value={tokenEmitted}
             type="number"
@@ -110,7 +113,7 @@ const TokenIssueForm: React.FC<TokenIssueFormProps> = ({
           />
           <Textfield
             id="tokenToEmmit"
-            label={t("admin.token_issue.actual_issue")}
+            label={t("admin.token_issue.new_issue")}
             onChange={setTokensToEmmit}
             value={tokensToEmmit}
             required={true}
@@ -122,7 +125,7 @@ const TokenIssueForm: React.FC<TokenIssueFormProps> = ({
         {[1, 2, 3].map((index: number, key: number) => (
           <Textfield
             key={key}
-            id="email"
+            id={`link-${index}`}
             label={t("admin.token_issue.link_new_issue", {index})}
             onChange={(value: string) => {
               setLinks(prevLinks => {

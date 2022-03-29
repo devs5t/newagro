@@ -11,6 +11,7 @@ import {CHAIN_ID} from "src/config";
 import {TokenKeyMap} from "src/config/constants";
 import {formatDecimalToUint} from "src/utils/formatUtils";
 import MainStaking from "src/config/abi/MainStaking.json";
+import {useReloadPrices} from "src/hooks/useReloadPrices";
 
 interface NACIssueFormProps {
   token: 'nmilk' | 'nbeef' | 'nland';
@@ -25,6 +26,7 @@ const NACIssueForm: React.FC<NACIssueFormProps> = ({
   const {t} = useTranslation();
   const {setModal} = useContext(ModalContext);
   const { account, library } = useEthers();
+  const { reloadPrices } = useReloadPrices();
 
   const [confirmationPhrase, setConfirmationPhrase] = useState<string>('');
   const [nacToEmmit, setNacToEmmit] = useState<number>(0);
@@ -55,6 +57,7 @@ const NACIssueForm: React.FC<NACIssueFormProps> = ({
     )
       .then(() => {
         setFormSent(true);
+        reloadPrices();
       })
       .finally(() => {
         setIsLoading(false);
@@ -110,7 +113,7 @@ const NACIssueForm: React.FC<NACIssueFormProps> = ({
           />
           <Textfield
             id="nacToEmmit"
-            label={t("admin.nac_issue.actual_issue")}
+            label={t("admin.nac_issue.new_issue")}
             onChange={setNacToEmmit}
             value={nacToEmmit}
             required={true}
