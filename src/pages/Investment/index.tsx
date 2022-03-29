@@ -59,8 +59,8 @@ const Investment: React.FC = () => {
   }, [selectedToken]);
 
   const userAssets: {amount: number, description: string, icon: string}[] = useMemo(() => [
-    {amount: userHectares, description: t('investment.assets.nland'), icon: 'icons/land.svg'},
     {amount: userCows, description: t('investment.assets.nmilk'), icon: 'icons/milk.svg'},
+    {amount: userHectares, description: t('investment.assets.nland'), icon: 'icons/land.svg'},
     {amount: userSteers, description: t('investment.assets.nbeef'), icon: 'icons/beef.svg'}
   ], [userCows, userHectares, userSteers]);
 
@@ -146,7 +146,15 @@ const Investment: React.FC = () => {
 
                   {userAssets.map((userAsset, key) => (
                     <div className="flex justify-between items-center mb-2" key={key}>
-                      <p className="text-sm font-semibold text-green">{userAsset.amount} {userAsset.description}</p>
+                      <CountUp
+                        className="text-sm font-semibold text-green"
+                        end={userAsset.amount}
+                        suffix={` ${userAsset.description}`}
+                        decimals={2}
+                        separator=","
+                        decimal="."
+                        preserveValue={true}
+                      />
                       <ReactSVG
                         src={userAsset.icon}
                         beforeInjection={(svg) => {
