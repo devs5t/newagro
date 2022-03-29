@@ -46,6 +46,7 @@ const TokenIssueForm: React.FC<TokenIssueFormProps> = ({
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
     callFunction(
       TokenKeyMap[token]?.contract,
       library,
