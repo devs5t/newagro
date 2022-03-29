@@ -227,6 +227,39 @@ const resources = {
           card4_subtitle: "756 Listings",
         },
       },
+      admin: {
+        edit: "Edit",
+        old_issues: "Old issues",
+        available_funds: "Funds available in the Liquidity Fund:",
+        nac_in_circulation: "NAC in circulation",
+        nac_emitted: "NAC issuance for 30 days for the pool of {{token}}",
+        token_emitted: "Minter / Generation of Tokens {{token}}",
+        nac_issue: {
+          title: "Change NAC Issue",
+          description: "Complete the following fields to confirm the change in the issuance of New Agro Cash (NAC)",
+          warning_title: "Are you sure you want to change the NAC issue?",
+          warning_description: "The change in NAC issuance implies changing the performance of all investment pools.",
+          confirmation_phrase: "I want to change the NAC issue",
+          confirmation_phrase_aux: "Wrote in this field the phrase “{{confirmationPhrase}}”",
+          actual_issue: "Actual issue",
+          new_issue: "New issue",
+          submit: "Confirm issue",
+          successfully_sent_title: "NAC issued changed successfully"
+        },
+        token_issue: {
+          title: "New issuance of Tokens {{token}}",
+          description: "Complete the following fields to confirm the issuance of new Tokens {{token}}.",
+          warning_title: "Are you sure you want to issue new {{token}} Tokens?",
+          warning_description: "The issuance of new Tokens {{token}} is equivalent to having more hectares in the field. Make sure you have the necessary real support.",
+          confirmation_phrase: "I want to issue new tokens {{token}}",
+          confirmation_phrase_aux: "Wrote in this field the phrase “{{confirmationPhrase}}”",
+          actual_issue: "Actual issue",
+          new_issue: "New issue",
+          link_new_issue: "Link {{index}} - New issue",
+          submit: "Confirm issue",
+          successfully_sent_title: "Token {{token}} issued successfully"
+        }
+      },
       deposit_token_form: {
         deposit: "Deposit",
         amount: "Amount",
@@ -477,6 +510,39 @@ const resources = {
           card4_title: "Listado de caravanas",
           card4_subtitle: "756 Listados",
         },
+      },
+      admin: {
+        edit: "Editar",
+        old_issues: "Emisiones anteriores",
+        available_funds: "Fondos disponibles en el Fondo de Liquidez:",
+        nac_in_circulation: "NAC en circulación",
+        nac_emitted: "Emisión de NAC por 30 días para el pool de {{token}}",
+        token_emitted: "Minter / Generación de Tokens {{token}}",
+        nac_issue: {
+          title: "Cambiar emisión de NAC",
+          description: "Completá los siguientes campos para corroborar el cambio en la emisión de New Agro Cash (NAC)",
+          warning_title: "¿Estás seguro de que querés cambiar la emisión de NAC?",
+          warning_description: "El cambio de emisión de NAC implica cambiar el rendimiento de todos los pooles de inversión.",
+          confirmation_phrase: "Quiero cambiar la emisión de NAC",
+          confirmation_phrase_aux: "Escribí en este campo la frase “{{confirmationPhrase}}”",
+          actual_issue: "Emisión actual",
+          new_issue: "Nueva emisión",
+          submit: "Confirmar Emisión",
+          successfully_sent_title: "Emisión de NAC cambiada correctamente"
+        },
+        token_issue: {
+          title: "Nueva emisión de Tokens {{token}}",
+          description: "Completá los siguientes campos para corroborar la emisión de nuevos Tokens {{token}}.",
+          warning_title: "¿Estás seguro de que querés emitir nuevos Tokens {{token}}?",
+          warning_description: "La emisión de nuevos Tokens {{token}} es equivalente a tener más hectáreas en el campo. Asegurate de tener el respaldo real necesario.",
+          confirmation_phrase: "Quiero emitir nuevos tokens {{token}}",
+          confirmation_phrase_aux: "Escribí en este campo la frase “{{confirmationPhrase}}”",
+          actual_issue: "Emisión actual",
+          new_issue: "Nueva emisión",
+          link_new_issue: "Link {{index}} - Nueva emisión",
+          submit: "Confirmar Emisión",
+          successfully_sent_title: "Emisión de Tokens {{token}} creada correctamente"
+        }
       },
       deposit_token_form: {
         deposit: "Depositar",

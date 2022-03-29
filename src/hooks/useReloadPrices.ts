@@ -8,14 +8,14 @@ export const useReloadPrices = () => {
 
   const {loadPrices} = useContext(PriceContext);
   const {loadPrices: loadNmilkPrices} = useContext(NmilkContext);
-  const {loadPrices: loadNbeefPrices} = useContext(NbeefContext);
   const {loadPrices: loadNlandPrices} = useContext(NlandContext);
+  const {loadPrices: loadNbeefPrices} = useContext(NbeefContext);
 
   const reloadPrices = () => {
     loadPrices();
     loadNmilkPrices();
-    loadNbeefPrices();
     loadNlandPrices();
+    loadNbeefPrices();
   }
 
   return {reloadPrices};

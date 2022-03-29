@@ -23,6 +23,7 @@ const NmilkContext = createContext({
   nmilkRewardPerSecond: 0,
   nmilkBalance: 0,
   nmilkApr: 0,
+  nmilkAssetsPerMonth: 0,
   nmilkProfitability: 0,
 
   nmilkUserAssets: 0,
@@ -178,6 +179,7 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
         nmilkRewardPerSecond,
         nmilkBalance,
         nmilkApr,
+        nmilkAssetsPerMonth,
         nmilkProfitability,
 
         nmilkUserAssets,

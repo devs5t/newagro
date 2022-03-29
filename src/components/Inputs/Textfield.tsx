@@ -5,7 +5,7 @@ interface TextfieldProps {
   label?: string;
   onChange: Function,
   value: any,
-  type?: 'text' | 'number' | 'password' | 'email' | 'date';
+  type?: 'text' | 'number' | 'password' | 'email' | 'date' | 'url';
   required?: boolean;
   containerClasses?: string;
   inputClasses?: string;

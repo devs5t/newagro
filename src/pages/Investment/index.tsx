@@ -120,7 +120,7 @@ const Investment: React.FC = () => {
             />
             <br/>
             <InvestmentCard
-              apr={0}
+              apr={nbeefApr}
               token="nbeef"
               selectedToken={selectedToken}
               setSelectedToken={setSelectedToken}
@@ -129,7 +129,7 @@ const Investment: React.FC = () => {
               assets={nbeefUserAssets}
               earn={nbeefUserEarns}
               earnAuxiliary={nbeefUserEarns / NBEEF_TOKENS_BY_STEER}
-              totalAssets={nbeefUserAssets}
+              totalAssets={nbeefUserAssets * nbeefSuggestedPrice}
               image={'images/photos/bg_nbeef.jpeg'}
               disabled={true}
             />

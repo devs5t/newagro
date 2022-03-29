@@ -8,7 +8,7 @@ import { upperCase } from "lodash";
 import {
   NMILK_POOL_ID,
   NBEEF_POOL_ID,
-  NLAND_POOL_ID,
+  NLAND_POOL_ID, TokenKeyMap,
 } from "src/config/constants";
 import {
   callFunction,
@@ -46,21 +46,6 @@ const DepositTokenForm: React.FC<DepositTokenFormProps> = ({ token }) => {
 
   const { account, library } = useEthers();
 
-  const tokenKeyMap = {
-    nmilk: {
-      pId: NMILK_POOL_ID,
-      contract: contracts.nmilk[CHAIN_ID],
-    },
-    nbeef: {
-      pId: NBEEF_POOL_ID,
-      contract: contracts.nmilk[CHAIN_ID],
-    },
-    nland: {
-      pId: NLAND_POOL_ID,
-      contract: contracts.nmilk[CHAIN_ID],
-    },
-  };
-
   const availableTokens = useMemo(() => {
     switch (token) {
       case "nmilk":
@@ -78,7 +63,7 @@ const DepositTokenForm: React.FC<DepositTokenFormProps> = ({ token }) => {
     callFunction(
       contracts.mainStaking[CHAIN_ID],
       library,
-      [tokenKeyMap[token]?.pId, formatDecimalToUint(amount)],
+      [TokenKeyMap[token]?.pId, formatDecimalToUint(amount)],
       "deposit",
       MainStaking
     )
@@ -96,7 +81,7 @@ const DepositTokenForm: React.FC<DepositTokenFormProps> = ({ token }) => {
     approveContract(
       library,
       contracts.mainStaking[CHAIN_ID],
-      tokenKeyMap[token].contract,
+      TokenKeyMap[token].contract,
       // MainStaking
     )
       .then(() => setNeedsApproval(false))
@@ -127,7 +112,7 @@ const DepositTokenForm: React.FC<DepositTokenFormProps> = ({ token }) => {
       getTokenAllowance(
         CHAIN_ID,
         account,
-        tokenKeyMap[token].contract,
+        TokenKeyMap[token].contract,
         contracts.mainStaking[CHAIN_ID],
         MainStaking
       ).then((allowance: number) => setNeedsApproval(allowance == 0));

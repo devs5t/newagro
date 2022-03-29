@@ -23,6 +23,7 @@ const NlandContext = createContext({
   nlandRewardPerSecond: 0,
   nlandBalance: 0,
   nlandApr: 0,
+  nlandAssetsPerMonth: 0,
   nlandProfitability: 0,
 
   nlandUserAssets: 0,
@@ -178,6 +179,7 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
         nlandRewardPerSecond,
         nlandBalance,
         nlandApr,
+        nlandAssetsPerMonth,
         nlandProfitability,
 
         nlandUserAssets,

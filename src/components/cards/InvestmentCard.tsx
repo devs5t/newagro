@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { ModalContext } from "src/contexts/ModalContext";
 import DepositTokenForm from "src/components/forms/DepositTokenForm";
 import { upperCase } from "lodash";
-import { NMILK_POOL_ID, NBEEF_POOL_ID, NLAND_POOL_ID } from "src/config/constants";
+import {NMILK_POOL_ID, NBEEF_POOL_ID, NLAND_POOL_ID, TokenKeyMap} from "src/config/constants";
 import contracts from "src/config/constants/contracts";
 import { callFunction } from "reblox-web3-utils";
 import { CHAIN_ID } from "src/config";
@@ -29,24 +29,6 @@ interface InvestmentCardProps {
   totalAssets: number;
   disabled?: boolean;
 }
-
-const tokenKeyMap = {
-  nmilk: {
-    pId: NMILK_POOL_ID,
-    asset: "nmilkUserAssets",
-    contract: contracts.nmilk[CHAIN_ID],
-  },
-  nbeef: {
-    pId: NBEEF_POOL_ID,
-    asset: "nbeefUserAssets",
-    contract: contracts.nmilk[CHAIN_ID],
-  },
-  nland: {
-    pId: NLAND_POOL_ID,
-    asset: "nlandUserAssets",
-    contract: contracts.nmilk[CHAIN_ID],
-  },
-};
 
 const InvestmentCard: React.FC<InvestmentCardProps> = ({
   apr,
@@ -78,7 +60,7 @@ const InvestmentCard: React.FC<InvestmentCardProps> = ({
     callFunction(
       contracts.mainStaking[CHAIN_ID],
       library,
-      [tokenKeyMap[token]?.pId, "0"],
+      [TokenKeyMap[token]?.pId, "0"],
       "deposit",
       MainStaking
     ).finally(() => {
@@ -93,7 +75,7 @@ const InvestmentCard: React.FC<InvestmentCardProps> = ({
     callFunction(
       contracts.mainStaking[CHAIN_ID],
       library,
-      [tokenKeyMap[token]?.pId],
+      [TokenKeyMap[token]?.pId],
       "compound",
       MainStaking
     ).finally(() => {

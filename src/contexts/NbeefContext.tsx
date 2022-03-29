@@ -23,6 +23,7 @@ const NbeefContext = createContext({
   nbeefRewardPerSecond: 0,
   nbeefBalance: 0,
   nbeefApr: 0,
+  nbeefAssetsPerMonth: 0,
   nbeefProfitability: 0,
 
   nbeefUserAssets: 0,
@@ -178,6 +179,7 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
         nbeefRewardPerSecond,
         nbeefBalance,
         nbeefApr,
+        nbeefAssetsPerMonth,
         nbeefProfitability,
 
         nbeefUserAssets,

@@ -8,7 +8,7 @@ import { upperCase } from "lodash";
 import {
   NMILK_POOL_ID,
   NBEEF_POOL_ID,
-  NLAND_POOL_ID,
+  NLAND_POOL_ID, TokenKeyMap,
 } from "src/config/constants";
 import {
   callFunction,
@@ -43,21 +43,6 @@ const WithdrawTokenForm: React.FC<WithdrawTokenFormProps> = ({ token }) => {
 
   const { library } = useEthers();
 
-  const tokenKeyMap = {
-    nmilk: {
-      pId: NMILK_POOL_ID,
-      contract: contracts.nmilk[CHAIN_ID],
-    },
-    nbeef: {
-      pId: NBEEF_POOL_ID,
-      contract: contracts.nmilk[CHAIN_ID],
-    },
-    nland: {
-      pId: NLAND_POOL_ID,
-      contract: contracts.nmilk[CHAIN_ID],
-    },
-  };
-
   const availableTokens = useMemo(() => {
     switch (token) {
       case "nmilk":
@@ -75,7 +60,7 @@ const WithdrawTokenForm: React.FC<WithdrawTokenFormProps> = ({ token }) => {
     callFunction(
       contracts.mainStaking[CHAIN_ID],
       library,
-      [tokenKeyMap[token]?.pId, formatDecimalToUint(amount)],
+      [TokenKeyMap[token]?.pId, formatDecimalToUint(amount)],
       "withdraw",
       MainStaking
     )

@@ -8,6 +8,7 @@ import MainStaking from "src/config/abi/MainStaking.json";
 import {callViewFunction, callFunction} from "reblox-web3-utils";
 import {useEthers} from "@usedapp/core";
 import {formatUintToDecimal, formatHexToUintToDecimal} from "src/utils/formatUtils";
+import {BURN_ADDRESS} from "src/config/constants";
 
 const PriceContext = createContext({
   usdtUserAssets: 0,
@@ -17,9 +18,10 @@ const PriceContext = createContext({
   nacUserAssets: 0,
 
   historicalEarning: 0,
+  liquidityFundAssets: 0,
+  burnAddressAssets: 0,
 
   isLoading: true,
-
   loadPrices: () => {},
 });
 
@@ -36,6 +38,8 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
   const [nacUserAssets, setNacUserAssets] = useState<number>(0);
 
   const [historicalEarning, setHistoricalEarning] = useState<number>(0);
+  const [liquidityFundAssets, setLiquidityFundAssets] = useState<number>(0);
+  const [burnAddressAssets, setBurnAddressAssets] = useState<number>(0);
 
   const [isLoading, setLoading] = useBoolean(true);
 
@@ -57,6 +61,22 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
       "totalSupply",
       NAC
     ).then((value) => setNacTotalSupply(formatUintToDecimal(value)));
+
+    callViewFunction(
+      CHAIN_ID,
+      contracts.usdt[CHAIN_ID],
+      [contracts.redeemRewards[CHAIN_ID]],
+      "balanceOf",
+      NAC
+    ).then((value) => setLiquidityFundAssets(formatUintToDecimal(value)));
+
+    callViewFunction(
+      CHAIN_ID,
+      contracts.nac[CHAIN_ID],
+      [BURN_ADDRESS],
+      "balanceOf",
+      NAC
+    ).then((value) => setBurnAddressAssets(formatUintToDecimal(value)));
 
     if (library && account) {
       callFunction(
@@ -97,7 +117,10 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
         nacExchangeRate,
 
         nacUserAssets,
+
         historicalEarning,
+        liquidityFundAssets,
+        burnAddressAssets,
 
         isLoading,
         loadPrices
