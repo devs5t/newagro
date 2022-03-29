@@ -15,10 +15,13 @@ import {NBEEF_TOKENS_BY_STEER, NLAND_TOKENS_BY_HECTARE, NMILK_TOKENS_BY_COW} fro
 import {ModalContext} from "src/contexts/ModalContext";
 import TokenIssueForm from "src/components/forms/TokenIssueForm";
 import NACIssueForm from "src/components/forms/NACIssueForm";
+import {useEthers} from "@usedapp/core";
+import {isAdminAddress} from "src/utils/addressHelpers";
 
 const Admin: React.FC = () => {
   const { t } = useTranslation();
   const {setModal} = useContext(ModalContext);
+  const { account } = useEthers();
 
   const {liquidityFundAssets, burnAddressAssets, nacExchangeRate} = useContext(PriceContext);
   const {nmilkAssetsPerMonth, nmilkTotalSupply} = useContext(NmilkContext);
@@ -41,6 +44,10 @@ const Admin: React.FC = () => {
         return [nbeefAssetsPerMonth, 1, NBEEF_TOKENS_BY_STEER, nbeefTotalSupply];
     }
   }, [selectedToken, nmilkAssetsPerMonth, nlandAssetsPerMonth, nbeefAssetsPerMonth, nmilkTotalSupply, nlandTotalSupply, nbeefTotalSupply]);
+
+  if (!(account && isAdminAddress(account))) {
+    return <></>;
+  }
 
   return (
     <div className="flex justify-center mt-8">

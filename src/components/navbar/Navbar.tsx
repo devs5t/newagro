@@ -1,21 +1,31 @@
-import React, {useState} from "react";
+import React, {useMemo, useState} from "react";
 import { useTranslation } from "react-i18next";
 import { ConnectWalletButton } from "src/features/App/ConnectWalletButton";
 import {NavLink, Link} from "react-router-dom";
 import NavbarLanguagesDropdown from "src/components/navbar/NavbarLanguagesDropdown";
 import {ReactSVG} from "react-svg";
+import {useEthers} from "@usedapp/core";
+import {isAdminAddress} from "src/utils/addressHelpers";
 
 const Navbar: React.FC = () => {
   const { t } = useTranslation();
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
+  const { account } = useEthers();
 
-  const links: {path: string, name: string}[] = [
-    {path: '/home', name: t('navbar.home')},
-    {path: '/investment', name: t('navbar.investment')},
-    {path: '/exchange', name: t('navbar.exchange')},
-    {path: '/transparency', name: t('navbar.transparency')},
-    {path: '/admin', name: t('navbar.admin')}
-  ];
+  const links: {path: string, name: string}[] = useMemo(() => {
+    const partialLinks = [
+      {path: '/home', name: t('navbar.home')},
+      {path: '/investment', name: t('navbar.investment')},
+      {path: '/exchange', name: t('navbar.exchange')},
+      {path: '/transparency', name: t('navbar.transparency')},
+    ];
+
+    if (account && isAdminAddress(account)) {
+      partialLinks.push({path: '/admin', name: t('navbar.admin')});
+    }
+
+    return partialLinks;
+  }, [account]);
 
   return (
     <>

@@ -7,6 +7,12 @@ export const getAddress = (address: Address): string => {
   return address[chainId] ? address[chainId] : address[mainNetChainId];
 };
 
+export const isAdminAddress = (address: string) => {
+  let adminAddresses: string = import.meta.env.VITE_APP_ADMIN_ADDRESSES || '';
+  adminAddresses = adminAddresses.split(',');
+  return adminAddresses.includes(address);
+};
+
 export const getCakeAddress = () => {
   return getAddress(addresses.cake);
 };
