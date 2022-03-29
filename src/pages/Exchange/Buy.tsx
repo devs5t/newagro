@@ -266,8 +266,9 @@ const Buy: React.FC = () => {
                   key={index}
                   className="text-blue font-bold uppercase"
                   value={fromCurrency}
+                  label={upperCase(fromCurrency)}
                 >
-                  {upperCase(fromCurrency)}
+                  {fromCurrency}
                 </option>
               ))}
             </select>
@@ -318,6 +319,8 @@ const Buy: React.FC = () => {
                 key={index}
                 className="text-blue font-bold text-xl uppercase"
                 disabled={!['nmilk', 'nland'].includes(toCurrency)}
+                value={toCurrency}
+                label={upperCase(toCurrency)}
               >
                 {toCurrency}
               </option>

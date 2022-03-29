@@ -348,8 +348,9 @@ const Sell: React.FC = () => {
                   className="text-blue font-bold text-xl uppercase"
                   disabled={!['nac', 'nmilk', 'nland'].includes(fromCurrency)}
                   value={fromCurrency}
+                  label={upperCase(fromCurrency)}
                 >
-                  {upperCase(fromCurrency)}
+                  {fromCurrency}
                 </option>
               ))}
             </select>
@@ -414,8 +415,10 @@ const Sell: React.FC = () => {
             {toCurrencies.map((toCurrency: string, index: number) => (
               <option
                 key={index}
-                className="text-blue font-bold text-xl uppercase"
+                className="text-blue font-bold text-xl"
                 disabled={toCurrency === 'ars' && selectedFromCurrency !== 'nac'}
+                value={toCurrency}
+                label={upperCase(toCurrency)}
               >
                 {toCurrency}
               </option>
