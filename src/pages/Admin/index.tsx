@@ -20,7 +20,7 @@ const Admin: React.FC = () => {
   const { t } = useTranslation();
   const {setModal} = useContext(ModalContext);
 
-  const {liquidityFundAssets, burnAddressAssets} = useContext(PriceContext);
+  const {liquidityFundAssets, burnAddressAssets, nacExchangeRate} = useContext(PriceContext);
   const {nmilkAssetsPerMonth, nmilkTotalSupply} = useContext(NmilkContext);
   const {nlandAssetsPerMonth, nlandTotalSupply} = useContext(NlandContext);
   const {nbeefAssetsPerMonth, nbeefTotalSupply} = useContext(NbeefContext);
@@ -49,7 +49,7 @@ const Admin: React.FC = () => {
           <div className="w-full flex justify-center mb-6">
             <h3 className="text-blue font-semibold md:font-bold text-sm mr-6">{t('admin.available_funds')}</h3>
             <CountUp
-              className="text-green font-bold text-base text-sm mr-4"
+              className="text-green font-bold text-base"
               end={liquidityFundAssets}
               decimals={2}
               separator=","
@@ -57,11 +57,12 @@ const Admin: React.FC = () => {
               suffix=" USDT"
               preserveValue={true}
             />
+            <p className="text-green font-bold text-base mx-6">|</p>
             <a
               href={`https://bscscan.com/address/${address}`}
               target="_blank"
               rel="noreferrer"
-              className="text-green font-bold text-base underline text-sm"
+              className="text-green font-bold text-base underline"
             >
               {address.slice(0, 10)}...
             </a>
@@ -70,11 +71,22 @@ const Admin: React.FC = () => {
           <div className="w-full flex justify-center mb-6">
             <h3 className="text-blue font-semibold md:font-bold text-sm mr-4">{t('admin.nac_in_circulation')}</h3>
             <CountUp
-              className="text-green font-bold text-base text-sm"
+              className="text-green font-bold text-base"
               end={totalSupply - burnAddressAssets}
               decimals={2}
               separator=","
               decimal="."
+              preserveValue={true}
+            />
+
+            <p className="text-green font-bold text-base mx-6">|</p>
+            <CountUp
+              className="text-green font-bold text-base"
+              end={(totalSupply - burnAddressAssets) / nacExchangeRate}
+              decimals={2}
+              separator=","
+              decimal="."
+              suffix=" USDT"
               preserveValue={true}
             />
           </div>
@@ -91,7 +103,7 @@ const Admin: React.FC = () => {
           </div>
 
           <AdminCard
-            title={t("admin.nac_emitted", {token: upperCase(selectedToken)})}
+            title={t(`admin.nac_emitted_${selectedToken}`)}
             quantity={selectedTokenNacEmitted * selectedTokenAuxiliary}
             onClick={() => {
               setModal({

@@ -233,7 +233,9 @@ const resources = {
         old_issues: "Old issues",
         available_funds: "Funds available in the Liquidity Fund:",
         nac_in_circulation: "NAC in circulation",
-        nac_emitted: "NAC issuance for 30 days for the pool of {{token}}",
+        nac_emitted_nmilk: "Number of liters of milk for 30 days per dairy cow (5500 NMILK)",
+        nac_emitted_nland: "Number of quintals of soybean per year per hectare (NLAND)",
+        nac_emitted_nbeef: "Number of liters of milk for 30 days per dairy cow (5500 NMILK)",
         token_emitted: "Minter / Generation of Tokens {{token}}",
         nac_issue: {
           title: "Change NAC Issue",
@@ -518,7 +520,9 @@ const resources = {
         old_issues: "Emisiones anteriores",
         available_funds: "Fondos disponibles en el Fondo de Liquidez:",
         nac_in_circulation: "NAC en circulación",
-        nac_emitted: "Emisión de NAC por 30 días para el pool de {{token}}",
+        nac_emitted_nmilk: "Cantidad de litros de leche por 30 dias por vaca lechera (5500 NMILK)",
+        nac_emitted_nland: "Cantidad de quintales de soja por año por hectarea (NLAND)",
+        nac_emitted_nbeef: "Cantidad de litros de leche por 30 dias por vaca lechera (5500 NMILK)",
         token_emitted: "Minter / Generación de Tokens {{token}}",
         nac_issue: {
           title: "Cambiar emisión de NAC",
