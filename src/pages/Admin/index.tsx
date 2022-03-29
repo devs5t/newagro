@@ -45,94 +45,92 @@ const Admin: React.FC = () => {
   return (
     <div className="flex justify-center mt-8">
       <div className="max-w-3xl w-full">
-        <div className="w-full grid grid-cols-1 mt-8">
-          <div className="w-full flex justify-center mb-6">
-            <h3 className="text-blue font-semibold md:font-bold text-sm mr-6">{t('admin.available_funds')}</h3>
-            <CountUp
-              className="text-green font-bold text-base"
-              end={liquidityFundAssets}
-              decimals={2}
-              separator=","
-              decimal="."
-              suffix=" USDT"
-              preserveValue={true}
-            />
-            <p className="text-green font-bold text-base mx-6">|</p>
-            <a
-              href={`https://bscscan.com/address/${address}`}
-              target="_blank"
-              rel="noreferrer"
-              className="text-green font-bold text-base underline"
-            >
-              {address.slice(0, 10)}...
-            </a>
-          </div>
-
-          <div className="w-full flex justify-center mb-6">
-            <h3 className="text-blue font-semibold md:font-bold text-sm mr-4">{t('admin.nac_in_circulation')}</h3>
-            <CountUp
-              className="text-green font-bold text-base"
-              end={totalSupply - burnAddressAssets}
-              decimals={2}
-              separator=","
-              decimal="."
-              preserveValue={true}
-            />
-
-            <p className="text-green font-bold text-base mx-6">|</p>
-            <CountUp
-              className="text-green font-bold text-base"
-              end={(totalSupply - burnAddressAssets) / nacExchangeRate}
-              decimals={2}
-              separator=","
-              decimal="."
-              suffix=" USDT"
-              preserveValue={true}
-            />
-          </div>
-
-          <div className="w-full justify-center flex mb-6">
-            <Tabs
-              tabs={[
-                {name: 'New Land', selected: selectedToken === 'nland', onClick: () => setSelectedToken('nland')},
-                {name: 'New Milk', selected: selectedToken === 'nmilk', onClick: () => setSelectedToken('nmilk')},
-                {name: 'New Beef', selected: selectedToken === 'nbeef', onClick: () => setSelectedToken('nbeef'), disabled: true},
-              ]}
-              containerClass="max-w-md"
-            />
-          </div>
-
-          <AdminCard
-            title={t(`admin.nac_emitted_${selectedToken}`)}
-            quantity={selectedTokenNacEmitted * selectedTokenAuxiliary}
-            onClick={() => {
-              setModal({
-                component: () => NACIssueForm({
-                  token: selectedToken,
-                  tokenAuxiliary: selectedTokenAuxiliary,
-                  nacEmitted: selectedTokenNacEmitted * selectedTokenAuxiliary
-                }),
-                title: t("admin.nac_issue.title"),
-              });
-            }}
+        <div className="w-full flex justify-center items-center mt-8 mb-6">
+          <h3 className="text-blue font-semibold md:font-bold text-sm mr-6">{t('admin.available_funds')}</h3>
+          <CountUp
+            className="text-green font-bold text-base"
+            end={liquidityFundAssets}
+            decimals={2}
+            separator=","
+            decimal="."
+            suffix=" USDT"
+            preserveValue={true}
           />
-          <br/>
-          <br/>
-          <AdminCard
-            title={t("admin.token_emitted", {token: upperCase(selectedToken)})}
-            quantity={selectedTokenTotalSupply}
-            onClick={() => {
-              setModal({
-                component: () => TokenIssueForm({
-                  token: selectedToken,
-                  tokenEmitted: selectedTokenTotalSupply
-                }),
-                title: t("admin.token_issue.title", {selectedToken}),
-              });
-            }}
-          />
-          <br />
+          <p className="text-green font-bold text-base mx-6">|</p>
+          <a
+            href={`https://bscscan.com/address/${address}`}
+            target="_blank"
+            rel="noreferrer"
+            className="text-green font-bold text-base underline"
+          >
+            {address.slice(0, 10)}...
+          </a>
         </div>
+
+        <div className="w-full flex justify-center items-center mb-6">
+          <h3 className="text-blue font-semibold md:font-bold text-sm mr-4">{t('admin.nac_in_circulation')}</h3>
+          <CountUp
+            className="text-green font-bold text-base"
+            end={totalSupply - burnAddressAssets}
+            decimals={2}
+            separator=","
+            decimal="."
+            preserveValue={true}
+          />
+
+          <p className="text-green font-bold text-base mx-6">|</p>
+          <CountUp
+            className="text-green font-bold text-base"
+            end={(totalSupply - burnAddressAssets) / nacExchangeRate}
+            decimals={2}
+            separator=","
+            decimal="."
+            suffix=" USDT"
+            preserveValue={true}
+          />
+        </div>
+
+        <div className="w-full justify-center flex mb-6">
+          <Tabs
+            tabs={[
+              {name: 'New Land', selected: selectedToken === 'nland', onClick: () => setSelectedToken('nland')},
+              {name: 'New Milk', selected: selectedToken === 'nmilk', onClick: () => setSelectedToken('nmilk')},
+              {name: 'New Beef', selected: selectedToken === 'nbeef', onClick: () => setSelectedToken('nbeef'), disabled: true},
+            ]}
+            containerClass="max-w-md"
+          />
+        </div>
+
+        <AdminCard
+          title={t(`admin.nac_emitted_${selectedToken}`)}
+          quantity={selectedTokenNacEmitted * selectedTokenAuxiliary}
+          onClick={() => {
+            setModal({
+              component: () => NACIssueForm({
+                token: selectedToken,
+                tokenAuxiliary: selectedTokenAuxiliary,
+                nacEmitted: selectedTokenNacEmitted * selectedTokenAuxiliary
+              }),
+              title: t("admin.nac_issue.title"),
+            });
+          }}
+        />
+        <br/>
+        <br/>
+        <AdminCard
+          title={t("admin.token_emitted", {token: upperCase(selectedToken)})}
+          quantity={selectedTokenTotalSupply}
+          onClick={() => {
+            setModal({
+              component: () => TokenIssueForm({
+                token: selectedToken,
+                tokenEmitted: selectedTokenTotalSupply
+              }),
+              title: t("admin.token_issue.title", {selectedToken}),
+            });
+          }}
+        />
+        <br />
       </div>
     </div>
   );
