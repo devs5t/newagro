@@ -27,38 +27,38 @@ const AdminCard: React.FC<AdminCardProps> = ({
   const [open, setOpen] = useState(false);
   return (
     <div className={`flex flex-col w-full rounded-lg bg-lightblue/[.15] p-8 shadow ${containerClasses}`}>
-      <div className="w-full flex flex-row items-center" onClick={() => setOpen(!open)}>
-        <div className="w-2/3 md:w-1/2">
-          <h3 className="text-blue text-lg font-bold font-medium mr-2">{title}</h3>
-        </div>
-        <div className="w-1/3 md:w-1/2 flex flex-col md:flex-row justify-end md:justify-around">
-          <CountUp
-            className="flex items-center text-blue my-3 text-lg text-center"
-            end={quantity}
-            separator=","
-            decimal="."
-            decimals={2}
-            prefix="Actual: "
-            preserveValue={true}
-          />
-          <button
-            className="flex flex-col pointer w-12 items-center"
-            onClick={() => {
-              if (onClick) {
-                onClick();
-              }
+      <div className="w-full flex justify-between" onClick={() => setOpen(!open)}>
+
+        <h3 className="flex items-center text-blue text-lg font-bold font-medium mr-2 max-w-sm">{title}</h3>
+
+        <CountUp
+          className="flex items-center text-blue my-3 text-lg text-center"
+          end={quantity}
+          separator=","
+          decimal="."
+          decimals={2}
+          prefix="Actual: "
+          preserveValue={true}
+        />
+
+        <button
+          className="flex items-center flex-col pointer w-12"
+          onClick={() => {
+            if (onClick) {
+              onClick();
+            }
+          }}
+        >
+          <ReactSVG
+            src={"icons/edit.svg"}
+            beforeInjection={(svg) => {
+              svg.classList.add('fill-blue');
+              svg.classList.add('w-6');
             }}
-          >
-            <ReactSVG
-              src={"icons/edit.svg"}
-              beforeInjection={(svg) => {
-                svg.classList.add('fill-blue');
-                svg.classList.add('w-6');
-              }}
-            />
-            <span className="text-blue underline">{t('admin.edit')}</span>
-          </button>
-        </div>
+          />
+          <span className="text-blue underline">{t('admin.edit')}</span>
+        </button>
+
       </div>
       {open && data && data.length > 0 && (
         <div className="w-full py-10 ">
