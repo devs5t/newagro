@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import Banner from "src/components/Banner/Banner";
 import Tabs from "src/components/tabs/Tabs";
@@ -16,9 +16,15 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 const Documentation: React.FC = () => {
   const { t } = useTranslation();
-  const [files, setFiles] = useState([]);
+  const [filesCardOne, setFilesCardOne] = useState([]);
+  const [filesCardFour, setFilesCardFour] = useState([]);
   const [open, setOpen] = useState(false);
   const [selectedToken, setSelectedToken] = useState<'nmilk' | 'nland' | 'nbeef'>('nmilk');
+
+  useEffect(() => {
+    setFilesCardOne([]);
+    setFilesCardFour([]);
+  }, [selectedToken])
 
   const handleClose = (event: any, reason: string) => {
     if (reason === 'clickaway') {
@@ -40,8 +46,7 @@ const Documentation: React.FC = () => {
 
   const auth = gapi?.auth2.getAuthInstance();
 
-  const getFiles = (): void => {
-    const folderId:string = selectedToken === "nmilk" ? "1NKjUFFDRMsSUfiYS1-E2D0GDvyWvVLzX" : "1Pj-FQrNbf3TRdPoALSq-KZX1kWvxSMtD"
+  const getFiles = (folderId, files, setFiles): void => {
     const req = gapi?.client?.drive?.files.list({
       'q': `'${folderId}' in parents and mimeType='application/pdf'`
     });
@@ -129,7 +134,7 @@ const Documentation: React.FC = () => {
           <Tabs
             tabs={[
               {name: 'New Milk', selected: selectedToken === 'nmilk', onClick: () => setSelectedToken('nmilk')},
-              {name: 'New Land', selected: selectedToken === 'nland', onClick: () => setSelectedToken('nland'), disabled: true},
+              {name: 'New Land', selected: selectedToken === 'nland', onClick: () => setSelectedToken('nland')},
               {name: 'New Beef', selected: selectedToken === 'nbeef', onClick: () => setSelectedToken('nbeef'), disabled: true},
             ]}
             containerClass="max-w-md"
@@ -138,7 +143,7 @@ const Documentation: React.FC = () => {
         <div className="w-full grid grid-cols-1 mt-8">
           <DocumentationCard
             title={t(selectedToken === "nmilk" ? "docs.cards.card1_title" : "docs.cards.card1_title2")}
-            subtitle={files.length ? t("docs.cards.card1_subtitle", {filesLength: files.length}) : ""}
+            subtitle={filesCardOne.length ? t("docs.cards.card1_subtitle", {filesLength: filesCardOne.length}) : ""}
             linkText={t("docs.cards.see_docs")}
             link={"#"}
             signIn={() => {
@@ -147,8 +152,9 @@ const Documentation: React.FC = () => {
               }
             }}
             allowOpen={!!auth?.isSignedIn.get()}
-            onClick={() => auth?.isSignedIn.get() && getFiles()}
-            component={<SearchList listItems={files} onDownload={onDownload} />}
+            onClick={() => auth?.isSignedIn.get() && getFiles(selectedToken === "nmilk" ? "1MLS5Heqo8-J0z5QYq-hE47O-gm1hHNKB" : "1Zrfz0LdeoGlrNBIZKqdClNK6rhmMi6xg", filesCardOne, setFilesCardOne)}
+            component={<SearchList listItems={filesCardOne} onDownload={onDownload} />}
+            currentToken={selectedToken}
           />
           <br />
           <DocumentationCard
@@ -164,10 +170,19 @@ const Documentation: React.FC = () => {
           />
           <br />
           <DocumentationCard
-            title={t("docs.cards.card4_title")}
-            subtitle={t("docs.cards.card4_subtitle")}
+            title={t(selectedToken === "nmilk" ? "docs.cards.card4_title" : "docs.cards.card4_title2")}
+            subtitle={filesCardFour.length ? t("docs.cards.card1_subtitle", {filesLength: filesCardFour.length}) : ""}
             linkText={t("docs.cards.see_docs")}
             link={"#"}
+            signIn={() => {
+              if (!auth?.isSignedIn.get()) {
+                auth?.signIn();
+              }
+            }}
+            allowOpen={!!auth?.isSignedIn.get()}
+            onClick={() => auth?.isSignedIn.get() && getFiles(selectedToken === "nmilk" ? "1XHotEJkiwW5i-AEsC86oen343Q_G9oWm" : "1oqTfZY-8X4eL0iqvM4ugGYnspo64GNpW", filesCardFour, setFilesCardFour)}
+            component={<SearchList listItems={filesCardFour} onDownload={onDownload} />}
+            currentToken={selectedToken}
           />
           <br />
         </div>

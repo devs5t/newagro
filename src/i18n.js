@@ -504,7 +504,7 @@ const resources = {
         },
         cards: {
           card1_title: "Remito de salida de Leche",
-          card1_title2: "Remito de salida de Tierras",
+          card1_title2: "Escritura de los campos",
           card1_subtitle: "{{filesLength}} Remitos",
           see_docs: "VER DOCUMENTACIÓN",
           card2_title: "Georeferencia",
@@ -512,6 +512,7 @@ const resources = {
           card3_subtitle: "4 camaras en vivo",
           card3_goto: "Ver camaras",
           card4_title: "Listado de caravanas",
+          card4_title2: "Contrato de alquiler de los campos",
           card4_subtitle: "756 Listados",
         },
       },

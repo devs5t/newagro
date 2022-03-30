@@ -1,4 +1,4 @@
-import React, {ReactNode, useState} from "react";
+import React, {ReactNode, useEffect, useState} from "react";
 import {ReactSVG} from "react-svg";
 
 interface DocumentationCardProps {
@@ -12,6 +12,7 @@ interface DocumentationCardProps {
   signIn?: any;
   onClick?: () => void;
   allowOpen?: boolean;
+  currentToken?: string;
 }
 
 const DocumentationCard: React.FC<DocumentationCardProps> = ({
@@ -25,9 +26,19 @@ const DocumentationCard: React.FC<DocumentationCardProps> = ({
    signIn,
    onClick,
    allowOpen= true,
+   currentToken = 'nmilk',
  }) => {
 
   const [open, setOpen] = useState(false);
+  const [token, setToken] = useState(currentToken);
+  if (token !== currentToken) {
+    setToken(currentToken);
+  }
+
+  useEffect(() => {
+    setOpen(false);
+  }, [currentToken]);
+
   return (
     <div className={`flex flex-col w-full rounded-lg bg-lightblue/[.15] p-6 shadow ${containerClasses}`}>
       <div className="w-full flex flex-row" onClick={event => {
