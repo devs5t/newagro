@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { ModalContext } from "src/contexts/ModalContext";
 import DepositTokenForm from "src/components/forms/DepositTokenForm";
 import { upperCase } from "lodash";
-import {NMILK_POOL_ID, NBEEF_POOL_ID, NLAND_POOL_ID, TokenKeyMap} from "src/config/constants";
+import {TokenKeyMap} from "src/config/constants";
 import contracts from "src/config/constants/contracts";
 import { callFunction } from "reblox-web3-utils";
 import { CHAIN_ID } from "src/config";
@@ -205,6 +205,7 @@ const InvestmentCard: React.FC<InvestmentCardProps> = ({
                     navigate('/exchange');
                   }
                 }}
+                needWallet={true}
                 disabled={!account}
               />
               <Button
@@ -213,6 +214,7 @@ const InvestmentCard: React.FC<InvestmentCardProps> = ({
                 onClick={onHarvest}
                 isLoading={isHarvestingLoading}
                 isLoadingColor="blue"
+                needWallet={true}
                 disabled={!account}
               />
               <Button
@@ -227,6 +229,7 @@ const InvestmentCard: React.FC<InvestmentCardProps> = ({
                     )}`,
                   });
                 }}
+                needWallet={true}
                 disabled={!account || deposit === 0}
               />
               <Button
@@ -235,6 +238,7 @@ const InvestmentCard: React.FC<InvestmentCardProps> = ({
                 onClick={onReinvest}
                 isLoading={isReinvestingLoading}
                 isLoadingColor="blue"
+                needWallet={true}
                 disabled={!account}
               />
             </div>

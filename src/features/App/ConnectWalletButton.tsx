@@ -10,7 +10,13 @@ import Button from "src/components/Buttons/Button";
 
 const SpacingButton = styled(MaterialButton)(spacing);
 
-export const ConnectWalletButton: React.FC = () => {
+interface ConnectWalletButtonProps {
+  buttonClasses?: string;
+}
+
+export const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
+  buttonClasses
+}) => {
   const { t } = useTranslation();
   const { activateBrowserWallet, account, deactivate, chainId } = useEthers();
   const [offerNetworkChange, setOfferNetworkChange] = useState<boolean>(true);
@@ -72,7 +78,7 @@ export const ConnectWalletButton: React.FC = () => {
     <Button
       text={t('navbar.pair_wallet')}
       onClick={handleConnectWallet}
-      extraClasses="uppercase text-white border-white font-bold text-tiny md:text-xs whitespace-nowrap text-center h-8 md:h-10"
+      extraClasses={`uppercase text-white border-white font-bold text-tiny md:text-xs whitespace-nowrap text-center h-8 md:h-10 ${buttonClasses}`}
     />
   );
 };

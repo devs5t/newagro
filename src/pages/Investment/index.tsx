@@ -86,6 +86,7 @@ const Investment: React.FC = () => {
               isLoading={isHarvestingLoading}
               isLoadingColor="blue"
               disabled={!account}
+              needWallet={true}
             />
           </div>
         </div>

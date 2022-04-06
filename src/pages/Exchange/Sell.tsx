@@ -437,7 +437,7 @@ const Sell: React.FC = () => {
               extraClasses="h-10 bg-green border-green text-white text-center w-48 text-sm uppercase w-full shadow"
               type="button"
               onClick={onApprove}
-              disabled={!canSubmit}
+              needWallet={true}
             />
           )}
 

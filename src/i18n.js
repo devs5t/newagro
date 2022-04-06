@@ -279,6 +279,13 @@ const resources = {
         warning_description: "You successfully withdrew {{amount}} {{token}}",
         approve: "Approve",
       },
+      no_wallet: {
+        title: "Connection error",
+        subtitle: "Wallet not connected",
+        description: "New Agro Coin is compatible with Metamask",
+        or: "or",
+        metamask_button: "Create wallet",
+      },
       error: {
         generic: "Opsss, an error has occurred, try again later."
       },
@@ -566,6 +573,13 @@ const resources = {
         cancel: "Cancelar",
         warning_description: "Retiraste exitosamente {{amount}} {{token}}",
         approve: "Aprobar",
+      },
+      no_wallet: {
+        title: "Error de conexión",
+        subtitle: "Billetera no conectada",
+        description: "New Agro Coin es compatible con Metamask",
+        or: "o",
+        metamask_button: "Crear billetera",
       },
       error: {
         generic: "Opsss, ocurrió un error. Intente mas tarde."
