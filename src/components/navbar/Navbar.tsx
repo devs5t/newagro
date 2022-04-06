@@ -15,8 +15,8 @@ const Navbar: React.FC = () => {
   const links: {path: string, name: string}[] = useMemo(() => {
     const partialLinks = [
       {path: '/home', name: t('navbar.home')},
-      {path: '/investment', name: t('navbar.investment')},
       {path: '/exchange', name: t('navbar.exchange')},
+      {path: '/investment', name: t('navbar.investment')},
       {path: '/transparency', name: t('navbar.transparency')},
     ];
 

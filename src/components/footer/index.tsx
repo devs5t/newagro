@@ -39,7 +39,7 @@ const Footer: React.FC = () => {
         <p className="uppercase font-medium text-xl	text-blue">{t('footer.exchange_rate')}</p>
         <CountUp
           className="uppercase font-black mt-2 text-2xl text-blue"
-          prefix="1 USD = "
+          prefix="1 USDT = "
           suffix=" NAC"
           end={nacExchangeRate}
           decimals={2}

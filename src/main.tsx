@@ -5,6 +5,7 @@ import App from "./App";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { AppProviders } from "./features/App/AppProviders";
 import { SnackbarProvider } from "notistack";
+import { ScrollToTop } from "./utils/scroll";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -18,6 +19,7 @@ ReactDOM.render(
             }}
             maxSnack={3}
           >
+            <ScrollToTop />
             <App />
           </SnackbarProvider>
         </ThemeProvider>

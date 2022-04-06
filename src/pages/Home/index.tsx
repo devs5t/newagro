@@ -54,7 +54,7 @@ const Home: React.FC = () => {
           <HomeCardColored
             title={t("home.card.actives.title")}
             amount={nmilkTotalAssets + nlandTotalAssets + nbeefTotalAssets}
-            currency="USD"
+            currency="USDT"
             subtitle={t("home.card.actives.third_text")}
           />
         </div>
