@@ -60,10 +60,6 @@ const Buy: React.FC = () => {
     return configSpender[selectedFromCurrency].contract;
   }, [selectedFromCurrency]);
 
-  const selectedExchangeAbi: any[] = useMemo(() => {
-    return TokenKeyMap[selectedToCurrency].exchangeAbi;
-  }, [selectedToCurrency]);
-
   const selectedExchangeContract: string = useMemo(() => {
     return TokenKeyMap[selectedToCurrency].exchangeContract;
   }, [selectedToCurrency]);
@@ -200,7 +196,7 @@ const Buy: React.FC = () => {
         library,
         [formatDecimalToUint(fromAmount)],
         method,
-        selectedExchangeAbi
+        NewTokenExchange
       ).finally(() => {
         setIsLoading(false);
         reloadPrices();
