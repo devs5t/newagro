@@ -39,7 +39,7 @@ const resources = {
           },
           nmilk: {
             title: "Total NMILK Tokens",
-            description: "Each NMILK Token is equivalent to xxxx liters of real milk from the dairy. A new affordable and affordable way to invest in a dairy farm.",
+            description: "Each NMILK Token is equivalent to one liter of real milk from the dairy. A new affordable and affordable way to invest in a dairy farm.",
             button_text: "Buy NMILK",
           },
           nland: {
@@ -158,9 +158,9 @@ const resources = {
           nmilk: {
             assets_title: "Total milking cows",
             assets_description: "Each real Milking Cow is equivalent to 5,500 “New Milk” Tokens",
-            profitability_description: "NAC per liter of milk, per month",
+            profitability_description: "NAC by milking cow monthly",
             user_assets_title: 'Your dairy 3.0',
-            user_assets_description: 'liters of milk',
+            user_assets_description: 'milking cows',
           },
           nland: {
             assets_title: "Crops",
@@ -330,7 +330,7 @@ const resources = {
           nmilk: {
             title: "Tokens NMILK tolales",
             description:
-              "Cada NMILK Token equivale a xxxx Litros de leche reales del tambo. Una nueva forma accesible y económica de invertir en un tambo.",
+              "Cada NMILK Token equivale a un litro de leche real del tambo. Una nueva forma accesible y económica de invertir en un tambo.",
             button_text: "Comprar NMILK",
           },
           nland: {
@@ -451,9 +451,9 @@ const resources = {
           nmilk: {
             assets_title: "Totalidad de vacas de ordeñe",
             assets_description: "Cada Vaca de Ordeñe real, equivale a 5.500 Tokens “New Milk”",
-            profitability_description: "NAC por litro de Leche, por mes",
+            profitability_description: "NAC por vaca lechera por mes",
             user_assets_title: 'Tu tambo 3.0',
-            user_assets_description: 'litros de Leche',
+            user_assets_description: 'vacas lecheras',
           },
           nland: {
             assets_title: "Cultivos",

@@ -137,7 +137,7 @@ const InvestmentCard: React.FC<InvestmentCardProps> = ({
               {upperCase(token)} - {upperCase(t("investment.deposited"))}
             </h3>
             <CountUp
-              className=" flex justify-center w-full  text-3xl lg:text-4xl text-green text-center mt-2 md:mt-0"
+              className=" flex justify-center w-full text-3xl text-green text-center mt-2 md:mt-0"
               end={deposit}
               decimals={2}
               separator=","
