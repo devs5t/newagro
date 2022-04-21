@@ -1,4 +1,4 @@
-import { ChainId, Config } from "@usedapp/core";
+import { ChainId, CHAIN_NAMES, Config } from "@usedapp/core";
 
 /**
  * If we want to allow readonly for other chains
@@ -16,3 +16,5 @@ export const getConfig = (): Config => {
     },
   };
 };
+
+export const getChainName = (chainId: ChainId) => CHAIN_NAMES[chainId];
