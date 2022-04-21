@@ -10,7 +10,7 @@ const Map : React.FC = () => {
     return new maps.Marker({
       position: {lat:  -37.997991, lng: -60.499003},
       map,
-      title: 'Tandil, Buenos Aires!'
+      title: 'De la Garma, Buenos Aires!'
     });
   };
 
@@ -25,7 +25,7 @@ const Map : React.FC = () => {
             svg.classList.add('md:text-lg');
           }}
         />
-        <p className="text-white font-bold text-xs ml-2">Tandil, Buenos Aires</p>
+        <p className="text-white font-bold text-xs ml-2">De la Garma, Buenos Aires</p>
       </div>
       <div className="rounded-l-lg">
       <GoogleMapReact

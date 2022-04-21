@@ -108,7 +108,7 @@ const Documentation: React.FC = () => {
         <div className="w-full flex justify-between max-w-xl mt-6 mx-auto">
           {[
             {link: "https://newagrocoin.gitbook.io/whitepaper", label: t("docs.buttons.doc_tech")},
-            {link: "https://newagro.com.ar", label: t("docs.buttons.page_inst")}
+            {link: "https://www.newagrocoin.com", label: t("docs.buttons.page_inst")}
           ].map((button, key) => (
             <a
               key={key}

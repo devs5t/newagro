@@ -30,7 +30,7 @@ const resources = {
           "You will be able to invest in agricultural businesses with real support",
         card: {
           new_agro: {
-            title: "New Agro Coin generated",
+            title: "Income generated",
             button_text: "Buy Tokens",
           },
           actives: {
@@ -74,7 +74,7 @@ const resources = {
         },
         map: {
           title: "Know the physical location of the Dairy",
-          location: "Tandil, Buenos Aires",
+          location: "De la Garma, Buenos Aires",
         },
       },
       form: {
@@ -200,7 +200,7 @@ const resources = {
           order_number: "Order number",
           date: "Date",
           amount: "Amount",
-          token: "Token",
+          price: "Price",
           confirmed: "Confirmed",
           processing: "Processing",
           remove: "Remove"
@@ -320,7 +320,7 @@ const resources = {
           "Vas a poder invertir en negocios agropecuarios con respaldo real",
         card: {
           new_agro: {
-            title: "New Agro coin generados",
+            title: "Renta generada",
             button_text: "Comprar Tokens",
           },
           actives: {
@@ -367,7 +367,7 @@ const resources = {
         },
         map: {
           title: "Conocé la ubicación física del Campo",
-          location: "Tandil, Buenos Aires",
+          location: "De la Garma, Buenos Aires",
         },
       },
       form: {
@@ -493,7 +493,7 @@ const resources = {
           order_number: "N. de orden",
           date: "Fecha",
           amount: "Monto",
-          token: "Token",
+          price: "Precio",
           confirmed: "Confirmada",
           processing: "En Proceso",
           remove: "Borrar"

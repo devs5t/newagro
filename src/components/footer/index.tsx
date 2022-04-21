@@ -57,7 +57,7 @@ const Footer: React.FC = () => {
         <Button
           text={t("footer.about_us")}
           extraClasses="hidden md:block border-green text-green font-bold w-full"
-          link="https://newagro.com.ar/"
+          link="https://www.newagrocoin.com"
           linkTarget="_blank"
         />
         <Button
@@ -71,11 +71,11 @@ const Footer: React.FC = () => {
 
         <a
           className="text-center text-white hover:underline cursor-pointer md:hidden"
-          href="https://newagro.com.ar"
+          href="https://www.newagrocoin.com"
           target="_blank"
           rel="noreferrer"
         >
-          www.newagro.com.ar
+          www.newagrocoin.com
         </a>
 
         <div className="flex justify-center mt-8 md:mt-0 md:mb-8">

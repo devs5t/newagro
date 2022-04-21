@@ -143,7 +143,7 @@ const Investment: React.FC = () => {
               <div className={`flex flex-col items-center w-full rounded-lg border-green border-2 shadow`}>
                 <div className={`w-full flex flex-col p-10`}>
                   <h3 className="text-blue font-bold text-base">{t(`investment.assets.title`)}</h3>
-                  <p className="text-blue mt-4 mb-10 text-xs">{t(`investment.assets.description`)}</p>
+                  <p className="text-blue mt-4 mb-8 text-xs">{t(`investment.assets.description`)}</p>
 
                   {userAssets.map((userAsset, key) => (
                     <div className="flex justify-between items-center mb-2" key={key}>
@@ -166,6 +166,17 @@ const Investment: React.FC = () => {
                       />
                     </div>
                   ))}
+
+                  <h4 className="text-blue font-bold text-base mt-8">{t(`investment.rentability.historical_earnings`)}</h4>
+                  <CountUp
+                    className="text-green font-bold text-base"
+                    end={historicalEarning}
+                    separator=","
+                    decimal="."
+                    decimals={2}
+                    suffix=" NAC"
+                    preserveValue={true}
+                  />
                 </div>
               </div>
             </div>

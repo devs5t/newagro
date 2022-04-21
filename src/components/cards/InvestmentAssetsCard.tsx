@@ -70,16 +70,6 @@ const InvestmentAssetsCard: React.FC<InvestmentAssetsCardProps> = ({
               <p className="text-sm text-green">{t(`investment.rentability.${token}.user_assets_description`)}</p>
             </div>
           </div>
-          <h4 className="text-blue font-bold text-base">{t(`investment.rentability.historical_earnings`)}</h4>
-          <CountUp
-            className="text-green font-bold text-base"
-            end={historicalEarning}
-            separator=","
-            decimal="."
-            decimals={2}
-            suffix=" NAC"
-            preserveValue={true}
-          />
         </div>
       </div>
     </div>
