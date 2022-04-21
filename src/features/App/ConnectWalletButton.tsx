@@ -9,7 +9,7 @@ import {useTranslation} from "react-i18next";
 import Button from "src/components/Buttons/Button";
 import Web3Modal from "web3modal";
 import CoinbaseWalletSDK from "@coinbase/wallet-sdk";
-import WalletConnect from "@walletconnect/web3-provider";
+import WalletConnect from "@walletconnect/web3-provider/dist/umd/index.min.js";
 
 const SpacingButton = styled(MaterialButton)(spacing);
 
