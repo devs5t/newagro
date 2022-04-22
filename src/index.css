@@ -79,3 +79,7 @@ input[type=number]::-webkit-outer-spin-button {
 select:focus {
     outline: 0;
 }
+
+.web3modal-modal-lightbox {
+    z-index: 100!important;
+}
