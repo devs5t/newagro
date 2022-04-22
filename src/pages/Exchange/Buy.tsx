@@ -20,6 +20,7 @@ import {NlandContext} from "src/contexts/NlandContext";
 import {NbeefContext} from "src/contexts/NbeefContext";
 import {TokenKeyMap} from "src/config/constants";
 import NewTokenExchange from "src/config/abi/NewTokenExchange.json";
+import SuccessModal from "src/components/Modal/SuccessModal";
 
 const Buy: React.FC = () => {
   const { t } = useTranslation();
@@ -201,6 +202,15 @@ const Buy: React.FC = () => {
         setIsLoading(false);
         reloadPrices();
         requestTotalTokensForSell();
+        setModal({
+          component: () => SuccessModal({
+            subtitle: t('exchange.buy_success_subtitle'),
+            description: t('exchange.buy_success_description'),
+            buttonText: t('exchange.buy_success_button'),
+            buttonLink: '/investment'
+          }),
+          title: t('exchange.buy_success_title', {token: upperCase(selectedToCurrency)}),
+        });
       });
     }
   };

@@ -204,7 +204,14 @@ const resources = {
           confirmed: "Confirmed",
           processing: "Processing",
           remove: "Remove"
-        }
+        },
+        buy_success_title: "Buy {{token}}",
+        buy_success_subtitle: "Success",
+        buy_success_description: "Recorda depositar tus tokens para generar rentabilidad",
+        buy_success_button: "Go to investment",
+        sell_success_title: "Sell {{token}}",
+        sell_success_subtitle: "Success",
+        sell_success_description: "You successfully sold {{amount}} {{token}}",
       },
       docs: {
         banner: {
@@ -374,7 +381,7 @@ const resources = {
         cancel: "Cancelar",
         submit: "Enviar",
         warning: "Advertencia",
-        success: "Exito",
+        success: "Éxito",
       },
       field_visit_form: {
         name: "Nombre",
@@ -497,7 +504,14 @@ const resources = {
           confirmed: "Confirmada",
           processing: "En Proceso",
           remove: "Borrar"
-        }
+        },
+        buy_success_title: "Compra {{token}}",
+        buy_success_subtitle: "Éxito",
+        buy_success_description: "Recorda depositar tus tokens para generar rentabilidad",
+        buy_success_button: "Ir a inversiones",
+        sell_success_title: "Venta {{token}}",
+        sell_success_subtitle: "Éxito",
+        sell_success_description: "Vendiste exitosamente {{amount}} {{token}}",
       },
       docs: {
         banner: {

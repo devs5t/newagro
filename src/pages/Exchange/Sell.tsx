@@ -25,6 +25,7 @@ import {NbeefContext} from "src/contexts/NbeefContext";
 import ExchangeARSForm from "src/components/forms/ExchangeARSForm";
 import {formatCurrency} from "src/utils/currency";
 import {useReloadPrices} from "src/hooks/useReloadPrices";
+import SuccessModal from "src/components/Modal/SuccessModal";
 
 type OrderType ={
   index: number,
@@ -252,6 +253,13 @@ const Sell: React.FC = () => {
           setIsLoading(false);
           reloadPrices();
           requestSellOrders();
+          setModal({
+            component: () => SuccessModal({
+              subtitle: t('exchange.sell_success_subtitle'),
+              description: t('exchange.sell_success_description', {amount: fromAmount, token: upperCase(selectedFromCurrency)}),
+            }),
+            title: t('exchange.sell_success_title', {token: upperCase(selectedFromCurrency)}),
+          });
         });
       }
     }
