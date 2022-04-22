@@ -7,8 +7,9 @@ import OracleFX from "src/config/abi/OracleFX.json";
 import MainStaking from "src/config/abi/MainStaking.json";
 import {callViewFunction, callFunction} from "reblox-web3-utils";
 import {useEthers} from "@usedapp/core";
-import {formatUintToDecimal, formatHexToUintToDecimal} from "src/utils/formatUtils";
+import {formatUintToDecimal, formatBigNumberToDecimal} from "src/utils/formatUtils";
 import {BURN_ADDRESS} from "src/config/constants";
+import BigNumber from "bignumber.js";
 
 const PriceContext = createContext({
   usdtUserAssets: 0,
@@ -102,7 +103,7 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
         [account],
         "getUserHistoricalRewards",
         MainStaking
-      ).then((value: {_hex: string}) => setHistoricalEarning(formatHexToUintToDecimal(value._hex)))
+      ).then((value: BigNumber) => setHistoricalEarning(formatBigNumberToDecimal(value)));
     }
 
     setLoading(false);
