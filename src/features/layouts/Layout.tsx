@@ -9,10 +9,7 @@ const Layout: React.FC = ({ children }) => {
   const {account} = useEthers();
 
   useEffect(() => {
-    // This is done because account value initialize as undefined, then goes to null nad finally the user address
-    if (account !== undefined) {
-      reloadPrices();
-    }
+    reloadPrices();
   }, [account]);
 
   return (
