@@ -132,8 +132,8 @@ const Sell: React.FC = () => {
     ]).then(([nmilkOrders, nlandOrders, nbeefOrders]) => {
       orders = [
         ...nmilkOrders.map((nmilkOrder: any) => ({...nmilkOrder, token: 'nmilk'})),
-        ...nlandOrders.map((nlandOrder: any) => ({...nlandOrder, token: 'nland'})),
-        ...nbeefOrders.map((nbeefOrder: any) => ({...nbeefOrder, token: 'nbeef'})),
+        /*...nlandOrders.map((nlandOrder: any) => ({...nlandOrder, token: 'nland'})),
+        ...nbeefOrders.map((nbeefOrder: any) => ({...nbeefOrder, token: 'nbeef'})),*/
       ].map((order: OrderType) => ({
         index: formatHexToDecimal(get(order, 'index._hex', '0x00')),
         originalAmount: formatHexToUintToDecimal(get(order, 'originalAmount._hex', '0x00')),
@@ -491,8 +491,8 @@ const Sell: React.FC = () => {
                         </td>
                         <td>#{order.index + 1}</td>
                         <td>{formatDateToDisplay(order.timestamp)}</td>
-                        <td>{formatCurrency(order.originalAmount - order.amount)} / ${formatCurrency(order.originalAmount)} ${upperCase(order.token)} ({(((order.originalAmount - order.amount) / order.originalAmount) * 100).toFixed(2)}%)</td>
-                        <td>{`${formatCurrency(order.originalAmount)} ${upperCase(order.token)}`}</td>
+                        <td>{formatCurrency(order.originalAmount - order.amount)} / {formatCurrency(order.originalAmount)} {upperCase(order.token)} ({(((order.originalAmount - order.amount) / order.originalAmount) * 100).toFixed(2)}%)</td>
+                        <td>$ {formatCurrency(order.price)}</td>
                         <td>
                           <Button
                             text={t('exchange.table.remove')}
