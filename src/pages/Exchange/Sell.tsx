@@ -10,11 +10,11 @@ import NewTokenExchange from "src/config/abi/NewTokenExchange.json";
 import RedeemRewards from "src/config/abi/RedeemRewards.json";
 import {callFunction, approveContract, getTokenAllowance} from "reblox-web3-utils";
 import {
+  formatBigNumberToDecimal,
   formatDateToDisplay,
   formatDecimalToUint,
   formatHexToDate,
   formatHexToDecimal,
-  formatHexToUintToDecimal,
 } from "src/utils/formatUtils";
 import {PriceContext} from "src/contexts/PriceContext";
 import {useEthers} from "@usedapp/core";
@@ -131,15 +131,17 @@ const Sell: React.FC = () => {
         configExchange.nbeef.exchangeAbi,
       )
     ]).then(([nmilkOrders, nlandOrders, nbeefOrders]) => {
+      console.log(nmilkOrders[0].originalAmount, nmilkOrders[0].index)
+
       orders = [
         ...nmilkOrders.map((nmilkOrder: any) => ({...nmilkOrder, token: 'nmilk'})),
         /*...nlandOrders.map((nlandOrder: any) => ({...nlandOrder, token: 'nland'})),
         ...nbeefOrders.map((nbeefOrder: any) => ({...nbeefOrder, token: 'nbeef'})),*/
-      ].map((order: OrderType) => ({
+      ].map((order: any) => ({
         index: formatHexToDecimal(get(order, 'index._hex', '0x00')),
-        originalAmount: formatHexToUintToDecimal(get(order, 'originalAmount._hex', '0x00')),
-        amount: formatHexToUintToDecimal(get(order, 'amount._hex', '0x00')),
-        price: formatHexToUintToDecimal(get(order, 'price._hex', '0x00')),
+        originalAmount: formatBigNumberToDecimal(order.originalAmount),
+        amount: formatBigNumberToDecimal(order.amount),
+        price: formatBigNumberToDecimal(order.price),
         timestamp: formatHexToDate(get(order, 'timestamp._hex', '0x00')),
         token: order.token,
         status: (formatHexToDecimal(get(order, 'amount._hex', '0x00'))) === 0 ? 'confirmed' : 'processing',

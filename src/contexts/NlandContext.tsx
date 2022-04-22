@@ -9,10 +9,10 @@ import MainStaking from "src/config/abi/MainStaking.json";
 import {callViewFunction, callFunction} from "reblox-web3-utils";
 import {useEthers} from "@usedapp/core";
 import {NLAND_POOL_ID, NLAND_TOKENS_BY_HECTARE} from "src/config/constants";
-import {get} from "lodash";
-import {formatUintToDecimal, formatHexToUintToDecimal} from "src/utils/formatUtils";
+import {formatUintToDecimal, formatBigNumberToDecimal} from "src/utils/formatUtils";
 import {PriceContext} from "src/contexts/PriceContext";
 import {SECONDS_PER_YEAR} from "src/utils";
+import BigNumber from "bignumber.js";
 
 const NlandContext = createContext({
   nlandTotalSupply: 0,
@@ -127,7 +127,7 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
         [NLAND_POOL_ID, account],
         "userInfo",
         MainStaking
-      ).then((userInfo: {amount: {_hex: string}}) => setNlandUserDeposited(formatHexToUintToDecimal(get(userInfo, 'amount._hex', '0x00'))));
+      ).then((userInfo: {amount: BigNumber}) => setNlandUserDeposited(formatBigNumberToDecimal(userInfo.amount)));
 
       requestUserEarns()
       setInterval(() => requestUserEarns(), 10000);
@@ -143,7 +143,7 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
       [NLAND_POOL_ID, account],
       "getPendingNative",
       MainStaking
-    ).then((value: {_hex: string}) => setNlandUserEarns(formatHexToUintToDecimal(value._hex)));
+    ).then((value: BigNumber) => setNlandUserEarns(formatBigNumberToDecimal(value)));
   }
 
   useEffect(() => {

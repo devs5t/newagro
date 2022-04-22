@@ -9,10 +9,10 @@ import MainStaking from "src/config/abi/MainStaking.json";
 import {callViewFunction, callFunction} from "reblox-web3-utils";
 import {useEthers} from "@usedapp/core";
 import {NBEEF_POOL_ID, NBEEF_TOKENS_BY_STEER} from "src/config/constants";
-import {get} from "lodash";
-import {formatUintToDecimal, formatHexToUintToDecimal} from "src/utils/formatUtils";
+import {formatUintToDecimal, formatBigNumberToDecimal} from "src/utils/formatUtils";
 import {PriceContext} from "src/contexts/PriceContext";
 import {SECONDS_PER_YEAR} from "src/utils";
+import BigNumber from "bignumber.js";
 
 const NbeefContext = createContext({
   nbeefTotalSupply: 0,
@@ -127,7 +127,7 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
         [NBEEF_POOL_ID, account],
         "userInfo",
         MainStaking
-      ).then((userInfo: {amount: {_hex: string}}) => setNbeefUserDeposited(formatHexToUintToDecimal(get(userInfo, 'amount._hex', '0x00'))));
+      ).then((userInfo: {amount: BigNumber}) => setNbeefUserDeposited(formatBigNumberToDecimal(userInfo.amount)));
 
       requestUserEarns()
       setInterval(() => requestUserEarns(), 10000);
@@ -143,7 +143,7 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
       [NBEEF_POOL_ID, account],
       "getPendingNative",
       MainStaking
-    ).then((value: {_hex: string}) => setNbeefUserEarns(formatHexToUintToDecimal(value._hex)));
+    ).then((value: BigNumber) => setNbeefUserEarns(formatBigNumberToDecimal(value)));
   }
 
   useEffect(() => {
