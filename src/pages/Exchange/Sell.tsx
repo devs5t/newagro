@@ -23,7 +23,6 @@ import {NmilkContext} from "src/contexts/NmilkContext";
 import {NlandContext} from "src/contexts/NlandContext";
 import {NbeefContext} from "src/contexts/NbeefContext";
 import ExchangeARSForm from "src/components/forms/ExchangeARSForm";
-import {formatCurrency} from "src/utils/currency";
 import {useReloadPrices} from "src/hooks/useReloadPrices";
 import SuccessModal from "src/components/Modal/SuccessModal";
 
@@ -341,7 +340,7 @@ const Sell: React.FC = () => {
 
             {selectedFromCurrency !== 'nac' && (
               <div className="flex absolute right-0 md:right-36 -mt-32 w-48 h-8 justify-center items-center rounded-full text-center text-xs font-semibold text-white bg-green">
-                {`${t(`exchange.suggested_price`)}: $${formatCurrency(suggestedPrice)}`}
+                {`${t(`exchange.suggested_price`)}: $${suggestedPrice}`}
               </div>
             )}
 
@@ -386,7 +385,7 @@ const Sell: React.FC = () => {
         </div>
 
         <p className="text-blue text-left mt-4 text-sm">
-          {t('exchange.user_from_assets', {token: upperCase(selectedFromCurrency), amount: formatCurrency(fromUserAssets)})}
+          {t('exchange.user_from_assets', {token: upperCase(selectedFromCurrency), amount: fromUserAssets})}
         </p>
 
         <div className="flex justify-center mt-4">
@@ -501,8 +500,8 @@ const Sell: React.FC = () => {
                         </td>
                         <td>#{order.index + 1}</td>
                         <td>{formatDateToDisplay(order.timestamp)}</td>
-                        <td>{formatCurrency(order.originalAmount - order.amount)} / {formatCurrency(order.originalAmount)} {upperCase(order.token)} ({(((order.originalAmount - order.amount) / order.originalAmount) * 100).toFixed(2)}%)</td>
-                        <td>$ {formatCurrency(order.price)}</td>
+                        <td>{order.originalAmount - order.amount} / {order.originalAmount} {upperCase(order.token)} ({(((order.originalAmount - order.amount) / order.originalAmount) * 100).toFixed(2)}%)</td>
+                        <td>$ {order.price}</td>
                         <td>
                           <Button
                             text={t('exchange.table.remove')}

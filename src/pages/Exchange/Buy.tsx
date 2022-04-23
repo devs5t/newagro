@@ -13,7 +13,6 @@ import {PriceContext} from "src/contexts/PriceContext";
 import {useEthers} from "@usedapp/core";
 import {ModalContext} from "src/contexts/ModalContext";
 import ExchangeARSForm from "src/components/forms/ExchangeARSForm";
-import {formatCurrency} from "src/utils/currency";
 import {useReloadPrices} from "src/hooks/useReloadPrices";
 import {NmilkContext} from "src/contexts/NmilkContext";
 import {NlandContext} from "src/contexts/NlandContext";
@@ -223,7 +222,7 @@ const Buy: React.FC = () => {
     setFromAmount(value);
   }, [selectedFromCurrency, availableTokens]);
 
-  const onMax = () => setFromAmount(availableTokens);
+  const onMax = () => setFromAmount(maxValue);
 
   return (
     <form onSubmit={onSubmit} className="w-full">
@@ -276,10 +275,9 @@ const Buy: React.FC = () => {
 
         {['nac', 'usdt'].includes(selectedFromCurrency) && (
           <p className="text-blue text-left text-sm mt-4">
-            {t('exchange.user_from_assets', {token: upperCase(selectedFromCurrency), amount: formatCurrency(availableTokens)})}
+            {t('exchange.user_from_assets', {token: upperCase(selectedFromCurrency), amount: availableTokens})}
           </p>
         )}
-
 
         <div className="flex justify-center mt-4">
           <ReactSVG
@@ -328,10 +326,10 @@ const Buy: React.FC = () => {
         </div>
 
         <div className="flex justify-between mt-4">
-          <p className="text-blue text-sm text-left mr-6">{t(`exchange.helper_bottom_buy`, {token: upperCase(selectedToCurrency), amount: formatCurrency(totalTokensForSell)})}</p>
+          <p className="text-blue text-sm text-left mr-6">{t(`exchange.helper_bottom_buy`, {token: upperCase(selectedToCurrency), amount: totalTokensForSell})}</p>
 
           <p className="text-blue text-sm font-semibold">
-            {upperCase(selectedToCurrency)} {t(`exchange.price`)} ${formatCurrency(suggestedPrice)}
+            {upperCase(selectedToCurrency)} {t(`exchange.price`)} ${suggestedPrice}
           </p>
         </div>
 

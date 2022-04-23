@@ -3,13 +3,13 @@ import BigNumber from "bignumber.js";
 export const formatNumber = (value = 0, decimals = 18) =>
   new BigNumber(value).dividedBy(new BigNumber(10).exponentiatedBy(decimals));
 
-export const formatBigNumberToDecimal = (bigNumber: BigNumber) => new BigNumber(bigNumber._hex).shiftedBy(-18).toNumber();
+export const formatBigNumberToDecimal = (bigNumber: BigNumber) => new BigNumber(bigNumber._hex).shiftedBy(-18).toFixed(2, 1);
 
 export const formatUintToDecimal = (number: number | BigNumber) => {
   if (BigNumber.isBigNumber(number)) {
     return formatBigNumberToDecimal(number);
   }
-  return number / 1E18;
+  return new BigNumber(number).shiftedBy(-18).toFixed(2, 1);
 }
 
 export const formatHexToDecimal = (hex: string) => new BigNumber(hex).toNumber();
