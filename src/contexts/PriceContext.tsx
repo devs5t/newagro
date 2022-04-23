@@ -7,9 +7,8 @@ import OracleFX from "src/config/abi/OracleFX.json";
 import MainStaking from "src/config/abi/MainStaking.json";
 import {callViewFunction, callFunction} from "reblox-web3-utils";
 import {useEthers} from "@usedapp/core";
-import {formatUintToDecimal, formatBigNumberToDecimal} from "src/utils/formatUtils";
+import {formatUintToDecimal} from "src/utils/formatUtils";
 import {BURN_ADDRESS} from "src/config/constants";
-import BigNumber from "bignumber.js";
 
 const PriceContext = createContext({
   usdtUserAssets: 0,
@@ -53,7 +52,7 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
       [],
       "getPrice",
       OracleFX
-    ).then((value: number) => setNacExchangeRate(formatUintToDecimal(value)));
+    ).then((value) => setNacExchangeRate(formatUintToDecimal(value)));
 
     callViewFunction(
       CHAIN_ID,
@@ -86,7 +85,7 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
         [account],
         "balanceOf",
         NAC
-      ).then((value: number) => setUsdtUserAssets(formatUintToDecimal(value)));
+      ).then((value) => setUsdtUserAssets(formatUintToDecimal(value)));
 
       callFunction(
         contracts.nac[CHAIN_ID],
@@ -94,7 +93,7 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
         [account],
         "balanceOf",
         NAC
-      ).then((value: number) => setNacUserAssets(formatUintToDecimal(value)));
+      ).then((value) => setNacUserAssets(formatUintToDecimal(value)));
 
 
       callFunction(
@@ -103,7 +102,7 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
         [account],
         "getUserHistoricalRewards",
         MainStaking
-      ).then((value: BigNumber) => setHistoricalEarning(formatBigNumberToDecimal(value)));
+      ).then((value) => setHistoricalEarning(formatUintToDecimal(value)));
     }
 
     setLoading(false);
