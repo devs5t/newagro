@@ -91,8 +91,9 @@ const DepositTokenForm: React.FC<DepositTokenFormProps> = ({ token }) => {
   };
 
   const onMax = () => {
-    setAmount(availableTokens)
-  }
+    setAmount(availableTokens);
+    setSliderValue(100);
+  };
 
   const handleSlide = (event: Event, newValue: number) => {
     setSliderValue(newValue);

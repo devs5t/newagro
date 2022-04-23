@@ -69,8 +69,9 @@ const WithdrawTokenForm: React.FC<WithdrawTokenFormProps> = ({ token }) => {
 
 
   const onMax = () => {
-    setAmount(availableTokens)
-  }
+    setAmount(availableTokens);
+    setSliderValue(100);
+  };
 
   const onChange = (value: number) => {
     if (value > availableTokens) {
