@@ -152,7 +152,7 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
   }, [nlandSuggestedPrice, nlandTotalSupply]);
 
   useEffect(() => {
-    setUserHectares(nlandUserAssets / NLAND_TOKENS_BY_HECTARE);
+    setUserHectares((Number(nlandUserAssets) + Number(nlandUserDeposited)) / NLAND_TOKENS_BY_HECTARE);
   }, [nlandUserAssets]);
 
   useEffect(() => {

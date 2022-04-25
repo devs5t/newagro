@@ -152,7 +152,7 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
   }, [nbeefSuggestedPrice, nbeefTotalSupply]);
 
   useEffect(() => {
-    setUserSteers(nbeefUserAssets / NBEEF_TOKENS_BY_STEER);
+    setUserSteers((Number(nbeefUserAssets) + Number(nbeefUserDeposited)) / NBEEF_TOKENS_BY_STEER);
   }, [nbeefUserAssets]);
 
   useEffect(() => {

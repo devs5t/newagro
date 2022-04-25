@@ -152,7 +152,7 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
   }, [nmilkSuggestedPrice, nmilkTotalSupply]);
 
   useEffect(() => {
-    setUserCows((nmilkUserAssets + nmilkUserDeposited) / NMILK_TOKENS_BY_COW);
+    setUserCows((Number(nmilkUserAssets) + Number(nmilkUserDeposited)) / NMILK_TOKENS_BY_COW);
   }, [nmilkUserAssets, nmilkUserDeposited]);
 
   useEffect(() => {

@@ -250,10 +250,7 @@ const Sell: React.FC = () => {
           [formatDecimalToUint(fromAmount), formatDecimalToUint(fromPrice)],
           'sell',
           selectedExchangeAbi
-        ).finally(() => {
-          setIsLoading(false);
-          reloadPrices();
-          requestSellOrders();
+        ).then(() => {
           setModal({
             component: () => SuccessModal({
               subtitle: t('exchange.sell_success_subtitle'),
@@ -261,6 +258,10 @@ const Sell: React.FC = () => {
             }),
             title: t('exchange.sell_success_title', {token: upperCase(selectedFromCurrency)}),
           });
+        }).finally(() => {
+          setIsLoading(false);
+          reloadPrices();
+          requestSellOrders();
         });
       }
     }

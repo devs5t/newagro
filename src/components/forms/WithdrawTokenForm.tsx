@@ -162,7 +162,7 @@ const WithdrawTokenForm: React.FC<WithdrawTokenFormProps> = ({ token }) => {
           <Button
             isLoading={isLoading}
             text={`${t("withdraw_token_form.withdraw")} ${upperCase(token)}`}
-            extraClasses="h-10 bg-blue border-blue text-white text-center h-8 text-xs uppercase w-full ml-3"
+            extraClasses="h-10 bg-blue border-blue text-white text-center h-8 text-xs uppercase w-full ml-3 truncate"
             type="submit"
           />
         </div>

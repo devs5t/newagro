@@ -197,10 +197,7 @@ const Buy: React.FC = () => {
         [formatDecimalToUint(fromAmount)],
         method,
         NewTokenExchange
-      ).finally(() => {
-        setIsLoading(false);
-        reloadPrices();
-        requestTotalTokensForSell();
+      ).then(() => {
         setModal({
           component: () => SuccessModal({
             subtitle: t('exchange.buy_success_subtitle'),
@@ -210,6 +207,10 @@ const Buy: React.FC = () => {
           }),
           title: t('exchange.buy_success_title', {token: upperCase(selectedToCurrency)}),
         });
+      }).finally(() => {
+        setIsLoading(false);
+        reloadPrices();
+        requestTotalTokensForSell();
       });
     }
   };

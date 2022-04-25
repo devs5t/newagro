@@ -19,7 +19,7 @@ export const useTotalSupply = () => {
     const pendingNlandNac = (formatDateToUnixTimestamp(new Date()) - formatDateToUnixTimestamp(nlandLastRewardDate)) * nlandRewardPerSecond;
     const pendingNbeefNac = (formatDateToUnixTimestamp(new Date()) - formatDateToUnixTimestamp(nbeefLastRewardDate)) * nbeefRewardPerSecond;
 
-    setTotalSupply(nacTotalSupply + pendingNmilkNac + pendingNlandNac + pendingNbeefNac);
+    setTotalSupply(Number(nacTotalSupply) + Number(pendingNmilkNac) + Number(pendingNlandNac) + Number(pendingNbeefNac));
 
   }, [nacTotalSupply, nmilkLastRewardDate, nmilkRewardPerSecond, nlandLastRewardDate, nlandRewardPerSecond, nbeefLastRewardDate, nbeefRewardPerSecond]);
 

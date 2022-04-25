@@ -195,7 +195,7 @@ const DepositTokenForm: React.FC<DepositTokenFormProps> = ({ token }) => {
             <Button
               isLoading={isLoading}
               text={`${t("deposit_token_form.deposit")} ${upperCase(token)}`}
-              extraClasses="h-10 bg-blue border-blue text-white text-center h-8 text-xs uppercase w-full ml-3"
+              extraClasses="h-10 bg-blue border-blue text-white text-center h-8 text-xs uppercase w-full ml-3 truncate"
               type="submit"
             />
           )}

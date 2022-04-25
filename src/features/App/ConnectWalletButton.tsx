@@ -2,7 +2,7 @@ import { getChainName, shortenAddress, useEthers } from "@usedapp/core";
 import { Box, Button as MaterialButton } from "@mui/material";
 import { spacing } from "@mui/system";
 import { styled } from "@mui/styles";
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { useAddNetwork } from "src/hooks/useAddNetwork";
 import BigNumber from "bignumber.js";
 import {useTranslation} from "react-i18next";
@@ -10,6 +10,7 @@ import Button from "src/components/Buttons/Button";
 import Web3Modal from "web3modal";
 import CoinbaseWalletSDK from "@coinbase/wallet-sdk";
 import WalletConnect from "@walletconnect/web3-provider/dist/umd/index.min.js";
+import {ModalContext} from "src/contexts/ModalContext";
 
 const SpacingButton = styled(MaterialButton)(spacing);
 
@@ -21,6 +22,8 @@ export const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
   buttonClasses
 }) => {
   const { t } = useTranslation();
+  const {setModal} = useContext(ModalContext);
+
   const { activate, account, deactivate, chainId } = useEthers();
   const [offerNetworkChange, setOfferNetworkChange] = useState<boolean>(true);
 
@@ -96,7 +99,10 @@ export const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
   return (
     <Button
       text={t('navbar.pair_wallet')}
-      onClick={handleConnectWallet}
+      onClick={() => {
+        setModal(undefined);
+        handleConnectWallet();
+      }}
       extraClasses={`uppercase text-white border-white font-bold text-tiny md:text-xs whitespace-nowrap text-center h-8 md:h-10 ${buttonClasses}`}
     />
   );
