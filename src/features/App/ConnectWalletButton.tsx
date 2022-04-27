@@ -49,23 +49,6 @@ export const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
     }
   }, []);
 
-  if (window.hasOwnProperty("ethereum") && account) {
-    window.ethereum.on("chainChanged", (_chainId) => {
-      if (new BigNumber(_chainId).toNumber() !== Number(envChainId)) {
-        useAddNetwork(parseInt(envChainId as string));
-      } else {
-        window.location.reload();
-      }
-    });
-  }
-
-  if (Number(chainId) !== Number(envChainId) && offerNetworkChange && window.hasOwnProperty("ethereum") && chainId && account) {
-    useAddNetwork(parseInt(envChainId as string));
-    if (offerNetworkChange) {
-      setOfferNetworkChange(false);
-    }
-  }
-
   if (account) {
     const abbr = shortenAddress(account);
     const chainName = getChainName(chainId || 56).toLowerCase();
@@ -74,7 +57,9 @@ export const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
       return (
         <Button
           extraClasses="uppercase text-white border-white font-bold text-tiny md:text-xs whitespace-nowrap text-center h-8 md:h-10"
-          onClick={handleDeactivate}
+          onClick={() => {
+            useAddNetwork(parseInt(envChainId as string))
+          }}
           text={t('navbar.wrong_wallet')}
         />
       );
