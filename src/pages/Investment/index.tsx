@@ -42,8 +42,7 @@ const Investment: React.FC = () => {
     ).finally(() => {
       setIsHarvestingLoading(false);
       reloadPrices();
-    })
-      .catch((e) => alert(account + e.message));
+    });
   };
 
   const [selectedTokenAssets, selectedTokenProfitability, selectedTokenUserAssets, selectedTokenHistoricalEarning, selectedTokenIcon] = useMemo(() => {
