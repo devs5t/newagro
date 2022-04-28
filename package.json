@@ -6,9 +6,14 @@
     "dev": "vite",
     "pretty": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,scss}'",
     "serve": "vite preview",
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "resources": "capacitor-resources -p android,ios"
   },
   "dependencies": {
+    "@capacitor/android": "^3.5.0",
+    "@capacitor/core": "^3.5.0",
+    "@capacitor/ios": "^3.5.0",
+    "@capacitor/splash-screen": "^1.2.2",
     "@coinbase/wallet-sdk": "^3.0.8",
     "@date-io/date-fns": "2.11.0",
     "@emotion/react": "11.4.1",
@@ -79,6 +84,7 @@
     "web3modal": "1.9.7"
   },
   "devDependencies": {
+    "@capacitor/cli": "^3.5.0",
     "@types/node": "16.9.6",
     "@types/ramda": "0.27.45",
     "@types/react": "^17.0.0",

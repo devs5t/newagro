@@ -29,7 +29,7 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-      <div className="relative w-full bg-blue">
+      <div className="fixed w-full bg-blue top-0 navbar-mobile z-100">
 
         <div className="flex justify-between items-center py-[0.75rem] mx-auto px-6 md:px-10">
           <div className="flex justify-start navbar-logo">
@@ -80,7 +80,7 @@ const Navbar: React.FC = () => {
         </div>
 
         <div className={`transform top-0 left-0 w-64 bg-blue fixed h-full overflow-auto ease-in-out transition-all duration-300 z-30 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-          <div className="pt-5 pb-6 px-5">
+          <div className="pt-10 px-5">
             <div className="flex justify-end mt-4">
               <button
                 className="mr-2 cursor-pointer"

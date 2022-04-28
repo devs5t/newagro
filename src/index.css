@@ -83,3 +83,16 @@ select:focus {
 .web3modal-modal-lightbox {
     z-index: 100!important;
 }
+
+.navbar-mobile {
+    padding-top: constant(safe-area-inset-top);
+    padding-top: env(safe-area-inset-top);
+}
+
+body{
+    margin-top: max(3rem, calc(env(safe-area-inset-bottom) + 4rem));
+}
+
+.z-100 {
+    z-index: 100;
+}

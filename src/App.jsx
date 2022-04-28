@@ -4,7 +4,7 @@ import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
 import { StyledEngineProvider } from "@mui/styled-engine-sc";
 import jssPreset from "@mui/styles/jssPreset";
 import StylesProvider from "@mui/styles/StylesProvider";
-import { shortenAddress, useEthers } from "@usedapp/core";
+import { shortenAddress } from "@usedapp/core";
 import { create } from "jss";
 import { useSnackbar } from "notistack";
 import { useEffect } from "react";
@@ -26,6 +26,7 @@ import {NmilkContextProvider} from "src/contexts/NmilkContext";
 import {NlandContextProvider} from "src/contexts/NlandContext";
 import {NbeefContextProvider} from "src/contexts/NbeefContext";
 import { GoogleApiProvider } from "react-gapi";
+import {SplashScreen} from '@capacitor/splash-screen';
 
 const jss = create({
   ...jssPreset(),
@@ -36,11 +37,15 @@ function App() {
   const content = useRoutes(routes);
   const { theme } = useTheme();
   const location = useLocation();
-  const { account } = useEthers();
   const [referrerId, setReferrerId] = useLocalStorage("referrerId", null);
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const envGoogleDriveApiKey = import.meta.env.VITE_APP_GOOGLE_DRIVE_API_KEY;
+
+  setTimeout(() => {
+    SplashScreen.hide();
+  }, 2000);
+
 
   useEffect(() => {
     const { pathname, search } = location;

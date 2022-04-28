@@ -347,19 +347,18 @@ const Sell: React.FC = () => {
 
 
             <select
-              className="text-blue font-bold text-xl uppercase md:w-32 cursor-pointer"
+              className="text-blue font-bold text-xl md:w-32 cursor-pointer"
               onChange={(e) => setSelectedFromCurrency(e.target.value)}
               value={selectedFromCurrency}
             >
               {fromCurrencies.map((fromCurrency: string, index: number) => (
                 <option
                   key={index}
-                  className="text-blue font-bold text-xl uppercase"
+                  className="text-blue font-bold text-xl"
                   disabled={!['nac', 'nmilk'].includes(fromCurrency)}
                   value={fromCurrency}
-                  label={upperCase(fromCurrency)}
                 >
-                  {fromCurrency}
+                  {upperCase(fromCurrency)}
                 </option>
               ))}
             </select>
@@ -417,7 +416,7 @@ const Sell: React.FC = () => {
           </div>
 
           <select
-            className="text-blue font-bold text-xl uppercase md:w-32 cursor-pointer"
+            className="text-blue font-bold text-xl md:w-32 cursor-pointer"
             onChange={(e) => setSelectedToCurrency(e.target.value)}
             value={selectedToCurrency}
           >
@@ -427,9 +426,8 @@ const Sell: React.FC = () => {
                 className="text-blue font-bold text-xl"
                 disabled={toCurrency === 'ars' && selectedFromCurrency !== 'nac'}
                 value={toCurrency}
-                label={upperCase(toCurrency)}
               >
-                {toCurrency}
+                {upperCase(toCurrency)}
               </option>
             ))}
           </select>
