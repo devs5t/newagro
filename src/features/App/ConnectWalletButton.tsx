@@ -93,6 +93,8 @@ export const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
   );
 };
 
+const infuraId: number = import.meta.env.VITE_APP_INFURA_ID
+
 const providerOptions = {
   injected: {
     package: null,
@@ -100,13 +102,13 @@ const providerOptions = {
   walletconnect: {
     package: WalletConnect,
     options: {
-      infuraId: "INFURA_ID", // required
+      infuraId: infuraId, // required
     },
   },
   coinbasewallet: {
     package: CoinbaseWalletSDK,
     options: {
-      infuraId: "INFURA_ID",
+      infuraId: infuraId,
     },
   },
 };
