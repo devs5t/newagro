@@ -6,7 +6,7 @@ interface DocumentationCardProps {
   subtitle?: string;
   link?: string;
   linkText?: () => void;
-  linkTarget: string;
+  linkTarget?: string;
   containerClasses?: string;
   component?: ReactNode,
   signIn?: any;
