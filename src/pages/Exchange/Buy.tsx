@@ -216,7 +216,7 @@ const Buy: React.FC = () => {
   };
 
   const onFromAmountChange = useCallback((value: number) => {
-    if (['usdt', 'nac'].includes(selectedFromCurrency) && value > Number(availableTokens)) {
+    if (['usdt', 'nac'].includes(selectedFromCurrency) && value > availableTokens) {
       setFromAmount(availableTokens);
       return;
     }
