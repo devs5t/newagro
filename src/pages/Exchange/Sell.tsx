@@ -266,7 +266,7 @@ const Sell: React.FC = () => {
   };
 
   const onFromAmountChange = useCallback((value: number) => {
-    if (value > fromUserAssets) {
+    if (value > Number(fromUserAssets)) {
       setFromAmount(fromUserAssets);
     } else {
       setFromAmount(value);
