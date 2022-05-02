@@ -34,12 +34,12 @@ const Buy: React.FC = () => {
 
   const [fromMaxInput, setFromMaxInput] = useState<number>(0);
 
-  const [fromAmount, setFromAmount] = useState<number>(0);
+  const [fromAmount, setFromAmount] = useState<number>();
   const debouncedFromAmount: number = useDebounce(fromAmount, 500);
 
   const [totalTokensForSell, setTotalTokensForSell] = useState<number>(0);
 
-  const [toAmount, setToAmount] = useState<number>(0);
+  const [toAmount, setToAmount] = useState<number>();
 
   const fromCurrencies: ('usdt' | 'nac' | 'ars')[] = ['usdt', 'nac', 'ars'];
   const [selectedFromCurrency, setSelectedFromCurrency] = useState<'usdt' | 'nac' | 'ars'>(fromCurrencies[0]);
@@ -216,7 +216,7 @@ const Buy: React.FC = () => {
   };
 
   const onFromAmountChange = useCallback((value: number) => {
-    if (['usdt', 'nac'].includes(selectedFromCurrency) && value > availableTokens) {
+    if (['usdt', 'nac'].includes(selectedFromCurrency) && value > Number(availableTokens)) {
       setFromAmount(availableTokens);
       return;
     }

@@ -47,11 +47,11 @@ const Sell: React.FC = () => {
   const { nlandUserAssets, nlandSuggestedPrice } = useContext(NlandContext);
   const { nbeefUserAssets, nbeefSuggestedPrice } = useContext(NbeefContext);
 
-  const [fromAmount, setFromAmount] = useState<number>(0);
+  const [fromAmount, setFromAmount] = useState<number>();
 
-  const [fromPrice, setFromPrice] = useState<number>(0);
+  const [fromPrice, setFromPrice] = useState<number>();
 
-  const [toAmount, setToAmount] = useState<number>(0);
+  const [toAmount, setToAmount] = useState<number>();
 
   const fromCurrencies: ('nac' | 'nmilk' | 'nbeef' | 'nland')[] =  ['nac', 'nmilk', 'nland', 'nbeef'];
   const [selectedFromCurrency, setSelectedFromCurrency] = useState<'nac' | 'nmilk' | 'nbeef' | 'nland'>(fromCurrencies[0]);
@@ -130,8 +130,6 @@ const Sell: React.FC = () => {
         configExchange.nbeef.exchangeAbi,
       )
     ]).then(([nmilkOrders, nlandOrders, nbeefOrders]) => {
-      console.log(nmilkOrders[0].originalAmount, nmilkOrders[0].index)
-
       orders = [
         ...nmilkOrders.map((nmilkOrder: any) => ({...nmilkOrder, token: 'nmilk'})),
         /*...nlandOrders.map((nlandOrder: any) => ({...nlandOrder, token: 'nland'})),
