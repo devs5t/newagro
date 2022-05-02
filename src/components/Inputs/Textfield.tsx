@@ -32,6 +32,15 @@ const Textfield: React.FC<TextfieldProps> = ({
   max
 }) => {
 
+  let extraProps = {};
+
+  if (type === 'number') {
+    extraProps = {
+      pattern: "[0-9]*",
+      inputMode: "decimal"
+    };
+  }
+
   return (
     <div className={`w-full ${containerClasses}`}>
       {label && (
@@ -55,6 +64,7 @@ const Textfield: React.FC<TextfieldProps> = ({
         step={step}
         min={min}
         max={max}
+        {...extraProps}
       />
     </div>
   );
