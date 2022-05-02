@@ -497,7 +497,7 @@ const Sell: React.FC = () => {
                         </td>
                         <td>#{order.index + 1}</td>
                         <td>{formatDateToDisplay(order.timestamp)}</td>
-                        <td>{order.originalAmount - order.amount} / {order.originalAmount} {upperCase(order.token)} ({(((order.originalAmount - order.amount) / order.originalAmount) * 100).toFixed(2)}%)</td>
+                        <td>{(order.originalAmount - order.amount).toFixed(2)} / {order.originalAmount} {upperCase(order.token)} ({(((order.originalAmount - order.amount) / order.originalAmount) * 100).toFixed(2)}%)</td>
                         <td>$ {order.price}</td>
                         <td>
                           <Button
