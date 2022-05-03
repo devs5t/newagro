@@ -161,7 +161,7 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
 
   useEffect(() => {
     const nmilkTVL: number = nmilkBalance * nmilkSuggestedPrice;
-    let apr: number = (((nmilkRewardPerSecond * SECONDS_PER_YEAR) / nmilkTVL) * 100) / nacExchangeRate;
+    let apr: number = (((nmilkRewardPerSecond * SECONDS_PER_YEAR) / nmilkTVL) * 100) / formatUintToDecimal(nacExchangeRate);
     if (!isFinite(apr)) {
       apr = 0
     }

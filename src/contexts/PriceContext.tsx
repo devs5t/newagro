@@ -7,7 +7,6 @@ import OracleFX from "src/config/abi/OracleFX.json";
 import MainStaking from "src/config/abi/MainStaking.json";
 import {callViewFunction, callFunction} from "reblox-web3-utils";
 import {useEthers} from "@usedapp/core";
-import {formatUintToDecimal} from "src/utils/formatUtils";
 import {BURN_ADDRESS} from "src/config/constants";
 
 const PriceContext = createContext({
@@ -52,7 +51,7 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
       [],
       "getPrice",
       OracleFX
-    ).then((value) => setNacExchangeRate(formatUintToDecimal(value)));
+    ).then(setNacExchangeRate);
 
     callViewFunction(
       CHAIN_ID,
@@ -60,7 +59,7 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
       [],
       "totalSupply",
       NAC
-    ).then((value) => setNacTotalSupply(formatUintToDecimal(value)));
+    ).then(setNacTotalSupply);
 
     callViewFunction(
       CHAIN_ID,
@@ -68,7 +67,7 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
       [contracts.redeemRewards[CHAIN_ID]],
       "balanceOf",
       NAC
-    ).then((value) => setLiquidityFundAssets(formatUintToDecimal(value)));
+    ).then(setLiquidityFundAssets);
 
     callViewFunction(
       CHAIN_ID,
@@ -76,7 +75,7 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
       [BURN_ADDRESS],
       "balanceOf",
       NAC
-    ).then((value) => setBurnAddressAssets(formatUintToDecimal(value)));
+    ).then(setBurnAddressAssets);
 
     if (library && account) {
       callFunction(
@@ -85,7 +84,7 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
         [account],
         "balanceOf",
         NAC
-      ).then((value) => setUsdtUserAssets(formatUintToDecimal(value)));
+      ).then(setUsdtUserAssets);
 
       callFunction(
         contracts.nac[CHAIN_ID],
@@ -93,7 +92,7 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
         [account],
         "balanceOf",
         NAC
-      ).then((value) => setNacUserAssets(formatUintToDecimal(value)));
+      ).then(setNacUserAssets);
 
 
       callFunction(
@@ -102,7 +101,7 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
         [account],
         "getUserHistoricalRewards",
         MainStaking
-      ).then((value) => setHistoricalEarning(formatUintToDecimal(value)));
+      ).then(setHistoricalEarning);
     }
 
     setLoading(false);

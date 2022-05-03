@@ -161,7 +161,7 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
 
   useEffect(() => {
     const nbeefTVL: number = nbeefBalance * nbeefSuggestedPrice;
-    let apr: number = (((nbeefRewardPerSecond * SECONDS_PER_YEAR) / nbeefTVL) * 100) / nacExchangeRate;
+    let apr: number = (((nbeefRewardPerSecond * SECONDS_PER_YEAR) / nbeefTVL) * 100) / formatUintToDecimal(nacExchangeRate);
     if (!isFinite(apr)) {
       apr = 0
     }

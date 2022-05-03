@@ -68,7 +68,7 @@ const Sell: React.FC = () => {
   const fromUserAssets: number = useMemo(() => {
     switch (selectedFromCurrency) {
       case "nac":
-        return nacUserAssets;
+        return formatDecimalToUint(nacUserAssets);
       case "nmilk":
         return nmilkUserAssets;
       case "nland":
@@ -76,7 +76,7 @@ const Sell: React.FC = () => {
       case "nbeef":
         return nbeefUserAssets;
     }
-  }, [selectedFromCurrency, nmilkUserAssets, nlandUserAssets, nbeefUserAssets]);
+  }, [selectedFromCurrency, nacUserAssets, nmilkUserAssets, nlandUserAssets, nbeefUserAssets]);
 
   const configSpender: any = {
     nac: {contract: contracts.nac[CHAIN_ID]},
@@ -156,7 +156,7 @@ const Sell: React.FC = () => {
   useEffect(() => {
     if (selectedFromCurrency === 'nac') {
       if (selectedToCurrency === 'usdt') {
-        setToAmount(fromAmount / nacExchangeRate);
+        setToAmount(fromAmount / formatDecimalToUint(nacExchangeRate));
       } else if (selectedToCurrency === 'ars') {
         setToAmount(fromAmount);
       }

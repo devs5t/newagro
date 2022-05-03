@@ -8,6 +8,7 @@ import VisitFieldForm from "src/components/forms/VisitFieldForm";
 import {useLocation} from "react-router-dom";
 import {PriceContext} from "src/contexts/PriceContext";
 import CountUp from "react-countup";
+import {formatUintToDecimal} from "src/utils/formatUtils";
 
 const Footer: React.FC = () => {
   const { t } = useTranslation();
@@ -41,7 +42,7 @@ const Footer: React.FC = () => {
           className="uppercase font-black mt-2 text-2xl text-blue"
           prefix="1 USDT = "
           suffix=" NAC"
-          end={nacExchangeRate}
+          end={formatUintToDecimal(nacExchangeRate)}
           decimals={2}
           separator=","
           decimal="."

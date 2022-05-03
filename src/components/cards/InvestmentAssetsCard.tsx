@@ -8,7 +8,6 @@ interface InvestmentAssetsCardProps {
   assets: number;
   profitability: number;
   userAssets: number;
-  historicalEarning: number;
   tokenIcon: string;
 }
 
@@ -17,7 +16,6 @@ const InvestmentAssetsCard: React.FC<InvestmentAssetsCardProps> = ({
   assets,
   profitability,
   userAssets,
-  historicalEarning,
   tokenIcon
 }) => {
   const { t } = useTranslation();

@@ -3,7 +3,7 @@ import {PriceContext} from "src/contexts/PriceContext";
 import {NmilkContext} from "src/contexts/NmilkContext";
 import {NbeefContext} from "src/contexts/NbeefContext";
 import {NlandContext} from "src/contexts/NlandContext";
-import {formatDateToUnixTimestamp} from "src/utils/formatUtils";
+import {formatDateToUnixTimestamp, formatUintToDecimal} from "src/utils/formatUtils";
 
 export const useTotalSupply = () => {
 
@@ -19,7 +19,7 @@ export const useTotalSupply = () => {
     const pendingNlandNac = (formatDateToUnixTimestamp(new Date()) - formatDateToUnixTimestamp(nlandLastRewardDate)) * nlandRewardPerSecond;
     const pendingNbeefNac = (formatDateToUnixTimestamp(new Date()) - formatDateToUnixTimestamp(nbeefLastRewardDate)) * nbeefRewardPerSecond;
 
-    setTotalSupply(Number(nacTotalSupply) + Number(pendingNmilkNac) + Number(pendingNlandNac) + Number(pendingNbeefNac));
+    setTotalSupply(formatUintToDecimal(nacTotalSupply) + Number(pendingNmilkNac) + Number(pendingNlandNac) + Number(pendingNbeefNac));
 
   }, [nacTotalSupply, nmilkLastRewardDate, nmilkRewardPerSecond, nlandLastRewardDate, nlandRewardPerSecond, nbeefLastRewardDate, nbeefRewardPerSecond]);
 

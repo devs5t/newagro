@@ -17,6 +17,7 @@ import TokenIssueForm from "src/components/forms/TokenIssueForm";
 import NACIssueForm from "src/components/forms/NACIssueForm";
 import {useEthers} from "@usedapp/core";
 import {isAdminAddress} from "src/utils/addressHelpers";
+import {formatUintToDecimal} from "src/utils/formatUtils";
 
 const Admin: React.FC = () => {
   const { t } = useTranslation();
@@ -56,7 +57,7 @@ const Admin: React.FC = () => {
           <h3 className="text-blue font-semibold md:font-bold text-sm mr-6">{t('admin.available_funds')}</h3>
           <CountUp
             className="text-green font-bold text-base"
-            end={liquidityFundAssets}
+            end={formatUintToDecimal(liquidityFundAssets)}
             decimals={2}
             separator=","
             decimal="."
@@ -78,7 +79,7 @@ const Admin: React.FC = () => {
           <h3 className="text-blue font-semibold md:font-bold text-sm mr-4">{t('admin.nac_in_circulation')}</h3>
           <CountUp
             className="text-green font-bold text-base"
-            end={totalSupply - burnAddressAssets}
+            end={totalSupply - formatUintToDecimal(burnAddressAssets)}
             decimals={2}
             separator=","
             decimal="."
@@ -88,7 +89,7 @@ const Admin: React.FC = () => {
           <p className="text-green font-bold text-base mx-6">|</p>
           <CountUp
             className="text-green font-bold text-base"
-            end={(totalSupply - burnAddressAssets) / nacExchangeRate}
+            end={(totalSupply - formatUintToDecimal(burnAddressAssets)) / formatUintToDecimal(nacExchangeRate)}
             decimals={2}
             separator=","
             decimal="."

@@ -66,7 +66,7 @@ const Buy: React.FC = () => {
 
   const getValueBasedOnSelectedFromCurrency = useCallback((value: number) => {
     if (['nac', 'ars'].includes(selectedFromCurrency)) {
-      return value / nacExchangeRate;
+      return value / formatUintToDecimal(nacExchangeRate);
     }
     return value;
   }, [selectedFromCurrency, nacExchangeRate]);
@@ -132,9 +132,9 @@ const Buy: React.FC = () => {
       return undefined;
     }
     if (selectedFromCurrency === 'nac') {
-      return min([nacUserAssets, (fromMaxInput * nacExchangeRate)]);
+      return min([formatUintToDecimal(nacUserAssets), (fromMaxInput * formatUintToDecimal(nacExchangeRate))]);
     }
-    return min([usdtUserAssets, fromMaxInput]);
+    return min([formatUintToDecimal(usdtUserAssets), fromMaxInput]);
   }, [fromMaxInput, selectedFromCurrency, usdtUserAssets, nacUserAssets, nacExchangeRate]);
 
   const canSubmit: boolean = useMemo(() => {
@@ -157,9 +157,9 @@ const Buy: React.FC = () => {
       case "ars":
         return 0;
       case "nac":
-        return nacUserAssets;
+        return formatUintToDecimal(nacUserAssets);
       case "usdt":
-        return usdtUserAssets;
+        return formatUintToDecimal(usdtUserAssets);
     }
   }, [selectedFromCurrency, nacUserAssets, usdtUserAssets]);
 

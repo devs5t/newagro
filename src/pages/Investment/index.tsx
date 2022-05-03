@@ -16,6 +16,7 @@ import CountUp from "react-countup";
 import InvestmentAssetsCard from "src/components/cards/InvestmentAssetsCard";
 import {ReactSVG} from "react-svg";
 import {NMILK_TOKENS_BY_COW, NLAND_TOKENS_BY_HECTARE, NBEEF_TOKENS_BY_STEER } from "src/config/constants";
+import {formatUintToDecimal} from "src/utils/formatUtils";
 
 const Investment: React.FC = () => {
   const { t } = useTranslation();
@@ -45,16 +46,16 @@ const Investment: React.FC = () => {
     });
   };
 
-  const [selectedTokenAssets, selectedTokenProfitability, selectedTokenUserAssets, selectedTokenHistoricalEarning, selectedTokenIcon] = useMemo(() => {
+  const [selectedTokenAssets, selectedTokenProfitability, selectedTokenUserAssets, selectedTokenIcon] = useMemo(() => {
     switch (selectedToken) {
       case 'nmilk':
-        return [totalCows, nmilkProfitability, userCows, historicalEarning, 'icons/milk.svg'];
+        return [totalCows, nmilkProfitability, userCows, 'icons/milk.svg'];
       case 'nland':
-        return [totalHectares, nlandProfitability, userHectares, historicalEarning, 'icons/land.svg'];
+        return [totalHectares, nlandProfitability, userHectares, 'icons/land.svg'];
       case 'nbeef':
-        return [totalSteers, nbeefProfitability, userSteers, historicalEarning, 'icons/beef.svg'];
+        return [totalSteers, nbeefProfitability, userSteers, 'icons/beef.svg'];
       default:
-        return [0, 0, 0, 0, ''];
+        return [0, 0, 0, ''];
     }
   }, [selectedToken]);
 
@@ -170,7 +171,7 @@ const Investment: React.FC = () => {
                   <h4 className="text-blue font-bold text-base mt-8">{t(`investment.rentability.historical_earnings`)}</h4>
                   <CountUp
                     className="text-green font-bold text-base"
-                    end={historicalEarning}
+                    end={formatUintToDecimal(historicalEarning)}
                     separator=","
                     decimal="."
                     decimals={2}
@@ -188,7 +189,6 @@ const Investment: React.FC = () => {
               assets={selectedTokenAssets}
               profitability={selectedTokenProfitability}
               userAssets={selectedTokenUserAssets}
-              historicalEarning={selectedTokenHistoricalEarning}
               tokenIcon={selectedTokenIcon}
             />
           )}

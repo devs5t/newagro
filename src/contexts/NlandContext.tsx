@@ -161,7 +161,7 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
 
   useEffect(() => {
     const nlandTVL: number = nlandBalance * nlandSuggestedPrice;
-    let apr: number = (((nlandRewardPerSecond * SECONDS_PER_YEAR) / nlandTVL) * 100) / nacExchangeRate;
+    let apr: number = (((nlandRewardPerSecond * SECONDS_PER_YEAR) / nlandTVL) * 100) / formatUintToDecimal(nacExchangeRate);
     if (!isFinite(apr)) {
       apr = 0
     }
