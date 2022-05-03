@@ -331,6 +331,7 @@ const Sell: React.FC = () => {
                   containerClasses="w-full max-w-[8rem] mr-10"
                   inputClasses="md:placeholder-transparent"
                   type="number"
+                  step={0.01}
                   disabled={false}
                   placeholder={t(`exchange.price`)}
                 />
@@ -373,6 +374,7 @@ const Sell: React.FC = () => {
                   value={fromPrice}
                   containerClasses="w-full mt-4"
                   type="number"
+                  step={0.01}
                   placeholder={t(`exchange.price`)}
                 />
               </div>
