@@ -216,12 +216,12 @@ const Buy: React.FC = () => {
   };
 
   const onFromAmountChange = useCallback((value: number) => {
-    if (['usdt', 'nac'].includes(selectedFromCurrency) && value > availableTokens) {
-      setFromAmount(availableTokens);
+    if (['usdt', 'nac'].includes(selectedFromCurrency) && Number(value) > maxValue) {
+      setFromAmount(maxValue);
       return;
     }
     setFromAmount(value);
-  }, [selectedFromCurrency, availableTokens]);
+  }, [selectedFromCurrency, maxValue]);
 
   const onMax = () => setFromAmount(maxValue);
 
