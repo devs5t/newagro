@@ -111,14 +111,14 @@ const Admin: React.FC = () => {
 
         <AdminCard
           title={t(`admin.nac_emitted_${selectedToken}`)}
-          quantity={formatUintToDecimal(selectedTokenNacEmitted) * selectedTokenAuxiliary * selectedTokenPeriod}
+          quantity={formatUintToDecimal(selectedTokenNacEmitted, 18) * selectedTokenAuxiliary * selectedTokenPeriod}
           onClick={() => {
             setModal({
               component: () => NACIssueForm({
                 token: selectedToken,
                 tokenAuxiliary: selectedTokenAuxiliary,
                 tokenPeriod: selectedTokenPeriod,
-                nacEmitted: formatUintToDecimal(selectedTokenNacEmitted) * selectedTokenAuxiliary * selectedTokenPeriod
+                nacEmitted: formatUintToDecimal(selectedTokenNacEmitted, 18) * selectedTokenAuxiliary * selectedTokenPeriod
               }),
               title: t("admin.nac_issue.title"),
             });

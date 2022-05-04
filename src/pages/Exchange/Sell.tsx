@@ -155,7 +155,7 @@ const Sell: React.FC = () => {
   useEffect(() => {
     if (selectedFromCurrency === 'nac') {
       if (selectedToCurrency === 'usdt') {
-        setToAmount(fromAmount / formatDecimalToUint(nacExchangeRate));
+        setToAmount(fromAmount / formatUintToDecimal(nacExchangeRate));
       } else if (selectedToCurrency === 'ars') {
         setToAmount(fromAmount);
       }
