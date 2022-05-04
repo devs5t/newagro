@@ -16,10 +16,10 @@ export const useTotalSupply = () => {
 
   const calculateTotalSupply = useCallback(() => {
     const pendingNmilkNac = (formatDateToUnixTimestamp(new Date()) - formatDateToUnixTimestamp(nmilkLastRewardDate)) * formatUintToDecimal(nmilkRewardPerSecond);
-    const pendingNlandNac = (formatDateToUnixTimestamp(new Date()) - formatDateToUnixTimestamp(nlandLastRewardDate)) * nlandRewardPerSecond;
-    const pendingNbeefNac = (formatDateToUnixTimestamp(new Date()) - formatDateToUnixTimestamp(nbeefLastRewardDate)) * nbeefRewardPerSecond;
+    const pendingNlandNac = (formatDateToUnixTimestamp(new Date()) - formatDateToUnixTimestamp(nlandLastRewardDate)) * formatUintToDecimal(nlandRewardPerSecond);
+    const pendingNbeefNac = (formatDateToUnixTimestamp(new Date()) - formatDateToUnixTimestamp(nbeefLastRewardDate)) * formatUintToDecimal(nbeefRewardPerSecond);
 
-    setTotalSupply(formatUintToDecimal(nacTotalSupply) + Number(pendingNmilkNac) + Number(pendingNlandNac) + Number(pendingNbeefNac));
+    setTotalSupply(formatUintToDecimal(nacTotalSupply) + pendingNmilkNac + pendingNlandNac + pendingNbeefNac);
 
   }, [nacTotalSupply, nmilkLastRewardDate, nmilkRewardPerSecond, nlandLastRewardDate, nlandRewardPerSecond, nbeefLastRewardDate, nbeefRewardPerSecond]);
 

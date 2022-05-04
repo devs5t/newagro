@@ -43,9 +43,9 @@ const DepositTokenForm: React.FC<DepositTokenFormProps> = ({ token }) => {
       case "nmilk":
         return formatUintToDecimal(nmilkUserAssets);
       case "nland":
-        return nlandUserAssets;
+        return formatUintToDecimal(nlandUserAssets);
       case "nbeef":
-        return nbeefUserAssets;
+        return formatUintToDecimal(nbeefUserAssets);
     }
   }, [token, nmilkUserAssets, nlandUserAssets, nbeefUserAssets]);
 

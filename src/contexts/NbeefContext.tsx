@@ -9,10 +9,9 @@ import MainStaking from "src/config/abi/MainStaking.json";
 import {callViewFunction, callFunction} from "reblox-web3-utils";
 import {useEthers} from "@usedapp/core";
 import {NBEEF_POOL_ID, NBEEF_TOKENS_BY_STEER} from "src/config/constants";
-import {formatUintToDecimal, formatBigNumberToDecimal} from "src/utils/formatUtils";
 import {PriceContext} from "src/contexts/PriceContext";
 import {SECONDS_PER_YEAR} from "src/utils";
-import BigNumber from "bignumber.js";
+import {formatUintToDecimal} from "src/utils/formatUtils";
 
 const NbeefContext = createContext({
   nbeefTotalSupply: 0,
@@ -73,7 +72,7 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
       [],
       "totalSupply",
       NewToken
-    ).then((value: number) => setNbeefTotalSupply(formatUintToDecimal(value)));
+    ).then(setNbeefTotalSupply);
 
     callViewFunction(
       CHAIN_ID,
@@ -83,8 +82,8 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
       MainStaking
     ).then((value: any) => {
       setNbeefLastRewardDate(new Date(value.lastRewardTimestamp * 1000));
-      setNbeefRewardPerSecond(formatUintToDecimal(value.nativePerSecond));
-      setNbeefAssetsPerMonth(formatUintToDecimal(value.assetPerMonthPerFullWantToken))
+      setNbeefRewardPerSecond(value.nativePerSecond);
+      setNbeefAssetsPerMonth(value.assetPerMonthPerFullWantToken)
     });
 
     callViewFunction(
@@ -93,7 +92,7 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
       [contracts.mainStaking[CHAIN_ID]],
       "balanceOf",
       NewToken
-    ).then((value: number) => setNbeefBalance(formatUintToDecimal(value)));
+    ).then(setNbeefBalance);
 
     callViewFunction(
       CHAIN_ID,
@@ -101,7 +100,7 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
       [],
       "getPrice",
       NewTokenOracle
-    ).then((value: number) => setNbeefExchangeRate(formatUintToDecimal(value)));
+    ).then(setNbeefExchangeRate);
 
     callViewFunction(
       CHAIN_ID,
@@ -109,7 +108,7 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
       [],
       "getSuggestedPrice",
       NewTokenExchange
-    ).then((value: number) => setNbeefSuggestedPrice(formatUintToDecimal(value)));
+    ).then(setNbeefSuggestedPrice);
 
     if (library && account) {
 
@@ -119,7 +118,7 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
         [account],
         "balanceOf",
         NewToken
-      ).then((value: number) => setNbeefUserAssets(formatUintToDecimal(value)));
+      ).then(setNbeefUserAssets);
 
       callFunction(
         contracts.mainStaking[CHAIN_ID],
@@ -127,7 +126,7 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
         [NBEEF_POOL_ID, account],
         "userInfo",
         MainStaking
-      ).then((userInfo: {amount: BigNumber}) => setNbeefUserDeposited(formatBigNumberToDecimal(userInfo.amount)));
+      ).then((userInfo: {amount: any}) => setNbeefUserDeposited(userInfo.amount));
 
       requestUserEarns()
       setInterval(() => requestUserEarns(), 10000);
@@ -143,25 +142,25 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
       [NBEEF_POOL_ID, account],
       "getPendingNative",
       MainStaking
-    ).then((value: BigNumber) => setNbeefUserEarns(formatBigNumberToDecimal(value)));
+    ).then(setNbeefUserEarns);
   }
 
   useEffect(() => {
-    setNbeefTotalAssets(nbeefTotalSupply * nbeefSuggestedPrice);
-    setTotalSteers(nbeefTotalSupply / NBEEF_TOKENS_BY_STEER);
+    setNbeefTotalAssets(formatUintToDecimal(nbeefTotalSupply) * formatUintToDecimal(nbeefSuggestedPrice));
+    setTotalSteers(formatUintToDecimal(nbeefTotalSupply) / NBEEF_TOKENS_BY_STEER);
   }, [nbeefSuggestedPrice, nbeefTotalSupply]);
 
   useEffect(() => {
-    setUserSteers((Number(nbeefUserAssets) + Number(nbeefUserDeposited)) / NBEEF_TOKENS_BY_STEER);
+    setUserSteers((formatUintToDecimal(nbeefUserAssets) + formatUintToDecimal(nbeefUserDeposited)) / NBEEF_TOKENS_BY_STEER);
   }, [nbeefUserAssets]);
 
   useEffect(() => {
-    setNbeefProfitability((nbeefAssetsPerMonth * nbeefExchangeRate * NBEEF_TOKENS_BY_STEER));
+    setNbeefProfitability((formatUintToDecimal(nbeefAssetsPerMonth) * formatUintToDecimal(nbeefExchangeRate) * NBEEF_TOKENS_BY_STEER));
   }, [nbeefAssetsPerMonth, nbeefExchangeRate]);
 
   useEffect(() => {
-    const nbeefTVL: number = nbeefBalance * nbeefSuggestedPrice;
-    let apr: number = (((nbeefRewardPerSecond * SECONDS_PER_YEAR) / nbeefTVL) * 100) / formatUintToDecimal(nacExchangeRate);
+    const nbeefTVL: number = formatUintToDecimal(nbeefBalance) * formatUintToDecimal(nbeefSuggestedPrice);
+    let apr: number = (((formatUintToDecimal(nbeefRewardPerSecond) * SECONDS_PER_YEAR) / nbeefTVL) * 100) / formatUintToDecimal(nacExchangeRate);
     if (!isFinite(apr)) {
       apr = 0
     }

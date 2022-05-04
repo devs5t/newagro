@@ -74,7 +74,7 @@ const Investment: React.FC = () => {
             <p className="text-blue text-sm font-semibold leading-5">NAC <br/> {t('investment.pending')}</p>
             <CountUp
               className="text-blue text-4xl mx-4"
-              end={formatUintToDecimal(nmilkUserEarns) + nlandUserEarns + nbeefUserEarns}
+              end={formatUintToDecimal(nmilkUserEarns) + formatUintToDecimal(nlandUserEarns) + formatUintToDecimal(nbeefUserEarns)}
               decimals={2}
               separator=","
               decimal="."
@@ -112,12 +112,12 @@ const Investment: React.FC = () => {
               token="nland"
               selectedToken={selectedToken}
               setSelectedToken={setSelectedToken}
-              deposit={nlandUserDeposited}
-              depositAuxiliary={nlandUserDeposited / NLAND_TOKENS_BY_HECTARE}
-              assets={nlandUserAssets}
-              earn={nlandUserEarns}
-              earnAuxiliary={nlandUserEarns / NLAND_TOKENS_BY_HECTARE}
-              totalAssets={nlandUserDeposited * nlandSuggestedPrice}
+              deposit={formatUintToDecimal(nlandUserDeposited)}
+              depositAuxiliary={formatUintToDecimal(nlandUserDeposited) / NLAND_TOKENS_BY_HECTARE}
+              assets={formatUintToDecimal(nlandUserAssets)}
+              earn={formatUintToDecimal(nlandUserEarns)}
+              earnAuxiliary={formatUintToDecimal(nlandUserEarns) / NLAND_TOKENS_BY_HECTARE}
+              totalAssets={formatUintToDecimal(nlandUserDeposited) * formatUintToDecimal(nlandSuggestedPrice)}
               image={'images/photos/bg_nland.jpeg'}
               disabled={true}
             />
@@ -127,12 +127,12 @@ const Investment: React.FC = () => {
               token="nbeef"
               selectedToken={selectedToken}
               setSelectedToken={setSelectedToken}
-              deposit={nbeefUserDeposited}
-              depositAuxiliary={nbeefUserDeposited / NBEEF_TOKENS_BY_STEER}
-              assets={nbeefUserAssets}
-              earn={nbeefUserEarns}
-              earnAuxiliary={nbeefUserEarns / NBEEF_TOKENS_BY_STEER}
-              totalAssets={nbeefUserAssets * nbeefSuggestedPrice}
+              deposit={formatUintToDecimal(nbeefUserDeposited)}
+              depositAuxiliary={formatUintToDecimal(nbeefUserDeposited) / NBEEF_TOKENS_BY_STEER}
+              assets={formatUintToDecimal(nbeefUserAssets)}
+              earn={formatUintToDecimal(nbeefUserEarns)}
+              earnAuxiliary={formatUintToDecimal(nbeefUserEarns) / NBEEF_TOKENS_BY_STEER}
+              totalAssets={formatUintToDecimal(nbeefUserAssets) * formatUintToDecimal(nbeefSuggestedPrice)}
               image={'images/photos/bg_nbeef.jpeg'}
               disabled={true}
             />

@@ -3,11 +3,9 @@ import BigNumber from "bignumber.js";
 export const formatNumber = (value = 0, decimals = 18) =>
   new BigNumber(value).dividedBy(new BigNumber(10).exponentiatedBy(decimals));
 
-export const formatBigNumberToDecimal = (bigNumber: BigNumber, decimals = 2) => Number(new BigNumber(bigNumber._hex).shiftedBy(-18).toFixed(decimals, 1));
-
 export const formatUintToDecimal = (number: number | BigNumber, decimals = 2) => {
   if (BigNumber.isBigNumber(number)) {
-    return formatBigNumberToDecimal(number, decimals);
+    return Number(new BigNumber(number._hex).shiftedBy(-18).toFixed(decimals, 1));
   }
   return Number(new BigNumber(number).shiftedBy(-18).toFixed(decimals, 1));
 }

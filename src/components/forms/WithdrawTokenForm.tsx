@@ -42,9 +42,9 @@ const WithdrawTokenForm: React.FC<WithdrawTokenFormProps> = ({ token }) => {
       case "nmilk":
         return formatUintToDecimal(nmilkUserDeposited);
       case "nland":
-        return nlandUserDeposited;
+        return formatUintToDecimal(nlandUserDeposited);
       case "nbeef":
-        return nbeefUserDeposited;
+        return formatUintToDecimal(nbeefUserDeposited);
     }
   }, [token, nmilkUserDeposited, nlandUserDeposited, nbeefUserDeposited]);
 

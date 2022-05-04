@@ -9,10 +9,9 @@ import MainStaking from "src/config/abi/MainStaking.json";
 import {callViewFunction, callFunction} from "reblox-web3-utils";
 import {useEthers} from "@usedapp/core";
 import {NLAND_POOL_ID, NLAND_TOKENS_BY_HECTARE} from "src/config/constants";
-import {formatUintToDecimal, formatBigNumberToDecimal} from "src/utils/formatUtils";
 import {PriceContext} from "src/contexts/PriceContext";
 import {SECONDS_PER_YEAR} from "src/utils";
-import BigNumber from "bignumber.js";
+import {formatUintToDecimal} from "src/utils/formatUtils";
 
 const NlandContext = createContext({
   nlandTotalSupply: 0,
@@ -73,7 +72,7 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
       [],
       "totalSupply",
       NewToken
-    ).then((value: number) => setNlandTotalSupply(formatUintToDecimal(value)));
+    ).then(setNlandTotalSupply);
 
     callViewFunction(
       CHAIN_ID,
@@ -83,8 +82,8 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
       MainStaking
     ).then((value: any) => {
       setNlandLastRewardDate(new Date(value.lastRewardTimestamp * 1000));
-      setNlandRewardPerSecond(formatUintToDecimal(value.nativePerSecond));
-      setNlandAssetsPerMonth(formatUintToDecimal(value.assetPerMonthPerFullWantToken))
+      setNlandRewardPerSecond(value.nativePerSecond);
+      setNlandAssetsPerMonth(value.assetPerMonthPerFullWantToken)
     });
 
     callViewFunction(
@@ -93,7 +92,7 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
       [contracts.mainStaking[CHAIN_ID]],
       "balanceOf",
       NewToken
-    ).then((value: number) => setNlandBalance(formatUintToDecimal(value)));
+    ).then(setNlandBalance);
 
     callViewFunction(
       CHAIN_ID,
@@ -101,7 +100,7 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
       [],
       "getPrice",
       NewTokenOracle
-    ).then((value: number) => setNlandExchangeRate(formatUintToDecimal(value)));
+    ).then(setNlandExchangeRate);
 
     callViewFunction(
       CHAIN_ID,
@@ -109,7 +108,7 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
       [],
       "getSuggestedPrice",
       NewTokenExchange
-    ).then((value: number) => setNlandSuggestedPrice(formatUintToDecimal(value)));
+    ).then(setNlandSuggestedPrice);
 
     if (library && account) {
 
@@ -119,7 +118,7 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
         [account],
         "balanceOf",
         NewToken
-      ).then((value: number) => setNlandUserAssets(formatUintToDecimal(value)));
+      ).then(setNlandUserAssets);
 
       callFunction(
         contracts.mainStaking[CHAIN_ID],
@@ -127,7 +126,7 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
         [NLAND_POOL_ID, account],
         "userInfo",
         MainStaking
-      ).then((userInfo: {amount: BigNumber}) => setNlandUserDeposited(formatBigNumberToDecimal(userInfo.amount)));
+      ).then((userInfo: {amount: any}) => setNlandUserDeposited(userInfo.amount));
 
       requestUserEarns()
       setInterval(() => requestUserEarns(), 10000);
@@ -143,25 +142,25 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
       [NLAND_POOL_ID, account],
       "getPendingNative",
       MainStaking
-    ).then((value: BigNumber) => setNlandUserEarns(formatBigNumberToDecimal(value)));
+    ).then(setNlandUserEarns);
   }
 
   useEffect(() => {
-    setNlandTotalAssets(nlandTotalSupply * nlandSuggestedPrice);
-    setTotalHectares(nlandTotalSupply / NLAND_TOKENS_BY_HECTARE);
+    setNlandTotalAssets(formatUintToDecimal(nlandTotalSupply) * formatUintToDecimal(nlandSuggestedPrice));
+    setTotalHectares(formatUintToDecimal(nlandTotalSupply) / NLAND_TOKENS_BY_HECTARE);
   }, [nlandSuggestedPrice, nlandTotalSupply]);
 
   useEffect(() => {
-    setUserHectares((Number(nlandUserAssets) + Number(nlandUserDeposited)) / NLAND_TOKENS_BY_HECTARE);
+    setUserHectares((formatUintToDecimal(nlandUserAssets) + formatUintToDecimal(nlandUserDeposited)) / NLAND_TOKENS_BY_HECTARE);
   }, [nlandUserAssets]);
 
   useEffect(() => {
-    setNlandProfitability((nlandAssetsPerMonth * nlandExchangeRate * NLAND_TOKENS_BY_HECTARE));
+    setNlandProfitability((formatUintToDecimal(nlandAssetsPerMonth) * formatUintToDecimal(nlandExchangeRate) * NLAND_TOKENS_BY_HECTARE));
   }, [nlandAssetsPerMonth, nlandExchangeRate]);
 
   useEffect(() => {
-    const nlandTVL: number = nlandBalance * nlandSuggestedPrice;
-    let apr: number = (((nlandRewardPerSecond * SECONDS_PER_YEAR) / nlandTVL) * 100) / formatUintToDecimal(nacExchangeRate);
+    const nlandTVL: number = formatUintToDecimal(nlandBalance) * formatUintToDecimal(nlandSuggestedPrice);
+    let apr: number = (((formatUintToDecimal(nlandRewardPerSecond) * SECONDS_PER_YEAR) / nlandTVL) * 100) / formatUintToDecimal(nacExchangeRate);
     if (!isFinite(apr)) {
       apr = 0
     }

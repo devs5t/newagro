@@ -10,7 +10,6 @@ import NewTokenExchange from "src/config/abi/NewTokenExchange.json";
 import RedeemRewards from "src/config/abi/RedeemRewards.json";
 import {callFunction, approveContract, getTokenAllowance} from "reblox-web3-utils";
 import {
-  formatBigNumberToDecimal,
   formatDateToDisplay,
   formatDecimalToUint,
   formatHexToDate,
@@ -68,13 +67,13 @@ const Sell: React.FC = () => {
   const fromUserAssets: number = useMemo(() => {
     switch (selectedFromCurrency) {
       case "nac":
-        return formatUintToDecimal(nacUserAssets);
+        return formatUintToDecimal(nacUserAssets, 18);
       case "nmilk":
-        return formatUintToDecimal(nmilkUserAssets);
+        return formatUintToDecimal(nmilkUserAssets, 18);
       case "nland":
-        return nlandUserAssets;
+        return formatUintToDecimal(nlandUserAssets, 18);
       case "nbeef":
-        return nbeefUserAssets;
+        return formatUintToDecimal(nbeefUserAssets, 18);
     }
   }, [selectedFromCurrency, nacUserAssets, nmilkUserAssets, nlandUserAssets, nbeefUserAssets]);
 
@@ -136,9 +135,9 @@ const Sell: React.FC = () => {
         ...nbeefOrders.map((nbeefOrder: any) => ({...nbeefOrder, token: 'nbeef'})),*/
       ].map((order: any) => ({
         index: formatHexToDecimal(get(order, 'index._hex', '0x00')),
-        originalAmount: formatBigNumberToDecimal(order.originalAmount),
-        amount: formatBigNumberToDecimal(order.amount),
-        price: formatBigNumberToDecimal(order.price),
+        originalAmount: formatUintToDecimal(order.originalAmount),
+        amount: formatUintToDecimal(order.amount),
+        price: formatUintToDecimal(order.price),
         timestamp: formatHexToDate(get(order, 'timestamp._hex', '0x00')),
         token: order.token,
         status: (formatHexToDecimal(get(order, 'amount._hex', '0x00'))) === 0 ? 'confirmed' : 'processing',
@@ -343,7 +342,6 @@ const Sell: React.FC = () => {
                 {`${t(`exchange.suggested_price`)}: $${formatUintToDecimal(suggestedPrice)}`}
               </div>
             )}
-
 
             <select
               className="text-blue font-bold text-xl md:w-32 cursor-pointer"
