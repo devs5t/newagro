@@ -1,13 +1,13 @@
 import React, {useCallback, useContext, useEffect, useMemo, useState} from "react";
 import { useTranslation } from "react-i18next";
 import Textfield from "src/components/Inputs/Textfield";
-import {min, upperCase} from "lodash";
+import {upperCase} from "lodash";
 import Button from "src/components/Buttons/Button";
 import {ReactSVG} from "react-svg";
 import {CHAIN_ID} from "src/config";
 import contracts from "src/config/constants/contracts";
 import {callViewFunction, callFunction, approveContract, getTokenAllowance} from "reblox-web3-utils";
-import {formatDecimalToUint, formatUintToDecimal} from "src/utils/formatUtils";
+import {formatDecimalToUint, formatUintToDecimal, minFromString} from "src/utils/formatUtils";
 import {useDebounce} from "src/hooks/useDebounce";
 import {PriceContext} from "src/contexts/PriceContext";
 import {useEthers} from "@usedapp/core";
@@ -121,7 +121,7 @@ const Buy: React.FC = () => {
       [],
       "getMaxInputAmount",
       NewTokenExchange
-    ).then((value: number) => setFromMaxInput(getValueBasedOnSelectedFromCurrency(formatUintToDecimal(value, 18))));
+    ).then((value: number) => setFromMaxInput(getValueBasedOnSelectedFromCurrency(formatUintToDecimal(value, 18, false))));
 
     requestTotalTokensForSell();
 
@@ -132,9 +132,9 @@ const Buy: React.FC = () => {
       return undefined;
     }
     if (selectedFromCurrency === 'nac') {
-      return min([formatUintToDecimal(nacUserAssets, 18), (fromMaxInput * formatUintToDecimal(nacExchangeRate, 18))]);
+      return minFromString(formatUintToDecimal(nacUserAssets, 18, false), (fromMaxInput * formatUintToDecimal(nacExchangeRate, 18, false)));
     }
-    return min([formatUintToDecimal(usdtUserAssets, 18), fromMaxInput]);
+    return minFromString(formatUintToDecimal(usdtUserAssets, 18, false), fromMaxInput);
   }, [fromMaxInput, selectedFromCurrency, usdtUserAssets, nacUserAssets, nacExchangeRate]);
 
   const canSubmit: boolean = useMemo(() => {

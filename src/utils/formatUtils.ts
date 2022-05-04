@@ -3,11 +3,15 @@ import BigNumber from "bignumber.js";
 export const formatNumber = (value = 0, decimals = 18) =>
   new BigNumber(value).dividedBy(new BigNumber(10).exponentiatedBy(decimals));
 
-export const formatUintToDecimal = (number: number | BigNumber, decimals = 2) => {
+export const formatUintToDecimal = (number: any, decimals = 2, castNumber = true) => {
   if (BigNumber.isBigNumber(number)) {
-    return Number(new BigNumber(number._hex).shiftedBy(-18).toFixed(decimals, 1));
+    number = number._hex;
   }
-  return Number(new BigNumber(number).shiftedBy(-18).toFixed(decimals, 1));
+  number = new BigNumber(number).shiftedBy(-18).toFixed(decimals, 1);
+  if (castNumber) {
+    number = Number(number);
+  }
+  return number;
 }
 
 export const formatHexToDecimal = (hex: string) => new BigNumber(hex).toNumber();
@@ -19,3 +23,10 @@ export const formatDecimalToUint = (number: number) => new BigNumber(number).tim
 export const formatDateToDisplay = (date: Date) => `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
 
 export const formatDateToUnixTimestamp = (date: Date) => Math.floor(date.getTime() / 1000);
+
+export const minFromString = (number1: any, number2: any) => {
+  if (Number(number1) < Number(number2)){
+    return number1;
+  }
+  return number2
+}
