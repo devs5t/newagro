@@ -9,10 +9,9 @@ import MainStaking from "src/config/abi/MainStaking.json";
 import {callViewFunction, callFunction} from "reblox-web3-utils";
 import {useEthers} from "@usedapp/core";
 import {NMILK_POOL_ID, NMILK_TOKENS_BY_COW} from "src/config/constants";
-import {formatUintToDecimal, formatBigNumberToDecimal} from "src/utils/formatUtils";
 import {PriceContext} from "src/contexts/PriceContext";
 import {SECONDS_PER_YEAR} from "src/utils";
-import BigNumber from "bignumber.js";
+import {formatUintToDecimal} from "src/utils/formatUtils";
 
 const NmilkContext = createContext({
   nmilkTotalSupply: 0,
@@ -73,7 +72,7 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
       [],
       "totalSupply",
       NewToken
-    ).then((value: number) => setNmilkTotalSupply(formatUintToDecimal(value)));
+    ).then(setNmilkTotalSupply);
 
     callViewFunction(
       CHAIN_ID,
@@ -83,8 +82,8 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
       MainStaking
     ).then((value: any) => {
       setNmilkLastRewardDate(new Date(value.lastRewardTimestamp * 1000));
-      setNmilkRewardPerSecond(formatUintToDecimal(value.nativePerSecond));
-      setNmilkAssetsPerMonth(formatUintToDecimal(value.assetPerMonthPerFullWantToken))
+      setNmilkRewardPerSecond(value.nativePerSecond);
+      setNmilkAssetsPerMonth(value.assetPerMonthPerFullWantToken)
     });
 
     callViewFunction(
@@ -93,7 +92,7 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
       [contracts.mainStaking[CHAIN_ID]],
       "balanceOf",
       NewToken
-    ).then((value: number) => setNmilkBalance(formatUintToDecimal(value)));
+    ).then(setNmilkBalance);
 
     callViewFunction(
       CHAIN_ID,
@@ -101,7 +100,7 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
       [],
       "getPrice",
       NewTokenOracle
-    ).then((value: number) => setNmilkExchangeRate(formatUintToDecimal(value)));
+    ).then(setNmilkExchangeRate);
 
     callViewFunction(
       CHAIN_ID,
@@ -109,7 +108,7 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
       [],
       "getSuggestedPrice",
       NewTokenExchange
-    ).then((value: number) => setNmilkSuggestedPrice(formatUintToDecimal(value)));
+    ).then(setNmilkSuggestedPrice);
 
     if (library && account) {
 
@@ -119,7 +118,7 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
         [account],
         "balanceOf",
         NewToken
-      ).then((value: number) => setNmilkUserAssets(formatUintToDecimal(value)));
+      ).then(setNmilkUserAssets);
 
       callFunction(
         contracts.mainStaking[CHAIN_ID],
@@ -127,7 +126,7 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
         [NMILK_POOL_ID, account],
         "userInfo",
         MainStaking
-      ).then((userInfo: {amount: BigNumber}) => setNmilkUserDeposited(formatBigNumberToDecimal(userInfo.amount)));
+      ).then((userInfo: {amount: any}) => setNmilkUserDeposited(userInfo.amount));
 
       requestUserEarns()
       setInterval(() => requestUserEarns(), 10000);
@@ -143,25 +142,25 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
       [NMILK_POOL_ID, account],
       "getPendingNative",
       MainStaking
-    ).then((value: BigNumber) => setNmilkUserEarns(formatBigNumberToDecimal(value)));
+    ).then(setNmilkUserEarns);
   };
 
   useEffect(() => {
-    setNmilkTotalAssets(nmilkTotalSupply * nmilkSuggestedPrice);
-    setTotalCows(nmilkTotalSupply / NMILK_TOKENS_BY_COW);
+    setNmilkTotalAssets(formatUintToDecimal(nmilkTotalSupply) * formatUintToDecimal(nmilkSuggestedPrice));
+    setTotalCows(formatUintToDecimal(nmilkTotalSupply) / NMILK_TOKENS_BY_COW);
   }, [nmilkSuggestedPrice, nmilkTotalSupply]);
 
   useEffect(() => {
-    setUserCows((Number(nmilkUserAssets) + Number(nmilkUserDeposited)) / NMILK_TOKENS_BY_COW);
+    setUserCows((formatUintToDecimal(nmilkUserAssets) + formatUintToDecimal(nmilkUserDeposited)) / NMILK_TOKENS_BY_COW);
   }, [nmilkUserAssets, nmilkUserDeposited]);
 
   useEffect(() => {
-    setNmilkProfitability((nmilkAssetsPerMonth * nmilkExchangeRate * NMILK_TOKENS_BY_COW));
+    setNmilkProfitability((formatUintToDecimal(nmilkAssetsPerMonth) * formatUintToDecimal(nmilkExchangeRate) * NMILK_TOKENS_BY_COW));
   }, [nmilkAssetsPerMonth, nmilkExchangeRate]);
 
   useEffect(() => {
-    const nmilkTVL: number = nmilkBalance * nmilkSuggestedPrice;
-    let apr: number = (((nmilkRewardPerSecond * SECONDS_PER_YEAR) / nmilkTVL) * 100) / formatUintToDecimal(nacExchangeRate);
+    const nmilkTVL: number = formatUintToDecimal(nmilkBalance) * formatUintToDecimal(nmilkSuggestedPrice);
+    let apr: number = (((formatUintToDecimal(nmilkRewardPerSecond) * SECONDS_PER_YEAR) / nmilkTVL) * 100) / formatUintToDecimal(nacExchangeRate);
     if (!isFinite(apr)) {
       apr = 0
     }

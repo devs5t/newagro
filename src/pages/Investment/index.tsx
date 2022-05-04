@@ -74,7 +74,7 @@ const Investment: React.FC = () => {
             <p className="text-blue text-sm font-semibold leading-5">NAC <br/> {t('investment.pending')}</p>
             <CountUp
               className="text-blue text-4xl mx-4"
-              end={nmilkUserEarns + nlandUserEarns + nbeefUserEarns}
+              end={formatUintToDecimal(nmilkUserEarns) + nlandUserEarns + nbeefUserEarns}
               decimals={2}
               separator=","
               decimal="."
@@ -98,12 +98,12 @@ const Investment: React.FC = () => {
               token="nmilk"
               selectedToken={selectedToken}
               setSelectedToken={setSelectedToken}
-              deposit={nmilkUserDeposited}
-              depositAuxiliary={nmilkUserDeposited / NMILK_TOKENS_BY_COW}
-              assets={nmilkUserAssets}
-              earn={nmilkUserEarns}
-              earnAuxiliary={nmilkUserEarns / NMILK_TOKENS_BY_COW}
-              totalAssets={nmilkUserDeposited * nmilkSuggestedPrice}
+              deposit={formatUintToDecimal(nmilkUserDeposited)}
+              depositAuxiliary={formatUintToDecimal(nmilkUserDeposited) / NMILK_TOKENS_BY_COW}
+              assets={formatUintToDecimal(nmilkUserAssets)}
+              earn={formatUintToDecimal(nmilkUserEarns)}
+              earnAuxiliary={formatUintToDecimal(nmilkUserEarns) / NMILK_TOKENS_BY_COW}
+              totalAssets={formatUintToDecimal(nmilkUserDeposited) * formatUintToDecimal(nmilkSuggestedPrice)}
               image={'images/photos/bg_nmilk.jpeg'}
             />
             <br/>

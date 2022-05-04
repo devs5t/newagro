@@ -15,7 +15,7 @@ export const useTotalSupply = () => {
   const [totalSupply, setTotalSupply] = useState<number>(0);
 
   const calculateTotalSupply = useCallback(() => {
-    const pendingNmilkNac = (formatDateToUnixTimestamp(new Date()) - formatDateToUnixTimestamp(nmilkLastRewardDate)) * nmilkRewardPerSecond;
+    const pendingNmilkNac = (formatDateToUnixTimestamp(new Date()) - formatDateToUnixTimestamp(nmilkLastRewardDate)) * formatUintToDecimal(nmilkRewardPerSecond);
     const pendingNlandNac = (formatDateToUnixTimestamp(new Date()) - formatDateToUnixTimestamp(nlandLastRewardDate)) * nlandRewardPerSecond;
     const pendingNbeefNac = (formatDateToUnixTimestamp(new Date()) - formatDateToUnixTimestamp(nbeefLastRewardDate)) * nbeefRewardPerSecond;
 

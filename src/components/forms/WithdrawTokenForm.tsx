@@ -11,7 +11,7 @@ import contracts from "src/config/constants/contracts";
 import { useEthers } from "@usedapp/core";
 import { CHAIN_ID } from "src/config";
 import MainStaking from "src/config/abi/MainStaking.json";
-import { formatDecimalToUint } from "src/utils/formatUtils";
+import {formatDecimalToUint, formatUintToDecimal} from "src/utils/formatUtils";
 import DoneIcon from "@mui/icons-material/Done";
 import {NmilkContext} from "src/contexts/NmilkContext";
 import {NlandContext} from "src/contexts/NlandContext";
@@ -40,7 +40,7 @@ const WithdrawTokenForm: React.FC<WithdrawTokenFormProps> = ({ token }) => {
   const availableTokens = useMemo(() => {
     switch (token) {
       case "nmilk":
-        return nmilkUserDeposited;
+        return formatUintToDecimal(nmilkUserDeposited);
       case "nland":
         return nlandUserDeposited;
       case "nbeef":

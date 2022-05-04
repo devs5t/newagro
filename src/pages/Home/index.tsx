@@ -11,6 +11,7 @@ import {NmilkContext} from "src/contexts/NmilkContext";
 import {NlandContext} from "src/contexts/NlandContext";
 import {NbeefContext} from "src/contexts/NbeefContext";
 import {useTotalSupply} from "src/hooks/useTotalSupply";
+import {formatUintToDecimal} from "src/utils/formatUtils";
 
 const Home: React.FC = () => {
   const { t } = useTranslation();
@@ -72,7 +73,7 @@ const Home: React.FC = () => {
           <HomeCard
             title={t(`home.card.${selectedToken}.title`)}
             description={t(`home.card.${selectedToken}.description`)}
-            amount={selectedTokenTotalSupply}
+            amount={formatUintToDecimal(selectedTokenTotalSupply)}
             onClickButton={() => navigate('/exchange')}
             buttonText={t(`home.card.${selectedToken}.button_text`)}
           />

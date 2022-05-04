@@ -38,7 +38,7 @@ const Admin: React.FC = () => {
   const [selectedTokenNacEmitted, selectedTokenPeriod, selectedTokenAuxiliary, selectedTokenTotalSupply] = useMemo(() => {
     switch (selectedToken) {
       case "nmilk":
-        return [nmilkAssetsPerMonth, 1, NMILK_TOKENS_BY_COW, nmilkTotalSupply];
+        return [formatUintToDecimal(nmilkAssetsPerMonth), 1, NMILK_TOKENS_BY_COW, nmilkTotalSupply];
       case "nland":
         return [nlandAssetsPerMonth, 12, NLAND_TOKENS_BY_HECTARE, nlandTotalSupply];
       case "nbeef":
@@ -128,12 +128,12 @@ const Admin: React.FC = () => {
         <br/>
         <AdminCard
           title={t("admin.token_emitted", {token: upperCase(selectedToken)})}
-          quantity={selectedTokenTotalSupply}
+          quantity={formatUintToDecimal(selectedTokenTotalSupply)}
           onClick={() => {
             setModal({
               component: () => TokenIssueForm({
                 token: selectedToken,
-                tokenEmitted: selectedTokenTotalSupply
+                tokenEmitted: formatUintToDecimal(selectedTokenTotalSupply)
               }),
               title: t("admin.token_issue.title", {selectedToken}),
             });

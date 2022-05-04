@@ -121,7 +121,7 @@ const Buy: React.FC = () => {
       [],
       "getMaxInputAmount",
       NewTokenExchange
-    ).then((value: number) => setFromMaxInput(getValueBasedOnSelectedFromCurrency(formatUintToDecimal(value))));
+    ).then((value: number) => setFromMaxInput(getValueBasedOnSelectedFromCurrency(formatUintToDecimal(value, 18))));
 
     requestTotalTokensForSell();
 
@@ -132,9 +132,9 @@ const Buy: React.FC = () => {
       return undefined;
     }
     if (selectedFromCurrency === 'nac') {
-      return min([formatUintToDecimal(nacUserAssets), (fromMaxInput * formatUintToDecimal(nacExchangeRate))]);
+      return min([formatUintToDecimal(nacUserAssets, 18), (fromMaxInput * formatUintToDecimal(nacExchangeRate, 18))]);
     }
-    return min([formatUintToDecimal(usdtUserAssets), fromMaxInput]);
+    return min([formatUintToDecimal(usdtUserAssets, 18), fromMaxInput]);
   }, [fromMaxInput, selectedFromCurrency, usdtUserAssets, nacUserAssets, nacExchangeRate]);
 
   const canSubmit: boolean = useMemo(() => {
@@ -182,7 +182,7 @@ const Buy: React.FC = () => {
 
       if (selectedFromCurrency === 'ars') {
         setModal({
-          component: () => ExchangeARSForm({ tab: 'buy', token: selectedToCurrency, amount: fromAmount, price: suggestedPrice}),
+          component: () => ExchangeARSForm({ tab: 'buy', token: selectedToCurrency, amount: fromAmount, price: formatUintToDecimal(suggestedPrice)}),
           title: `${t("exchange_ars_form.title", {tab: t("exchange_ars_form.buy")})}`,
         });
         setIsLoading(false);
@@ -328,7 +328,7 @@ const Buy: React.FC = () => {
           <p className="text-blue text-sm text-left mr-6">{t(`exchange.helper_bottom_buy`, {token: upperCase(selectedToCurrency), amount: totalTokensForSell})}</p>
 
           <p className="text-blue text-sm font-semibold">
-            {upperCase(selectedToCurrency)} {t(`exchange.price`)} ${suggestedPrice}
+            {upperCase(selectedToCurrency)} {t(`exchange.price`)} ${formatUintToDecimal(suggestedPrice)}
           </p>
         </div>
 

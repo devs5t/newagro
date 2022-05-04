@@ -11,7 +11,7 @@ import contracts from "src/config/constants/contracts";
 import { useEthers } from "@usedapp/core";
 import { CHAIN_ID } from "src/config";
 import MainStaking from "src/config/abi/MainStaking.json";
-import { formatDecimalToUint } from "src/utils/formatUtils";
+import {formatDecimalToUint, formatUintToDecimal} from "src/utils/formatUtils";
 import DoneIcon from "@mui/icons-material/Done";
 import {NmilkContext} from "src/contexts/NmilkContext";
 import {NbeefContext} from "src/contexts/NbeefContext";
@@ -41,7 +41,7 @@ const DepositTokenForm: React.FC<DepositTokenFormProps> = ({ token }) => {
   const availableTokens = useMemo(() => {
     switch (token) {
       case "nmilk":
-        return nmilkUserAssets;
+        return formatUintToDecimal(nmilkUserAssets);
       case "nland":
         return nlandUserAssets;
       case "nbeef":

@@ -14,7 +14,7 @@ import {
   formatDateToDisplay,
   formatDecimalToUint,
   formatHexToDate,
-  formatHexToDecimal,
+  formatHexToDecimal, formatUintToDecimal,
 } from "src/utils/formatUtils";
 import {PriceContext} from "src/contexts/PriceContext";
 import {useEthers} from "@usedapp/core";
@@ -68,9 +68,9 @@ const Sell: React.FC = () => {
   const fromUserAssets: number = useMemo(() => {
     switch (selectedFromCurrency) {
       case "nac":
-        return formatDecimalToUint(nacUserAssets);
+        return formatUintToDecimal(nacUserAssets);
       case "nmilk":
-        return nmilkUserAssets;
+        return formatUintToDecimal(nmilkUserAssets);
       case "nland":
         return nlandUserAssets;
       case "nbeef":
@@ -340,7 +340,7 @@ const Sell: React.FC = () => {
 
             {selectedFromCurrency !== 'nac' && (
               <div className="flex absolute right-0 md:right-36 -mt-32 w-48 h-8 justify-center items-center rounded-full text-center text-xs font-semibold text-white bg-green">
-                {`${t(`exchange.suggested_price`)}: $${suggestedPrice}`}
+                {`${t(`exchange.suggested_price`)}: $${formatUintToDecimal(suggestedPrice)}`}
               </div>
             )}
 
