@@ -8,7 +8,7 @@ import {CHAIN_ID} from "src/config";
 import contracts from "src/config/constants/contracts";
 import NewTokenExchange from "src/config/abi/NewTokenExchange.json";
 import RedeemRewards from "src/config/abi/RedeemRewards.json";
-import {callFunction, approveContract, getTokenAllowance} from "reblox-web3-utils";
+import {callFunction, callViewFunction, approveContract, getTokenAllowance} from "reblox-web3-utils";
 import {
   formatDateToDisplay,
   formatDecimalToUint,
@@ -45,6 +45,8 @@ const Sell: React.FC = () => {
   const { nmilkUserAssets, nmilkSuggestedPrice } = useContext(NmilkContext);
   const { nlandUserAssets, nlandSuggestedPrice } = useContext(NlandContext);
   const { nbeefUserAssets, nbeefSuggestedPrice } = useContext(NbeefContext);
+
+  const [fee, setFee] = useState<number>();
 
   const [fromAmount, setFromAmount] = useState<number>();
 
@@ -169,6 +171,24 @@ const Sell: React.FC = () => {
       setSelectedToCurrency('usdt');
     }
   }, [selectedFromCurrency]);
+
+  useEffect(() => {
+    if (selectedToCurrency === 'ars') {
+      setFee(undefined);
+      return;
+    }
+    let method = "sellFeeBPS";
+    if (selectedFromCurrency === "nac") {
+      method = "feeBPS";
+    }
+    callViewFunction(
+      CHAIN_ID,
+      selectedExchangeContract,
+      [],
+      method,
+      selectedExchangeAbi
+    ).then((value: number) => setFee(value / 100));
+  }, [selectedFromCurrency, selectedToCurrency]);
 
   const suggestedPrice: number = useMemo(() => {
     switch (selectedFromCurrency) {
@@ -382,9 +402,17 @@ const Sell: React.FC = () => {
 
         </div>
 
-        <p className="text-blue text-left mt-4 text-sm">
-          {t('exchange.user_from_assets', {token: upperCase(selectedFromCurrency), amount: fromUserAssets})}
-        </p>
+        <div className="flex justify-between mt-4">
+          <p className="text-blue text-sm">
+            {t('exchange.user_from_assets', {token: upperCase(selectedFromCurrency), amount: fromUserAssets})}
+          </p>
+
+          {fee && (
+            <p className="text-blue text-sm">
+              {t('exchange.exchange_fee', {fee})}
+            </p>
+          )}
+        </div>
 
         <div className="flex justify-center mt-4">
           <ReactSVG

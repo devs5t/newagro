@@ -195,6 +195,7 @@ const resources = {
         button_buy: "Buy",
         button_sell: "Sell",
         user_from_assets: "{{amount}} {{token}} available",
+        exchange_fee: "Exchange fee: {{fee}}%",
         table: {
           status: "Status",
           order_number: "Order number",
@@ -495,6 +496,7 @@ const resources = {
         button_buy: "Comprar",
         button_sell: "Vender",
         user_from_assets: "{{amount}} {{token}} disponibles",
+        exchange_fee: "Tasa de cambio: {{fee}}%",
         table: {
           status: "Estado",
           order_number: "N. de orden",

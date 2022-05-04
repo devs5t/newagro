@@ -32,6 +32,7 @@ const Buy: React.FC = () => {
   const { nlandSuggestedPrice } = useContext(NlandContext);
   const { nbeefSuggestedPrice } = useContext(NbeefContext);
 
+  const [fee, setFee] = useState<number>();
   const [fromMaxInput, setFromMaxInput] = useState<number>(0);
 
   const [fromAmount, setFromAmount] = useState<number>();
@@ -70,6 +71,25 @@ const Buy: React.FC = () => {
     }
     return value;
   }, [selectedFromCurrency, nacExchangeRate]);
+
+  useEffect(() => {
+    if (selectedFromCurrency === 'ars') {
+      setFee(undefined);
+      return;
+    }
+    let method = "buyFeeBPS";
+    if (selectedFromCurrency === "nac") {
+      method = "feeBPS";
+    }
+    callViewFunction(
+      CHAIN_ID,
+      selectedExchangeContract,
+      [],
+      method,
+      NewTokenExchange
+    ).then((value: number) => setFee(value / 100));
+
+  }, [selectedFromCurrency, selectedToCurrency]);
 
   useEffect(() => {
     if (account && library) {
@@ -273,11 +293,19 @@ const Buy: React.FC = () => {
           </div>
         </div>
 
-        {['nac', 'usdt'].includes(selectedFromCurrency) && (
-          <p className="text-blue text-left text-sm mt-4">
-            {t('exchange.user_from_assets', {token: upperCase(selectedFromCurrency), amount: availableTokens})}
-          </p>
-        )}
+        <div className="flex justify-between mt-4">
+          {['nac', 'usdt'].includes(selectedFromCurrency) && (
+            <p className="text-blue text-sm">
+              {t('exchange.user_from_assets', {token: upperCase(selectedFromCurrency), amount: availableTokens})}
+            </p>
+          )}
+
+          {fee && (
+            <p className="text-blue text-sm">
+              {t('exchange.exchange_fee', {fee})}
+            </p>
+          )}
+        </div>
 
         <div className="flex justify-center mt-4">
           <ReactSVG
