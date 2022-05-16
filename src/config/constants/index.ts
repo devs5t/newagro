@@ -1,9 +1,7 @@
 import contracts from "src/config/constants/contracts";
 import {CHAIN_ID} from "src/config";
 
-export { default as poolsConfig } from "./pools";
-
-export const NMILK_TOKENS_BY_COW = 5500;
+export const NMILK_TOKENS_BY_COW = 6000;
 export const NLAND_TOKENS_BY_HECTARE = 1;
 export const NBEEF_TOKENS_BY_STEER = 1;
 
