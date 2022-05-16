@@ -19,6 +19,7 @@ import {NlandContext} from "src/contexts/NlandContext";
 import {NbeefContext} from "src/contexts/NbeefContext";
 import {TokenKeyMap} from "src/config/constants";
 import NewTokenExchange from "src/config/abi/NewTokenExchange.json";
+import RedeemRewards from "src/config/abi/RedeemRewards.json";
 import SuccessModal from "src/components/Modal/SuccessModal";
 
 const Buy: React.FC = () => {
@@ -78,15 +79,17 @@ const Buy: React.FC = () => {
       return;
     }
     let method = "buyFeeBPS";
+    let abi = NewTokenExchange;
     if (selectedFromCurrency === "nac") {
       method = "feeBPS";
+      abi = RedeemRewards;
     }
     callViewFunction(
       CHAIN_ID,
       selectedExchangeContract,
       [],
       method,
-      NewTokenExchange
+      abi
     ).then((value: number) => setFee(value / 100));
 
   }, [selectedFromCurrency, selectedToCurrency]);
