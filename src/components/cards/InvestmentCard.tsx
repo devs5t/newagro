@@ -160,7 +160,7 @@ const InvestmentCard: React.FC<InvestmentCardProps> = ({
               NAC - {upperCase(t("investment.earnings"))}
             </h3>
             <CountUp
-              className=" flex justify-center w-full text-3xl lg:text-4xl text-green text-center mt-2 md:mt-0"
+              className=" flex justify-center w-full text-3xl text-green text-center mt-2 md:mt-0"
               end={earn}
               decimals={2}
               separator=","
