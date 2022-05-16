@@ -513,7 +513,7 @@ const resources = {
         buy_success_button: "Ir a inversiones",
         sell_success_title: "Venta {{token}}",
         sell_success_subtitle: "Éxito",
-        sell_success_description: "Vendiste exitosamente {{amount}} {{token}}",
+        sell_success_description: "Pusiste en venta {{amount}} {{token}}",
       },
       docs: {
         banner: {

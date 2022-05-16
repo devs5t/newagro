@@ -254,7 +254,15 @@ const Sell: React.FC = () => {
           [formatDecimalToUint(fromAmount)],
           'deposit',
           selectedExchangeAbi
-        ).finally(() => {
+        ).then(() => {
+          setModal({
+            component: () => SuccessModal({
+              subtitle: t('exchange.sell_success_subtitle'),
+              description: t('exchange.sell_success_description', {amount: fromAmount, token: upperCase(selectedFromCurrency)}),
+            }),
+            title: t('exchange.sell_success_title', {token: upperCase(selectedFromCurrency)}),
+          });
+        }).finally(() => {
           setIsLoading(false);
           reloadPrices();
         });
@@ -432,7 +440,7 @@ const Sell: React.FC = () => {
             <Textfield
               id="amount"
               onChange={() => {}}
-              value={toAmount}
+              value={toAmount?.toFixed(2)}
               containerClasses="w-full mr-4 md:max-w-[12rem]"
               inputClasses="md:placeholder-transparent"
               type="number"
