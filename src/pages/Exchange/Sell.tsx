@@ -404,7 +404,7 @@ const Sell: React.FC = () => {
 
         <div className="flex justify-between mt-4">
           <p className="text-blue text-sm">
-            {t('exchange.user_from_assets', {token: upperCase(selectedFromCurrency), amount: fromUserAssets})}
+            {t('exchange.user_from_assets', {token: upperCase(selectedFromCurrency), amount: Number(fromUserAssets).toFixed(2)})}
           </p>
 
           {fee && (
