@@ -212,7 +212,8 @@ const resources = {
         buy_success_button: "Go to investment",
         sell_success_title: "Sell {{token}}",
         sell_success_subtitle: "Success",
-        sell_success_description: "You successfully sold {{amount}} {{token}}",
+        sell_success_description_instant: "You successfully sold {{amount}} {{token}}",
+        sell_success_description_pending: "You put up for sale {{amount}} {{token}}",
       },
       docs: {
         banner: {
@@ -513,7 +514,8 @@ const resources = {
         buy_success_button: "Ir a inversiones",
         sell_success_title: "Venta {{token}}",
         sell_success_subtitle: "Éxito",
-        sell_success_description: "Pusiste en venta {{amount}} {{token}}",
+        sell_success_description_instant: "Vendiste exitosamente {{amount}} {{token}}",
+        sell_success_description_pending: "Pusiste en venta {{amount}} {{token}}",
       },
       docs: {
         banner: {

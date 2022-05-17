@@ -258,7 +258,7 @@ const Sell: React.FC = () => {
           setModal({
             component: () => SuccessModal({
               subtitle: t('exchange.sell_success_subtitle'),
-              description: t('exchange.sell_success_description', {amount: fromAmount, token: upperCase(selectedFromCurrency)}),
+              description: t('exchange.sell_success_description_instant', {amount: fromAmount, token: upperCase(selectedFromCurrency)}),
             }),
             title: t('exchange.sell_success_title', {token: upperCase(selectedFromCurrency)}),
           });
@@ -279,7 +279,7 @@ const Sell: React.FC = () => {
           setModal({
             component: () => SuccessModal({
               subtitle: t('exchange.sell_success_subtitle'),
-              description: t('exchange.sell_success_description', {amount: fromAmount, token: upperCase(selectedFromCurrency)}),
+              description: t('exchange.sell_success_description_pending', {amount: fromAmount, token: upperCase(selectedFromCurrency)}),
             }),
             title: t('exchange.sell_success_title', {token: upperCase(selectedFromCurrency)}),
           });
