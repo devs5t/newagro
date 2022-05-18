@@ -70,7 +70,12 @@ const Button: React.FC<ButtonProps> = ({
         disabled={isDisabled}
       >
         {!isLoading && (children || text)}
-        {isLoading && <CircularProgress size={10} sx={{ color: isLoadingColor }} />}
+        {isLoading && (
+          <div className="flex justify-center items-center">
+            <CircularProgress size={12} sx={{ color: isLoadingColor }} />
+            <p className="ml-4">{t("button.step_1_2")}</p>
+          </div>
+        )}
       </button>
     );
   };

@@ -300,6 +300,9 @@ const resources = {
       list: {
         not_found: "Files not found",
       },
+      button: {
+        step_1_2: "Step 1 of 2"
+      }
     },
   },
   es: {
@@ -602,6 +605,9 @@ const resources = {
       },
       list: {
         not_found: "No hay archivos encontrados",
+      },
+      button: {
+        step_1_2: "Paso 1 de 2"
       }
     },
   },
