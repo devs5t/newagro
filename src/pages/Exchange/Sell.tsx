@@ -440,7 +440,7 @@ const Sell: React.FC = () => {
             <Textfield
               id="amount"
               onChange={() => {}}
-              value={toAmount?.toFixed(2)}
+              value={Number(toAmount).toFixed(2)}
               containerClasses="w-full mr-4 md:max-w-[12rem]"
               inputClasses="md:placeholder-transparent"
               type="number"
