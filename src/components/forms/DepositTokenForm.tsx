@@ -161,7 +161,7 @@ const DepositTokenForm: React.FC<DepositTokenFormProps> = ({ token }) => {
           valueLabelDisplay="auto"
           color="secondary"
           className="text-green mt-6"
-          valueLabelFormat={(value) => `${value}%`}
+          valueLabelFormat={(value) => `${Number(value).toFixed(2)}%`}
           onChange={handleSlide}
           marks={[
             {
