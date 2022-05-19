@@ -161,7 +161,7 @@ const DepositTokenForm: React.FC<DepositTokenFormProps> = ({ token }) => {
           valueLabelDisplay="auto"
           color="secondary"
           className="text-green mt-6"
-          valueLabelFormat={(value) => `${Number(value).toFixed(2)}%`}
+          valueLabelFormat={(value) => `${Number(value).toFixed(0)}%`}
           onChange={handleSlide}
           marks={[
             {
@@ -185,7 +185,7 @@ const DepositTokenForm: React.FC<DepositTokenFormProps> = ({ token }) => {
           {needsApproval && (
             <Button
               isLoading={isLoading}
-              text={`${t("deposit_token_form.approve")} ${upperCase(token)}`}
+              text={`${t("deposit_token_form.approve")}`}
               extraClasses="h-10 bg-blue border-blue text-white text-center h-8 text-xs uppercase w-full ml-3"
               type="button"
               onClick={onApprove}
@@ -194,7 +194,7 @@ const DepositTokenForm: React.FC<DepositTokenFormProps> = ({ token }) => {
           {!needsApproval && (
             <Button
               isLoading={isLoading}
-              text={`${t("deposit_token_form.deposit")} ${upperCase(token)}`}
+              text={`${t("deposit_token_form.deposit")}`}
               extraClasses="h-10 bg-blue border-blue text-white text-center h-8 text-xs uppercase w-full ml-3 truncate"
               type="submit"
             />

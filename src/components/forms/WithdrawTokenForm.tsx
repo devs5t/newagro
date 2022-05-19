@@ -138,7 +138,7 @@ const WithdrawTokenForm: React.FC<WithdrawTokenFormProps> = ({ token }) => {
           valueLabelDisplay="auto"
           color="secondary"
           className="text-green mt-6"
-          valueLabelFormat={(value) => `${Number(value).toFixed(2)}%`}
+          valueLabelFormat={(value) => `${Number(value).toFixed(0)}%`}
           onChange={handleSlide}
           marks={[
             {
@@ -161,7 +161,7 @@ const WithdrawTokenForm: React.FC<WithdrawTokenFormProps> = ({ token }) => {
           />
           <Button
             isLoading={isLoading}
-            text={`${t("withdraw_token_form.withdraw")} ${upperCase(token)}`}
+            text={`${t("withdraw_token_form.withdraw")}`}
             extraClasses="h-10 bg-blue border-blue text-white text-center h-8 text-xs uppercase w-full ml-3 truncate"
             type="submit"
           />
