@@ -49,7 +49,7 @@ const Navbar: React.FC = () => {
               <picture>
                 <source media="(min-width: 480px)" srcSet="logos/logo.svg"/>
                 <img
-                  className="h-8 ml-2 md:h-4 md:ml-0 w-auto"
+                  className="h-8 ml-2 md:h-6 md:ml-0 w-auto"
                   src="logos/logo-mini.svg"
                   alt="logo"
                 />
