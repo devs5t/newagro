@@ -9,6 +9,7 @@ import Map from "src/components/Map/Map";
 import {useGoogleApi} from "react-gapi";
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import {Helmet} from "react-helmet-async";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -93,6 +94,9 @@ const Documentation: React.FC = () => {
 
   return (
     <div className="flex justify-center mt-8">
+      <Helmet defer={false}>
+        <title>{`${t('navbar.transparency')} - New Agro`}</title>
+      </Helmet>
       <div className="max-w-3xl w-full">
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
           <Alert severity="error" onClose={handleClose}>

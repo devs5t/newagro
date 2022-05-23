@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import Tabs from "src/components/tabs/Tabs";
 import Buy from "src/pages/Exchange/Buy";
 import Sell from "src/pages/Exchange/Sell";
+import {Helmet} from "react-helmet-async";
 
 const Exchange: React.FC = () => {
   const { t } = useTranslation();
@@ -11,6 +12,9 @@ const Exchange: React.FC = () => {
 
   return (
     <div className="flex justify-center">
+      <Helmet defer={false}>
+        <title>{`${t('navbar.exchange')} - New Agro`}</title>
+      </Helmet>
       <div className="flex flex-col w-full items-center w-full max-w-3xl">
 
         <Tabs

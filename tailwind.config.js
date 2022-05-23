@@ -10,13 +10,14 @@ module.exports = {
       blue: "#253E89",
       black: "#151515",
       darkgray: "#333333",
+      lightgray: "#E5E5E5",
       green: "#77C8B0",
       lightgreen: "#ACDCCE",
       lightblue: "#61C8D9",
       white: "#FFFFFF",
       grey: "#DCDCDC",
       yellow: "#FFDA00",
-      red: "#D61212"
+      red: "#D61212",
     },
     fontSize: {
       'tiny': '.625rem',

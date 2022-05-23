@@ -7,7 +7,7 @@ import StylesProvider from "@mui/styles/StylesProvider";
 import { shortenAddress } from "@usedapp/core";
 import { create } from "jss";
 import { useSnackbar } from "notistack";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { useLocation } from "react-router";
 import { useNavigate, useRoutes } from "react-router-dom";
@@ -69,7 +69,9 @@ function App() {
 
   return (
     <HelmetProvider>
-      <Helmet titleTemplate="New Agro" defaultTitle="New Agro" />
+      <Helmet defer={false}>
+        <title>New Agro</title>
+      </Helmet>
       <StylesProvider jss={jss}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <StyledEngineProvider injectFirst>

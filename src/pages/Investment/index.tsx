@@ -17,6 +17,7 @@ import InvestmentAssetsCard from "src/components/cards/InvestmentAssetsCard";
 import {ReactSVG} from "react-svg";
 import {NMILK_TOKENS_BY_COW, NLAND_TOKENS_BY_HECTARE, NBEEF_TOKENS_BY_STEER } from "src/config/constants";
 import {formatUintToDecimal} from "src/utils/formatUtils";
+import {Helmet} from "react-helmet-async";
 
 const Investment: React.FC = () => {
   const { t } = useTranslation();
@@ -67,6 +68,9 @@ const Investment: React.FC = () => {
 
   return (
     <div className="flex justify-center">
+      <Helmet defer={false}>
+        <title>{`${t('navbar.investment')} - New Agro`}</title>
+      </Helmet>
       <div className="mt-8 xl:flex xl:flex-col max-w-6xl">
         <div className="flex flex-col xl:flex-row justify-between items-center">
           <h3 className="text-blue text-center text-xs">{t('investment.text')}</h3>

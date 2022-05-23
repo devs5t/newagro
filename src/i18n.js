@@ -302,6 +302,11 @@ const resources = {
       },
       button: {
         step_1_2: "Step 1 of 2"
+      },
+      global_password: {
+        password_label: 'Enter password',
+        submit: 'Enter',
+        wrong_password: "Wrong password"
       }
     },
   },
@@ -608,6 +613,11 @@ const resources = {
       },
       button: {
         step_1_2: "Paso 1 de 2"
+      },
+      global_password: {
+        password_label: 'Ingresar contraseña',
+        submit: 'Ingresar',
+        wrong_password: "Contraseña incorrecta"
       }
     },
   },

@@ -12,6 +12,7 @@ import {NlandContext} from "src/contexts/NlandContext";
 import {NbeefContext} from "src/contexts/NbeefContext";
 import {useTotalSupply} from "src/hooks/useTotalSupply";
 import {formatUintToDecimal} from "src/utils/formatUtils";
+import {Helmet} from "react-helmet-async";
 
 const Home: React.FC = () => {
   const { t } = useTranslation();
@@ -37,6 +38,9 @@ const Home: React.FC = () => {
 
   return (
     <div className="w-full flex justify-center mt-8">
+      <Helmet defer={false}>
+        <title>{`${t('navbar.home')} - New Agro`}</title>
+      </Helmet>
       <div className="max-w-5xl">
         <Banner
           title={t("home.banner_title")}
