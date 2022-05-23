@@ -301,7 +301,7 @@ const resources = {
         not_found: "Files not found",
       },
       button: {
-        step_1_2: "Step 1 of 2"
+        step: "Step {{from}} of {{to}}"
       },
       global_password: {
         password_label: 'Enter password',
@@ -612,7 +612,7 @@ const resources = {
         not_found: "No hay archivos encontrados",
       },
       button: {
-        step_1_2: "Paso 1 de 2"
+        step: "Paso {{from}} de {{to}}"
       },
       global_password: {
         password_label: 'Ingresar contraseña',

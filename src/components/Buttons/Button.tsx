@@ -17,6 +17,7 @@ interface ButtonProps {
   isLoadingColor?: string;
   disabled?: boolean;
   needWallet?: boolean;
+  step?: number[]
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -30,7 +31,8 @@ const Button: React.FC<ButtonProps> = ({
   isLoading = false,
   isLoadingColor = 'white',
   disabled = false,
-  needWallet= false
+  needWallet= false,
+  step
 }) => {
   const {account} = useEthers();
   const {setModal} = useContext(ModalContext);
@@ -73,7 +75,9 @@ const Button: React.FC<ButtonProps> = ({
         {isLoading && (
           <div className="flex justify-center items-center">
             <CircularProgress size={12} sx={{ color: isLoadingColor }} />
-            <p className="ml-4">{t("button.step_1_2")}</p>
+            {(step && step.length === 2) && (
+              <p className="ml-4">{t("button.step", {from: step[0], to: step[1]})}</p>
+            )}
           </div>
         )}
       </button>

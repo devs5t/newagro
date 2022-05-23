@@ -62,6 +62,7 @@ const Sell: React.FC = () => {
 
   const [needsApproval, setNeedsApproval] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [step, setStep] = useState<number[]>([]);
   const [loadingRemoveSellOrderIndex, setLoadingRemoveSellOrderIndex] = useState<number | undefined>(undefined);
 
   const [sellOrders, setSellOrders] = useState<OrderType[]>([]);
@@ -223,21 +224,11 @@ const Sell: React.FC = () => {
     }
   }, [account, selectedFromCurrency, selectedToCurrency]);
 
-  const onApprove = () => {
-    setIsLoading(true);
-    approveContract(
-      library,
-      selectedExchangeContract,
-      selectedSpenderContract,
-    )
-      .then(() => setNeedsApproval(false))
-      .finally(() => setIsLoading(false));
-  };
-
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (canSubmit) {
       setIsLoading(true);
+
       if (selectedToCurrency === 'ars') {
         setModal({
           component: () => ExchangeARSForm({ tab: 'sell', token: selectedFromCurrency, amount: fromAmount, price: fromPrice }),
@@ -245,6 +236,24 @@ const Sell: React.FC = () => {
         });
         setIsLoading(false);
         return
+      }
+
+      if (needsApproval) {
+        try {
+          setStep([1, 2])
+          await approveContract(
+            library,
+            selectedExchangeContract,
+            selectedSpenderContract,
+          )
+          setNeedsApproval(true);
+          setStep([2, 2]);
+        } catch (e) {
+          setStep([]);
+          setIsLoading(false);
+          console.error(e);
+          return;
+        }
       }
 
       if (selectedFromCurrency === 'nac') {
@@ -472,26 +481,15 @@ const Sell: React.FC = () => {
         </div>
 
         <div className="flex justify-around mt-10">
-          {needsApproval && (
-            <Button
-              isLoading={isLoading}
-              text={`${t("exchange.button_approve")} ${upperCase(selectedFromCurrency)}`}
-              extraClasses="h-10 bg-green border-green text-white text-center w-48 text-sm uppercase w-full shadow"
-              type="button"
-              onClick={onApprove}
-              needWallet={true}
-            />
-          )}
-
-          {!needsApproval && (
-            <Button
-              isLoading={isLoading}
-              text={t(`exchange.button_sell`)}
-              extraClasses="h-10 bg-green border-green text-white text-center w-48 text-sm uppercase w-full shadow"
-              type="submit"
-              disabled={!canSubmit}
-            />
-          )}
+          <Button
+            isLoading={isLoading}
+            text={t(`exchange.button_sell`)}
+            extraClasses="h-10 bg-green border-green text-white text-center w-48 text-sm uppercase w-full shadow"
+            type="submit"
+            disabled={!canSubmit}
+            needWallet={true}
+            step={step}
+          />
         </div>
       </div>
 

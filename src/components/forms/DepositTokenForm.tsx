@@ -35,6 +35,7 @@ const DepositTokenForm: React.FC<DepositTokenFormProps> = ({ token }) => {
   const [needsApproval, setNeedsApproval] = useState<boolean>(true);
   const [formSent, setFormSent] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [step, setStep] = useState<number[]>([]);
 
   const { account, library } = useEthers();
 
@@ -49,9 +50,28 @@ const DepositTokenForm: React.FC<DepositTokenFormProps> = ({ token }) => {
     }
   }, [token, nmilkUserAssets, nlandUserAssets, nbeefUserAssets]);
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
+
+    if (needsApproval) {
+      try {
+        setStep([1, 2]);
+        await approveContract(
+          library,
+          contracts.mainStaking[CHAIN_ID],
+          TokenKeyMap[token].contract
+        );
+        setNeedsApproval(true);
+        setStep([2, 2]);
+      } catch (e) {
+        setStep([]);
+        setIsLoading(false);
+        console.error(e)
+        return;
+      }
+    }
+
     callFunction(
       contracts.mainStaking[CHAIN_ID],
       library,
@@ -66,18 +86,6 @@ const DepositTokenForm: React.FC<DepositTokenFormProps> = ({ token }) => {
       .finally(() => {
         setIsLoading(false);
       });
-  };
-
-  const onApprove = () => {
-    setIsLoading(true);
-    approveContract(
-      library,
-      contracts.mainStaking[CHAIN_ID],
-      TokenKeyMap[token].contract,
-      // MainStaking
-    )
-      .then(() => setNeedsApproval(false))
-      .finally(() => setIsLoading(false));
   };
 
   const onChange = (value: number) => {
@@ -182,23 +190,15 @@ const DepositTokenForm: React.FC<DepositTokenFormProps> = ({ token }) => {
             type="button"
             onClick={() => setModal(undefined)}
           />
-          {needsApproval && (
-            <Button
-              isLoading={isLoading}
-              text={`${t("deposit_token_form.approve")}`}
-              extraClasses="h-10 bg-blue border-blue text-white text-center h-8 text-xs uppercase w-full ml-3"
-              type="button"
-              onClick={onApprove}
-            />
-          )}
-          {!needsApproval && (
-            <Button
-              isLoading={isLoading}
-              text={`${t("deposit_token_form.deposit")}`}
-              extraClasses="h-10 bg-blue border-blue text-white text-center h-8 text-xs uppercase w-full ml-3 truncate"
-              type="submit"
-            />
-          )}
+
+          <Button
+            isLoading={isLoading}
+            text={`${t("deposit_token_form.deposit")}`}
+            extraClasses="h-10 bg-blue border-blue text-white text-center h-8 text-xs uppercase w-full ml-3 truncate"
+            type="submit"
+            step={step}
+            needWallet={true}
+          />
         </div>
       </div>
     </form>

@@ -51,6 +51,7 @@ const Buy: React.FC = () => {
 
   const [needsApproval, setNeedsApproval] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [step, setStep] = useState<number[]>([]);
 
   const configSpender: any = {
     nac: {contract: contracts.nac[CHAIN_ID]},
@@ -186,18 +187,7 @@ const Buy: React.FC = () => {
     }
   }, [selectedFromCurrency, nacUserAssets, usdtUserAssets]);
 
-  const onApprove = () => {
-    setIsLoading(true);
-    approveContract(
-      library,
-      selectedExchangeContract,
-      selectedSpenderContract,
-    )
-      .then(() => setNeedsApproval(false))
-      .finally(() => setIsLoading(false));
-  };
-
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 
     e.preventDefault();
     if (canSubmit) {
@@ -212,8 +202,25 @@ const Buy: React.FC = () => {
         return;
       }
 
-      const method: string = selectedFromCurrency === 'nac' ? 'buyWithRewards' : 'buy';
+      if (needsApproval) {
+        try {
+          setStep([1, 2]);
+          await approveContract(
+            library,
+            selectedExchangeContract,
+            selectedSpenderContract,
+          );
+          setNeedsApproval(true);
+          setStep([2, 2]);
+        } catch (e) {
+          setStep([]);
+          setIsLoading(false);
+          console.error(e)
+          return;
+        }
+      }
 
+      const method: string = selectedFromCurrency === 'nac' ? 'buyWithRewards' : 'buy';
       callFunction(
         selectedExchangeContract,
         library,
@@ -230,6 +237,7 @@ const Buy: React.FC = () => {
           }),
           title: t('exchange.buy_success_title', {token: upperCase(selectedToCurrency)}),
         });
+
       }).finally(() => {
         setIsLoading(false);
         reloadPrices();
@@ -364,28 +372,15 @@ const Buy: React.FC = () => {
         </div>
 
         <div className="flex justify-around mt-10">
-
-          {needsApproval && (
-            <Button
-              isLoading={isLoading}
-              text={`${t("exchange.button_approve")} ${upperCase(selectedFromCurrency)}`}
-              extraClasses="h-10 bg-green border-green text-white text-center w-48 text-sm uppercase w-full shadow"
-              type="button"
-              onClick={onApprove}
-              needWallet={true}
-            />
-          )}
-
-          {!needsApproval && (
-            <Button
-              isLoading={isLoading}
-              text={t(`exchange.button_buy`)}
-              extraClasses="h-10 bg-green border-green text-white text-center w-48 text-sm uppercase w-full shadow"
-              type="submit"
-              disabled={!canSubmit}
-            />
-          )}
-
+          <Button
+            isLoading={isLoading}
+            text={t(`exchange.button_buy`)}
+            extraClasses="h-10 bg-green border-green text-white text-center w-48 text-sm uppercase w-full shadow"
+            type="submit"
+            disabled={!canSubmit}
+            needWallet={true}
+            step={step}
+          />
         </div>
       </div>
 
