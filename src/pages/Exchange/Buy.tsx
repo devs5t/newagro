@@ -268,7 +268,7 @@ const Buy: React.FC = () => {
                 inputClasses="md:placeholder-transparent"
                 type="number"
                 placeholder={t(`exchange.amount`)}
-                step={0.01}
+                step="any"
                 max={maxValue}
               />
               <Button

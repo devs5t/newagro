@@ -11,7 +11,7 @@ interface TextfieldProps {
   inputClasses?: string;
   disabled?: boolean;
   placeholder?: string;
-  step?: number;
+  step?: number | string;
   min?: number | string;
   max?: number | string;
 }
