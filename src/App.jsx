@@ -71,7 +71,7 @@ function App() {
           <StyledEngineProvider injectFirst>
             <MuiThemeProvider theme={createTheme(theme)}>
               <ThemeProvider theme={createTheme(theme)}>
-                <Layout>{content}</Layout>
+                {/* <Layout>{content}</Layout> */}
               </ThemeProvider>
             </MuiThemeProvider>
           </StyledEngineProvider>
