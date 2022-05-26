@@ -12,16 +12,16 @@ const Navbar: React.FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
   const { account } = useEthers();
 
-  const links: {path: string, name: string}[] = useMemo(() => {
+  const links: string[] = useMemo(() => {
     const partialLinks = [
-      {path: '/home', name: t('navbar.home')},
-      {path: '/exchange', name: t('navbar.exchange')},
-      {path: '/investment', name: t('navbar.investment')},
-      {path: '/transparency', name: t('navbar.transparency')},
+      'home',
+      'exchange',
+      'investment',
+      'transparency',
     ];
 
     if (account && isAdminAddress(account)) {
-      partialLinks.push({path: '/admin', name: t('navbar.admin')});
+      partialLinks.push('admin');
     }
 
     return partialLinks;
@@ -60,13 +60,13 @@ const Navbar: React.FC = () => {
           <nav className="hidden lg:flex lg:flex-grow justify-around max-w-4xl">
             {links.map((link, index) => (
               <NavLink
-                to={link.path}
+                to={`/${link}`}
                 className={({ isActive }) => `block text-white uppercase text-xs  font-bold ${
                   isActive ? 'underline underline-offset-8 decoration-green decoration-2' : ''
                 }`}
                 key={index}
               >
-                {link.name}
+                {t(`navbar.${link}`)}
               </NavLink>
             ))}
           </nav>
@@ -99,13 +99,13 @@ const Navbar: React.FC = () => {
               {links.map((link, index) => (
                 <NavLink
                   onClick={() => setSidebarOpen(false)}
-                  to={link.path}
+                  to={`/${link}`}
                   className={({ isActive }) => `block text-white text-center uppercase text-base my-4 font-bold ${
                     isActive ? 'underline underline-offset-8 decoration-green decoration-4' : ''
                   }`}
                   key={index}
                 >
-                  {link.name}
+                  {t(`navbar.${link}`)}
                 </NavLink>
               ))}
             </div>
