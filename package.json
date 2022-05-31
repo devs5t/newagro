@@ -6,6 +6,6 @@
   "author": "santiagotoscano <santiago.toscano@letflow.com.ar>",
   "license": "MIT",
   "scripts": {
-    "build": "mkdir /dist; cp * /dist"
+    "build": "./deploy.sh"
   }
 }
