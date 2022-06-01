@@ -19,17 +19,17 @@ export type OrderType ={
 };
 
 interface SellOrderType {
-  nmilkOrders: OrderType[];
-  nlandOrders: OrderType[];
-  nbeefOrders: OrderType[];
+  nmilkUserPendingSell: number;
+  nlandUserPendingSell: number;
+  nbeefUserPendingSell: number;
   sellOrders: OrderType[];
   requestSellOrders: Function;
 }
 
 const SellOrdersContext = createContext<SellOrderType>({
-  nmilkOrders: [],
-  nlandOrders: [],
-  nbeefOrders: [],
+  nmilkUserPendingSell: 0,
+  nlandUserPendingSell: 0,
+  nbeefUserPendingSell: 0,
   sellOrders: [],
   requestSellOrders: () => {}
 });
@@ -39,6 +39,10 @@ interface SellOrdersProviderProps {
 }
 const SellOrdersProvider = ({ children }: SellOrdersProviderProps) => {
   const { account, library } = useEthers();
+
+  const [nmilkUserPendingSell, setNmilkUserPendingSell] = useState<number>(0);
+  const [nlandUserPendingSell, setNlandUserPendingSell] = useState<number>(0);
+  const [nbeefUserPendingSell, setNbeefUserPendingSell] = useState<number>(0);
 
   const [nmilkOrders, setNmilkOrders] = useState<OrderType[]>([]);
   const [nlandOrders, setNlandOrders] = useState<OrderType[]>([]);
@@ -65,6 +69,16 @@ const SellOrdersProvider = ({ children }: SellOrdersProviderProps) => {
     }));
   };
 
+  const getUserPendingSell = (orders: OrderType[]) => {
+    return orders.reduce((prevValue, order) => {
+      let currentValue = 0;
+      if (formatHexToDecimal(get(order, 'amount._hex', '0x00')) > 0) {
+        currentValue = formatUintToDecimal(order.originalAmount) - formatUintToDecimal(order.amount);
+      }
+      return prevValue + currentValue;
+    }, 0);
+  };
+
   const requestSellOrders = () => {
     callFunction(
       configExchange.nmilk.exchangeContract,
@@ -72,7 +86,10 @@ const SellOrdersProvider = ({ children }: SellOrdersProviderProps) => {
       [account],
       "getUserSellOrders",
       configExchange.nmilk.exchangeAbi,
-    ).then((orders: any) => setNmilkOrders(mapOrders(orders, 'nmilk')));
+    ).then((orders: any) => {
+      setNmilkUserPendingSell(getUserPendingSell(orders));
+      setNmilkOrders(mapOrders(orders, 'nmilk'));
+    });
 
     callFunction(
       configExchange.nland.exchangeContract,
@@ -80,7 +97,10 @@ const SellOrdersProvider = ({ children }: SellOrdersProviderProps) => {
       [account],
       "getUserSellOrders",
       configExchange.nland.exchangeAbi,
-    ).then((orders: any) => setNlandOrders(mapOrders(orders, 'nland')));
+    ).then((orders: any) => {
+      setNlandUserPendingSell(getUserPendingSell(orders));
+      setNlandOrders(mapOrders(orders, 'nland'));
+    });
 
     callFunction(
       configExchange.nbeef.exchangeContract,
@@ -88,7 +108,10 @@ const SellOrdersProvider = ({ children }: SellOrdersProviderProps) => {
       [account],
       "getUserSellOrders",
       configExchange.nbeef.exchangeAbi,
-    ).then((orders: any) => setNbeefOrders(mapOrders(orders, 'nbeef')));
+    ).then((orders: any) => {
+      setNbeefUserPendingSell(getUserPendingSell(orders));
+      setNbeefOrders(mapOrders(orders, 'nbeef'));
+    });
   };
 
   useEffect(() => {
@@ -106,9 +129,10 @@ const SellOrdersProvider = ({ children }: SellOrdersProviderProps) => {
   return (
     <SellOrdersContext.Provider
       value={{
-        nmilkOrders,
-        nlandOrders,
-        nbeefOrders,
+        nmilkUserPendingSell,
+        nlandUserPendingSell,
+        nbeefUserPendingSell,
+
         sellOrders,
         requestSellOrders
       }}

@@ -12,6 +12,7 @@ import {NMILK_POOL_ID, NMILK_TOKENS_BY_COW} from "src/config/constants";
 import {PriceContext} from "src/contexts/PriceContext";
 import {SECONDS_PER_YEAR} from "src/utils";
 import {formatUintToDecimal} from "src/utils/formatUtils";
+import {SellOrdersContext} from "src/contexts/SellOrdersContex";
 
 const NmilkContext = createContext({
   nmilkTotalSupply: 0,
@@ -41,7 +42,8 @@ interface NmilkContextProviderProps {
 }
 const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
   const { account, library } = useEthers();
-  const {nacExchangeRate} = useContext(PriceContext)
+  const {nacExchangeRate} = useContext(PriceContext);
+  const {nmilkUserPendingSell} = useContext(SellOrdersContext);
 
   const [nmilkTotalSupply, setNmilkTotalSupply] = useState<number>(0);
   const [nmilkExchangeRate, setNmilkExchangeRate] = useState<number>(0);
@@ -151,7 +153,7 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
   }, [nmilkSuggestedPrice, nmilkTotalSupply]);
 
   useEffect(() => {
-    setUserCows((formatUintToDecimal(nmilkUserAssets) + formatUintToDecimal(nmilkUserDeposited)) / NMILK_TOKENS_BY_COW);
+    setUserCows((formatUintToDecimal(nmilkUserAssets) + formatUintToDecimal(nmilkUserDeposited) + nmilkUserPendingSell) / NMILK_TOKENS_BY_COW);
   }, [nmilkUserAssets, nmilkUserDeposited]);
 
   useEffect(() => {

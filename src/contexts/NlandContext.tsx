@@ -12,6 +12,7 @@ import {NLAND_POOL_ID, NLAND_TOKENS_BY_HECTARE} from "src/config/constants";
 import {PriceContext} from "src/contexts/PriceContext";
 import {SECONDS_PER_YEAR} from "src/utils";
 import {formatUintToDecimal} from "src/utils/formatUtils";
+import {SellOrdersContext} from "src/contexts/SellOrdersContex";
 
 const NlandContext = createContext({
   nlandTotalSupply: 0,
@@ -41,7 +42,8 @@ interface NlandContextProviderProps {
 }
 const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
   const { account, library } = useEthers();
-  const {nacExchangeRate} = useContext(PriceContext)
+  const {nacExchangeRate} = useContext(PriceContext);
+  const {nlandUserPendingSell} = useContext(SellOrdersContext);
 
   const [nlandTotalSupply, setNlandTotalSupply] = useState<number>(0);
   const [nlandExchangeRate, setNlandExchangeRate] = useState<number>(0);
@@ -151,7 +153,7 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
   }, [nlandSuggestedPrice, nlandTotalSupply]);
 
   useEffect(() => {
-    setUserHectares((formatUintToDecimal(nlandUserAssets) + formatUintToDecimal(nlandUserDeposited)) / NLAND_TOKENS_BY_HECTARE);
+    setUserHectares((formatUintToDecimal(nlandUserAssets) + formatUintToDecimal(nlandUserDeposited) + nlandUserPendingSell) / NLAND_TOKENS_BY_HECTARE);
   }, [nlandUserAssets]);
 
   useEffect(() => {

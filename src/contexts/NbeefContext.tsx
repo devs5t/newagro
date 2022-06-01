@@ -12,6 +12,7 @@ import {NBEEF_POOL_ID, NBEEF_TOKENS_BY_STEER} from "src/config/constants";
 import {PriceContext} from "src/contexts/PriceContext";
 import {SECONDS_PER_YEAR} from "src/utils";
 import {formatUintToDecimal} from "src/utils/formatUtils";
+import {SellOrdersContext} from "src/contexts/SellOrdersContex";
 
 const NbeefContext = createContext({
   nbeefTotalSupply: 0,
@@ -41,7 +42,8 @@ interface NbeefContextProviderProps {
 }
 const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
   const { account, library } = useEthers();
-  const {nacExchangeRate} = useContext(PriceContext)
+  const {nacExchangeRate} = useContext(PriceContext);
+  const {nbeefUserPendingSell} = useContext(SellOrdersContext);
 
   const [nbeefTotalSupply, setNbeefTotalSupply] = useState<number>(0);
   const [nbeefExchangeRate, setNbeefExchangeRate] = useState<number>(0);
@@ -151,7 +153,7 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
   }, [nbeefSuggestedPrice, nbeefTotalSupply]);
 
   useEffect(() => {
-    setUserSteers((formatUintToDecimal(nbeefUserAssets) + formatUintToDecimal(nbeefUserDeposited)) / NBEEF_TOKENS_BY_STEER);
+    setUserSteers((formatUintToDecimal(nbeefUserAssets) + formatUintToDecimal(nbeefUserDeposited) + nbeefUserPendingSell) / NBEEF_TOKENS_BY_STEER);
   }, [nbeefUserAssets]);
 
   useEffect(() => {

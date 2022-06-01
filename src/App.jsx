@@ -79,20 +79,20 @@ function App() {
             <MuiThemeProvider theme={createTheme(theme)}>
               <ThemeProvider theme={createTheme(theme)}>
                 <PriceContextProvider>
-                  <NmilkContextProvider>
-                    <NlandContextProvider>
-                      <NbeefContextProvider>
-                        <SellOrdersProvider>
+                  <SellOrdersProvider>
+                    <NmilkContextProvider>
+                      <NlandContextProvider>
+                        <NbeefContextProvider>
                           <ModalProvider>
                             <GoogleApiProvider clientId={envGoogleDriveApiKey}>
                               <Layout>{content}</Layout>
                             </GoogleApiProvider>
                             <Modal />
                           </ModalProvider>
-                        </SellOrdersProvider>
-                      </NbeefContextProvider>
-                    </NlandContextProvider>
-                  </NmilkContextProvider>
+                        </NbeefContextProvider>
+                      </NlandContextProvider>
+                    </NmilkContextProvider>
+                  </SellOrdersProvider>
                 </PriceContextProvider>
               </ThemeProvider>
             </MuiThemeProvider>
