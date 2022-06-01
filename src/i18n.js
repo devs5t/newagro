@@ -467,7 +467,7 @@ const resources = {
           your_assets: "Tus activos",
           nmilk: {
             assets_title: "Totalidad de vacas de ordeñe",
-            assets_description: "Cada Vaca de Ordeñe real, equivale a 5.500 Tokens “New Milk”",
+            assets_description: "Cada Vaca de Ordeñe real, equivale a 6.000 Tokens “New Milk”",
             profitability_description: "NAC por vaca lechera por mes",
             user_assets_title: 'Tu tambo 3.0',
             user_assets_description: 'vacas lecheras',
@@ -481,7 +481,7 @@ const resources = {
           },
           nbeef: {
             assets_title: "Vacas de ordeñe",
-            assets_description: "Cada Vaca de Ordeñe real, equivale a 5.500 Tokens “New Milk",
+            assets_description: "Cada Vaca de Ordeñe real, equivale a 6.000 Tokens “New Milk",
             profitability_description: "NAC por vaca mensualmente",
             user_assets_title: 'Tu Tambo 3.0',
             user_assets_description: 'litros de Leche',
