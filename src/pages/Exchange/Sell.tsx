@@ -1,7 +1,7 @@
 import React, {useCallback, useContext, useEffect, useMemo, useState} from "react";
 import { useTranslation } from "react-i18next";
 import Textfield from "src/components/Inputs/Textfield";
-import {get, upperCase} from "lodash";
+import {upperCase} from "lodash";
 import Button from "src/components/Buttons/Button";
 import {ReactSVG} from "react-svg";
 import {CHAIN_ID} from "src/config";
@@ -12,8 +12,7 @@ import {callFunction, callViewFunction, approveContract, getTokenAllowance} from
 import {
   formatDateToDisplay,
   formatDecimalToUint,
-  formatHexToDate,
-  formatHexToDecimal, formatUintToDecimal,
+  formatUintToDecimal,
 } from "src/utils/formatUtils";
 import {PriceContext} from "src/contexts/PriceContext";
 import {useEthers} from "@usedapp/core";
@@ -24,16 +23,7 @@ import {NbeefContext} from "src/contexts/NbeefContext";
 import ExchangeARSForm from "src/components/forms/ExchangeARSForm";
 import {useReloadPrices} from "src/hooks/useReloadPrices";
 import SuccessModal from "src/components/Modal/SuccessModal";
-
-type OrderType ={
-  index: number,
-  originalAmount: number,
-  amount: number,
-  price: number,
-  timestamp: Date,
-  token: 'nmilk' | 'nland' | 'nbeef',
-  status: 'confirmed' | 'processing',
-};
+import {SellOrdersContext} from "src/contexts/SellOrdersContex";
 
 const Sell: React.FC = () => {
   const { t } = useTranslation();
@@ -45,6 +35,7 @@ const Sell: React.FC = () => {
   const { nmilkUserAssets, nmilkSuggestedPrice } = useContext(NmilkContext);
   const { nlandUserAssets, nlandSuggestedPrice } = useContext(NlandContext);
   const { nbeefUserAssets, nbeefSuggestedPrice } = useContext(NbeefContext);
+  const { sellOrders, requestSellOrders } = useContext(SellOrdersContext);
 
   const [fee, setFee] = useState<number>();
 
@@ -64,8 +55,6 @@ const Sell: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [step, setStep] = useState<number[]>([]);
   const [loadingRemoveSellOrderIndex, setLoadingRemoveSellOrderIndex] = useState<number | undefined>(undefined);
-
-  const [sellOrders, setSellOrders] = useState<OrderType[]>([]);
 
   const fromUserAssets: number = useMemo(() => {
     switch (selectedFromCurrency) {
@@ -105,55 +94,6 @@ const Sell: React.FC = () => {
   const selectedExchangeContract: string = useMemo(() => {
     return configExchange[selectedFromCurrency].exchangeContract;
   }, [selectedFromCurrency]);
-
-  const requestSellOrders = () => {
-    let orders: OrderType[] = [];
-
-    Promise.all([
-      callFunction(
-        configExchange.nmilk.exchangeContract,
-        library,
-        [account],
-        "getUserSellOrders",
-        configExchange.nmilk.exchangeAbi,
-      ),
-      callFunction(
-        configExchange.nland.exchangeContract,
-        library,
-        [account],
-        "getUserSellOrders",
-        configExchange.nland.exchangeAbi,
-      ),
-      callFunction(
-        configExchange.nbeef.exchangeContract,
-        library,
-        [account],
-        "getUserSellOrders",
-        configExchange.nbeef.exchangeAbi,
-      )
-    ]).then(([nmilkOrders, nlandOrders, nbeefOrders]) => {
-      orders = [
-        ...nmilkOrders.map((nmilkOrder: any) => ({...nmilkOrder, token: 'nmilk'})),
-        /*...nlandOrders.map((nlandOrder: any) => ({...nlandOrder, token: 'nland'})),
-        ...nbeefOrders.map((nbeefOrder: any) => ({...nbeefOrder, token: 'nbeef'})),*/
-      ].map((order: any) => ({
-        index: formatHexToDecimal(get(order, 'index._hex', '0x00')),
-        originalAmount: formatUintToDecimal(order.originalAmount),
-        amount: formatUintToDecimal(order.amount),
-        price: formatUintToDecimal(order.price),
-        timestamp: formatHexToDate(get(order, 'timestamp._hex', '0x00')),
-        token: order.token,
-        status: (formatHexToDecimal(get(order, 'amount._hex', '0x00'))) === 0 ? 'confirmed' : 'processing',
-      }));
-      setSellOrders(orders);
-    });
-  };
-
-  useEffect(() => {
-    if (account && library) {
-      requestSellOrders();
-    }
-  }, [account]);
 
   useEffect(() => {
     if (selectedFromCurrency === 'nac') {

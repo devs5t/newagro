@@ -27,6 +27,7 @@ import {NlandContextProvider} from "src/contexts/NlandContext";
 import {NbeefContextProvider} from "src/contexts/NbeefContext";
 import { GoogleApiProvider } from "react-gapi";
 import {SplashScreen} from '@capacitor/splash-screen';
+import {SellOrdersProvider} from "src/contexts/SellOrdersContex";
 
 const jss = create({
   ...jssPreset(),
@@ -81,12 +82,14 @@ function App() {
                   <NmilkContextProvider>
                     <NlandContextProvider>
                       <NbeefContextProvider>
-                        <ModalProvider>
-                          <GoogleApiProvider clientId={envGoogleDriveApiKey}>
-                            <Layout>{content}</Layout>
-                          </GoogleApiProvider>
-                          <Modal />
-                        </ModalProvider>
+                        <SellOrdersProvider>
+                          <ModalProvider>
+                            <GoogleApiProvider clientId={envGoogleDriveApiKey}>
+                              <Layout>{content}</Layout>
+                            </GoogleApiProvider>
+                            <Modal />
+                          </ModalProvider>
+                        </SellOrdersProvider>
                       </NbeefContextProvider>
                     </NlandContextProvider>
                   </NmilkContextProvider>
