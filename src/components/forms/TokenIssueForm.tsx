@@ -139,7 +139,7 @@ const TokenIssueForm: React.FC<TokenIssueFormProps> = ({
             }}
             value={links[key]}
             required={false}
-            type="url"
+            type="text"
             containerClasses="mb-6"
           />
         ))}
