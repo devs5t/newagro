@@ -268,7 +268,8 @@ const resources = {
           new_issue: "New issue",
           link_new_issue: "Link {{index}} - New issue",
           submit: "Confirm issue",
-          successfully_sent_title: "Token {{token}} issued successfully"
+          successfully_sent_title: "Token {{token}} issued successfully",
+          refresh_nac_emission: "Refresh NAC emission",
         }
       },
       deposit_token_form: {
@@ -579,7 +580,8 @@ const resources = {
           new_issue: "Nueva emisión",
           link_new_issue: "Link {{index}} - Nueva emisión",
           submit: "Confirmar Emisión",
-          successfully_sent_title: "Emisión de Tokens {{token}} creada correctamente"
+          successfully_sent_title: "Emisión de Tokens {{token}} creada correctamente",
+          refresh_nac_emission: "Actualizar emisión de NAC",
         }
       },
       deposit_token_form: {
