@@ -20,7 +20,7 @@ interface ConnectWalletButtonProps {
 export const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
   buttonClasses
 }) => {
-  const { t } = useTranslation();
+  const {t} = useTranslation();
   const {setModal} = useContext(ModalContext);
   const switchToDefaultNetwork = useSwitchToDefaultNetwork();
 
