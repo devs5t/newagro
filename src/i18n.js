@@ -7,7 +7,7 @@ const resources = {
     translation: {
       navbar: {
         home: "Home",
-        investment: "Investment",
+        investment: "Investment ",
         exchange: "Exchange",
         transparency: "Transparency",
         news: "News",
