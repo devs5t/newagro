@@ -19,11 +19,14 @@ import {useEthers} from "@usedapp/core";
 import {isAdminAddress} from "src/utils/addressHelpers";
 import {formatUintToDecimal} from "src/utils/formatUtils";
 import {Helmet} from "react-helmet-async";
+import Button from "src/components/Buttons/Button";
+import MainStaking from "src/config/abi/MainStaking.json";
+import { callFunction } from "reblox-web3-utils";
 
 const Admin: React.FC = () => {
   const { t } = useTranslation();
   const {setModal} = useContext(ModalContext);
-  const { account } = useEthers();
+  const { account, library } = useEthers();
 
   const {liquidityFundAssets, burnAddressAssets, nacExchangeRate} = useContext(PriceContext);
   const {nmilkAssetsPerMonth, nmilkTotalSupply} = useContext(NmilkContext);
@@ -33,6 +36,7 @@ const Admin: React.FC = () => {
   const totalSupply = useTotalSupply();
 
   const [selectedToken, setSelectedToken] = useState<'nmilk' | 'nland' | 'nbeef'>('nmilk');
+  const [isReallocingEmissionsLoading, setIsReallocingEmissionsLoading] = useState<boolean>(false);
 
   const address: string = contracts.redeemRewards[CHAIN_ID];
 
@@ -49,6 +53,19 @@ const Admin: React.FC = () => {
 
   if (!(account && isAdminAddress(account))) {
     return <></>;
+  }
+
+  const reallocEmissions = () => {
+    setIsReallocingEmissionsLoading(true);
+    callFunction(
+      contracts.mainStaking[CHAIN_ID],
+      library,
+      [],
+      "reallocEmissions",
+      MainStaking
+    ).finally(() => {
+      setIsReallocingEmissionsLoading(false);
+    });
   }
 
   return (
@@ -133,6 +150,17 @@ const Admin: React.FC = () => {
         <AdminCard
           title={t("admin.token_emitted", {token: upperCase(selectedToken)})}
           quantity={formatUintToDecimal(selectedTokenTotalSupply)}
+          extraButton={
+            <Button
+              text={t("admin.token_issue.refresh_nac_emission")}
+              extraClasses="border-blue border-2 text-blue px-4 font-bold text-tiny md:text-xs whitespace-nowrap text-center h-8 w-52 mt-2"
+              onClick={reallocEmissions}
+              isLoading={isReallocingEmissionsLoading}
+              isLoadingColor="blue"
+              disabled={!account}
+              needWallet={true}
+            />
+          }
           onClick={() => {
             setModal({
               component: () => TokenIssueForm({

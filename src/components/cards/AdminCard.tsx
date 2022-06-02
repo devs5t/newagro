@@ -14,6 +14,7 @@ interface AdminCardProps {
     link3?: string,
   }[];
   onClick?: Function;
+  extraButton?: any;
 }
 
 const AdminCard: React.FC<AdminCardProps> = ({
@@ -21,7 +22,8 @@ const AdminCard: React.FC<AdminCardProps> = ({
   quantity,
   data,
   containerClasses,
-  onClick
+  onClick,
+  extraButton
 }) => {
   const {t} = useTranslation();
   const [open, setOpen] = useState(false);
@@ -29,7 +31,10 @@ const AdminCard: React.FC<AdminCardProps> = ({
     <div className={`flex flex-col w-full rounded-lg bg-lightblue/[.15] p-8 shadow ${containerClasses}`}>
       <div className="w-full flex justify-between" onClick={() => setOpen(!open)}>
 
-        <h3 className="flex items-center text-blue text-lg font-bold font-medium mr-2 max-w-sm">{title}</h3>
+        <div className="flex flex-col">
+          <h3 className="flex items-center text-blue text-lg font-bold font-medium mr-2 max-w-sm">{title}</h3>
+          {extraButton}
+        </div>
 
         <CountUp
           className="flex items-center text-blue my-3 text-lg text-center"

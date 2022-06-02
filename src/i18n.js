@@ -7,7 +7,7 @@ const resources = {
     translation: {
       navbar: {
         home: "Home",
-        investment: "Investment",
+        investment: "Investment ",
         exchange: "Exchange",
         transparency: "Transparency",
         news: "News",
@@ -195,7 +195,7 @@ const resources = {
         button_buy: "Buy",
         button_sell: "Sell",
         user_from_assets: "{{amount}} {{token}} available",
-        exchange_fee: "Exchange fee: {{fee}}%",
+        exchange_fee: "Commission: {{fee}}%",
         table: {
           status: "Status",
           order_number: "Order number",
@@ -268,7 +268,8 @@ const resources = {
           new_issue: "New issue",
           link_new_issue: "Link {{index}} - New issue",
           submit: "Confirm issue",
-          successfully_sent_title: "Token {{token}} issued successfully"
+          successfully_sent_title: "Token {{token}} issued successfully",
+          refresh_nac_emission: "Refresh NAC emission",
         }
       },
       deposit_token_form: {
@@ -505,7 +506,7 @@ const resources = {
         button_buy: "Comprar",
         button_sell: "Vender",
         user_from_assets: "{{amount}} {{token}} disponibles",
-        exchange_fee: "Tasa de cambio: {{fee}}%",
+        exchange_fee: "Comisión: {{fee}}%",
         table: {
           status: "Estado",
           order_number: "N. de orden",
@@ -579,7 +580,8 @@ const resources = {
           new_issue: "Nueva emisión",
           link_new_issue: "Link {{index}} - Nueva emisión",
           submit: "Confirmar Emisión",
-          successfully_sent_title: "Emisión de Tokens {{token}} creada correctamente"
+          successfully_sent_title: "Emisión de Tokens {{token}} creada correctamente",
+          refresh_nac_emission: "Actualizar emisión de NAC",
         }
       },
       deposit_token_form: {

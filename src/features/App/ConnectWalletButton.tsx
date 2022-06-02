@@ -2,9 +2,8 @@ import { getChainName, shortenAddress, useEthers } from "@usedapp/core";
 import { Box, Button as MaterialButton } from "@mui/material";
 import { spacing } from "@mui/system";
 import { styled } from "@mui/styles";
-import React, {useContext, useEffect, useState} from "react";
-import { useAddNetwork } from "src/hooks/useAddNetwork";
-import BigNumber from "bignumber.js";
+import React, {useContext, useEffect} from "react";
+import { useSwitchToDefaultNetwork } from "src/hooks/useSwitchToDefaultNetwork";
 import {useTranslation} from "react-i18next";
 import Button from "src/components/Buttons/Button";
 import Web3Modal from "web3modal";
@@ -21,11 +20,11 @@ interface ConnectWalletButtonProps {
 export const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
   buttonClasses
 }) => {
-  const { t } = useTranslation();
+  const {t} = useTranslation();
   const {setModal} = useContext(ModalContext);
+  const switchToDefaultNetwork = useSwitchToDefaultNetwork();
 
   const { activate, account, deactivate, chainId } = useEthers();
-  const [offerNetworkChange, setOfferNetworkChange] = useState<boolean>(true);
 
   const envChainId = import.meta.env.VITE_APP_CHAIN_ID;
 
@@ -33,6 +32,7 @@ export const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
     try {
       const provider = await web3Modal.connect();
       await activate(provider);
+      switchToDefaultNetwork()
     } catch (e) {
       console.error(e);
     }
@@ -57,9 +57,7 @@ export const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
       return (
         <Button
           extraClasses="uppercase text-white border-white font-bold text-tiny md:text-xs whitespace-nowrap text-center h-8 md:h-10"
-          onClick={() => {
-            useAddNetwork(parseInt(envChainId as string))
-          }}
+          onClick={() => switchToDefaultNetwork()}
           text={t('navbar.wrong_wallet')}
         />
       );
