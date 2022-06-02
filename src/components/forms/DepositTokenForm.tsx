@@ -150,6 +150,7 @@ const DepositTokenForm: React.FC<DepositTokenFormProps> = ({ token }) => {
             required={true}
             type="number"
             placeholder="0.00000"
+            step="any"
           />
           <Button
             onClick={onMax}

@@ -119,6 +119,7 @@ const WithdrawTokenForm: React.FC<WithdrawTokenFormProps> = ({ token }) => {
             required={true}
             type="number"
             placeholder="0.00000"
+            step="any"
           />
           <Button
             onClick={onMax}
