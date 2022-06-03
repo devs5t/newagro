@@ -126,7 +126,7 @@ const InvestmentCard: React.FC<InvestmentCardProps> = ({
           </div>
 
           {selectedToken === token && (
-            <a className="w-full underline text-blue font-bold pointer text-xs md:text-base uppercase" href="https://www.twitch.tv/newagrocoin">
+            <a className="w-full underline text-blue font-bold pointer text-xs md:text-base uppercase" href="https://www.twitch.tv/newagrocoin" target="_blank">
               {t("investment.watch_cams")}
             </a>
           )}
