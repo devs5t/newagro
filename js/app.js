@@ -183,7 +183,7 @@ let closePop2 = document.querySelector('.closePop2')
 function startPopUp(){
   setTimeout(function showPopUp(){   
     popUp.style.display ="flex";
-  }, 1000 );
+  }, 4000 );
 }
   
 startPopUp()
