@@ -11,3 +11,4 @@ cp -a img ./dist
 cp -a js ./dist
 cp -a service ./dist
 cp -a suscribe ./dist
+cp -a anexo ./dist
