@@ -324,7 +324,7 @@ const resources = {
         wrong_wallet: "Billetera Equivocada",
       },
       footer: {
-        exchange_rate: "Cotización USD Hoy",
+        exchange_rate: "Cotización USDT Hoy",
         field_visit: "Reservá tu visita al campo",
         about_us: "Página institucional",
       },
