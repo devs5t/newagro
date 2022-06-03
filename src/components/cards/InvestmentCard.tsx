@@ -253,7 +253,7 @@ const InvestmentCard: React.FC<InvestmentCardProps> = ({
               <CountUp
                 className="flex justify-center text-center text-blue text-2xl"
                 end={totalAssets}
-                prefix="USD "
+                prefix="USDT "
                 decimals={2}
                 separator=","
                 decimal="."
