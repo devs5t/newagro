@@ -93,7 +93,7 @@ $texto = $message;
 			//echo $mail->ErrorInfo;
 
             if ($sendResult) {
-                header('Location: https://newagrocoin.com/index.html#thanks');
+                header('Location: https://newagrocoin.com/#thanks');
             } else {
                 echo "FAIL";
             }
