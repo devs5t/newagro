@@ -169,7 +169,7 @@ const Documentation: React.FC = () => {
           <DocumentationCard
             title={t("docs.cards.card3_title")}
             linkText={t("docs.cards.card3_goto")}
-            link="https://www.twitch.tv/newagronacho"
+            link="https://www.twitch.tv/newagrocoin"
             linkTarget="_blank"
           />
           <br />
