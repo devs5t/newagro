@@ -1991,5 +1991,22 @@ footer, footer a{
     display: none!important;
 }
 .dispBlo{
-    display: block!important;
-    }
+   display: block!important;
+}
+/* Aprende PAGE */
+#learn{
+    background: var(--turquoise); 
+    width: 100vw;
+    height: calc(100vh -360px);
+    padding:200px 0 100px ;
+}
+.learn__cont{
+    height: 100%;
+    width: 90%;
+    max-width: 1366px;
+    margin:auto;
+    color:var(--darkBlue);
+}
+.learn__cont h2{
+    margin-bottom: 20px;
+}
