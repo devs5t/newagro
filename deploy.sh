@@ -4,6 +4,7 @@ rm -rf dist
 mkdir dist
 
 cp index.html ./dist
+cp aprende.html ./dist
 
 cp -a class ./dist
 cp -a css ./dist
