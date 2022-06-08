@@ -1995,7 +1995,7 @@ footer, footer a{
 }
 /* Aprende PAGE */
 #learn{
-    background: var(--turquoise); 
+    background: var(--darkBlue); 
     width: 100vw;
     height: calc(100vh -360px);
     padding:200px 0 100px ;
@@ -2005,7 +2005,7 @@ footer, footer a{
     width: 90%;
     max-width: 1366px;
     margin:auto;
-    color:var(--darkBlue);
+    color:var(--grey);
 }
 .learn__cont h2{
     margin-bottom: 20px;
