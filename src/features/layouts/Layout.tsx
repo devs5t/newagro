@@ -3,22 +3,14 @@ import Footer from "src/components/footer";
 import React, {useEffect} from "react";
 import {useEthers} from "@usedapp/core";
 import {useReloadPrices} from "src/hooks/useReloadPrices";
-import {useLocalStorage} from "react-use";
-import GlobalPassword from "src/components/GlobalPassword";
 
 const Layout: React.FC = ({ children }) => {
   const {reloadPrices} = useReloadPrices();
   const {account} = useEthers();
-  const globalPassword = String(import.meta.env.VITE_APP_GLOBAL_PASSWORD);
-  const [password] = useLocalStorage("password", '');
 
   useEffect(() => {
     reloadPrices();
   }, [account]);
-
-  if (!!globalPassword && globalPassword !== password) {
-    return <GlobalPassword/>
-  }
 
   return (
     <>
