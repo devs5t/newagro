@@ -202,7 +202,7 @@ const InvestmentCard: React.FC<InvestmentCardProps> = ({
                       )}`,
                     });
                   } else {
-                    navigate('/exchange');
+                    navigate(`/exchange?token=${token}`);
                   }
                 }}
                 needWallet={true}

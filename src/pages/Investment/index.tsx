@@ -98,20 +98,6 @@ const Investment: React.FC = () => {
         <div className="xl:pl-10 xl:grid xl:grid-cols-4 xl:gap-4 py-8">
           <div className="col-span-3 flex-3 max-w-3xl">
             <InvestmentCard
-              apr={nmilkApr}
-              token="nmilk"
-              selectedToken={selectedToken}
-              setSelectedToken={setSelectedToken}
-              deposit={formatUintToDecimal(nmilkUserDeposited)}
-              depositAuxiliary={formatUintToDecimal(nmilkUserDeposited) / NMILK_TOKENS_BY_COW}
-              assets={formatUintToDecimal(nmilkUserAssets)}
-              earn={formatUintToDecimal(nmilkUserEarns)}
-              earnAuxiliary={formatUintToDecimal(nmilkUserEarns) / NMILK_TOKENS_BY_COW}
-              totalAssets={formatUintToDecimal(nmilkUserDeposited) * formatUintToDecimal(nmilkSuggestedPrice)}
-              image={'images/photos/bg_nmilk.jpeg'}
-            />
-            <br/>
-            <InvestmentCard
               apr={nlandApr}
               token="nland"
               selectedToken={selectedToken}
@@ -123,6 +109,20 @@ const Investment: React.FC = () => {
               earnAuxiliary={formatUintToDecimal(nlandUserEarns) / NLAND_TOKENS_BY_HECTARE}
               totalAssets={formatUintToDecimal(nlandUserDeposited) * formatUintToDecimal(nlandSuggestedPrice)}
               image={'images/photos/bg_nland.jpeg'}
+            />
+            <br/>
+            <InvestmentCard
+              apr={nmilkApr}
+              token="nmilk"
+              selectedToken={selectedToken}
+              setSelectedToken={setSelectedToken}
+              deposit={formatUintToDecimal(nmilkUserDeposited)}
+              depositAuxiliary={formatUintToDecimal(nmilkUserDeposited) / NMILK_TOKENS_BY_COW}
+              assets={formatUintToDecimal(nmilkUserAssets)}
+              earn={formatUintToDecimal(nmilkUserEarns)}
+              earnAuxiliary={formatUintToDecimal(nmilkUserEarns) / NMILK_TOKENS_BY_COW}
+              totalAssets={formatUintToDecimal(nmilkUserDeposited) * formatUintToDecimal(nmilkSuggestedPrice)}
+              image={'images/photos/bg_nmilk.jpeg'}
             />
             <br/>
             <InvestmentCard

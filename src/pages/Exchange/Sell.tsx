@@ -24,11 +24,20 @@ import ExchangeARSForm from "src/components/forms/ExchangeARSForm";
 import {useReloadPrices} from "src/hooks/useReloadPrices";
 import SuccessModal from "src/components/Modal/SuccessModal";
 import {SellOrdersContext} from "src/contexts/SellOrdersContex";
+import qs from 'qs';
+import {useLocation} from "react-router-dom";
 
 const Sell: React.FC = () => {
   const { t } = useTranslation();
   const {setModal} = useContext(ModalContext);
   const { reloadPrices } = useReloadPrices();
+
+  const location = useLocation();
+  const { token } = qs.parse(location.search, {
+    ignoreQueryPrefix: true,
+    depth: 2,
+    plainObjects: true,
+  });
 
   const { account, library } = useEthers();
   const { nacUserAssets, nacExchangeRate } = useContext(PriceContext);
@@ -45,8 +54,8 @@ const Sell: React.FC = () => {
 
   const [toAmount, setToAmount] = useState<number>();
 
-  const fromCurrencies: ('nac' | 'nmilk' | 'nbeef' | 'nland')[] =  ['nac', 'nmilk', 'nland', 'nbeef'];
-  const [selectedFromCurrency, setSelectedFromCurrency] = useState<'nac' | 'nmilk' | 'nbeef' | 'nland'>(fromCurrencies[0]);
+  const fromCurrencies: ('nac' | 'nmilk' | 'nbeef' | 'nland')[] =  ['nac', 'nland', 'nmilk', 'nbeef'];
+  const [selectedFromCurrency, setSelectedFromCurrency] = useState<'nac' | 'nmilk' | 'nbeef' | 'nland'>(token || fromCurrencies[0]);
 
   const toCurrencies: ('usdt' | 'ars')[] = ['usdt', 'ars'];
   const [selectedToCurrency, setSelectedToCurrency] = useState<'usdt' | 'ars'>(toCurrencies[0]);

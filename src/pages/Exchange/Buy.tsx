@@ -21,11 +21,20 @@ import {TokenKeyMap} from "src/config/constants";
 import NewTokenExchange from "src/config/abi/NewTokenExchange.json";
 import RedeemRewards from "src/config/abi/RedeemRewards.json";
 import SuccessModal from "src/components/Modal/SuccessModal";
+import qs from 'qs';
+import {useLocation} from "react-router-dom";
 
 const Buy: React.FC = () => {
   const { t } = useTranslation();
   const {setModal} = useContext(ModalContext);
   const { reloadPrices } = useReloadPrices();
+
+  const location = useLocation();
+  const { token } = qs.parse(location.search, {
+    ignoreQueryPrefix: true,
+    depth: 2,
+    plainObjects: true,
+  });
 
   const { account, library } = useEthers();
   const { nacExchangeRate, nacUserAssets, usdtUserAssets } = useContext(PriceContext);
@@ -46,8 +55,8 @@ const Buy: React.FC = () => {
   const fromCurrencies: ('usdt' | 'nac' | 'ars')[] = ['usdt', 'nac', 'ars'];
   const [selectedFromCurrency, setSelectedFromCurrency] = useState<'usdt' | 'nac' | 'ars'>(fromCurrencies[0]);
 
-  const toCurrencies: ('nmilk' | 'nbeef' | 'nland')[] = ['nmilk', 'nland', 'nbeef'];
-  const [selectedToCurrency, setSelectedToCurrency] = useState<'nmilk' | 'nbeef' | 'nland'>(toCurrencies[0]);
+  const toCurrencies: ('nmilk' | 'nbeef' | 'nland')[] = ['nland', 'nmilk', 'nbeef'];
+  const [selectedToCurrency, setSelectedToCurrency] = useState<'nmilk' | 'nbeef' | 'nland'>(token || toCurrencies[0]);
 
   const [needsApproval, setNeedsApproval] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);

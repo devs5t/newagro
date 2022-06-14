@@ -23,7 +23,7 @@ const Home: React.FC = () => {
 
   const totalSupply = useTotalSupply();
 
-  const [selectedToken, setSelectedToken] = useState<'nmilk' | 'nland' | 'nbeef'>('nmilk');
+  const [selectedToken, setSelectedToken] = useState<'nmilk' | 'nland' | 'nbeef'>('nland');
 
   const [selectedTokenTotalSupply, totalAssetsAuxiliary, userAssetsAuxiliary, selectedTokenIcon] = useMemo(() => {
     switch (selectedToken) {
@@ -54,7 +54,7 @@ const Home: React.FC = () => {
             amount={totalSupply}
             currency="NAC"
             subtitle={t("home.card.new_agro.button_text")}
-            onClickButton={() => navigate('/exchange')}
+            onClickButton={() => navigate(`/exchange?token=${selectedToken}`)}
           />
           <HomeCardColored
             title={t("home.card.actives.title")}
@@ -66,8 +66,8 @@ const Home: React.FC = () => {
         <div className="w-full justify-center flex my-8">
           <Tabs
             tabs={[
-              {name: 'New Milk', selected: selectedToken === 'nmilk', onClick: () => setSelectedToken('nmilk')},
               {name: 'New Land', selected: selectedToken === 'nland', onClick: () => setSelectedToken('nland')},
+              {name: 'New Milk', selected: selectedToken === 'nmilk', onClick: () => setSelectedToken('nmilk')},
               {name: 'New Beef', selected: selectedToken === 'nbeef', onClick: () => setSelectedToken('nbeef'), disabled: true},
             ]}
             containerClass="max-w-md"
@@ -78,7 +78,7 @@ const Home: React.FC = () => {
             title={t(`home.card.${selectedToken}.title`)}
             description={t(`home.card.${selectedToken}.description`)}
             amount={formatUintToDecimal(selectedTokenTotalSupply)}
-            onClickButton={() => navigate('/exchange')}
+            onClickButton={() => navigate(`/exchange?token=${selectedToken}`)}
             buttonText={t(`home.card.${selectedToken}.button_text`)}
           />
           <HomeCardSecondary
