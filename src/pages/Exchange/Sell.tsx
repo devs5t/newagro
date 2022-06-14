@@ -329,7 +329,7 @@ const Sell: React.FC = () => {
                 <option
                   key={index}
                   className="text-blue font-bold text-xl"
-                  disabled={!['nac', 'nmilk'].includes(fromCurrency)}
+                  disabled={!['nac', 'nmilk', 'nland'].includes(fromCurrency)}
                   value={fromCurrency}
                 >
                   {upperCase(fromCurrency)}

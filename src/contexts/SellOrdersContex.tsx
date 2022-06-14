@@ -123,7 +123,7 @@ const SellOrdersProvider = ({ children }: SellOrdersProviderProps) => {
   useEffect(() => {
     // setSellOrders(nmilkOrders.concat(nlandOrders).concat(nbeefOrders));
 
-    setSellOrders(nmilkOrders);
+    setSellOrders(nmilkOrders.concat(nlandOrders));
   }, [nmilkOrders, nlandOrders, nbeefOrders]);
 
   return (

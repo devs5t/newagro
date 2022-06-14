@@ -123,7 +123,6 @@ const Investment: React.FC = () => {
               earnAuxiliary={formatUintToDecimal(nlandUserEarns) / NLAND_TOKENS_BY_HECTARE}
               totalAssets={formatUintToDecimal(nlandUserDeposited) * formatUintToDecimal(nlandSuggestedPrice)}
               image={'images/photos/bg_nland.jpeg'}
-              disabled={true}
             />
             <br/>
             <InvestmentCard
