@@ -109,7 +109,7 @@ const DepositTokenForm: React.FC<DepositTokenFormProps> = ({ token }) => {
   };
 
   useEffect(() => {
-    account &&
+    if (account) {
       getTokenAllowance(
         CHAIN_ID,
         account,
@@ -117,6 +117,7 @@ const DepositTokenForm: React.FC<DepositTokenFormProps> = ({ token }) => {
         contracts.mainStaking[CHAIN_ID],
         MainStaking
       ).then((allowance: number) => setNeedsApproval(allowance == 0));
+    }
   }, [account, token]);
 
   if (formSent) {
