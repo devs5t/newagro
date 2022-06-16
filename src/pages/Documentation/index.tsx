@@ -95,7 +95,7 @@ const Documentation: React.FC = () => {
   return (
     <div className="flex justify-center mt-8">
       <Helmet defer={false}>
-        <title>{`${t('navbar.transparency')} - New Agro`}</title>
+        <title>{`${t('navbar.transparency')} - New Agro Coin`}</title>
       </Helmet>
       <div className="max-w-3xl w-full">
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>

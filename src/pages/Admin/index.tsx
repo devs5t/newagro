@@ -71,7 +71,7 @@ const Admin: React.FC = () => {
   return (
     <div className="flex justify-center mt-8">
       <Helmet defer={false}>
-        <title>{`${t('navbar.admin')} - New Agro`}</title>
+        <title>{`${t('navbar.admin')} - New Agro Coin`}</title>
       </Helmet>
       <div className="max-w-3xl w-full">
         <div className="w-full flex justify-center items-center mt-8 mb-6">

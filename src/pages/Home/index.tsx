@@ -39,7 +39,7 @@ const Home: React.FC = () => {
   return (
     <div className="w-full flex justify-center mt-8">
       <Helmet defer={false}>
-        <title>{`${t('navbar.home')} - New Agro`}</title>
+        <title>{`${t('navbar.home')} - New Agro Coin`}</title>
       </Helmet>
       <div className="max-w-5xl">
         <Banner
