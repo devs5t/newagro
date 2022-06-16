@@ -13,7 +13,7 @@ const Exchange: React.FC = () => {
   return (
     <div className="flex justify-center">
       <Helmet defer={false}>
-        <title>{`${t('navbar.exchange')} - New Agro`}</title>
+        <title>{`${t('navbar.exchange')} - New Agro Coin`}</title>
       </Helmet>
       <div className="flex flex-col w-full items-center w-full max-w-3xl">
 

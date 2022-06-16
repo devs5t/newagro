@@ -69,7 +69,7 @@ const Investment: React.FC = () => {
   return (
     <div className="flex justify-center">
       <Helmet defer={false}>
-        <title>{`${t('navbar.investment')} - New Agro`}</title>
+        <title>{`${t('navbar.investment')} - New Agro Coin`}</title>
       </Helmet>
       <div className="mt-8 xl:flex xl:flex-col max-w-6xl">
         <div className="flex flex-col xl:flex-row justify-between items-center">
