@@ -6,91 +6,58 @@ import {ReactSVG} from "react-svg";
 import DocumentationCard from "src/components/cards/DocumentationCard";
 import SearchList from "src/components/SearchList";
 import Map from "src/components/Map/Map";
-import {useGoogleApi} from "react-gapi";
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
 import {Helmet} from "react-helmet-async";
+import AWS from "aws-sdk";
 
-const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+const s3AccessKey = String(import.meta.env.VITE_APP_S3_KEY_ID);
+const s3SecretAccessKey = String(import.meta.env.VITE_APP_S3_ACCESS_KEY);
+const s3Region = String(import.meta.env.VITE_APP_S3_REGION);
+const s3Bucket = String(import.meta.env.VITE_APP_S3_BUCKET);
+
+AWS.config.update({
+  accessKeyId: s3AccessKey,
+  secretAccessKey: s3SecretAccessKey,
+  region: s3Region
 });
+const s3 = new AWS.S3();
+
+export type S3FileType = {
+  name: string;
+  link: string;
+}
 
 const Documentation: React.FC = () => {
   const { t } = useTranslation();
-  const [filesCardOne, setFilesCardOne] = useState([]);
-  const [filesCardFour, setFilesCardFour] = useState([]);
-  const [open, setOpen] = useState(false);
+  const [filesFirstFolder, setFilesFirstFolder] = useState<S3FileType[]>([]);
+  const [filesSecondFolder, setFilesSecondFolder] = useState<S3FileType[]>([]);
   const [selectedToken, setSelectedToken] = useState<'nmilk' | 'nland' | 'nbeef'>('nland');
 
   useEffect(() => {
-    setFilesCardOne([]);
-    setFilesCardFour([]);
-  }, [selectedToken])
+    loadFiles('first-folder', setFilesFirstFolder);
+    loadFiles('second-folder', setFilesSecondFolder);
+  }, [selectedToken]);
 
-  const handleClose = (event: any, reason: string) => {
-    if (reason === 'clickaway') {
-      return;
-    }
+  const loadFiles = (folder: string, setterFunction: Function) => {
+    s3.listObjects({
+      Bucket: s3Bucket,
+      Prefix: `${selectedToken}/${folder}/`
+    }, function (error, data) {
+      if (error) {
+        console.error(error);
+        return;
+      }
 
-    setOpen(false);
-  };
+      const files: S3FileType[] = (data.Contents || [])
+        .filter((file: any) => file.Size > 0)
+        .map((file: any) => ({
+          name: file.Key.split("/").pop(),
+          link: `https://${s3Bucket}.s3.amazonaws.com/${file.Key}`
+        }));
 
-  const gapi = useGoogleApi({
-    discoveryDocs: [
-      "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest",
-    ],
-    scopes: [
-      "https://www.googleapis.com/auth/drive.file",
-      "https://www.googleapis.com/auth/drive.readonly",
-    ],
-  });
-
-  const auth = gapi?.auth2.getAuthInstance();
-
-  const getFiles = (folderId, files, setFiles): void => {
-    const req = gapi?.client?.drive?.files.list({
-      'q': `'${folderId}' in parents and mimeType='application/pdf'`
-    });
-
-    files.length === 0 && req?.execute(response =>
-      response.code > 299 ?
-        setOpen(true) :
-        setFiles(response.files)
-    );
-  }
-
-  const onDownload = async (item) => {
-    console.debug(item);
-    const res = await gapi?.client?.drive?.files
-      ?.get({
-        fileId: item.id,
-        alt: "media",
-      })
-      .then((r: { body: any; }) => {
-        console.debug("ressss", r);
-
-        const binaryString = r.body;
-        const binaryLen = binaryString.length;
-        const bytes = new Uint8Array(binaryLen);
-
-        for (let i = 0; i < binaryLen; i++) {
-          bytes[i] = binaryString.charCodeAt(i);
-        }
-
-        const blob = new Blob([bytes], { type: item.mimeType });
-
-        const link = document.createElement("a");
-
-        link.href = window.URL.createObjectURL(blob);
-        link.download = item.name;
-
-        link.click();
-      });
-
-    res.execute(function (resp: any) {
-      console.debug("resp", resp);
+      setterFunction(files);
     });
   };
+
 
   return (
     <div className="flex justify-center mt-8">
@@ -98,11 +65,6 @@ const Documentation: React.FC = () => {
         <title>{`${t('navbar.transparency')} - New Agro Coin`}</title>
       </Helmet>
       <div className="max-w-3xl w-full">
-        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-          <Alert severity="error" onClose={handleClose}>
-            {t("error.generic")}
-          </Alert>
-        </Snackbar>
         <Banner
           title={t("docs.banner.title")}
           subtitle={t("docs.banner.subtitle")}
@@ -147,17 +109,10 @@ const Documentation: React.FC = () => {
         <div className="w-full grid grid-cols-1 mt-8">
           <DocumentationCard
             title={t(selectedToken === "nmilk" ? "docs.cards.card1_title" : "docs.cards.card1_title2")}
-            subtitle={filesCardOne.length ? t("docs.cards.card1_subtitle", {filesLength: filesCardOne.length}) : ""}
+            subtitle={t("docs.cards.card1_subtitle", {filesLength: filesFirstFolder.length})}
             linkText={t("docs.cards.see_docs")}
             link={"#"}
-            signIn={() => {
-              if (!auth?.isSignedIn.get()) {
-                auth?.signIn();
-              }
-            }}
-            allowOpen={!!auth?.isSignedIn.get()}
-            onClick={() => auth?.isSignedIn.get() && getFiles(selectedToken === "nmilk" ? "1MLS5Heqo8-J0z5QYq-hE47O-gm1hHNKB" : "1Zrfz0LdeoGlrNBIZKqdClNK6rhmMi6xg", filesCardOne, setFilesCardOne)}
-            component={<SearchList listItems={filesCardOne} onDownload={onDownload} />}
+            component={filesFirstFolder.length ? <SearchList listItems={filesFirstFolder} /> : null}
             currentToken={selectedToken}
           />
           <br />
@@ -175,17 +130,10 @@ const Documentation: React.FC = () => {
           <br />
           <DocumentationCard
             title={t(selectedToken === "nmilk" ? "docs.cards.card4_title" : "docs.cards.card4_title2")}
-            subtitle={filesCardFour.length ? t("docs.cards.card1_subtitle", {filesLength: filesCardFour.length}) : ""}
+            subtitle={t("docs.cards.card1_subtitle", {filesLength: filesSecondFolder.length})}
             linkText={t("docs.cards.see_docs")}
             link={"#"}
-            signIn={() => {
-              if (!auth?.isSignedIn.get()) {
-                auth?.signIn();
-              }
-            }}
-            allowOpen={!!auth?.isSignedIn.get()}
-            onClick={() => auth?.isSignedIn.get() && getFiles(selectedToken === "nmilk" ? "1XHotEJkiwW5i-AEsC86oen343Q_G9oWm" : "1oqTfZY-8X4eL0iqvM4ugGYnspo64GNpW", filesCardFour, setFilesCardFour)}
-            component={<SearchList listItems={filesCardFour} onDownload={onDownload} />}
+            component={filesSecondFolder.length ? <SearchList listItems={filesSecondFolder} /> : null}
             currentToken={selectedToken}
           />
           <br />

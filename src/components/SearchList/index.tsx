@@ -1,29 +1,22 @@
 import React, {useState} from "react";
 import {ReactSVG} from "react-svg";
 import {useTranslation} from "react-i18next";
-
-type ListItem = {
-  id: string;
-  name: string;
-  mimeType: string;
-  kind: string;
-}
+import {S3FileType} from "src/pages/Documentation";
 
 interface SearchListProps {
-  listItems: ListItem[];
+  listItems: S3FileType[];
   containerClasses?: string;
-  onDownload: (item: ListItem) => void;
 }
+
 const SearchList: React.FC<SearchListProps> = ({
  listItems,
  containerClasses,
- onDownload
 }) => {
   const { t } = useTranslation();
   const [search, setSearch] = useState("");
 
-  const items: ListItem[] = (search.length)
-      ? listItems.filter(item => item.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
+  const files: S3FileType[] = (search.length)
+      ? listItems.filter(file => file.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
       : listItems
 
   return (
@@ -50,15 +43,14 @@ const SearchList: React.FC<SearchListProps> = ({
           </div>
         </div>
         <div className="w-full">
-          {items.length > 0 ?
+          {files.length > 0 ?
             <>
-              {items.map((item) =>
-                // eslint-disable-next-line react/jsx-key
-                <div className="py-4 px-8 border-b border-blue flex flex-row justify-around">
-                  <p className="text-blue w-10/12 md:w-11/12 text-ellipsis overflow-hidden">{item.name}</p>
+              {files.map((file, index) =>
+                <div className="py-4 px-8 border-b border-blue flex flex-row justify-around" key={index}>
+                  <p className="text-blue w-10/12 md:w-11/12 text-ellipsis overflow-hidden">{file.name}</p>
                   <div className="text-blue w-2/12 md:w-1/12  flex flex-row right">
                     <ReactSVG
-                      onClick={() => onDownload(item)}
+                      onClick={() => window.open(file.link,'_blank')}
                       src={"icons/download.svg"}
                       beforeInjection={(svg) => {
                         svg.classList.add('mr-4');
@@ -70,15 +62,6 @@ const SearchList: React.FC<SearchListProps> = ({
                         svg.classList.add('cursor-pointer')
                       }}
                     />
-                    {/* <ReactSVG
-                  src={"icons/delete.svg"}
-                  beforeInjection={(svg) => {
-                    svg.classList.add('mr-4');
-                    svg.classList.add('text-sm');
-                    svg.classList.add('md:text-lg');
-                    svg.classList.add('pointer');
-                  }}
-                /> */}
                   </div>
                 </div>
               )}
