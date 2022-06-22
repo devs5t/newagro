@@ -9,9 +9,6 @@ interface DocumentationCardProps {
   linkTarget?: string;
   containerClasses?: string;
   component?: ReactNode,
-  signIn?: any;
-  onClick?: () => void;
-  allowOpen?: boolean;
   currentToken?: string;
 }
 
@@ -23,9 +20,6 @@ const DocumentationCard: React.FC<DocumentationCardProps> = ({
    linkTarget= "_self",
    containerClasses,
    component,
-   signIn,
-   onClick,
-   allowOpen= true,
    currentToken = 'nmilk',
  }) => {
 
@@ -41,12 +35,7 @@ const DocumentationCard: React.FC<DocumentationCardProps> = ({
 
   return (
     <div className={`flex flex-col w-full rounded-lg bg-lightblue/[.15] p-6 shadow ${containerClasses}`}>
-      <div className="w-full flex flex-row" onClick={event => {
-        signIn && signIn();
-        onClick && onClick();
-        onClick && event.preventDefault();
-        allowOpen && setOpen(!open);
-      }}>
+      <div className="w-full flex flex-row cursor-pointer" onClick={() => setOpen(op => !op)}>
         <div className="w-1/2">
           <h3 className="text-blue font-bold font-medium text-lg mr-2">{title}</h3>
           <p className="text-blue text-sm my-3">{subtitle}</p>
@@ -65,11 +54,11 @@ const DocumentationCard: React.FC<DocumentationCardProps> = ({
           />
         </div>
       </div>
-      {open && component &&
+      {(open && component) && (
         <div className="w-full py-10 px-4 md:px-20 ">
           {component}
         </div>
-      }
+      )}
     </div>
   );
 }

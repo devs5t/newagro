@@ -25,7 +25,6 @@ import {PriceContextProvider} from "src/contexts/PriceContext";
 import {NmilkContextProvider} from "src/contexts/NmilkContext";
 import {NlandContextProvider} from "src/contexts/NlandContext";
 import {NbeefContextProvider} from "src/contexts/NbeefContext";
-import { GoogleApiProvider } from "react-gapi";
 import {SplashScreen} from '@capacitor/splash-screen';
 import {SellOrdersProvider} from "src/contexts/SellOrdersContex";
 
@@ -41,12 +40,10 @@ function App() {
   const [referrerId, setReferrerId] = useLocalStorage("referrerId", null);
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
-  const envGoogleDriveApiKey = import.meta.env.VITE_APP_GOOGLE_DRIVE_API_KEY;
 
   setTimeout(() => {
     SplashScreen.hide();
   }, 2000);
-
 
   useEffect(() => {
     const { pathname, search } = location;
@@ -84,9 +81,7 @@ function App() {
                       <NlandContextProvider>
                         <NbeefContextProvider>
                           <ModalProvider>
-                            <GoogleApiProvider clientId={envGoogleDriveApiKey}>
-                              <Layout>{content}</Layout>
-                            </GoogleApiProvider>
+                            <Layout>{content}</Layout>
                             <Modal />
                           </ModalProvider>
                         </NbeefContextProvider>
