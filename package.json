@@ -10,6 +10,7 @@
     "resources": "capacitor-resources -p android,ios"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.118.1",
     "@capacitor/android": "^3.5.0",
     "@capacitor/core": "^3.5.0",
     "@capacitor/ios": "^3.5.0",
@@ -36,7 +37,6 @@
     "@web3-react/core": "6.1.9",
     "@web3-react/injected-connector": "6.0.7",
     "@web3-react/walletconnect-connector": "6.2.4",
-    "aws-sdk": "^2.1160.0",
     "axios": "0.21.4",
     "axios-mock-adapter": "1.20.0",
     "babel-plugin-macros": "3.1.0",
