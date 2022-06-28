@@ -7,19 +7,20 @@ import DocumentationCard from "src/components/cards/DocumentationCard";
 import SearchList from "src/components/SearchList";
 import Map from "src/components/Map/Map";
 import {Helmet} from "react-helmet-async";
-import AWS from "aws-sdk";
+import * as AWS from "@aws-sdk/client-s3";
 
 const s3AccessKey = String(import.meta.env.VITE_APP_S3_KEY_ID);
 const s3SecretAccessKey = String(import.meta.env.VITE_APP_S3_ACCESS_KEY);
 const s3Region = String(import.meta.env.VITE_APP_S3_REGION);
 const s3Bucket = String(import.meta.env.VITE_APP_S3_BUCKET);
 
-AWS.config.update({
-  accessKeyId: s3AccessKey,
-  secretAccessKey: s3SecretAccessKey,
+const s3 = new AWS.S3({
+  credentials: {
+    accessKeyId: s3AccessKey,
+    secretAccessKey: s3SecretAccessKey,
+  },
   region: s3Region
 });
-const s3 = new AWS.S3();
 
 export type S3FileType = {
   name: string;
@@ -41,7 +42,7 @@ const Documentation: React.FC = () => {
     s3.listObjects({
       Bucket: s3Bucket,
       Prefix: `${selectedToken}/${folder}/`
-    }, function (error, data) {
+    }, function (error, data: any) {
       if (error) {
         console.error(error);
         return;
