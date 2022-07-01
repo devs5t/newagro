@@ -31,7 +31,7 @@ const Documentation: React.FC = () => {
   const { t } = useTranslation();
   const [filesFirstFolder, setFilesFirstFolder] = useState<S3FileType[]>([]);
   const [filesSecondFolder, setFilesSecondFolder] = useState<S3FileType[]>([]);
-  const [selectedToken, setSelectedToken] = useState<'nmilk' | 'nland' | 'nbeef'>('nland');
+  const [selectedToken, setSelectedToken] = useState<'nmilk' | 'nland' | 'nbeef'>('nmilk');
 
   useEffect(() => {
     loadFiles('first-folder', setFilesFirstFolder);
