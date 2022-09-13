@@ -14,6 +14,8 @@ import MainStaking from "src/config/abi/MainStaking.json";
 import WithdrawTokenForm from "../forms/WithdrawTokenForm";
 import {useReloadPrices} from "src/hooks/useReloadPrices";
 import CountUp from "react-countup";
+import DoneIcon from "@mui/icons-material/Done";
+import DoneReinvestingForm from "../forms/DoneReinvestingForm";
 
 interface InvestmentCardProps {
   apr: number;
@@ -72,15 +74,26 @@ const InvestmentCard: React.FC<InvestmentCardProps> = ({
   const onReinvest = (e: any) => {
     e.stopPropagation();
     setIsReinvestingLoading(true);
+    
     callFunction(
       contracts.mainStaking[CHAIN_ID],
       library,
       [TokenKeyMap[token]?.pId],
       "compound",
       MainStaking
-    ).finally(() => {
+    ).finally(async () => {
+
+      const previousDeposit = deposit;
+      const previousEarnings = earn;
+
+      await reloadPrices();
+      
+      setModal({
+        component: () => DoneReinvestingForm({ token, previousDeposit, previousEarnings }),
+        title: `${t("done_reinvesting_form.title")} ${upperCase(token)}`,
+      });
+
       setIsReinvestingLoading(false);
-      reloadPrices();
     });
   };
 
@@ -180,6 +193,13 @@ const InvestmentCard: React.FC<InvestmentCardProps> = ({
         </div>
       </div>
 
+      {selectedToken !== token && (
+        <div className="divide-y divide-dashed divide-[#77c8b080] text-[#77c8b0] mt-5 -mb-2">
+          <div className="h-0 w-full"></div>
+          <div className="flex items-center justify-center text-[#77c8b0] pt-2.5 text-sm">{t(`investment.cards.view_more`)}</div>
+        </div>
+      )}
+
       {selectedToken === token && (
         <div className="flex flex-col md:flex-row w-full pt-8">
           <div className="w-full mb-8 md:mb-0 md:px-16 md:w-1/2">
@@ -215,7 +235,7 @@ const InvestmentCard: React.FC<InvestmentCardProps> = ({
                 isLoading={isHarvestingLoading}
                 isLoadingColor="blue"
                 needWallet={true}
-                disabled={!account}
+                disabled={!account || deposit === 0}
               />
               <Button
                 text={`${t("investment.withdraw")} ${upperCase(token)}`}
@@ -239,7 +259,7 @@ const InvestmentCard: React.FC<InvestmentCardProps> = ({
                 isLoading={isReinvestingLoading}
                 isLoadingColor="blue"
                 needWallet={true}
-                disabled={!account}
+                disabled={!account || deposit === 0}
               />
             </div>
             <div

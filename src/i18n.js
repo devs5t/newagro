@@ -7,17 +7,17 @@ const resources = {
     translation: {
       navbar: {
         home: "Home",
-        investment: "Investment ",
+        investment: "Your Farm 3.0",
         exchange: "Exchange",
         transparency: "Transparency",
         news: "News",
         admin: "Admin",
         pair_wallet: "Pair Wallet",
-        wrong_wallet: "Wrong Wallet",
+        wrong_wallet: "Wrong Chain",
       },
       footer: {
         exchange_rate: "Exchange Rate",
-        field_visit: "Book your visit to the field",
+        field_visit: "Book your visit to the farm",
         about_us: "Institutional site",
       },
       blog: {
@@ -88,7 +88,7 @@ const resources = {
         lastname: "Lastname",
         mail: "Mail",
         tentative_date: "Tentative date",
-        title: "Field visit request",
+        title: "Farm visit request",
         description:
           "Please, complete your information and we will contact you in the next 48 hours.",
         submit: "Request visit",
@@ -128,6 +128,7 @@ const resources = {
         total_assets: "Your total {{token}} assets",
         pending : "pending",
         cards: {
+          view_more: "View more",
           nmilk: {
             title: "New Milk (NMILK)",
             description: "NMILK Tokens can be deposited into this pool to receive part of the rental income equivalent to a liter of milk from the rodeos they represent or withdrawn to sell. You will receive the rent in NAC that you can automatically exchange to USDT or use to buy other tokens.",
@@ -135,7 +136,7 @@ const resources = {
           },
           nland: {
             title: "New LAND (NLAND)",
-            description: "NLAND Tokens can be deposited in this pool to receive part of the rental income equivalent to kilos of soybeans from the fields they represent or withdraw them to sell them. You will receive the rent in NACoin that you can automatically exchange to USDT or use to buy other tokens.",
+            description: "NLAND Tokens can be deposited in this pool to receive part of the rental income equivalent to kilos of soybeans from the farms they represent or withdraw them to sell them. You will receive the rent in NACoin that you can automatically exchange to USDT or use to buy other tokens.",
             auxiliaryDescription: "hectares"
           },
           nbeef: {
@@ -145,7 +146,7 @@ const resources = {
           }
         },
         assets: {
-          title: 'Your Field 3.0',
+          title: 'Your Farm 3.0',
           description: 'Each NewAgro Coin token represents physical assets.',
           nmilk: 'milking cows',
           nland: 'hectares',
@@ -166,7 +167,7 @@ const resources = {
             assets_title: "Crops",
             assets_description: "Each NLAND token represents a rented agricultural hectare for 10 quintals of soybeans per year",
             profitability_description: "NAC by hectare monthly",
-            user_assets_title: 'Your agricultural field 3.0',
+            user_assets_title: 'Your agricultural farm 3.0',
             user_assets_description: 'hectares',
           },
           nbeef: {
@@ -223,6 +224,7 @@ const resources = {
         buttons: {
           doc_tech: "Technical Documentation",
           page_inst: "Institutional Page",
+          contracts: "View Contracts"
         },
         cards: {
           card1_title: "Milk delivery remittance",
@@ -280,6 +282,10 @@ const resources = {
         warning_description: "You successfully deposited {{amount}} {{token}}",
         approve: "Approve",
       },
+      done_reinvesting_form: {
+        title: "Reinvest",
+        description: "You successfully harvested {{amountHarvested}} NAC to buy and reinvest {{amountBought}} {{token}}",
+      },
       withdraw_token_form: {
         withdraw: "Withdraw",
         amount: "Amount",
@@ -315,13 +321,13 @@ const resources = {
     translation: {
       navbar: {
         home: "Inicio",
-        investment: "Inversiones",
+        investment: "Tu Campo 3.0",
         exchange: "Compra/Venta",
         transparency: "Transparencia",
         news: "Novedades",
         admin: "Administrador",
         pair_wallet: "Conectar Billetera",
-        wrong_wallet: "Billetera Equivocada",
+        wrong_wallet: "Red Equivocada",
       },
       footer: {
         exchange_rate: "Cotización USDT Hoy",
@@ -439,6 +445,7 @@ const resources = {
         total_assets: "Tus Activos {{token}} Totales",
         pending: "pendientes",
         cards: {
+          view_more: "Ver más",
           nmilk: {
             title: "New Milk (NMILK)",
             description: "Los Tokens NMILK pueden depositarse en este pool para recibir parte de la renta del alquiler equivalente a litro de leche de los rodeos que representan o retirarlos para venderlos. El alquiler lo recibirás en NAC que puedes intercambiar automáticamente a USDT o utilizar para comprar otros tokens.",
@@ -534,6 +541,7 @@ const resources = {
         buttons: {
           doc_tech: "Documentación técnica",
           page_inst: "Página Institucional",
+          contracts: "Ver Contratos",
         },
         cards: {
           card1_title: "Remito de salida de Leche",
@@ -591,6 +599,10 @@ const resources = {
         cancel: "Cancelar",
         warning_description: "Depositaste exitosamente {{amount}} {{token}}",
         approve: "Aprobar",
+      },
+      done_reinvesting_form: {
+        title: "Reinvertir",
+        description: "Retiraste exitosamente {{amountHarvested}} NAC para comprar y reinvertir {{amountBought}} {{token}}",
       },
       withdraw_token_form: {
         withdraw: "Retirar",

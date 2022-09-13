@@ -26,6 +26,7 @@ import SuccessModal from "src/components/Modal/SuccessModal";
 import {SellOrdersContext} from "src/contexts/SellOrdersContex";
 import qs from 'qs';
 import {useLocation} from "react-router-dom";
+import registerToken from "src/utils/metamaskUtils";
 
 const Sell: React.FC = () => {
   const { t } = useTranslation();
@@ -76,7 +77,7 @@ const Sell: React.FC = () => {
       case "nbeef":
         return formatUintToDecimal(nbeefUserAssets, 18);
     }
-  }, [selectedFromCurrency, nacUserAssets, nmilkUserAssets, nlandUserAssets, nbeefUserAssets]);
+  }, [selectedFromCurrency, nacUserAssets, nmilkUserAssets, nlandUserAssets, nbeefUserAssets, account]);
 
   const configSpender: any = {
     nac: {contract: contracts.nac[CHAIN_ID]},
@@ -275,6 +276,34 @@ const Sell: React.FC = () => {
     });
   };
 
+  const tokens = {
+    'nac': {
+      'address': contracts["nac"][CHAIN_ID],
+      'symbol': 'NAC',
+      'decimals': 18
+    },
+    'nmilk': {
+      'address': contracts["nmilk"][CHAIN_ID],
+      'symbol': 'NMILK',
+      'decimals': 18
+    },
+    'nland': {
+      'address': contracts["nland"][CHAIN_ID],
+      'symbol': 'NLAND',
+      'decimals': 18
+    },
+    'nbeef': {
+      'address': contracts["nbeef"][CHAIN_ID],
+      'symbol': 'NBEEF',
+      'decimals': 18
+    },
+    'usdt': {
+      'address': contracts["usdt"][CHAIN_ID],
+      'symbol': 'USDT',
+      'decimals': 18
+    }
+  }
+
   return (
     <form onSubmit={onSubmit} className="w-full">
 
@@ -329,22 +358,42 @@ const Sell: React.FC = () => {
               </div>
             )}
 
-            <select
-              className="text-blue font-bold text-xl md:w-32 cursor-pointer"
-              onChange={(e) => setSelectedFromCurrency(e.target.value)}
-              value={selectedFromCurrency}
-            >
-              {fromCurrencies.map((fromCurrency: string, index: number) => (
-                <option
-                  key={index}
-                  className="text-blue font-bold text-xl"
-                  disabled={!['nac', 'nmilk', 'nland'].includes(fromCurrency)}
-                  value={fromCurrency}
-                >
-                  {upperCase(fromCurrency)}
-                </option>
-              ))}
-            </select>
+            <div className="flex items-center">
+              <div 
+                className="flex items-center cursor-pointer mr-1"
+                onClick={
+                  () => account ? registerToken(
+                      tokens[selectedFromCurrency]['address'], 
+                      tokens[selectedFromCurrency]['symbol'],
+                      tokens[selectedFromCurrency]['decimals'],
+                      "",
+                      account
+                    ) : {} 
+                }
+              >
+                <img 
+                  src="logos/metamask.png" 
+                  className="w-5 h-5 mr-1" 
+                />
+                <b className="font-bold color-[#804721] ml-[-10px] mb-[-10px]">+</b>
+              </div>
+              <select
+                className="text-blue font-bold text-xl md:w-32 cursor-pointer"
+                onChange={(e) => setSelectedFromCurrency(e.target.value)}
+                value={selectedFromCurrency}
+              >
+                {fromCurrencies.map((fromCurrency: string, index: number) => (
+                  <option
+                    key={index}
+                    className="text-blue font-bold text-xl"
+                    disabled={!['nac', 'nmilk', 'nland'].includes(fromCurrency)}
+                    value={fromCurrency}
+                  >
+                    {upperCase(fromCurrency)}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
 
           <div className="flex md:hidden h-full items-center font-bold text-sm text-blue mt-2">{t(`exchange.amount`)}</div>
@@ -407,22 +456,44 @@ const Sell: React.FC = () => {
             />
           </div>
 
-          <select
-            className="text-blue font-bold text-xl md:w-32 cursor-pointer"
-            onChange={(e) => setSelectedToCurrency(e.target.value)}
-            value={selectedToCurrency}
-          >
-            {toCurrencies.map((toCurrency: string, index: number) => (
-              <option
-                key={index}
-                className="text-blue font-bold text-xl"
-                disabled={toCurrency === 'ars' && selectedFromCurrency !== 'nac'}
-                value={toCurrency}
+          <div className="flex items-center">
+            {selectedToCurrency != 'ars' && (
+              <div 
+                className="flex items-center cursor-pointer mr-1"
+                onClick={
+                  () => account ? registerToken(
+                      tokens[selectedToCurrency]['address'], 
+                      tokens[selectedToCurrency]['symbol'],
+                      tokens[selectedToCurrency]['decimals'],
+                      "",
+                      account
+                    ) : {} 
+                }
               >
-                {upperCase(toCurrency)}
-              </option>
-            ))}
-          </select>
+                <img 
+                  src="logos/metamask.png" 
+                  className="w-5 h-5 mr-1" 
+                />
+                <b className="font-bold color-[#804721] ml-[-10px] mb-[-10px]">+</b>
+              </div>
+            )}
+            <select
+              className="text-blue font-bold text-xl md:w-32 cursor-pointer"
+              onChange={(e) => setSelectedToCurrency(e.target.value)}
+              value={selectedToCurrency}
+            >
+              {toCurrencies.map((toCurrency: string, index: number) => (
+                <option
+                  key={index}
+                  className="text-blue font-bold text-xl"
+                  disabled={toCurrency === 'ars' && selectedFromCurrency !== 'nac'}
+                  value={toCurrency}
+                >
+                  {upperCase(toCurrency)}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
 
         <div className="flex justify-between mt-4">

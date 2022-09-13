@@ -3,7 +3,7 @@ import BigNumber from "bignumber.js";
 export const formatNumber = (value = 0, decimals = 18) =>
   new BigNumber(value).dividedBy(new BigNumber(10).exponentiatedBy(decimals));
 
-export const formatUintToDecimal = (number: any, decimals = 2, castNumber = true) => {
+export const formatUintToDecimal = (number: any, decimals = 4, castNumber = true) => {
   if (BigNumber.isBigNumber(number)) {
     number = number._hex;
   }
