@@ -37,7 +37,7 @@ const Buy: React.FC = () => {
     plainObjects: true,
   });
 
-  const { account, library } = useEthers();
+  const { account, library, chainId } = useEthers();
   const { nacExchangeRate, nacUserAssets, usdtUserAssets } = useContext(PriceContext);
   const { nmilkSuggestedPrice } = useContext(NmilkContext);
   const { nlandSuggestedPrice } = useContext(NlandContext);
@@ -119,7 +119,7 @@ const Buy: React.FC = () => {
         selectedExchangeContract
       ).then((allowance: number) => setNeedsApproval(allowance == 0));
     }
-  }, [account, selectedFromCurrency]);
+  }, [account, selectedFromCurrency, chainId]);
 
   useEffect(() => {
     if (!debouncedFromAmount) {
@@ -159,7 +159,7 @@ const Buy: React.FC = () => {
 
     requestTotalTokensForSell();
 
-  }, [account, selectedToCurrency]);
+  }, [account, selectedToCurrency, chainId]);
 
   const maxValue: number | undefined = useMemo(() => {
     if (selectedFromCurrency === 'ars') {
@@ -195,7 +195,7 @@ const Buy: React.FC = () => {
       case "usdt":
         return formatUintToDecimal(usdtUserAssets);
     }
-  }, [selectedFromCurrency, nacUserAssets, usdtUserAssets, account]);
+  }, [selectedFromCurrency, nacUserAssets, usdtUserAssets, account, chainId]);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 

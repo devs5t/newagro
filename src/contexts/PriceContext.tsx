@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 import { useBoolean } from "react-use";
 import {CHAIN_ID} from "src/config";
 import contracts from "src/config/constants/contracts";
@@ -28,7 +28,7 @@ interface PriceContextProviderProps {
   children: ReactNode;
 }
 const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
-  const { account, library } = useEthers();
+  const { account, library, chainId } = useEthers();
 
   const [usdtUserAssets, setUsdtUserAssets] = useState<number>(0);
 
@@ -102,10 +102,19 @@ const PriceContextProvider = ({ children }: PriceContextProviderProps) => {
         "getUserHistoricalRewards",
         MainStaking
       ).then(setHistoricalEarning);
+    } else {
+      setUsdtUserAssets(0);
+      setNacUserAssets(0);
+      setHistoricalEarning(0);
     }
 
     setLoading(false);
   };
+
+  // useEffect(() => {
+  //   console.log("ESO");
+  //   loadPrices();
+  // }, [account, chainId]);
 
   return (
     <PriceContext.Provider

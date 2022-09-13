@@ -16,6 +16,7 @@ import {useReloadPrices} from "src/hooks/useReloadPrices";
 import CountUp from "react-countup";
 import DoneIcon from "@mui/icons-material/Done";
 import DoneReinvestingForm from "../forms/DoneReinvestingForm";
+import { useSnackbar } from "notistack";
 
 interface InvestmentCardProps {
   apr: number;
@@ -51,6 +52,8 @@ const InvestmentCard: React.FC<InvestmentCardProps> = ({
   const { reloadPrices } = useReloadPrices();
   const { setModal } = useContext(ModalContext);
 
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
   const [isHarvestingLoading, setIsHarvestingLoading] = useState<boolean>(false);
   const [isReinvestingLoading, setIsReinvestingLoading] = useState<boolean>(false);
 
@@ -81,7 +84,7 @@ const InvestmentCard: React.FC<InvestmentCardProps> = ({
       [TokenKeyMap[token]?.pId],
       "compound",
       MainStaking
-    ).finally(async () => {
+    ).then(async () => {
 
       const previousDeposit = deposit;
       const previousEarnings = earn;
@@ -92,7 +95,9 @@ const InvestmentCard: React.FC<InvestmentCardProps> = ({
         component: () => DoneReinvestingForm({ token, previousDeposit, previousEarnings }),
         title: `${t("done_reinvesting_form.title")} ${upperCase(token)}`,
       });
-
+    }).catch((err:any) => {
+      enqueueSnackbar(err.message, { variant: "error" })
+    }).finally(() => {
       setIsReinvestingLoading(false);
     });
   };
