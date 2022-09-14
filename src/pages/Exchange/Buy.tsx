@@ -366,7 +366,7 @@ const Buy: React.FC = () => {
             <div>{t(`exchange.amount_in`)}:</div> <div className="text-right md:text-right">{fromAmount} {upperCase(selectedFromCurrency)}</div>
             <div>{t(`exchange.new_agro_coin_fee`)}:</div> <div className="text-right md:text-right">{parseFloat(fromAmount) * ((fee ? fee : 0) / 100)} {upperCase(selectedFromCurrency)}</div>
             <div>{t(`exchange.net_amount_in`)}:</div> <div className="text-right md:text-right">{fromAmount - parseFloat(fromAmount) * ((fee ? fee : 0) / 100)} {upperCase(selectedFromCurrency)}</div>
-            <div>{t(`exchange.price`)}:</div> <div className="text-right md:text-right">{parseFloat(parseFloat(fromAmount) / parseFloat(toAmount)).toFixed(4)} {upperCase(selectedFromCurrency)} / {upperCase(selectedFromCurrency)}</div>
+            <div>{t(`exchange.price`)}:</div> <div className="text-right md:text-right">{parseFloat(parseFloat(fromAmount) / parseFloat(toAmount)).toFixed(4)} {upperCase(selectedFromCurrency)} / {upperCase(selectedToCurrency)}</div>
             <div>{t(`exchange.amount_out`)}:</div> <div className="text-right md:text-right">{toAmount} {upperCase(selectedToCurrency)}</div>
             {selectedFromCurrency != 'ars' && <div className="text-right md:text-right col-span-2 text-green">* {t(`exchange.gas_disclosure`)}</div>}
           </div>
