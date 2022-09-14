@@ -425,7 +425,7 @@ const Sell: React.FC = () => {
             <div>{t(`exchange.net_amount_in`)}:</div> <div className="text-right md:text-right">{fromAmount - parseFloat(fromAmount) * ((fee ? fee : 0) / 100)} {upperCase(selectedFromCurrency)}</div>
             <div>{t(`exchange.price`)}:</div> <div className="text-right md:text-right">{fromPrice} {upperCase(selectedToCurrency)} / {upperCase(selectedFromCurrency)}</div>
             <div>{t(`exchange.amount_out`)}:</div> <div className="text-right md:text-right">{toAmount?.toFixed(2)} {upperCase(selectedToCurrency)}</div>
-            {selectedFromCurrency != 'ars' && <div className="text-right md:text-right col-span-2 text-green">* {t(`exchange.gas_disclosure`)}</div>}
+            {selectedToCurrency != 'ars' && <div className="text-right md:text-right col-span-2 text-green">* {t(`exchange.gas_disclosure`)}</div>}
           </div>
         </div>
 
