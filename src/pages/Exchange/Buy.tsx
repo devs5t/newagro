@@ -340,7 +340,7 @@ const Buy: React.FC = () => {
                 >
                   <img 
                     src="logos/metamask.png" 
-                    className="w-5 h-5 mr-1" 
+                    className="w-5 h-5 mr-1 max-w-none" 
                   />
                   <b className="font-bold color-[#804721] ml-[-10px] mb-[-10px]">+</b>
                 </div>
@@ -361,6 +361,14 @@ const Buy: React.FC = () => {
                 ))}
               </select>
             </div>
+          </div>
+          <div className={`grid grid-cols-2 gap-1 text-xs transition duration-150 overflow-hidden ${fromAmount ? "border-t border-green mt-3 mb-2 pt-2" : "h-0"}`}>
+            <div>{t(`exchange.amount_in`)}:</div> <div className="text-right md:text-right">{fromAmount} {upperCase(selectedFromCurrency)}</div>
+            <div>{t(`exchange.new_agro_coin_fee`)}:</div> <div className="text-right md:text-right">{parseFloat(fromAmount) * ((fee ? fee : 0) / 100)} {upperCase(selectedFromCurrency)}</div>
+            <div>{t(`exchange.net_amount_in`)}:</div> <div className="text-right md:text-right">{fromAmount - parseFloat(fromAmount) * ((fee ? fee : 0) / 100)} {upperCase(selectedFromCurrency)}</div>
+            <div>{t(`exchange.price`)}:</div> <div className="text-right md:text-right">{parseFloat(parseFloat(fromAmount) / parseFloat(toAmount)).toFixed(4)} {upperCase(selectedFromCurrency)} / {upperCase(selectedFromCurrency)}</div>
+            <div>{t(`exchange.amount_out`)}:</div> <div className="text-right md:text-right">{toAmount} {upperCase(selectedToCurrency)}</div>
+            {selectedFromCurrency != 'ars' && <div className="text-right md:text-right col-span-2 text-green">* {t(`exchange.gas_disclosure`)}</div>}
           </div>
         </div>
 
@@ -420,7 +428,7 @@ const Buy: React.FC = () => {
             >
               <img 
                 src="logos/metamask.png" 
-                className="w-5 h-5 mr-1" 
+                className="w-5 h-5 mr-1 max-w-auto" 
               />
               <b className="font-bold color-[#804721] ml-[-10px] mb-[-10px]">+</b>
             </div>

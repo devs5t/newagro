@@ -197,6 +197,11 @@ const resources = {
         button_sell: "Sell",
         user_from_assets: "{{amount}} {{token}} available",
         exchange_fee: "Commission: {{fee}}%",
+        amount_in: "Amount in",
+        new_agro_coin_fee: "New Agro Coin fee",
+        net_amount_in: "Net amount in",
+        amount_out: "Amount out",
+        gas_disclosure: "There is a chain gas fee of aprox. 0.00145 BNB for this transaction",
         table: {
           status: "Status",
           order_number: "Order number",
@@ -514,6 +519,11 @@ const resources = {
         button_sell: "Vender",
         user_from_assets: "{{amount}} {{token}} disponibles",
         exchange_fee: "Comisión: {{fee}}%",
+        amount_in: "Cantidad",
+        new_agro_coin_fee: "Comisión New Agro Coin",
+        net_amount_in: "Cantidad neta",
+        amount_out: "Cantidad a recibir",
+        gas_disclosure: "Hay una comisión de gas de la red de aprox. 0.00145 BNB para esta transacción",
         table: {
           status: "Estado",
           order_number: "N. de orden",
