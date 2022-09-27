@@ -76,7 +76,7 @@ const Documentation: React.FC = () => {
           {[
             {link: "https://newagrocoin.gitbook.io/whitepaper", label: t("docs.buttons.doc_tech")},
             {link: "https://www.newagrocoin.com", label: t("docs.buttons.page_inst")},
-            {link: "https://app.gitbook.com/s/rxfgkx6prBWtQ3Iqj4BW/lista-de-smart-contracts", label: t("docs.buttons.contracts")}
+            {link: "https://newagrocoin.gitbook.io/whitepaper/lista-de-smart-contracts", label: t("docs.buttons.contracts")}
           ].map((button, key) => (
             <a
               key={key}

@@ -40,9 +40,6 @@ const DoneReinvestingForm: React.FC<DoneReinvestingFormProps> = ({ token, previo
     formatUintToDecimal(nmilkUserDeposited) : token == "nland" ? 
     formatUintToDecimal(nlandUserDeposited) : formatUintToDecimal(nbeefUserDeposited);
 
-  console.log(nmilkUserDeposited,nlandUserDeposited,nbeefUserDeposited);
-  console.log(depositedTokens, previousDeposit, previousEarnings)
-
   return (
     <div className="flex h-84 justify-center items-center flex-col pt-10 pb-20 px-10">
       <div className="w-24 h-24 rounded-full bg-green/[0.3] flex justify-center items-center mb-6">
@@ -53,8 +50,8 @@ const DoneReinvestingForm: React.FC<DoneReinvestingFormProps> = ({ token, previo
       </h3>
       <p className="text-blue text-sm text-center px-10">
         {t("done_reinvesting_form.description", {
-          amountBought: depositedTokens - previousDeposit,
-          amountHarvested: previousEarnings,
+          amountBought: parseFloat(String(depositedTokens - previousDeposit)).toFixed(2),
+          amountHarvested: parseFloat(String(previousEarnings)).toFixed(2),
           token: upperCase(token),
         })}
       </p>
