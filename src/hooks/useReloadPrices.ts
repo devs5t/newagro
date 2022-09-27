@@ -14,7 +14,7 @@ export const useReloadPrices = () => {
   const reloadPrices = () => {
     loadPrices();
     loadNmilkPrices();
-    loadNlandPrices();
+    //loadNlandPrices();
     // loadNbeefPrices();
   }
 

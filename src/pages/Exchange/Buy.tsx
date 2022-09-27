@@ -56,7 +56,7 @@ const Buy: React.FC = () => {
   const fromCurrencies: ('usdt' | 'nac' | 'ars')[] = ['usdt', 'nac', 'ars'];
   const [selectedFromCurrency, setSelectedFromCurrency] = useState<'usdt' | 'nac' | 'ars'>(fromCurrencies[0]);
 
-  const toCurrencies: ('nmilk' | 'nbeef' | 'nland')[] = ['nland', 'nmilk', 'nbeef'];
+  const toCurrencies: ('nmilk' | 'nbeef' | 'nland')[] = ['nmilk', 'nland', 'nbeef'];
   const [selectedToCurrency, setSelectedToCurrency] = useState<'nmilk' | 'nbeef' | 'nland'>(token || toCurrencies[0]);
 
   const [needsApproval, setNeedsApproval] = useState<boolean>(true);
@@ -326,21 +326,21 @@ const Buy: React.FC = () => {
 
             <div className="flex items-center">
               {selectedFromCurrency != 'ars' && (
-                <div 
+                <div
                   className="flex items-center cursor-pointer mr-1"
                   onClick={
                     () => account ? registerToken(
-                        tokens[selectedFromCurrency]['address'], 
+                        tokens[selectedFromCurrency]['address'],
                         tokens[selectedFromCurrency]['symbol'],
                         tokens[selectedFromCurrency]['decimals'],
                         "",
                         account
-                      ) : {} 
+                      ) : {}
                   }
                 >
-                  <img 
-                    src="logos/metamask.png" 
-                    className="w-5 h-5 mr-1 max-w-none" 
+                  <img
+                    src="logos/metamask.png"
+                    className="w-5 h-5 mr-1 max-w-none"
                   />
                   <b className="font-bold color-[#804721] ml-[-10px] mb-[-10px]">+</b>
                 </div>
@@ -414,21 +414,21 @@ const Buy: React.FC = () => {
           </div>
 
           <div className="flex items-center">
-            <div 
+            <div
               className="flex items-center cursor-pointer mr-1"
               onClick={
                 () => account ? registerToken(
-                    tokens[selectedToCurrency]['address'], 
+                    tokens[selectedToCurrency]['address'],
                     tokens[selectedToCurrency]['symbol'],
                     tokens[selectedToCurrency]['decimals'],
                     "",
                     account
-                  ) : {} 
+                  ) : {}
               }
             >
-              <img 
-                src="logos/metamask.png" 
-                className="w-5 h-5 mr-1 max-w-auto" 
+              <img
+                src="logos/metamask.png"
+                className="w-5 h-5 mr-1 max-w-auto"
               />
               <b className="font-bold color-[#804721] ml-[-10px] mb-[-10px]">+</b>
             </div>
@@ -441,7 +441,7 @@ const Buy: React.FC = () => {
                 <option
                   key={index}
                   className="text-blue font-bold text-xl"
-                  disabled={!['nmilk', 'nland'].includes(toCurrency)}
+                  disabled={!['nmilk'].includes(toCurrency)}
                   value={toCurrency}
                 >
                   {upperCase(toCurrency)}

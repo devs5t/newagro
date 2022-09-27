@@ -31,7 +31,7 @@ const Documentation: React.FC = () => {
   const { t } = useTranslation();
   const [filesFirstFolder, setFilesFirstFolder] = useState<S3FileType[]>([]);
   const [filesSecondFolder, setFilesSecondFolder] = useState<S3FileType[]>([]);
-  const [selectedToken, setSelectedToken] = useState<'nmilk' | 'nland' | 'nbeef'>('nland');
+  const [selectedToken, setSelectedToken] = useState<'nmilk' | 'nland' | 'nbeef'>('nmilk');
 
   useEffect(() => {
     loadFiles('first-folder', setFilesFirstFolder);
@@ -102,8 +102,8 @@ const Documentation: React.FC = () => {
         <div className="w-full justify-center flex my-8">
           <Tabs
             tabs={[
-              {name: 'New Land', selected: selectedToken === 'nland', onClick: () => setSelectedToken('nland')},
               {name: 'New Milk', selected: selectedToken === 'nmilk', onClick: () => setSelectedToken('nmilk')},
+              {name: 'New Land', selected: selectedToken === 'nland', onClick: () => setSelectedToken('nland'), disabled: true},
               {name: 'New Beef', selected: selectedToken === 'nbeef', onClick: () => setSelectedToken('nbeef'), disabled: true},
             ]}
             containerClass="max-w-md"
