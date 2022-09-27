@@ -54,7 +54,7 @@ const Home: React.FC = () => {
             amount={totalSupply}
             currency="NAC"
             subtitle={t("home.card.new_agro.button_text")}
-            onClickButton={() => navigate('/exchange')}
+            onClickButton={() => navigate(`/exchange?token=${selectedToken}`)}
           />
           <HomeCardColored
             title={t("home.card.actives.title")}
@@ -78,7 +78,7 @@ const Home: React.FC = () => {
             title={t(`home.card.${selectedToken}.title`)}
             description={t(`home.card.${selectedToken}.description`)}
             amount={formatUintToDecimal(selectedTokenTotalSupply)}
-            onClickButton={() => navigate('/exchange')}
+            onClickButton={() => navigate(`/exchange?token=${selectedToken}`)}
             buttonText={t(`home.card.${selectedToken}.button_text`)}
           />
           <HomeCardSecondary

@@ -24,11 +24,21 @@ import ExchangeARSForm from "src/components/forms/ExchangeARSForm";
 import {useReloadPrices} from "src/hooks/useReloadPrices";
 import SuccessModal from "src/components/Modal/SuccessModal";
 import {SellOrdersContext} from "src/contexts/SellOrdersContex";
+import qs from 'qs';
+import {useLocation} from "react-router-dom";
+import registerToken from "src/utils/metamaskUtils";
 
 const Sell: React.FC = () => {
   const { t } = useTranslation();
   const {setModal} = useContext(ModalContext);
   const { reloadPrices } = useReloadPrices();
+
+  const location = useLocation();
+  const { token } = qs.parse(location.search, {
+    ignoreQueryPrefix: true,
+    depth: 2,
+    plainObjects: true,
+  });
 
   const { account, library } = useEthers();
   const { nacUserAssets, nacExchangeRate } = useContext(PriceContext);
@@ -46,7 +56,7 @@ const Sell: React.FC = () => {
   const [toAmount, setToAmount] = useState<number>();
 
   const fromCurrencies: ('nac' | 'nmilk' | 'nbeef' | 'nland')[] =  ['nac', 'nmilk', 'nland', 'nbeef'];
-  const [selectedFromCurrency, setSelectedFromCurrency] = useState<'nac' | 'nmilk' | 'nbeef' | 'nland'>(fromCurrencies[0]);
+  const [selectedFromCurrency, setSelectedFromCurrency] = useState<'nac' | 'nmilk' | 'nbeef' | 'nland'>(token || fromCurrencies[0]);
 
   const toCurrencies: ('usdt' | 'ars')[] = ['usdt', 'ars'];
   const [selectedToCurrency, setSelectedToCurrency] = useState<'usdt' | 'ars'>(toCurrencies[0]);
@@ -67,7 +77,7 @@ const Sell: React.FC = () => {
       case "nbeef":
         return formatUintToDecimal(nbeefUserAssets, 18);
     }
-  }, [selectedFromCurrency, nacUserAssets, nmilkUserAssets, nlandUserAssets, nbeefUserAssets]);
+  }, [selectedFromCurrency, nacUserAssets, nmilkUserAssets, nlandUserAssets, nbeefUserAssets, account]);
 
   const configSpender: any = {
     nac: {contract: contracts.nac[CHAIN_ID]},
@@ -96,14 +106,16 @@ const Sell: React.FC = () => {
   }, [selectedFromCurrency]);
 
   useEffect(() => {
+    const auxFromAmount = fromAmount * (1 - fee / 100);
+    console.log(auxFromAmount);
     if (selectedFromCurrency === 'nac') {
       if (selectedToCurrency === 'usdt') {
-        setToAmount(fromAmount / formatUintToDecimal(nacExchangeRate));
+        setToAmount(auxFromAmount / formatUintToDecimal(nacExchangeRate));
       } else if (selectedToCurrency === 'ars') {
-        setToAmount(fromAmount);
+        setToAmount(auxFromAmount);
       }
     } else {
-      setToAmount(fromAmount * fromPrice);
+      setToAmount(auxFromAmount * fromPrice);
     }
   }, [fromAmount, fromPrice, selectedFromCurrency, selectedToCurrency]);
 
@@ -266,6 +278,34 @@ const Sell: React.FC = () => {
     });
   };
 
+  const tokens = {
+    'nac': {
+      'address': contracts["nac"][CHAIN_ID],
+      'symbol': 'NAC',
+      'decimals': 18
+    },
+    'nmilk': {
+      'address': contracts["nmilk"][CHAIN_ID],
+      'symbol': 'NMILK',
+      'decimals': 18
+    },
+    'nland': {
+      'address': contracts["nland"][CHAIN_ID],
+      'symbol': 'NLAND',
+      'decimals': 18
+    },
+    'nbeef': {
+      'address': contracts["nbeef"][CHAIN_ID],
+      'symbol': 'NBEEF',
+      'decimals': 18
+    },
+    'usdt': {
+      'address': contracts["usdt"][CHAIN_ID],
+      'symbol': 'USDT',
+      'decimals': 18
+    }
+  }
+
   return (
     <form onSubmit={onSubmit} className="w-full">
 
@@ -274,89 +314,119 @@ const Sell: React.FC = () => {
 
         <h3 className="mt-6 text-blue font-bold text-xl">{t(`exchange.from`)}</h3>
 
-        <div className="relative flex flex-col border-2 shadow border-green rounded-lg w-full mt-6 py-2 px-6">
-          <div className="flex justify-between items-center">
-            <div className="flex flex-row items-center justify-between">
-              <div className="hidden md:flex h-full items-center font-bold text-sm text-blue mr-10">{t(`exchange.amount`)}</div>
-              <Textfield
-                id="amount"
-                onChange={onFromAmountChange}
-                value={fromAmount}
-                containerClasses="w-full mr-4 md:max-w-[12rem]"
-                inputClasses="md:placeholder-transparent"
-                type="number"
-                placeholder={t(`exchange.amount`)}
-                step="any"
-                max={fromUserAssets}
-              />
-              <Button
-                onClick={onMax}
-                text="MAX"
-                extraClasses="flex justify-center items-center h-8 mr-10 rounded-lg text-white bg-blue text-sm font-normal"
-              />
-            </div>
-
-
-            {selectedFromCurrency !== 'nac' && (
-              <div className="hidden relative md:flex flex-row items-center justify-between">
-                <div className="h-full items-center font-bold text-sm text-blue mr-10">{t(`exchange.price`)}</div>
+        <div className="border-2 shadow border-green rounded-lg w-full mt-6 py-2 px-6">
+          <div className="relative flex flex-col">
+            <div className="flex justify-between items-center">
+              <div className="flex flex-row items-center justify-between">
+                <div className="hidden md:flex h-full items-center font-bold text-sm text-blue mr-10">{t(`exchange.amount`)}</div>
                 <Textfield
-                  id="price"
-                  onChange={setFromPrice}
-                  value={fromPrice}
-                  containerClasses="w-full max-w-[8rem] mr-10"
+                  id="amount"
+                  onChange={onFromAmountChange}
+                  value={fromAmount}
+                  containerClasses="w-full mr-4 md:max-w-[12rem]"
                   inputClasses="md:placeholder-transparent"
                   type="number"
+                  placeholder={t(`exchange.amount`)}
                   step="any"
-                  disabled={false}
-                  placeholder={t(`exchange.price`)}
+                  max={fromUserAssets}
+                />
+                <Button
+                  onClick={onMax}
+                  text="MAX"
+                  extraClasses="flex justify-center items-center h-8 mr-10 rounded-lg text-white bg-blue text-sm font-normal"
                 />
               </div>
-            )}
+
+
+              {selectedFromCurrency !== 'nac' && (
+                <div className="hidden relative md:flex flex-row items-center justify-between">
+                  <div className="h-full items-center font-bold text-sm text-blue mr-10">{t(`exchange.price`)}</div>
+                  <Textfield
+                    id="price"
+                    onChange={setFromPrice}
+                    value={fromPrice}
+                    containerClasses="w-full max-w-[8rem] mr-10"
+                    inputClasses="md:placeholder-transparent"
+                    type="number"
+                    step="any"
+                    disabled={false}
+                    placeholder={t(`exchange.price`)}
+                  />
+                </div>
+              )}
+
+              {selectedFromCurrency !== 'nac' && (
+                <div className="flex absolute right-0 md:right-36 -mt-32 w-48 h-8 justify-center items-center rounded-full text-center text-xs font-semibold text-white bg-green">
+                  {`${t(`exchange.suggested_price`)}: $${formatUintToDecimal(suggestedPrice)}`}
+                </div>
+              )}
+
+              <div className="flex items-center">
+                <div
+                  className="flex items-center cursor-pointer mr-1"
+                  onClick={
+                    () => account ? registerToken(
+                        tokens[selectedFromCurrency]['address'],
+                        tokens[selectedFromCurrency]['symbol'],
+                        tokens[selectedFromCurrency]['decimals'],
+                        "",
+                        account
+                      ) : {}
+                  }
+                >
+                  <img
+                    src="logos/metamask.png"
+                    className="w-5 h-5 mr-1"
+                  />
+                  <b className="font-bold color-[#804721] ml-[-10px] mb-[-10px]">+</b>
+                </div>
+                <select
+                  className="text-blue font-bold text-xl md:w-32 cursor-pointer"
+                  onChange={(e) => setSelectedFromCurrency(e.target.value)}
+                  value={selectedFromCurrency}
+                >
+                  {fromCurrencies.map((fromCurrency: string, index: number) => (
+                    <option
+                      key={index}
+                      className="text-blue font-bold text-xl"
+                      disabled={!['nac', 'nmilk'].includes(fromCurrency)}
+                      value={fromCurrency}
+                    >
+                      {upperCase(fromCurrency)}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <div className="flex md:hidden h-full items-center font-bold text-sm text-blue mt-2">{t(`exchange.amount`)}</div>
 
             {selectedFromCurrency !== 'nac' && (
-              <div className="flex absolute right-0 md:right-36 -mt-32 w-48 h-8 justify-center items-center rounded-full text-center text-xs font-semibold text-white bg-green">
-                {`${t(`exchange.suggested_price`)}: $${formatUintToDecimal(suggestedPrice)}`}
-              </div>
+              <>
+                <div className="md:hidden flex-row items-center justify-between">
+                  <Textfield
+                    id="price"
+                    onChange={setFromPrice}
+                    value={fromPrice}
+                    containerClasses="w-full mt-4"
+                    type="number"
+                    step="any"
+                    placeholder={t(`exchange.price`)}
+                  />
+                </div>
+                <div className="flex md:hidden h-full items-center font-bold text-sm text-blue mt-2">{t(`exchange.price`)}</div>
+              </>
             )}
 
-            <select
-              className="text-blue font-bold text-xl md:w-32 cursor-pointer"
-              onChange={(e) => setSelectedFromCurrency(e.target.value)}
-              value={selectedFromCurrency}
-            >
-              {fromCurrencies.map((fromCurrency: string, index: number) => (
-                <option
-                  key={index}
-                  className="text-blue font-bold text-xl"
-                  disabled={!['nac', 'nmilk'].includes(fromCurrency)}
-                  value={fromCurrency}
-                >
-                  {upperCase(fromCurrency)}
-                </option>
-              ))}
-            </select>
           </div>
-
-          <div className="flex md:hidden h-full items-center font-bold text-sm text-blue mt-2">{t(`exchange.amount`)}</div>
-
-          {selectedFromCurrency !== 'nac' && (
-            <>
-              <div className="md:hidden flex-row items-center justify-between">
-                <Textfield
-                  id="price"
-                  onChange={setFromPrice}
-                  value={fromPrice}
-                  containerClasses="w-full mt-4"
-                  type="number"
-                  step="any"
-                  placeholder={t(`exchange.price`)}
-                />
-              </div>
-              <div className="flex md:hidden h-full items-center font-bold text-sm text-blue mt-2">{t(`exchange.price`)}</div>
-            </>
-          )}
-
+          <div className={`grid grid-cols-2 gap-1 text-xs transition duration-150 overflow-hidden ${fromAmount ? "border-t border-green mt-3 mb-2 pt-2" : "h-0"}`}>
+            <div>{t(`exchange.amount_in`)}:</div> <div className="text-right md:text-right">{fromAmount} {upperCase(selectedFromCurrency)}</div>
+            <div>{t(`exchange.new_agro_coin_fee`)}:</div> <div className="text-right md:text-right">{parseFloat(fromAmount) * ((fee ? fee : 0) / 100)} {upperCase(selectedFromCurrency)}</div>
+            <div>{t(`exchange.net_amount_in`)}:</div> <div className="text-right md:text-right">{fromAmount - parseFloat(fromAmount) * ((fee ? fee : 0) / 100)} {upperCase(selectedFromCurrency)}</div>
+            <div>{t(`exchange.price`)}:</div> <div className="text-right md:text-right">{selectedFromCurrency == 'nac' ? `${formatUintToDecimal(nacExchangeRate)} ${upperCase(selectedFromCurrency)} / ${upperCase(selectedToCurrency)}` : `${fromPrice} ${upperCase(selectedToCurrency)} / ${upperCase(selectedFromCurrency)}`}</div>
+            <div>{t(`exchange.amount_out`)}:</div> <div className="text-right md:text-right">{toAmount?.toFixed(2)} {upperCase(selectedToCurrency)}</div>
+            {selectedToCurrency != 'ars' && <div className="text-right md:text-right col-span-2 text-green">* {t(`exchange.gas_disclosure`)}</div>}
+          </div>
         </div>
 
         <div className="flex justify-between mt-4">
@@ -398,22 +468,44 @@ const Sell: React.FC = () => {
             />
           </div>
 
-          <select
-            className="text-blue font-bold text-xl md:w-32 cursor-pointer"
-            onChange={(e) => setSelectedToCurrency(e.target.value)}
-            value={selectedToCurrency}
-          >
-            {toCurrencies.map((toCurrency: string, index: number) => (
-              <option
-                key={index}
-                className="text-blue font-bold text-xl"
-                disabled={toCurrency === 'ars' && selectedFromCurrency !== 'nac'}
-                value={toCurrency}
+          <div className="flex items-center">
+            {selectedToCurrency != 'ars' && (
+              <div
+                className="flex items-center cursor-pointer mr-1"
+                onClick={
+                  () => account ? registerToken(
+                      tokens[selectedToCurrency]['address'],
+                      tokens[selectedToCurrency]['symbol'],
+                      tokens[selectedToCurrency]['decimals'],
+                      "",
+                      account
+                    ) : {}
+                }
               >
-                {upperCase(toCurrency)}
-              </option>
-            ))}
-          </select>
+                <img
+                  src="logos/metamask.png"
+                  className="w-5 h-5 mr-1"
+                />
+                <b className="font-bold color-[#804721] ml-[-10px] mb-[-10px]">+</b>
+              </div>
+            )}
+            <select
+              className="text-blue font-bold text-xl md:w-32 cursor-pointer"
+              onChange={(e) => setSelectedToCurrency(e.target.value)}
+              value={selectedToCurrency}
+            >
+              {toCurrencies.map((toCurrency: string, index: number) => (
+                <option
+                  key={index}
+                  className="text-blue font-bold text-xl"
+                  disabled={toCurrency === 'ars' && selectedFromCurrency !== 'nac'}
+                  value={toCurrency}
+                >
+                  {upperCase(toCurrency)}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
 
         <div className="flex justify-between mt-4">

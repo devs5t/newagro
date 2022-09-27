@@ -122,8 +122,8 @@ const Admin: React.FC = () => {
         <div className="w-full justify-center flex mb-6">
           <Tabs
             tabs={[
+              {name: 'New Land', selected: selectedToken === 'nland', onClick: () => setSelectedToken('nland')},
               {name: 'New Milk', selected: selectedToken === 'nmilk', onClick: () => setSelectedToken('nmilk')},
-              {name: 'New Land', selected: selectedToken === 'nland', onClick: () => setSelectedToken('nland'), disabled: true},
               {name: 'New Beef', selected: selectedToken === 'nbeef', onClick: () => setSelectedToken('nbeef'), disabled: true},
             ]}
             containerClass="max-w-md"

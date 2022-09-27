@@ -72,22 +72,24 @@ const Documentation: React.FC = () => {
           image={'images/photos/bg_nmilk.jpeg'}
           containerClasses={"p-4 md:p-4"}
         />
-        <div className="w-full flex justify-between max-w-xl mt-6 mx-auto">
+        <div className="w-full flex flex-col md:flex-row space-y-2 md:space-y-0 space-x-0 md:space-x-2 justify-center mt-6 mx-auto">
           {[
             {link: "https://newagrocoin.gitbook.io/whitepaper", label: t("docs.buttons.doc_tech")},
-            {link: "https://www.newagrocoin.com", label: t("docs.buttons.page_inst")}
+            {link: "https://www.newagrocoin.com", label: t("docs.buttons.page_inst")},
+            {link: "https://newagrocoin.gitbook.io/whitepaper/lista-de-smart-contracts", label: t("docs.buttons.contracts")}
           ].map((button, key) => (
             <a
               key={key}
               href={button.link}
               target="_blank"
               rel="noreferrer"
-              className="flex flex-row items-center px-4 py-2 md:py-0 border rounded-full md:px-0 w-full border-1 border-blue text-blue justify-around pointer md:border-2 text-sm mx-3"
+              className="flex flex-row items-center  px-4 py-2 md:py-0 border rounded-full md:px-0 w-full border-1 border-blue text-blue justify-center pointer md:border-2 text-sm"
             >
               {button.label}
               <ReactSVG
                 src={"icons/arrow.svg"}
                 beforeInjection={(svg) => {
+                  svg.classList.add('ml-2');
                   svg.classList.add('fill-blue');
                   svg.classList.add('w-2');
                   svg.classList.add('lg:w-4');
