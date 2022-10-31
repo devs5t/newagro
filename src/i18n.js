@@ -14,6 +14,8 @@ const resources = {
         admin: "Admin",
         pair_wallet: "Pair Wallet",
         wrong_wallet: "Wrong Chain",
+        wallet_connected: "Wallet connected",
+        wallet_disconnected: "Wallet disconnected"
       },
       footer: {
         exchange_rate: "Exchange Rate",
@@ -333,6 +335,8 @@ const resources = {
         admin: "Administrador",
         pair_wallet: "Conectar Billetera",
         wrong_wallet: "Red Equivocada",
+        wallet_connected: "Billetera conectada con éxito",
+        wallet_disconnected: "Billetera desconectada con éxito"
       },
       footer: {
         exchange_rate: "Cotización USDT Hoy",

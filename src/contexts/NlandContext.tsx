@@ -56,6 +56,8 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
   const [nlandAssetsPerMonth, setNlandAssetsPerMonth] = useState<number>(0);
   const [nlandProfitability, setNlandProfitability] = useState<number>(0);
 
+  const [intervalID, setIntervalID] = useState<any>();
+
   const [nlandUserAssets, setNlandUserAssets] = useState<number>(0);
   const [nlandUserDeposited, setNlandUserDeposited] = useState<number>(0);
   const [nlandUserEarns, setNlandUserEarns] = useState<number>(0);
@@ -131,7 +133,15 @@ const NlandContextProvider = ({ children }: NlandContextProviderProps) => {
       ).then((userInfo: {amount: any}) => setNlandUserDeposited(userInfo.amount));
 
       requestUserEarns()
-      setInterval(() => requestUserEarns(), 10000);
+      setIntervalID(setInterval(() => requestUserEarns(), 10000));
+
+    } else {
+
+      clearInterval(intervalID);
+      setNlandUserAssets(0);
+      setNlandUserDeposited(0);
+      setNlandUserEarns(0);
+
     }
 
     setLoading(false);

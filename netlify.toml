@@ -4,9 +4,9 @@
     functions = "netlify/functions"
 
 [context.develop.environment]
-  VITE_APP_CHAIN_ID = "42"
+  VITE_APP_CHAIN_ID = "97"
   VITE_APP_INFURA_ID = "9aa3d95b3bc440fa88ea12eaa4456161"
-  VITE_APP_RPC = "https://kovan.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
+  VITE_APP_RPC = "https://data-seed-prebsc-1-s1.binance.org:8545"
   VITE_APP_GOOGLE_MAPS_API_KEY = "AIzaSyCLj_kYuJtEOn-7543AcyFSdaD0iqu6mWM"
   VITE_APP_S3_KEY_ID = "AKIARUVWW7KUX2M225HL"
   VITE_APP_S3_ACCESS_KEY = "lWDCfO+9Tqah0gw1cmqccwrazPYgK20WHR2g2r33"
