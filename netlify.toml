@@ -1,7 +1,7 @@
 [build]
-    command = "yarn build"
-    publish = "dist"
-    functions = "netlify/functions"
+  command = "yarn build"
+  publish = "dist"
+  functions = "netlify/functions"
 
 [context.develop.environment]
   VITE_APP_CHAIN_ID = "97"
