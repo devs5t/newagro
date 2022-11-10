@@ -56,6 +56,8 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
   const [nmilkAssetsPerMonth, setNmilkAssetsPerMonth] = useState<number>(0);
   const [nmilkProfitability, setNmilkProfitability] = useState<number>(0);
 
+  const [intervalID, setIntervalID] = useState<any>();
+
   const [nmilkUserAssets, setNmilkUserAssets] = useState<number>(0);
   const [nmilkUserDeposited, setNmilkUserDeposited] = useState<number>(0);
   const [nmilkUserEarns, setNmilkUserEarns] = useState<number>(0);
@@ -131,20 +133,32 @@ const NmilkContextProvider = ({ children }: NmilkContextProviderProps) => {
       ).then((userInfo: {amount: any}) => setNmilkUserDeposited(userInfo.amount));
 
       requestUserEarns()
-      setInterval(() => requestUserEarns(), 10000);
+      setIntervalID(setInterval(() => requestUserEarns(), 10000));
+    
+    } else {
+
+      clearInterval(intervalID);
+      setNmilkUserAssets(0);
+      setNmilkUserDeposited(0);
+      setNmilkUserEarns(0);
+
     }
 
     setLoading(false);
   };
 
   const requestUserEarns = () => {
-    callFunction(
-      contracts.mainStaking[CHAIN_ID],
-      library,
-      [NMILK_POOL_ID, account],
-      "getPendingNative",
-      MainStaking
-    ).then(setNmilkUserEarns);
+    if (library && account) {
+      callFunction(
+        contracts.mainStaking[CHAIN_ID],
+        library,
+        [NMILK_POOL_ID, account],
+        "getPendingNative",
+        MainStaking
+      ).then(setNmilkUserEarns);
+    } else {
+      setNmilkUserEarns(0);
+    }
   };
 
   useEffect(() => {

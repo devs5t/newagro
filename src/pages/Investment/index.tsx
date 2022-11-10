@@ -18,12 +18,13 @@ import {ReactSVG} from "react-svg";
 import {NMILK_TOKENS_BY_COW, NLAND_TOKENS_BY_HECTARE, NBEEF_TOKENS_BY_STEER } from "src/config/constants";
 import {formatUintToDecimal} from "src/utils/formatUtils";
 import {Helmet} from "react-helmet-async";
+import BigNumber from "bignumber.js";
 
 const Investment: React.FC = () => {
   const { t } = useTranslation();
   const { account, library } = useEthers();
   const { reloadPrices } = useReloadPrices();
-  const { historicalEarning } = useContext(PriceContext);
+  const { historicalEarning, nacExchangeRate } = useContext(PriceContext);
   const { totalCows, userCows, nmilkUserDeposited, nmilkUserEarns, nmilkApr, nmilkProfitability, nmilkSuggestedPrice, nmilkUserAssets } = useContext(NmilkContext);
   const { totalHectares, userHectares, nlandUserDeposited, nlandUserEarns, nlandApr, nlandProfitability, nlandSuggestedPrice, nlandUserAssets } = useContext(NlandContext);
   const { totalSteers, userSteers, nbeefUserDeposited, nbeefUserEarns, nbeefApr, nbeefProfitability, nbeefSuggestedPrice, nbeefUserAssets } = useContext(NbeefContext);
@@ -106,7 +107,7 @@ const Investment: React.FC = () => {
               depositAuxiliary={formatUintToDecimal(nmilkUserDeposited) / NMILK_TOKENS_BY_COW}
               assets={formatUintToDecimal(nmilkUserAssets)}
               earn={formatUintToDecimal(nmilkUserEarns)}
-              earnAuxiliary={formatUintToDecimal(nmilkUserEarns) / NMILK_TOKENS_BY_COW}
+              earnAuxiliary={formatUintToDecimal(nmilkUserEarns) / (formatUintToDecimal(nmilkSuggestedPrice) * formatUintToDecimal(nacExchangeRate)) / NMILK_TOKENS_BY_COW}
               totalAssets={formatUintToDecimal(nmilkUserDeposited) * formatUintToDecimal(nmilkSuggestedPrice)}
               image={'images/photos/bg_nmilk.jpeg'}
             />
@@ -120,7 +121,7 @@ const Investment: React.FC = () => {
               depositAuxiliary={formatUintToDecimal(nlandUserDeposited) / NLAND_TOKENS_BY_HECTARE}
               assets={formatUintToDecimal(nlandUserAssets)}
               earn={formatUintToDecimal(nlandUserEarns)}
-              earnAuxiliary={formatUintToDecimal(nlandUserEarns) / NLAND_TOKENS_BY_HECTARE}
+              earnAuxiliary={formatUintToDecimal(nlandUserEarns) / (formatUintToDecimal(nlandSuggestedPrice) * formatUintToDecimal(nacExchangeRate)) / NLAND_TOKENS_BY_HECTARE}
               totalAssets={formatUintToDecimal(nlandUserDeposited) * formatUintToDecimal(nlandSuggestedPrice)}
               image={'images/photos/bg_nland.jpeg'}
               disabled={true}
@@ -135,7 +136,7 @@ const Investment: React.FC = () => {
               depositAuxiliary={formatUintToDecimal(nbeefUserDeposited) / NBEEF_TOKENS_BY_STEER}
               assets={formatUintToDecimal(nbeefUserAssets)}
               earn={formatUintToDecimal(nbeefUserEarns)}
-              earnAuxiliary={formatUintToDecimal(nbeefUserEarns) / NBEEF_TOKENS_BY_STEER}
+              earnAuxiliary={formatUintToDecimal(nbeefUserEarns) / (formatUintToDecimal(nbeefSuggestedPrice) * formatUintToDecimal(nacExchangeRate)) / NBEEF_TOKENS_BY_STEER}
               totalAssets={formatUintToDecimal(nbeefUserAssets) * formatUintToDecimal(nbeefSuggestedPrice)}
               image={'images/photos/bg_nbeef.jpeg'}
               disabled={true}

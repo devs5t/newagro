@@ -56,6 +56,8 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
   const [nbeefAssetsPerMonth, setNbeefAssetsPerMonth] = useState<number>(0);
   const [nbeefProfitability, setNbeefProfitability] = useState<number>(0);
 
+  const [intervalID, setIntervalID] = useState<any>();
+
   const [nbeefUserAssets, setNbeefUserAssets] = useState<number>(0);
   const [nbeefUserDeposited, setNbeefUserDeposited] = useState<number>(0);
   const [nbeefUserEarns, setNbeefUserEarns] = useState<number>(0);
@@ -131,7 +133,15 @@ const NbeefContextProvider = ({ children }: NbeefContextProviderProps) => {
       ).then((userInfo: {amount: any}) => setNbeefUserDeposited(userInfo.amount));
 
       requestUserEarns()
-      setInterval(() => requestUserEarns(), 10000);
+      setIntervalID(setInterval(() => requestUserEarns(), 10000));
+
+    } else {
+
+      clearInterval(intervalID);
+      setNbeefUserAssets(0);
+      setNbeefUserDeposited(0);
+      setNbeefUserEarns(0);
+
     }
 
     setLoading(false);

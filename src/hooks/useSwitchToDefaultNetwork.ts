@@ -15,6 +15,17 @@ export const useSwitchToDefaultNetwork = () => {
         symbol: "BNB",
         decimals: 18,
       },
+      blockExplorerUrls: ["https://bscscan.com/"],
+    },
+    97: {
+      chainId: "0x61",
+      chainName: "BSCTESTNET",
+      rpcUrls: ["https://data-seed-prebsc-1-s1.binance.org:8545"],
+      nativeCurrency: {
+        name: "BINANCE COIN",
+        symbol: "tBNB",
+        decimals: 18,
+      },
       blockExplorerUrls: ["https://testnet.bscscan.com/"],
     },
     42: {

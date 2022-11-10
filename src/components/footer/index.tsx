@@ -16,8 +16,8 @@ const Footer: React.FC = () => {
   const {nacExchangeRate} = useContext(PriceContext);
 
   const socialLinks: {name: string, url: string, icon: string}[] = [
-    {name: 'Medium', url: 'https://medium.com/@NewAgroCoin', icon: 'icons/medium.svg'},
-    {name: 'Telegram', url: 'https://t.me/NewAgroCoin', icon: 'icons/telegram.svg'},
+    // {name: 'Medium', url: 'https://medium.com/@NewAgroCoin', icon: 'icons/medium.svg'},
+    // {name: 'Telegram', url: 'https://t.me/NewAgroCoin', icon: 'icons/telegram.svg'},
     {name: 'LinkedIn', url: 'https://www.linkedin.com/company/newagro-coin', icon: 'icons/linkedin.svg'},
     {name: 'Instagram', url: 'https://www.instagram.com/newagrocoin', icon: 'icons/instagram.svg'},
   ];
@@ -50,11 +50,11 @@ const Footer: React.FC = () => {
         />
       </div>
 
-      {isInHome && (
+      {/* {isInHome && (
         <Blog />
-      )}
+      )} */}
 
-      <div className="flex flex-col md:flex-col-reverse justify-center md:mb-4 px-6 bg-blue md:bg-transparent py-20 md:py-2">
+      <div className="flex flex-col md:flex-col-reverse justify-center md:mb-4 px-6 bg-blue md:bg-transparent py-20 md:py-8">
         <Button
           text={t("footer.about_us")}
           extraClasses="hidden md:block border-green text-green font-bold w-full"

@@ -10,6 +10,7 @@ import Web3Modal from "web3modal";
 import CoinbaseWalletSDK from "@coinbase/wallet-sdk";
 import WalletConnect from "@walletconnect/web3-provider/dist/umd/index.min.js";
 import {ModalContext} from "src/contexts/ModalContext";
+import { useSnackbar } from "notistack";
 
 const SpacingButton = styled(MaterialButton)(spacing);
 
@@ -23,6 +24,7 @@ export const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
   const {t} = useTranslation();
   const {setModal} = useContext(ModalContext);
   const switchToDefaultNetwork = useSwitchToDefaultNetwork();
+  const { enqueueSnackbar } = useSnackbar();
 
   const { activate, account, deactivate, chainId } = useEthers();
 
@@ -32,7 +34,8 @@ export const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
     try {
       const provider = await web3Modal.connect();
       await activate(provider);
-      switchToDefaultNetwork()
+      switchToDefaultNetwork();
+      enqueueSnackbar(t('navbar.wallet_connected'), { variant: "info", preventDuplicate: true, anchorOrigin: { vertical: "top", horizontal: "right" }, style: { top: "3.5rem" }, autoHideDuration: 2000, disableWindowBlurListener: true });
     } catch (e) {
       console.error(e);
     }
@@ -41,6 +44,7 @@ export const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
   const handleDeactivate = () => {
     deactivate();
     web3Modal.clearCachedProvider();
+    enqueueSnackbar(t('navbar.wallet_disconnected'), { variant: "info", preventDuplicate: true, anchorOrigin: { vertical: "top", horizontal: "right" }, style: { top: "3.5rem" }, autoHideDuration: 2000, disableWindowBlurListener: true });
   };
 
   useEffect(() => {
