@@ -3,6 +3,7 @@ import Footer from "src/components/footer";
 import React, {useEffect} from "react";
 import {useEthers} from "@usedapp/core";
 import {useReloadPrices} from "src/hooks/useReloadPrices";
+import MainFooter from "src/components/MainFooter";
 
 const Layout: React.FC = ({ children }) => {
   const {reloadPrices} = useReloadPrices();
@@ -21,6 +22,7 @@ const Layout: React.FC = ({ children }) => {
         </main>
         <Footer/>
       </div>
+      <MainFooter />
     </>
   );
 };

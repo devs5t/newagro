@@ -96,7 +96,13 @@ const InvestmentCard: React.FC<InvestmentCardProps> = ({
         title: `${t("done_reinvesting_form.title")} ${upperCase(token)}`,
       });
     }).catch((err:any) => {
-      enqueueSnackbar(err.message, { variant: "error" })
+      if (err.message.includes("amount should not be higher than")) {
+        enqueueSnackbar(t('investment.errors.reinvest', { token: token.toUpperCase() }), { variant: "error" })
+      } else if (err.message.includes("ACTION_REJECTED")) {
+        // dummy
+      } else {
+        enqueueSnackbar(err.message, { variant: "error" })
+      }
     }).finally(() => {
       setIsReinvestingLoading(false);
     });

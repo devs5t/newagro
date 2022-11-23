@@ -8,7 +8,7 @@ const resources = {
       navbar: {
         home: "Home",
         investment: "Your Farm 3.0",
-        exchange: "Exchange",
+        exchange: "Swap",
         transparency: "Transparency",
         news: "News",
         admin: "Admin",
@@ -22,6 +22,13 @@ const resources = {
         field_visit: "Book your visit to the farm",
         about_us: "Institutional site",
       },
+      main_footer: {
+        title: "Be a part of the future of agriculture",
+        work_with_us: "Work with us",
+        terms: "Terms and conditions",
+        policies: "Privacy policies",
+        who_are_we: "About us",
+      },
       blog: {
         news: "Find out about New Agro's news",
         go_to: "Go To Blog",
@@ -32,7 +39,7 @@ const resources = {
           "You will be able to invest in agricultural businesses with real support",
         card: {
           new_agro: {
-            title: "Income generated",
+            title: "Milk Cow",
             button_text: "Buy Tokens",
           },
           actives: {
@@ -128,7 +135,10 @@ const resources = {
         earnings: "Earnings",
         withdraw: "Withdraw",
         total_assets: "Your total {{token}} assets",
-        pending : "pending",
+        pending: "pending",
+        errors: {
+          reinvest: "There is not enough {{token}} in the secondary market to reinvest your earnings."
+        },
         cards: {
           view_more: "View more",
           nmilk: {
@@ -182,8 +192,8 @@ const resources = {
         },
       },
       exchange: {
-        tab_buy: "Buy",
-        tab_sell: "Sell",
+        tab_buy: "Get In",
+        tab_sell: "Withdraw",
         helper_top_buy: "* Deposit your tokens to receive the investment",
         helper_top_sell:
           "* Keep in mind that selling your tokens is not instantaneous, since the transaction is made when there is a buyer for them",
@@ -195,8 +205,8 @@ const resources = {
         price: "Price",
         suggested_price: "Suggested price",
         button_approve: "Approve",
-        button_buy: "Buy",
-        button_sell: "Sell",
+        button_buy: "Get In",
+        button_sell: "Withdraw",
         user_from_assets: "{{amount}} {{token}} available",
         exchange_fee: "Commission: {{fee}}%",
         amount_in: "Amount in",
@@ -329,7 +339,7 @@ const resources = {
       navbar: {
         home: "Inicio",
         investment: "Tu Campo 3.0",
-        exchange: "Compra/Venta",
+        exchange: "Swap",
         transparency: "Transparencia",
         news: "Novedades",
         admin: "Administrador",
@@ -343,6 +353,13 @@ const resources = {
         field_visit: "Reservá tu visita al campo",
         about_us: "Página institucional",
       },
+      main_footer: {
+        title: "Sé parte del agro del futuro",
+        work_with_us: "Trabajá con nosotros",
+        terms: "Términos y condiciones",
+        policies: "Políticas de privacidad",
+        who_are_we: "Quiénes somos",
+      },
       blog: {
         news: "Enterate de todas las Novedades de New Agro",
         go_to: "Ir al Blog",
@@ -353,7 +370,7 @@ const resources = {
           "Vas a poder invertir en negocios agropecuarios con respaldo real",
         card: {
           new_agro: {
-            title: "Renta generada",
+            title: "Vaca Lechera",
             button_text: "Comprar Tokens",
           },
           actives: {
@@ -453,6 +470,9 @@ const resources = {
         withdraw: "Retirar",
         total_assets: "Tus Activos {{token}} Totales",
         pending: "pendientes",
+        errors: {
+          reinvest: "No hay suficientes {{token}} a la venta en el mercado secundario para reinvertir tus ganancias."
+        },
         cards: {
           view_more: "Ver más",
           nmilk: {
@@ -506,8 +526,8 @@ const resources = {
         },
       },
       exchange: {
-        tab_buy: "Comprar",
-        tab_sell: "Vender",
+        tab_buy: "Ingresar",
+        tab_sell: "Retirar",
         helper_top_buy: "* Depositá tus tokens para recibir la inversion",
         helper_top_sell:
           "* Tené en cuenta que vender tus tokens no es instantaneo, ya que la oparacion se efectua cuando haya un comprador para los mismos",
@@ -519,8 +539,8 @@ const resources = {
         price: "Precio",
         suggested_price: "Precio sugerido",
         button_approve: "Aprobar",
-        button_buy: "Comprar",
-        button_sell: "Vender",
+        button_buy: "Ingresar",
+        button_sell: "Retirar",
         user_from_assets: "{{amount}} {{token}} disponibles",
         exchange_fee: "Comisión: {{fee}}%",
         amount_in: "Cantidad",

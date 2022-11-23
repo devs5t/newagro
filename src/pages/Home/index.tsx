@@ -13,11 +13,14 @@ import {NbeefContext} from "src/contexts/NbeefContext";
 import {useTotalSupply} from "src/hooks/useTotalSupply";
 import {formatUintToDecimal} from "src/utils/formatUtils";
 import {Helmet} from "react-helmet-async";
+import BigNumber from "bignumber.js";
+import { NMILK_TOKENS_BY_COW } from "src/config/constants";
+import Video from "src/components/Video/Video";
 
 const Home: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const {nmilkTotalAssets, nmilkTotalSupply, totalCows, userCows} = useContext(NmilkContext);
+  const {nmilkTotalAssets, nmilkTotalSupply, totalCows, userCows, nmilkSuggestedPrice} = useContext(NmilkContext);
   const {nlandTotalAssets, nlandTotalSupply, totalHectares, userHectares} = useContext(NlandContext);
   const {nbeefTotalAssets, nbeefTotalSupply, totalSteers, userSteers} = useContext(NbeefContext);
 
@@ -42,17 +45,11 @@ const Home: React.FC = () => {
         <title>{`${t('navbar.home')} - New Agro Coin`}</title>
       </Helmet>
       <div className="max-w-5xl">
-        <Banner
-          title={t("home.banner_title")}
-          subtitle={t("home.banner_subtitle")}
-          image={'images/photos/homebanner.jpeg'}
-          containerClasses={"p-10"}
-        />
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
           <HomeCardColored
             title={t("home.card.new_agro.title")}
-            amount={totalSupply}
-            currency="NAC"
+            amount={formatUintToDecimal(nmilkSuggestedPrice) * NMILK_TOKENS_BY_COW}
+            currency="USDT"
             subtitle={t("home.card.new_agro.button_text")}
             onClickButton={() => navigate(`/exchange?token=${selectedToken}`)}
           />
@@ -63,6 +60,7 @@ const Home: React.FC = () => {
             subtitle={t("home.card.actives.third_text")}
           />
         </div>
+        <Video className="my-8" />
         <div className="w-full justify-center flex my-8">
           <Tabs
             tabs={[
