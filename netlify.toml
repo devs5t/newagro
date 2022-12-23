@@ -1,5 +1,5 @@
 [build]
-  command = "NODE_OPTIONS=--max-old-space-size=4096 vite build"
+  command = "CI= npm run build --legacy-peer-deps"
   publish = "dist"
   functions = "netlify/functions"
 
