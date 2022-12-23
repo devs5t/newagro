@@ -54,7 +54,7 @@ const Footer: React.FC = () => {
         <Blog />
       )} */}
 
-      <div className="flex flex-col md:flex-col-reverse justify-center md:mb-4 px-6 bg-blue md:bg-transparent py-20 md:py-8">
+      <div className="flex flex-col md:flex-col-reverse justify-center md:mb-4 px-6 bg-blue md:bg-transparent py-10 md:py-8">
         <Button
           text={t("footer.about_us")}
           extraClasses="hidden md:block border-green text-green font-bold w-full"
@@ -63,7 +63,7 @@ const Footer: React.FC = () => {
         />
         <Button
           text={t("footer.field_visit")}
-          extraClasses="border-white md:border-green text-white md:text-green mb-4 font-bold self-center md:self-auto"
+          extraClasses="border-white md:border-green text-white md:text-green md:mb-4 font-bold self-center md:self-auto"
           onClick={() => setModal({
             component: VisitFieldForm,
             title: t('field_visit_form.title')
@@ -71,7 +71,7 @@ const Footer: React.FC = () => {
         />
 
         <a
-          className="text-center text-white hover:underline cursor-pointer md:hidden"
+          className="text-center text-white hover:underline cursor-pointer hidden"
           href="https://www.newagrocoin.com"
           target="_blank"
           rel="noreferrer"
@@ -79,7 +79,7 @@ const Footer: React.FC = () => {
           www.newagrocoin.com
         </a>
 
-        <div className="flex justify-center mt-8 md:mt-0 md:mb-8">
+        <div className="flex justify-center mt-8 md:mt-0 md:mb-8 hidden md:flex">
           {socialLinks.map((socialLink, key) => (
             <a
               key={key}

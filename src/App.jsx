@@ -27,6 +27,7 @@ import {NlandContextProvider} from "src/contexts/NlandContext";
 import {NbeefContextProvider} from "src/contexts/NbeefContext";
 import {SplashScreen} from '@capacitor/splash-screen';
 import {SellOrdersProvider} from "src/contexts/SellOrdersContex";
+import Footer from "./components/footer";
 
 const jss = create({
   ...jssPreset(),
