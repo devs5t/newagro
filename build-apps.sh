@@ -8,7 +8,7 @@ rm -rf resources/ios/splash
 rm -rf resources/android/icon
 rm -rf resources/android/splash
 
-yarn run build
+npm run build
 capacitor-resources -p android,ios
 
 npx cap add ios

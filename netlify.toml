@@ -1,6 +1,3 @@
-[build.environment]
-  NETLIFY_USE_YARN = "false"
-
 [build]
   command = "CI= npm run build --legacy-peer-deps"
   publish = "dist"
